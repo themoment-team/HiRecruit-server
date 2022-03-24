@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+  # UTF-8 사용
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  #H2 DataBase
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+  #DB 설정
+  datasource:
+    url:
+    driver-class-name: org.h2.Driver
+    username: sa
+
+    # hikariCP 설정
+    hikari:
+      connectionTimeout: 30000
+      maximumPoolSize: 10
+      maxLifetime: 1800000
+      poolName: HikariCP
+      readOnly: true # mysql 사용시, read only 를 지원하지 않는 DB도 존재
+      connectionTestQuery: SELECT 1
+
+  ### JPA 설정 ###
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl:
+          auto: create
+    show-sql: true
+
+### Logging ###
+logging:
+  level:
+    org.hibernate.type.descriptor.sql : trace

@@ -1,0 +1,134 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	/** Querydsl plugin **/
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	/** AsciiDoc convert plugin **/
+	id "org.asciidoctor.convert" version "1.5.9.2"
+	/** restdocs-api plugin **/
+	id 'com.epages.restdocs-api-spec' version '0.15.1'
+	id 'java'
+}
+
+group = 'site.hirecruit'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	/** jpa **/
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	/** querydsl **/
+	implementation("com.querydsl:querydsl-jpa")
+	implementation("com.querydsl:querydsl-apt")
+	/** querydsl in test **/
+	testCompileOnly("org.projectlombok:lombok")
+	testAnnotationProcessor("org.projectlombok:lombok")
+	/** validation **/
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	/** web **/
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	/** lombok **/
+	compileOnly 'org.projectlombok:lombok'
+	/** h2DB **/
+	runtimeOnly 'com.h2database:h2'
+	/** lombok **/
+	annotationProcessor 'org.projectlombok:lombok'
+	/** swagger **/
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.5'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+
+	/** for test **/
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'org.mockito:mockito-core:3.+'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.15.1'
+
+
+	/** *.adoc file {snippets} auto setting **/
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.3.RELEASE'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+/**
+ * Querydsl config
+ */
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	library = "com.querydsl:querydsl-apt"
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets {
+	main.java.srcDir querydslDir
+}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+/**
+ * Spring REST Docs config
+ */
+
+ext {
+	snippetsDir = file('build/generated-snippets') // (2)
+}
+
+/** gradle build process [test -> asciidoctor] **/
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+/** rest docs file location ./build/asciidoc/html5/ **/
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+
+	from file("build/asciidoc/html5/")
+	into file("src/main/resources/static/docs")
+}
+
+/** rest docs api config **/
+openapi3{
+	println("openapi3 task execute")
+
+	server = 'https://localhost:8080' // your server host:port
+	title = 'demo API' // {application name} API
+	description = 'demo API description' // define your API description
+	tagDescriptionsPropertiesFile = 'src/docs/tag-descriptions.yml' // tag properties file location
+	version = '0.0.1' // your application version
+	format = 'yml' // yml is file extension for the yaml file format
+}
+
+/**
+ * for spring application
+ */
+
+build {
+	// copyDocument task execute
+	dependsOn copyDocument
+	// build with openapi3 task
+	finalizedBy 'openapi3'
+}
