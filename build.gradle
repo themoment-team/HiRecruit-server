@@ -7,6 +7,7 @@ plugins {
 	id "org.asciidoctor.convert" version "1.5.9.2"
 	/** restdocs-api plugin **/
 	id 'com.epages.restdocs-api-spec' version '0.15.1'
+	id 'jacoco'
 	id 'java'
 }
 
@@ -65,9 +66,74 @@ dependencies {
 	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.3.RELEASE'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
+
+	// 자동으로 모든 Test 타입의 task에 JacocoTaskExtension을 추가하고, test task에서 그 설정을 변경할 수 있게 합니다.
+	jacoco {
+		destinationFile = file("$buildDir/jacoco/jacoco.exec")
+	}
+
+	// test task를 실행할 때 마다 자동으로 jacoco task 가 실행되도록 함.
+	finalizedBy 'jacocoTestReport'
 }
+
+jacoco {
+	// JaCoCo 버전
+	toolVersion = '0.8.5'
+}
+
+/**
+ * 바이너리 커버리지 결과를 사람이 읽기 좋은 형태의 리포트로 저장합니다.
+ */
+jacocoTestReport {
+	reports {
+		// 원하는 리포트를 켜고 끌 수 있습니다.
+		html.enabled true
+
+		//  각 리포트 타입 마다 리포트 저장 경로를 설정할 수 있습니다.
+		html.destination file("$buildDir/jacocoHtml")
+	}
+}
+
+/**
+ * 커버리지 기준을 만족하는지 확인해 주는 task
+ */
+jacocoTestCoverageVerification {
+	// 이 커버리지 기준은 이 글의 맨 아래에서 다시 설명하겠습니다.
+	violationRules {
+		rule {
+			element = 'CLASS'
+
+			limit {
+				counter = 'BRANCH'
+				value = 'COVEREDRATIO'
+				minimum = 0.50
+			}
+		}
+	}
+
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+/**
+ * 매번 Report task와 Verification task를 하나로 묶는 task 입니다. <br>
+ * 실행은 아래와 같이 하면 됩니다.
+ *
+ * ./gradlew tasks
+ */
+task testCoverage(type: Test) {
+	group 'verification'
+	description 'Runs the unit tests with coverage'
+
+	dependsOn(':test',
+			':jacocoTestReport',
+			':jacocoTestCoverageVerification')
+
+	tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+	tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
+}
+
 
 /**
  * Querydsl config
