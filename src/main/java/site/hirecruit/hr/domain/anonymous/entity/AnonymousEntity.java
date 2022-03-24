@@ -35,6 +35,6 @@ public class AnonymousEntity {
 
     @NotNull
     @Column(name = "email_certified")
-    private boolean email_certified;
+    private boolean emailCertified;
 
 }
