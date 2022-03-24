@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.mentor.entity;
+package site.hirecruit.hr.domain.worker.entity;
 
 
 import lombok.*;
