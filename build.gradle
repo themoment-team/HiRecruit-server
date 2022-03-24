@@ -30,6 +30,11 @@ dependencies {
 	/** querydsl **/
 	implementation("com.querydsl:querydsl-jpa")
 	implementation("com.querydsl:querydsl-apt")
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+	implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+	implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+	implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+	implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
 	/** querydsl in test **/
 	testCompileOnly("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")
