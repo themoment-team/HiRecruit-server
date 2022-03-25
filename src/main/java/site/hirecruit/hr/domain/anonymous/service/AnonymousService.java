@@ -1,9 +1,11 @@
 package site.hirecruit.hr.domain.anonymous.service;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.hirecruit.hr.domain.anonymous.dto.AnonymousDto;
+import site.hirecruit.hr.domain.anonymous.entity.AnonymousEntity;
 import site.hirecruit.hr.domain.anonymous.repository.AnonymousRepository;
 
 @Service
@@ -11,6 +13,7 @@ import site.hirecruit.hr.domain.anonymous.repository.AnonymousRepository;
 @Transactional
 public class AnonymousService {
 
+    private final ModelMapper modelMapper;
     private final AnonymousRepository anonymousRepository;
 
     /**
@@ -21,5 +24,16 @@ public class AnonymousService {
      */
     public AnonymousDto.AnonymousResponseDto findAnonymousByUUID(String anonymousUUID){
         return anonymousRepository.findByAnonymousUUID(anonymousUUID);
+    }
+
+    /**
+     * anonymous를 저장하는 비즈니스 로직
+     *
+     * @param requestDto 저장할 익명 정보
+     * @return AnonymousResponseDto
+     */
+    public AnonymousDto.AnonymousResponseDto saveAnonymous(AnonymousDto.AnonymousRequestDto requestDto){
+        final AnonymousEntity entity = anonymousRepository.save(AnonymousDto.AnonymousRequestDto.toEntity(requestDto));
+        return modelMapper.map(entity, AnonymousDto.AnonymousResponseDto.class);
     }
 }
