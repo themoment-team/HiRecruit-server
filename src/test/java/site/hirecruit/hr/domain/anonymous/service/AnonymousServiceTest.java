@@ -21,7 +21,7 @@ class AnonymousServiceTest {
     private AnonymousService anonymousService;
 
     @Test
-    @DisplayName("findAnonymousByUUID 비즈니스 로직이 값을 정상 반환 한다.")
+    @DisplayName("findAnonymousByUUID 비즈니스 로직이 값을 정상 반환한다.")
     void findAnonymousByUUID_비즈니스_로직_정상이다(){
         // GIVEN:: 익명을 생성한다.
         final String nameOfAnonymous = "jyeonjyan";
@@ -40,5 +40,22 @@ class AnonymousServiceTest {
 
         // THEN:: 알아낸(actual) 익명의 이름이 *given(expected) 익명의 이름과 같다.
         assertEquals(nameOfAnonymous, anonymousByUUID.getName());
+    }
+
+    @Test
+    @DisplayName("createAnonymous 비즈니스 로직이 정상적으로 작동한다.")
+    void createAnonymous_비즈니스_로직_정상이다(){
+        // GIVEN:: 익명을 생성한다.
+        final String nameOfAnonymous = "jyeonjyan";
+        final AnonymousDto.AnonymousRequestDto jyeonjyan = AnonymousDto.AnonymousRequestDto.builder()
+                .name(nameOfAnonymous)
+                .email("jyeonjyan.dev@gmail.com")
+                .build();
+
+        // WHEN:: 익명을 비즈니스 로직을 통해 생성한다.
+        final AnonymousDto.AnonymousResponseDto saveJyeonjyan = anonymousService.createAnonymous(jyeonjyan);
+
+        // THEN:: 입력한(*given) 이름과 저장된(*when) 익명의 이름이 일치한다.
+        assertEquals(nameOfAnonymous, saveJyeonjyan.getName());
     }
 }
