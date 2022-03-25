@@ -28,7 +28,7 @@ public class AnonymousDto {
             this.email = email;
         }
 
-        public AnonymousEntity toEntity(AnonymousRequestDto anonymousRequestDto){
+        public static AnonymousEntity toEntity(AnonymousRequestDto anonymousRequestDto){
             return AnonymousEntity.builder()
                     .anonymousUUID(UUID.randomUUID().toString())
                     .name(anonymousRequestDto.getName())
