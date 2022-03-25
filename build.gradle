@@ -92,15 +92,36 @@ jacocoTestReport {
 		html.enabled true
 
 		//  각 리포트 타입 마다 리포트 저장 경로를 설정할 수 있습니다.
-		html.destination file("$buildDir/jacocoHtml")
+		html.destination file("$buildDir/jacocoReportsHtml")
 	}
+
+	// jacocoTestCoverageVerification:: "Qdomain 커버리지에서도 제외" jacocoTestReport:: "Qdomain 결과에서도 제외"
+	def Qdomains = []
+	for(qPattern in "**/QA" .. "**/QZ"){
+		Qdomains.add(qPattern+"*")
+	}
+
+	afterEvaluate {
+
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: [] + Qdomains)
+		}))
+	}
+
 }
 
 /**
  * 커버리지 기준을 만족하는지 확인해 주는 task
  */
 jacocoTestCoverageVerification {
-	// 이 커버리지 기준은 이 글의 맨 아래에서 다시 설명하겠습니다.
+
+	// Qdomain 을 for loop 를 통해 excludes 시킴
+	def Qdomains = []
+	for (qPattern in "*.QA".."*.QZ") {  // qPattern = "*.QA","*.QB","*.QC", ... "*.QZ"
+		Qdomains.add(qPattern + "*")
+	}
+
 	violationRules {
 		rule {
 			element = 'CLASS'
@@ -110,6 +131,8 @@ jacocoTestCoverageVerification {
 				value = 'COVEREDRATIO'
 				minimum = 0.50
 			}
+
+			excludes = [] + Qdomains
 		}
 	}
 
