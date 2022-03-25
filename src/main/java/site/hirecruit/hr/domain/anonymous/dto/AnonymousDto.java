@@ -4,6 +4,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import site.hirecruit.hr.domain.anonymous.entity.AnonymousEntity;
 
 import javax.validation.constraints.NotBlank;
@@ -38,7 +39,7 @@ public class AnonymousDto {
         }
     }
 
-    @Getter
+    @Getter @Setter
     @NoArgsConstructor
     public static class AnonymousResponseDto{
         @NotBlank
