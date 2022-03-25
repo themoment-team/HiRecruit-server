@@ -36,7 +36,7 @@ public class AnonymousService {
      * @param requestDto 저장할 익명 정보
      * @return AnonymousResponseDto
      */
-    public AnonymousDto.AnonymousResponseDto saveAnonymous(AnonymousDto.AnonymousRequestDto requestDto){
+    public AnonymousDto.AnonymousResponseDto createAnonymous(AnonymousDto.AnonymousRequestDto requestDto){
         final AnonymousEntity entity = anonymousRepository.save(AnonymousDto.AnonymousRequestDto.toEntity(requestDto));
         return modelMapper.map(entity, AnonymousDto.AnonymousResponseDto.class);
     }

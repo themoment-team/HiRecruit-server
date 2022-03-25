@@ -36,7 +36,7 @@ public class AnonymousController {
 
     @PostMapping("")
     public ResponseEntity<AnonymousDto.AnonymousResponseDto> createAnonymous(@RequestBody AnonymousDto.AnonymousRequestDto requestDto){
-        final AnonymousDto.AnonymousResponseDto responseDto = anonymousService.saveAnonymous(requestDto);
+        final AnonymousDto.AnonymousResponseDto responseDto = anonymousService.createAnonymous(requestDto);
 
         // responseEntity.created() required http header uri
         final URI uri = ServletUriComponentsBuilder
