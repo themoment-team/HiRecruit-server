@@ -48,6 +48,11 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.5'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
+	/** security **/
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis'
 
 	/** for test **/
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
