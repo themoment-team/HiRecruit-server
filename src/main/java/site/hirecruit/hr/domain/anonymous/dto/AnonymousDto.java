@@ -1,18 +1,15 @@
 package site.hirecruit.hr.domain.anonymous.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import site.hirecruit.hr.domain.anonymous.entity.AnonymousEntity;
 
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
 public class AnonymousDto {
 
     @Getter
