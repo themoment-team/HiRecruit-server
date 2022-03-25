@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Github OAuth property ###
+**/resources/application-github-oauth.yml
