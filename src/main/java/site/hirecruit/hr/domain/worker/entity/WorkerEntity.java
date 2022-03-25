@@ -15,6 +15,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class WorkerEntity {
 
+    @Getter
     @RequiredArgsConstructor
     public enum Role{
         GUEST("ROLE_GUEST", "게스트"), // 인증이 안된 직장인
