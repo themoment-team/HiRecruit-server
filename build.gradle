@@ -51,7 +51,6 @@ dependencies {
 	/** lombok **/
 	annotationProcessor 'org.projectlombok:lombok'
 	/** swagger **/
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.5'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
 	/** security **/
