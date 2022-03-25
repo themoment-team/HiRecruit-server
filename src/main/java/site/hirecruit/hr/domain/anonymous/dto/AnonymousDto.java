@@ -52,7 +52,6 @@ public class AnonymousDto {
         @NotBlank
         private boolean emailCertified;
 
-        @Builder
         @QueryProjection
         public AnonymousResponseDto(Long anonymousId, String anonymousUUID, String name, String email, boolean emailCertified) {
             this.anonymousId = anonymousId;

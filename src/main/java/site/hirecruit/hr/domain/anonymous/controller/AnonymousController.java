@@ -2,12 +2,13 @@ package site.hirecruit.hr.domain.anonymous.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriBuilder;
 import site.hirecruit.hr.domain.anonymous.dto.AnonymousDto;
 import site.hirecruit.hr.domain.anonymous.service.AnonymousService;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/v1/anonymous/")
@@ -30,4 +31,17 @@ public class AnonymousController {
         return ResponseEntity.ok().body(anonymousByUUID);
     }
 
+    @PostMapping("")
+    public ResponseEntity<AnonymousDto.AnonymousResponseDto> createAnonymous(@RequestBody AnonymousDto.AnonymousRequestDto requestDto){
+        final AnonymousDto.AnonymousResponseDto responseDto = anonymousService.saveAnonymous(requestDto);
+
+        // responseEntity.created() required http header uri
+        final URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(responseDto.getAnonymousId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(responseDto);
+    }
 }
