@@ -10,6 +10,10 @@ import site.hirecruit.hr.domain.anonymous.entity.AnonymousEntity;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
+/**
+ * @version 1.0.0
+ * @author 전지환
+ */
 @NoArgsConstructor
 public class AnonymousDto {
 

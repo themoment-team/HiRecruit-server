@@ -8,6 +8,10 @@ import site.hirecruit.hr.domain.anonymous.dto.AnonymousDto;
 import site.hirecruit.hr.domain.anonymous.entity.AnonymousEntity;
 import site.hirecruit.hr.domain.anonymous.repository.AnonymousRepository;
 
+/**
+ * @version 1.0.0
+ * @author 전지환
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional

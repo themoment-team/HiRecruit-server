@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriBuilder;
 import site.hirecruit.hr.domain.anonymous.dto.AnonymousDto;
 import site.hirecruit.hr.domain.anonymous.service.AnonymousService;
 
 import java.net.URI;
 
+/**
+ * @version 1.0.0
+ * @author 전지환
+ */
 @RestController
 @RequestMapping("/api/v1/anonymous/")
 @RequiredArgsConstructor
