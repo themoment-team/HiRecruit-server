@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.auth.dto;
 
 import lombok.*;
+import site.hirecruit.hr.domain.worker.entity.WorkerEntity;
 
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public class OAuthAttributes {
     private Long id;
     private String name;
     private String email;
-    private String pictureUri;
+    private String profileUri;
 
     public static OAuthAttributes of(final String registrationId,
                                      final String userNameAttributeName,
@@ -29,7 +30,18 @@ public class OAuthAttributes {
                 .id(Long.getLong((String) attributes.get(userNameAttributeName)))
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .pictureUri((String) attributes.get("picture"))
+                .profileUri((String) attributes.get("picture"))
+                .build();
+    }
+
+    public WorkerEntity toEntity(WorkerEntity.Role role){
+        return WorkerEntity.builder()
+                .githubId(id)
+                .email(email)
+                .name(name)
+                .profileUri(profileUri)
+                .company((String) attributes.get("company"))
+                .role(role)
                 .build();
     }
 
