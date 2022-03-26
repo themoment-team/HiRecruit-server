@@ -11,6 +11,11 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity;
 
 import java.io.Serializable;
 
+/**
+ * 로그인 시 session에 저장될 정보를 담고있는 객체
+ *
+ * @author 정시원
+ */
 @Getter @Builder
 @Component
 @AllArgsConstructor

@@ -5,6 +5,11 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity;
 
 import java.util.Map;
 
+/**
+ * Oauth2 클리아이너트의 정보를 담고 있는 객체
+ *
+ * @author 정시원
+ */
 @Getter @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE) @AllArgsConstructor
 public class OAuthAttributes {

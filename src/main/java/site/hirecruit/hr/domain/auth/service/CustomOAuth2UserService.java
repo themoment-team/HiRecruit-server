@@ -20,6 +20,7 @@ import java.util.Collections;
  * 실제 OAuth 로직을 작성하는 서비스 (Github기준으로 작성해서 확장성 1도 없음)
  *
  * @version 1.0
+ * @author 정시원
  */
 @Slf4j
 @Service

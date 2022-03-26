@@ -6,6 +6,12 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity;
 
 import java.util.Optional;
 
+/**
+ * 유저의 회원가입을 담당하는 서비스
+ *
+ * @author 정시원
+ * @see UserRegistrationGithubServiceImpl
+ */
 interface UserRegistrationService {
 
     /**
