@@ -14,7 +14,6 @@ import site.hirecruit.hr.domain.anonymous.repository.AnonymousRepository;
  */
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class AnonymousService {
 
     private final ModelMapper modelMapper;
@@ -26,6 +25,7 @@ public class AnonymousService {
      * @param anonymousUUID 찾고자 하는 익명 UUID
      * @return AnonymousResponseDto - 조회된 익명 정보
      */
+    @Transactional(readOnly = true)
     public AnonymousDto.AnonymousResponseDto findAnonymousByUUID(String anonymousUUID){
         return anonymousRepository.findByAnonymousUUID(anonymousUUID);
     }

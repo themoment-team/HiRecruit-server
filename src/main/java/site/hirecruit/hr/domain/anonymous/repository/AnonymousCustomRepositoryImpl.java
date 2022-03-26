@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.anonymous.repository;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPQLQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import site.hirecruit.hr.domain.anonymous.dto.AnonymousDto;
 import site.hirecruit.hr.domain.anonymous.dto.QAnonymousDto_AnonymousResponseDto;
 
@@ -25,6 +26,7 @@ public class AnonymousCustomRepositoryImpl implements AnonymousCustomRepository{
      * @param UUID
      * @return AnonymousResponseDto
      */
+    @Transactional(readOnly = true)
     @Override
     public AnonymousDto.AnonymousResponseDto findByAnonymousUUID(String UUID) {
         return queryFactory
