@@ -27,7 +27,7 @@ public class AnonymousService {
      */
     @Transactional(readOnly = true)
     public AnonymousDto.AnonymousResponseDto findAnonymousByUUID(String anonymousUUID){
-        return anonymousRepository.findByAnonymousUUID(anonymousUUID);
+        return anonymousRepository.findByAnonymousUUID(anonymousUUID).orElseThrow(IllegalStateException::new);
     }
 
     /**
