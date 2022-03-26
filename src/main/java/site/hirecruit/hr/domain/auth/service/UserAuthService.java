@@ -1,5 +1,6 @@
 package site.hirecruit.hr.domain.auth.service;
 
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes;
 import site.hirecruit.hr.domain.auth.dto.SessionUser;
 
@@ -10,5 +11,5 @@ public interface UserAuthService {
      *
      * @return 세션에 저장된 데이터
      */
-    SessionUser login(OAuthAttributes oAuthAttributes);
+    SessionUser login(OAuthAttributes oAuthAttributes) throws OAuth2AuthenticationException;
 }

@@ -26,11 +26,11 @@ import java.util.Collections;
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> delegateOAuth2UserService;
-    private final UserRegistrationService userRegistrationService;
+    private final UserRegistrationGithubServiceImpl userRegistrationService;
     private final UserAuthService userAuthService;
 
     @Autowired
-    public CustomOAuth2UserService(UserRegistrationService userRegistrationService, UserAuthService userAuthService) {
+    public CustomOAuth2UserService(UserRegistrationGithubServiceImpl userRegistrationService, UserAuthService userAuthService) {
         this.delegateOAuth2UserService = new DefaultOAuth2UserService();
         this.userRegistrationService = userRegistrationService;
         this.userAuthService = userAuthService;
