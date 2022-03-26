@@ -59,7 +59,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         // 만약 서비스를 처음 사용하는 사용자라면
         if(userRegistrationService.isFirst(attributes.getId()))
             userRegistrationService.registration(attributes)
-                    .orElseThrow(() -> new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_CLIENT));
+                    .orElseThrow(() ->
+                            new NullPointerException("WorkerEntity cannot be null. Because the WorkerEntity should be saved. Something was wrong"));
 
         final SessionUser loginUser = userAuthService.login(attributes); // 로그인
 
