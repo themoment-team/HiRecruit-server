@@ -1,5 +1,7 @@
 package site.hirecruit.hr.domain.auth.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -9,8 +11,9 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity;
 
 import java.io.Serializable;
 
-@Getter
+@Getter @Builder
 @Component
+@AllArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SessionUser implements Serializable {
 

@@ -27,10 +27,10 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .attributes(attributes)
                 .userNameAttributeName(userNameAttributeName)
-                .id(Long.getLong((String) attributes.get(userNameAttributeName)))
+                .id(Integer.toUnsignedLong((Integer) attributes.get(userNameAttributeName)))
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .profileUri((String) attributes.get("picture"))
+                .profileUri((String) attributes.get("avatar_url"))
                 .build();
     }
 
