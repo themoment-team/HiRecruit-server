@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserRegistrationGithubServiceImpl implements UserRegistrationService {
+class UserRegistrationGithubServiceImpl implements UserRegistrationService {
 
     private final WorkerRepository workerRepository;
 

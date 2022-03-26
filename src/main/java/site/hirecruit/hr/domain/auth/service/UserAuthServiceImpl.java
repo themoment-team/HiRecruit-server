@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Service
-public class UserAuthServiceImpl implements UserAuthService {
+class UserAuthServiceImpl implements UserAuthService {
 
     private final WorkerRepository workerRepository;
     private final HttpSession httpSession;

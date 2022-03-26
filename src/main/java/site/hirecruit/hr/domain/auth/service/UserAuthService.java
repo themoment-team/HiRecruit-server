@@ -10,7 +10,7 @@ import site.hirecruit.hr.domain.auth.dto.SessionUser;
  * @author 정시원
  * @see UserAuthServiceImpl
  */
-public interface UserAuthService {
+interface UserAuthService {
 
     /**
      * 세션을 이용한 로그인을 진행한다.
