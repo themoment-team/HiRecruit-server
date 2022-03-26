@@ -24,10 +24,11 @@ public class AnonymousService {
      *
      * @param anonymousUUID 찾고자 하는 익명 UUID
      * @return AnonymousResponseDto - 조회된 익명 정보
+     * @throws IllegalArgumentException - 파라미터 UUID로 조회한 익명 정보가 null 일 때.
      */
     @Transactional(readOnly = true)
     public AnonymousDto.AnonymousResponseDto findAnonymousByUUID(String anonymousUUID){
-        return anonymousRepository.findByAnonymousUUID(anonymousUUID).orElseThrow(IllegalStateException::new);
+        return anonymousRepository.findByAnonymousUUID(anonymousUUID).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
