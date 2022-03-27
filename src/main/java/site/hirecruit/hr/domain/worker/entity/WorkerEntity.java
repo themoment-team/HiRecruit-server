@@ -3,18 +3,15 @@ package site.hirecruit.hr.domain.worker.entity;
 
 import lombok.*;
 
-import javax.management.relation.Role;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Entity @Table(name = "workder")
 @Getter @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class WorkerEntity {
 
+    @Getter
     @RequiredArgsConstructor
     public enum Role{
         GUEST("ROLE_GUEST", "게스트"), // 인증이 안된 직장인
@@ -28,6 +25,8 @@ public class WorkerEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long workerId;
 
+    private Long githubId;
+
     private String email;
 
     private String name;
@@ -40,6 +39,7 @@ public class WorkerEntity {
 
     private String introduction;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public void updateRole(Role role){

@@ -65,3 +65,4 @@ spring:
 logging:
   level:
     org.hibernate.type.descriptor.sql : trace
+    site.hirecruit.hr : debug
