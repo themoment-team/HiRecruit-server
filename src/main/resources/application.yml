@@ -9,6 +9,19 @@ server:
       force: true
 
 spring:
+  profiles:
+    include: github-oauth
+
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace: spring:session # redis에 세션 저장시 네임스페이스
+
+  redis:
+    host: localhost
+    password:
+    port: 6379
 
   mvc:
     pathmatch:
@@ -24,7 +37,7 @@ spring:
 
   #DB 설정
   datasource:
-    url:
+    url: jdbc:h2:tcp://localhost/~/HR
     driver-class-name: org.h2.Driver
     username: sa
 
@@ -52,3 +65,4 @@ spring:
 logging:
   level:
     org.hibernate.type.descriptor.sql : trace
+    site.hirecruit.hr : debug
