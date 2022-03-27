@@ -9,6 +9,6 @@ import site.hirecruit.hr.domain.anonymous.entity.AnonymousEntity;
  * @author 전지환
  */
 @Repository
-public interface AnonymousRepository extends JpaRepository<AnonymousEntity, Long> {
+public interface AnonymousRepository extends JpaRepository<AnonymousEntity, Long>, AnonymousCustomRepository {
 
 }
