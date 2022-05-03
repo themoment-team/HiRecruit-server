@@ -38,9 +38,8 @@ jobs:
           path: app/build/reports/coverage/debug
 
 
-      - name: CodeCov Task Execute
-      - uses: actions/checkout@master
-      - uses: codecov/codecov-action@v2
+      - name: codecov action execute
+        uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           flags: unit-tests # optional
