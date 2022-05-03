@@ -9,8 +9,8 @@ server:
       force: true
 
 spring:
-  profiles:
-    include: github-oauth
+  config:
+    import: classpath:application-github-oauth.yml
 
   session:
     store-type: redis
