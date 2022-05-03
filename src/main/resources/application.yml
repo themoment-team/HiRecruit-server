@@ -10,7 +10,7 @@ server:
 
 spring:
   config:
-    import: classpath:application-github-oauth.yml
+    import: classpath:oauth/github-oauth.yml
 
   session:
     store-type: redis
