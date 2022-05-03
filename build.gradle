@@ -19,6 +19,7 @@ allOpen {
 	annotation("javax.persistence.Entity")
 	annotation("javax.persistence.MappedSuperclass")
 	annotation("javax.persistence.Embeddable")
+	annotation("org.springframework.context.annotation.Configuration")
 }
 
 group = 'site.hirecruit'
@@ -82,6 +83,12 @@ dependencies {
 	/** *.adoc file {snippets} auto setting **/
 	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.3.RELEASE'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+	/** embedded redis link: https://github.com/kstyrc/embedded-redis **/
+	compileOnly 'it.ozimov:embedded-redis:0.7.2'
+
+	/** kotlin logger **/
+	implementation 'io.github.microutils:kotlin-logging-jvm:2.1.21'
 }
 
 test {
