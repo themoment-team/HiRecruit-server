@@ -19,6 +19,7 @@ allOpen {
 	annotation("javax.persistence.Entity")
 	annotation("javax.persistence.MappedSuperclass")
 	annotation("javax.persistence.Embeddable")
+	annotation("org.springframework.context.annotation.Configuration")
 }
 
 group = 'site.hirecruit'
