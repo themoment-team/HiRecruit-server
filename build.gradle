@@ -82,6 +82,9 @@ dependencies {
 	/** *.adoc file {snippets} auto setting **/
 	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.3.RELEASE'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+	/** embedded redis link: https://github.com/kstyrc/embedded-redis **/
+	compileOnly 'it.ozimov:embedded-redis:0.7.2'
 }
 
 test {
