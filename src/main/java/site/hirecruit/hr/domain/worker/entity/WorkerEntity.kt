@@ -3,27 +3,35 @@ package site.hirecruit.hr.domain.worker.entity
 import javax.persistence.*
 
 @Entity @Table(name = "worker")
-class WorkerEntity {
+class WorkerEntity(
+    @Column(name = "github_id", nullable = false)
+    val githubId: Long?,
+
+    @Column(name = "email", nullable = false)
+    val email: String,
+
+    @Column(name = "name", nullable = false)
+    val name: String,
+
+    @Column(name = "profile_uri", nullable = false)
+    val profileUri: String,
+
+    @Column(name = "company", nullable = false)
+    val company: String,
+
+    @Column(name = "location", nullable = false)
+    var location: String,
+
+    @Column(name = "introduction", nullable = true)
+    val introduction: String? = null,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    var role: Role
+) {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var workerId: Long? = null
-
-    var githubId: Long? = null
-
-    val email: String? = null
-
-    var name: String? = null
-
-    var profileUri: String? = null
-
-    var company: String? = null
-
-    var location: String? = null
-
-    var introduction: String? = null
-
-    @Enumerated(EnumType.STRING)
-    var role: Role? = null
 
     fun updateRole(role: Role) {
         this.role = role
