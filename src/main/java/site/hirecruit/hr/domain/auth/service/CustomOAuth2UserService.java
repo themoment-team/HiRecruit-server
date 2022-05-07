@@ -7,10 +7,8 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes;
 import site.hirecruit.hr.domain.auth.dto.SessionUser;
 
@@ -23,7 +21,7 @@ import java.util.Collections;
  * @author 정시원
  */
 @Slf4j
-@Service
+@Deprecated
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> delegateOAuth2UserService;
