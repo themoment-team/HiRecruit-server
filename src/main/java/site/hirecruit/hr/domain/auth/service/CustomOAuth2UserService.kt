@@ -24,10 +24,11 @@ private val log = KotlinLogging.logger {}
  * @version 1.0
  */
 @Service
-class CustomOAuth2UserService @Autowired constructor(
+class CustomOAuth2UserService(
     private val authProcessor: AuthProcessor,
-    private val delegateOauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User> = DefaultOAuth2UserService()
 ) : OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
+    private var delegateOauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User> = DefaultOAuth2UserService()
 
     /**
      * OAuth2인증/인가를 진행합니다.
