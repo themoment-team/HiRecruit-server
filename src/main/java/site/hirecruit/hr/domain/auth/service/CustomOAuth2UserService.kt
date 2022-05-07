@@ -18,7 +18,7 @@ private val log = KotlinLogging.logger {}
 /**
  * OAuth2 로직의 entry service입니다.
  *
- * /oauth2/authorization/github 경로를 통해 들어온 oauth2인증을 여기에서 처리합니다.
+ * /oauth2/authorization/github 경로를 통해 들어온 oauth2인증/인가를 [CustomOAuth2UserService.loadUser]에서 처리합니다.
  *
  * @author 정시원
  * @version 1.0
@@ -29,6 +29,10 @@ class CustomOAuth2UserService @Autowired constructor(
     private val delegateOauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User> = DefaultOAuth2UserService()
 ) : OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
+    /**
+     * OAuth2인증/인가를 진행합니다.
+     * @throws OAuth2AuthenticationException OAuth2 인증/인가가 실패할경우 발생합니다.
+     */
     override fun loadUser(userRequest: OAuth2UserRequest): OAuth2User {
         val oAuth2User : OAuth2User =  delegateOauth2UserService.loadUser(userRequest)
         val registrationId : String = userRequest.clientRegistration.registrationId

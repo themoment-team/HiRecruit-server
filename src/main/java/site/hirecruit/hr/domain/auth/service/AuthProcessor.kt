@@ -12,5 +12,11 @@ import site.hirecruit.hr.domain.auth.model.User
  */
 interface AuthProcessor {
 
+    /**
+     * 유저의 로그인(인증)/회원가입을 담당합니다.
+     *
+     * @param [User] 인증에 성공한 User 객체입니다.
+     * @throws OAuth2AuthenticationException 인증에 실패할 경우 발생합니다.
+     */
     fun process(oauthAttributes : OAuthAttributes) : User
 }

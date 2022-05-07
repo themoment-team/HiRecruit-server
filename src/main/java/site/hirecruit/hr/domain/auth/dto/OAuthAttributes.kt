@@ -5,7 +5,7 @@ package site.hirecruit.hr.domain.auth.dto
  * ## notice
  * 해당 클래스는 생성자를 통해 객체를 생성할 수 없습니다. 대신 정적 팩토리 메서드([OAuthAttributes.of])를 사용해주세요
  *
- * #### example
+ * ### example
  * ```kotlin
  * val oAuthAttributes = OAuthAttributes.of(
  *     registrationId,
@@ -45,7 +45,4 @@ class OAuthAttributes private constructor(
             )
         }
     }
-
-
-
 }

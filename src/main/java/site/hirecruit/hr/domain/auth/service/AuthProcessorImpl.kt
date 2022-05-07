@@ -12,7 +12,6 @@ class AuthProcessorImpl(
     private val userAuthService: UserAuthService
 ) : AuthProcessor {
 
-
     override fun process(oauthAttributes: OAuthAttributes): User {
         // 첫 사용자라면 계정을 등록한다.
         if(workerRepository.existsByGithubId(oauthAttributes.id))
