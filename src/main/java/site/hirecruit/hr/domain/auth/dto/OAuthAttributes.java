@@ -12,6 +12,7 @@ import java.util.Map;
  */
 @Getter @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE) @AllArgsConstructor
+@Deprecated
 public class OAuthAttributes {
 
     private Map<String, Object> attributes;
