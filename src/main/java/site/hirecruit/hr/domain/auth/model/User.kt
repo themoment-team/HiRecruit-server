@@ -14,19 +14,16 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
  * @author 정시원
  */
 @Component
-@Scope(
-    value = WebApplicationContext.SCOPE_SESSION,
-    proxyMode = ScopedProxyMode.TARGET_CLASS
-)
-class User(workerEntity: WorkerEntity) {
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+open class User(workerEntity: WorkerEntity) {
 
-    val userId: Long? = workerEntity.workerId
+    val userId: Long = workerEntity.workerId!!
 
-    val name = workerEntity.name
+    val name: String = workerEntity.name
 
-    val email = workerEntity.email
+    val email: String = workerEntity.email
 
-    val profileUri = workerEntity.profileUri
+    val profileUri: String = workerEntity.profileUri
 
     val role: WorkerEntity.Role = workerEntity.role
 }
