@@ -20,6 +20,7 @@ import java.io.Serializable;
 @Component
 @AllArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Deprecated
 public class SessionUser implements Serializable {
 
     private final Long userId;
