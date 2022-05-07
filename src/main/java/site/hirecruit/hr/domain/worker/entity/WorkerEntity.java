@@ -5,7 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity @Table(name = "workder")
+@Deprecated
+@Entity @Table(name = "worker")
 @Getter @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

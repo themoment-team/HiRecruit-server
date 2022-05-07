@@ -5,6 +5,7 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity;
 
 import java.util.Optional;
 
+@Deprecated
 public interface WorkerRepository extends JpaRepository<WorkerEntity, Long> {
     boolean existsByGithubId(Long id);
 
