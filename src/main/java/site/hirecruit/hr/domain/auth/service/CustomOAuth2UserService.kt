@@ -1,7 +1,6 @@
 package site.hirecruit.hr.domain.auth.service
 
 import mu.KotlinLogging
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
@@ -25,7 +24,7 @@ private val log = KotlinLogging.logger {}
  */
 @Service
 class CustomOAuth2UserService(
-    private val authProcessor: AuthProcessor,
+    private val OAuthProcessorFacade: OAuthProcessorFacade,
 ) : OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private var delegateOauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User> = DefaultOAuth2UserService()
@@ -52,7 +51,7 @@ class CustomOAuth2UserService(
             oAuth2User.attributes
         )
 
-        val loginUser : User = authProcessor.process(oAuthAttributes)
+        val loginUser : User = OAuthProcessorFacade.process(oAuthAttributes)
 
         return DefaultOAuth2User(
             Collections.singleton(SimpleGrantedAuthority(loginUser.role.role)),

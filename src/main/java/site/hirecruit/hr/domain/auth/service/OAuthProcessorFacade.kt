@@ -4,13 +4,13 @@ import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.model.User
 
 /**
- * 유저의 로그인/회원가입을 담당하는 일종의 퍼사드 패턴입니다.
+ * OAuth 인증에 관련된 로직을 실행하는 퍼사드 패턴입니다.
  *
  * @see CustomOAuth2UserService
  * @author 정시원
  * @version 1.0
  */
-interface AuthProcessor {
+interface OAuthProcessorFacade {
 
     /**
      * 유저의 로그인(인증)/회원가입을 담당합니다.
