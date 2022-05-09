@@ -1,5 +1,5 @@
-package site.hirecruit.hr.domain.consultation.service
+package site.hirecruit.hr.domain.mentoring.service
 
-interface ConsultationService {
+interface MentoringService {
     fun RequestConsultationWithMentor()
 }

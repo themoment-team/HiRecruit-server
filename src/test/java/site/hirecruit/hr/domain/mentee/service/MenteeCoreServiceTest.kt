@@ -1,23 +1,23 @@
-package site.hirecruit.hr.domain.anonymous.service
+package site.hirecruit.hr.domain.mentee.service
 
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import site.hirecruit.hr.domain.anonymous.entity.AnonymousEntity
-import site.hirecruit.hr.domain.anonymous.repository.AnonymousRepository
+import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
+import site.hirecruit.hr.domain.mentee.repository.AnonymousRepository
 
 @SpringBootTest
-class AnonymousVerifyTest(
+class MenteeCoreServiceTest(
     @Autowired private var anonymousRepository: AnonymousRepository
 ) {
 
-    var anonymous: AnonymousEntity? = null
+    var anonymous: MenteeEntity? = null
 
     @BeforeEach
     internal fun setUp() {
-        val anonymousEntity = AnonymousEntity(
+        val menteeEntity = MenteeEntity(
             null,
             RandomString.make(5),
             "jyeonjyan",
@@ -25,7 +25,7 @@ class AnonymousVerifyTest(
             false)
 
 
-        anonymous = anonymousRepository.save(anonymousEntity)
+        anonymous = anonymousRepository.save(menteeEntity)
     }
 
     @Test
