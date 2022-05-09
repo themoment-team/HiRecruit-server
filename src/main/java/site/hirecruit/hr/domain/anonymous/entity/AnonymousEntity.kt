@@ -9,7 +9,7 @@ class AnonymousEntity(
     @Column(name = "anonymous_id")
     val anonymousId: Long?,
 
-    @Column(name = "anonymous_uuid")
+    @Column(name = "anonymous_uuid", unique = true)
     private val anonymousUUID: String,
 
     @Column(name = "name")
@@ -19,6 +19,10 @@ class AnonymousEntity(
     private val email: String,
 
     @Column(name = "email_certified")
-    private val emailCertified: Boolean? = false
+    private val emailCertified: Boolean = false
 ) {
+
+    override fun toString(): String {
+        return "AnonymousEntity(anonymousId=$anonymousId, anonymousUUID='$anonymousUUID', name='$name', email='$email', emailCertified=$emailCertified)"
+    }
 }
