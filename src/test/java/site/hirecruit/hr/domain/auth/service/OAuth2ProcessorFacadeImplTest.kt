@@ -11,12 +11,12 @@ import kotlin.random.Random
 internal class OAuth2ProcessorFacadeImplTest{
 
     private fun makeOAuth2Attribute() : OAuthAttributes{
-        val attributes = mutableMapOf<String, Any>(
+        val attributes = mapOf<String, Any>(
             "id" to Random.nextInt(8),
             "name" to RandomString.make(8),
             "email" to "${RandomString.make(10)}${RandomString.make(6)}.${RandomString.make(3)}}",
             "avatar_url" to RandomString.make()
-        );
+        )
         return OAuthAttributes.of(
             registrationId = "github",
             userNameAttributeName = "id",
