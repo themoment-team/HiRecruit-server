@@ -2,7 +2,6 @@ package site.hirecruit.hr.domain.anonymous.service
 
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,7 +10,7 @@ import site.hirecruit.hr.domain.anonymous.repository.AnonymousRepository
 
 @SpringBootTest
 class AnonymousVerifyTest(
-    @Autowired var anonymousRepository: AnonymousRepository
+    @Autowired private var anonymousRepository: AnonymousRepository
 ) {
 
     var anonymous: AnonymousEntity? = null
@@ -30,8 +29,7 @@ class AnonymousVerifyTest(
     }
 
     @Test
-    @DisplayName("익명이 상담신청 가능 상태인지 확인한다.")
-    fun 익명이_상담신청_가능_상태(){
-        println(anonymous.toString())
+    fun 익명이_멘토에게_상담_신청을_한다(){
+
     }
 }
