@@ -12,6 +12,7 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
  * 초기 버전은 세션으로 유저의 정보를 담습니다.
  *
  * @author 정시원
+ * @version 1.0
  */
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
