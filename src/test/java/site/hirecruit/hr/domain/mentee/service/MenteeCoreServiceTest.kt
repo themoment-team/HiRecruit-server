@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.mentee.service
 import net.bytebuddy.utility.RandomString
 import org.hibernate.validator.internal.util.Contracts.assertNotNull
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -31,6 +32,7 @@ class MenteeCoreServiceTest(
     }
 
     @Test
+    @DisplayName("멘티로 등록한다. [valid에는 관심이 없는 테스트]")
     fun 멘티로_등록한다(
         @Autowired menteeService: MenteeService
     ){

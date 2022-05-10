@@ -35,6 +35,9 @@ class MenteeDto {
 
     /**
      * 멘티의 정보를 반환하는 Dto
+     * @Dto 어노테이션을 통해 noArg 생성
+     *
+     * @see Dto
      * @author 전지환
      */
     @Dto
