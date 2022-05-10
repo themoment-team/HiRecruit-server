@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository
 import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
 
 @Repository
-interface AnonymousRepository : JpaRepository<MenteeEntity, Long>{
+interface MenteeRepository : JpaRepository<MenteeEntity, Long>{
 }

@@ -1,8 +1,20 @@
 package site.hirecruit.hr.domain.mentee.service
 
-class MenteeServiceImpl : MenteeService {
+import site.hirecruit.hr.domain.mentee.dto.MenteeDto
+import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
 
-    override fun registerMentee() {
-        TODO("Not yet implemented")
+/**
+ * @author 전지환
+ * @since 1.0.0
+ */
+class MenteeServiceImpl(
+    private val menteeRepository: MenteeRepository
+) : MenteeService {
+
+    /**
+     * 멘티로 등록하는 비즈니스 로직
+     */
+    override fun registerMentee(menteeInfo: MenteeDto.MenteeRegistFormatDto) {
+        menteeRepository.save(menteeInfo.toEntity())
     }
 }

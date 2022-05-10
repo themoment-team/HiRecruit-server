@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
-import site.hirecruit.hr.domain.mentee.repository.AnonymousRepository
+import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
 
 @SpringBootTest
 class MenteeCoreServiceTest(
-    @Autowired private var anonymousRepository: AnonymousRepository
+    @Autowired private var menteeRepository: MenteeRepository
 ) {
 
     var anonymous: MenteeEntity? = null
@@ -25,7 +25,7 @@ class MenteeCoreServiceTest(
             false)
 
 
-        anonymous = anonymousRepository.save(menteeEntity)
+        anonymous = menteeRepository.save(menteeEntity)
     }
 
     @Test
