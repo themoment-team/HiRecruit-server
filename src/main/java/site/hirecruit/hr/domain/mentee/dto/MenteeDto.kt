@@ -16,7 +16,7 @@ class MenteeDto {
 
         /**
          * MenteeEntity를 생성하는 팩토리 메소드
-         * 확장함수를 이용해 UUID를 만들어주는 역할과 책임을 분리 시킴.
+         * 확장 함수를 이용해 UUID를 만들어주는 역할과 책임은 다른 메소드로 분리 시킴.
          *
          * @see uuidGenerator
          */
@@ -31,4 +31,16 @@ class MenteeDto {
         }
 
     }
+
+    /**
+     * 멘티의 정보를 반환하는 Dto
+     * @author 전지환
+     */
+    data class MenteeInfoResponseDto(
+        val menteeId: Long,
+        val menteeUUID: String,
+        val name : String,
+        val email: String,
+        val emailCertified: Boolean
+    )
 }
