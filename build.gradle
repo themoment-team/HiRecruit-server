@@ -91,6 +91,10 @@ dependencies {
 
 	/** to use jpa in kotlin **/
 	runtime 'org.jetbrains.kotlin:kotlin-reflect:1.6.21'
+
+	/** kotlin mock framework **/
+	testImplementation 'org.mockito.kotlin:mockito-kotlin:x.x.x'
+	testImplementation 'com.ninja-squad:springmockk:3.1.1' // @MockBean, @SpyBean을 사용하기 위함
 }
 
 test {
