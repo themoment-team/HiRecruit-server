@@ -29,7 +29,7 @@ class MenteeCoreServiceTest(
     }
 
     @Test
-    fun 익명이_멘토에게_상담_신청을_한다(){
+    fun 멘티가_멘토에게_상담_신청을_한다(){
 
     }
 }
