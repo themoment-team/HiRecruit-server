@@ -10,16 +10,16 @@ class MenteeEntity(
     val menteeId: Long?,
 
     @Column(name = "mentee_uuid", unique = true)
-    private val menteeUUID: String,
+    val menteeUUID: String,
 
     @Column(name = "name")
-    private val name: String,
+    val name: String,
 
     @Column(name = "email")
-    private val email: String,
+    val email: String,
 
     @Column(name = "email_certified")
-    private val emailCertified: Boolean = false
+    val emailCertified: Boolean = false
 ) {
 
     override fun toString(): String {

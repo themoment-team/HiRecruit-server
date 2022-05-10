@@ -36,7 +36,7 @@ class MenteeDto {
      * 멘티의 정보를 반환하는 Dto
      * @author 전지환
      */
-    data class MenteeInfoResponseDto(
+    class MenteeInfoResponseDto(
         val menteeId: Long,
         val menteeUUID: String,
         val name : String,

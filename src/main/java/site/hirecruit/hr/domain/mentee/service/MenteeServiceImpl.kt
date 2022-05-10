@@ -1,6 +1,6 @@
 package site.hirecruit.hr.domain.mentee.service
 
-import org.modelmapper.ModelMapper
+import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.mentee.dto.MenteeDto
 import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
 
@@ -8,9 +8,9 @@ import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
  * @author 전지환
  * @since 1.0.0
  */
+@Service
 class MenteeServiceImpl(
-    private val menteeRepository: MenteeRepository,
-    private val modelMapper: ModelMapper
+    private val menteeRepository: MenteeRepository
 ) : MenteeService {
 
     /**
@@ -18,6 +18,13 @@ class MenteeServiceImpl(
      */
     override fun registerMentee(menteeInfo: MenteeDto.MenteeRegistryFormatDto) : MenteeDto.MenteeInfoResponseDto{
         val mentee = menteeRepository.save(menteeInfo.toEntity())
-        return modelMapper.map(mentee, MenteeDto.MenteeInfoResponseDto::class.java)
+
+        return MenteeDto.MenteeInfoResponseDto(
+            menteeId = mentee.menteeId!!,
+            menteeUUID = mentee.menteeUUID,
+            name = mentee.name,
+            email = mentee.email,
+            emailCertified = mentee.emailCertified
+        )
     }
 }

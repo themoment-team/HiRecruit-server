@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.mentee.service
 
 import net.bytebuddy.utility.RandomString
+import org.hibernate.validator.internal.util.Contracts.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,9 +39,13 @@ class MenteeCoreServiceTest(
         val menteeInfo = MenteeDto.MenteeRegistryFormatDto("jyeonjyan", "s20062@gsm.hs.kr")
 
         // When
-        menteeService.registerMentee(menteeInfo)
+        val registerMentee = menteeService.registerMentee(menteeInfo)
 
         // Then
-
+        assertNotNull(registerMentee.menteeId)
+        assertNotNull(registerMentee.menteeUUID)
+        assertNotNull(registerMentee.name)
+        assertNotNull(registerMentee.email)
+        assertNotNull(registerMentee.emailCertified)
     }
 }
