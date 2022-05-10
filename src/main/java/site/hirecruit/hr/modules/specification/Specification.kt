@@ -1,4 +1,5 @@
 package site.hirecruit.hr.modules.specification
 
-interface Specification {
+interface Specification<T> {
+    fun isSpecificatedBy(candidate: T)
 }

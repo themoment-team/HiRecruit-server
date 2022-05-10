@@ -12,7 +12,7 @@ class MenteeDto {
      */
     class MenteeRegistryFormatDto(
         private val name: String,
-        private val email: String,
+        val email: String,
     ){
 
         /**

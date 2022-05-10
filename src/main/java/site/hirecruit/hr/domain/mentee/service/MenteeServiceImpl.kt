@@ -20,11 +20,12 @@ class MenteeServiceImpl(
      *
      * @param menteeInfo 등록 하고자 하는 멘티 정보.
      * @throws IllegalArgumentException 멘티가 이미 등록 돼 있을 때.
-     * @see isMenteeEmailAlreadyRegistered
      */
     override fun registerMentee(menteeInfo: MenteeDto.MenteeRegistryFormatDto) : MenteeDto.MenteeInfoResponseDto{
 
-        isMenteeEmailAlreadyRegistered(menteeInfo.email)
+        if (isMenteeEmailAlreadyRegistered(menteeInfo.email)) {
+            throw IllegalArgumentException("등록 하고자 하는 멘티 정보 / email: ${menteeInfo.email} 이 이미 등록 돼 있습니다.")
+        }
 
         val mentee = menteeRepository.save(menteeInfo.toEntity())
         return modelMapper.map(mentee, MenteeDto.MenteeInfoResponseDto::class.java)
@@ -37,12 +38,14 @@ class MenteeServiceImpl(
      * @return false - Mentee가 등록되지 않았다면
      */
     private fun isMenteeEmailAlreadyRegistered(menteeEmail: String) : Boolean {
-        val findMenteeByEmail = menteeRepository.findByEmail(menteeEmail)
+        var result = false
 
-        if (findMenteeByEmail != null) {
-            throw IllegalArgumentException("등록하고자 하는 멘티 email: $menteeEmail 이 이미 존재 함.")
+        val findByEmail = menteeRepository.findByEmail(menteeEmail)
+        if (findByEmail != null){
+            result = true
         }
-        return false
+
+        return result
     }
 
 
