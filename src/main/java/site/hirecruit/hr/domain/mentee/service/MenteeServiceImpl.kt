@@ -14,7 +14,7 @@ class MenteeServiceImpl(
     /**
      * 멘티로 등록하는 비즈니스 로직
      */
-    override fun registerMentee(menteeInfo: MenteeDto.MenteeRegistFormatDto) {
+    override fun registerMentee(menteeInfo: MenteeDto.MenteeRegistryFormatDto) {
         menteeRepository.save(menteeInfo.toEntity())
     }
 }

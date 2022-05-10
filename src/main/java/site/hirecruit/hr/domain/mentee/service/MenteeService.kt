@@ -5,5 +5,5 @@ import site.hirecruit.hr.domain.mentee.dto.MenteeDto
 
 @Service
 interface MenteeService {
-    fun registerMentee(menteeInfo: MenteeDto.MenteeRegistFormatDto)
+    fun registerMentee(menteeInfo: MenteeDto.MenteeRegistryFormatDto)
 }

@@ -9,7 +9,7 @@ class MenteeDto {
      * 멘티를 등록할 때 사용하는 Dto
      * @author 전지환
      */
-    class MenteeRegistFormatDto(
+    class MenteeRegistryFormatDto(
         private val name: String,
         private val email: String,
     ){

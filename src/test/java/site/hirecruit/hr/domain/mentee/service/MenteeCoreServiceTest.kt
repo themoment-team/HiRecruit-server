@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import site.hirecruit.hr.domain.mentee.dto.MenteeDto
 import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
 import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
 
@@ -29,7 +30,17 @@ class MenteeCoreServiceTest(
     }
 
     @Test
-    fun 멘티가_멘토에게_상담_신청을_한다(){
+    fun 멘티가_멘토에게_상담_신청을_한다(
+        @Autowired menteeService: MenteeService
+    ){
+
+        // Given
+        val menteeInfo = MenteeDto.MenteeRegistryFormatDto("jyeonjyan", "s20062@gsm.hs.kr")
+
+        // When
+        menteeService.registerMentee(menteeInfo)
+
+        // Then
 
     }
 }
