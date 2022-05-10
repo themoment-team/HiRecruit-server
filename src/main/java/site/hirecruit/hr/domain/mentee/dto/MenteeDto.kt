@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.mentee.dto
 
 import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
+import site.hirecruit.hr.global.annotation.Dto
 import site.hirecruit.hr.global.util.uuidGenerator
 
 class MenteeDto {
@@ -36,6 +37,7 @@ class MenteeDto {
      * 멘티의 정보를 반환하는 Dto
      * @author 전지환
      */
+    @Dto
     class MenteeInfoResponseDto(
         val menteeId: Long,
         val menteeUUID: String,
