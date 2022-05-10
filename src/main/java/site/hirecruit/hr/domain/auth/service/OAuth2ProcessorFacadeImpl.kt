@@ -20,7 +20,7 @@ class OAuth2ProcessorFacadeImpl(
 
     override fun process(oauthAttributes: OAuthAttributes): User {
         // 첫 사용자라면 계정을 등록한다.
-        if(workerRepository.existsByGithubId(oauthAttributes.id))
+        if(workerRepository.existsByGithubId(oauthAttributes.id).not())
             userRegistrationService.registration(oauthAttributes)
 
         return userAuthService.authentication(oauthAttributes)
