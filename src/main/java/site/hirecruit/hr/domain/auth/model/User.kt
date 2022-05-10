@@ -16,15 +16,13 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
  */
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-open class User(workerEntity: WorkerEntity) {
-
-    val userId: Long = workerEntity.workerId!!
-
-    val name: String = workerEntity.name
-
-    val email: String = workerEntity.email
-
-    val profileUri: String = workerEntity.profileUri
-
-    val role: WorkerEntity.Role = workerEntity.role
+open class User(
+    val userId: Long,
+    val name: String,
+    val email: String,
+    val profileUri: String,
+    val role: WorkerEntity.Role
+) {
+    constructor(workerEntity: WorkerEntity) :
+            this(workerEntity.workerId!!, workerEntity.name, workerEntity.email, workerEntity.profileUri, workerEntity.role)
 }
