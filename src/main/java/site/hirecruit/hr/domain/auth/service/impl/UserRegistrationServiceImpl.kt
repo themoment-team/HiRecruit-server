@@ -1,7 +1,8 @@
-package site.hirecruit.hr.domain.auth.service
+package site.hirecruit.hr.domain.auth.service.impl
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
+import site.hirecruit.hr.domain.auth.service.UserRegistrationService
 
 /**
  * @author 정시원

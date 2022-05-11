@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.test.context.ActiveProfiles
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.model.User
+import site.hirecruit.hr.domain.auth.service.impl.OAuth2ProcessorFacadeImpl
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 import kotlin.random.Random
