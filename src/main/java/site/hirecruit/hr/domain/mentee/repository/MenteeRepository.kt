@@ -7,4 +7,5 @@ import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
 @Repository
 interface MenteeRepository : JpaRepository<MenteeEntity, Long>{
     fun findByEmail(email: String) : MenteeEntity?
+    fun findByMenteeUUID(uuid: String) : MenteeEntity?
 }
