@@ -51,7 +51,7 @@ open class MenteeServiceImpl(
      */
     @Transactional(readOnly = true)
     open fun isMenteeEmailAlreadyRegistered(menteeEmail: String) : Boolean {
-        return menteeRepository.existsByEmail(menteeEmail) ?: false
+        return menteeRepository.existsByEmail(menteeEmail)
     }
 
 
