@@ -1,17 +1,20 @@
 package site.hirecruit.hr.global.util
 
+import mu.KotlinLogging
 import java.util.*
 
-fun uuidGenerator(email: String): String {
+private val log = KotlinLogging.logger {}
+
+fun generateUUID(email: String): String {
     val charset = Charsets.UTF_8
     val byteArray = email.toByteArray(charset)
     val uuid = UUID.nameUUIDFromBytes(byteArray)
 
     fun getUUIDInfoDetails() {
-        println("payloadData = $email")
-        println("charset = $charset")
-        println("byteArray = ${byteArray.contentToString()}")
-        println("uuid = $uuid")
+        log.info { "payloadData = $email" }
+        log.info { "charset = $charset" }
+        log.info { "byteArray = ${byteArray.contentToString()}" }
+        log.info { "uuid = $uuid" }
     }
 
     return uuid.toString()

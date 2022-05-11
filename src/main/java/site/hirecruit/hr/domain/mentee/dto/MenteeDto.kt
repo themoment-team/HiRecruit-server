@@ -2,7 +2,7 @@ package site.hirecruit.hr.domain.mentee.dto
 
 import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
 import site.hirecruit.hr.global.annotation.Dto
-import site.hirecruit.hr.global.util.uuidGenerator
+import site.hirecruit.hr.global.util.generateUUID
 
 class MenteeDto {
 
@@ -19,12 +19,12 @@ class MenteeDto {
          * MenteeEntity를 생성하는 팩토리 메소드
          * 확장 함수를 이용해 UUID를 만들어주는 역할과 책임은 다른 메소드로 분리 시킴.
          *
-         * @see uuidGenerator
+         * @see generateUUID
          */
         fun toEntity(): MenteeEntity {
             return MenteeEntity(
                 menteeId = null,
-                menteeUUID = uuidGenerator(email),
+                menteeUUID = generateUUID(email),
                 name = this.name,
                 email = this.email,
                 emailCertified = false
