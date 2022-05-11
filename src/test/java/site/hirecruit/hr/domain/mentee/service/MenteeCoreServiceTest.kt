@@ -6,6 +6,7 @@ import org.hibernate.validator.internal.util.Contracts.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import site.hirecruit.hr.domain.mentee.dto.MenteeDto
@@ -53,6 +54,18 @@ class MenteeCoreServiceTest(
     }
 
     @Test
+    fun 멘티_이메일이_이미_등록_되어_있다면_exception을_던진다(
+        @Autowired menteeService: MenteeService
+    ){
+
+        assertThrows<IllegalArgumentException> {
+            setUpMentee?.email?.let {
+                menteeService.registerMentee(MenteeDto.MenteeRegistryFormatDto(RandomString.make(5), it))
+            }
+        }
+    }
+
+   @Test
     fun menteeUUID로_조회하면_해당하는_mentee_정보가_반환된다(
         @Autowired menteeService: MenteeService
     ){
@@ -62,6 +75,13 @@ class MenteeCoreServiceTest(
         // then
         assertNotNull(findMentee)
         assertThat(findMentee?.menteeId).isEqualTo(setUpMentee?.menteeId)
+    }
+
+    @Test
+    fun 존재하지_않은_menteeUUID를_인자로_넘기면_exception을_발생시킨다(
+        @Autowired menteeService: MenteeService
+    ){
+        assertThrows<IllegalArgumentException> { menteeService.findMenteeByUUID("asdf") }
     }
 
 }
