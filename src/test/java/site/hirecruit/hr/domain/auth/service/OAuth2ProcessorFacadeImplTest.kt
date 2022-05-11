@@ -8,8 +8,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.ActiveProfiles
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.model.User
-import site.hirecruit.hr.domain.worker.entity.WorkerEntity
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.auth.service.impl.OAuth2ProcessorFacadeImpl
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 import kotlin.random.Random
 
@@ -40,24 +42,24 @@ internal class OAuth2ProcessorFacadeImplTest{
 
         // Given
         val oAuth2Attribute : OAuthAttributes = makeOAuth2Attribute()
-        val workerRepository : WorkerRepository = mockk()
+        val userRepository : UserRepository = mockk()
         val userRegistrationService : UserRegistrationService = mockk()
         val userAuthService : UserAuthService = mockk()
 
         val oAuth2ProcessorFacadeImpl =
-            OAuth2ProcessorFacadeImpl(workerRepository, userRegistrationService, userAuthService)
+            OAuth2ProcessorFacadeImpl(userRepository, userRegistrationService, userAuthService)
 
-        every { workerRepository.existsByGithubId(oAuth2Attribute.id) } answers { false }
+        every { userRepository.existsByGithubId(oAuth2Attribute.id) } answers { false }
         every { userRegistrationService.registration(oAuth2Attribute) } answers { Any() }
         every { userAuthService.authentication(oAuth2Attribute) } answers {
-            User(oAuth2Attribute.id, oAuth2Attribute.name, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, WorkerEntity.Role.GUEST)
+            AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.name, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
         }
 
         // when
         oAuth2ProcessorFacadeImpl.process(oAuth2Attribute)
 
         // then
-        verify(exactly = 1) { workerRepository.existsByGithubId(oAuth2Attribute.id) }
+        verify(exactly = 1) { userRepository.existsByGithubId(oAuth2Attribute.id) }
         verify(exactly = 1) { userRegistrationService.registration(oAuth2Attribute) }
         verify(exactly = 1) { userAuthService.authentication(oAuth2Attribute) }
     }

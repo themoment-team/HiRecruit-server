@@ -1,8 +1,9 @@
-package site.hirecruit.hr.domain.auth.service
+package site.hirecruit.hr.domain.auth.service.impl
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.model.User
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.service.UserAuthService
 
 /**
  * 세션기반 인증을 진행하는 서비스
@@ -12,7 +13,7 @@ import site.hirecruit.hr.domain.auth.model.User
  */
 @Service
 class UserAuthServiceImpl : UserAuthService {
-    override fun authentication(oAuthAttributes: OAuthAttributes): User {
+    override fun authentication(oAuthAttributes: OAuthAttributes): AuthUserInfo {
         TODO("User authentication logic not implemented.")
     }
 }

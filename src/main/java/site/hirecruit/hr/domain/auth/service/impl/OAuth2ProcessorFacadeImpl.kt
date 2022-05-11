@@ -1,9 +1,12 @@
-package site.hirecruit.hr.domain.auth.service
+package site.hirecruit.hr.domain.auth.service.impl
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.model.User
-import site.hirecruit.hr.domain.worker.repository.WorkerRepository
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.auth.service.OAuthProcessorFacade
+import site.hirecruit.hr.domain.auth.service.UserAuthService
+import site.hirecruit.hr.domain.auth.service.UserRegistrationService
 
 /**
  * OAuth2 인증에 관련된 로직을 실행하는 퍼사드 패턴의 구현체입니다.
@@ -13,14 +16,14 @@ import site.hirecruit.hr.domain.worker.repository.WorkerRepository
  */
 @Service
 class OAuth2ProcessorFacadeImpl(
-    private val workerRepository: WorkerRepository,
+    private val userRepository: UserRepository,
     private val userRegistrationService: UserRegistrationService,
     private val userAuthService: UserAuthService
 ) : OAuthProcessorFacade {
 
-    override fun process(oauthAttributes: OAuthAttributes): User {
+    override fun process(oauthAttributes: OAuthAttributes): AuthUserInfo {
         // 첫 사용자라면 계정을 등록한다.
-        if(workerRepository.existsByGithubId(oauthAttributes.id).not())
+        if(userRepository.existsByGithubId(oauthAttributes.id).not())
             userRegistrationService.registration(oauthAttributes)
 
         return userAuthService.authentication(oauthAttributes)

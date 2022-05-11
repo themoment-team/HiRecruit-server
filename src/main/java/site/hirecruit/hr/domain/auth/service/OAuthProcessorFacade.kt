@@ -1,7 +1,7 @@
 package site.hirecruit.hr.domain.auth.service
 
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.model.User
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 
 /**
  * OAuth 인증에 관련된 로직을 실행하는 퍼사드 패턴입니다.
@@ -18,5 +18,5 @@ interface OAuthProcessorFacade {
      * @param [User] 인증에 성공한 User 객체입니다.
      * @throws OAuth2AuthenticationException 인증에 실패할 경우 발생합니다.
      */
-    fun process(oauthAttributes : OAuthAttributes) : User
+    fun process(oauthAttributes : OAuthAttributes) : AuthUserInfo
 }
