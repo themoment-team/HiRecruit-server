@@ -8,7 +8,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.ActiveProfiles
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.model.User
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.service.impl.OAuth2ProcessorFacadeImpl
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
@@ -51,7 +52,7 @@ internal class OAuth2ProcessorFacadeImplTest{
         every { workerRepository.existsByGithubId(oAuth2Attribute.id) } answers { false }
         every { userRegistrationService.registration(oAuth2Attribute) } answers { Any() }
         every { userAuthService.authentication(oAuth2Attribute) } answers {
-            User(oAuth2Attribute.id, oAuth2Attribute.name, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, WorkerEntity.Role.GUEST)
+            AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.name, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
         }
 
         // when
