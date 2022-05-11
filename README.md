@@ -9,7 +9,7 @@ themoment-team will provide high-quality recruitment data to the business center
 
 ## Application Settings
 
-This application is developed based on kotlin.  
+This application is developed based on **kotlin**.  
 
 Details here
 ```markdown
@@ -31,3 +31,7 @@ spring-mockk 3+
 restdocs-mockmvc
 
 ```
+
+## Licence
+
+Our project is operated under [this license](LICENSE).
