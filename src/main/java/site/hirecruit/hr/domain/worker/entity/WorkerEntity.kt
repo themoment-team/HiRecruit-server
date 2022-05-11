@@ -1,5 +1,8 @@
 package site.hirecruit.hr.domain.worker.entity
 
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
+import site.hirecruit.hr.domain.auth.entity.UserEntity
 import javax.persistence.*
 
 @Entity @Table(name = "worker")
@@ -18,6 +21,10 @@ class WorkerEntity(
 
     @Column(name = "introduction", nullable = true)
     val introduction: String? = null,
+
+    @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    val user: UserEntity
 ) {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
