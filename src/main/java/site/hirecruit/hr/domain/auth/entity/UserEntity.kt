@@ -19,7 +19,7 @@ class UserEntity(
     @Column(name = "profile_uri", nullable = false)
     val profileUri: String,
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false) @Enumerated(EnumType.STRING)
     val role: Role
 ) {
 
