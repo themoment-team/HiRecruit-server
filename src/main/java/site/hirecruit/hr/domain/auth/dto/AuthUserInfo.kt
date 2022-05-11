@@ -15,10 +15,9 @@ import site.hirecruit.hr.global.annotation.Dto
  * @author 정시원
  * @version 1.0
  */
-@Dto
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-class AuthUserInfo(
+open class AuthUserInfo(
     val userId: Long,
     val name: String,
     val email: String,
