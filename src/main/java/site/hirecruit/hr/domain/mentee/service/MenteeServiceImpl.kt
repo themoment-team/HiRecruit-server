@@ -2,6 +2,7 @@ package site.hirecruit.hr.domain.mentee.service
 
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.mentee.dto.MenteeDto
 import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
 
@@ -10,7 +11,7 @@ import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
  * @since 1.0.0
  */
 @Service
-class MenteeServiceImpl(
+open class MenteeServiceImpl(
     private val menteeRepository: MenteeRepository,
     private val modelMapper: ModelMapper
 ) : MenteeService {
@@ -34,6 +35,7 @@ class MenteeServiceImpl(
     /**
      * menteeUUID를 통해 멘티를 조회하는 비즈니스 로직
      */
+    @Transactional(readOnly = true)
     override fun findMenteeByUUID(menteeUUID: String): MenteeDto.MenteeInfoResponseDto {
         val mentee = menteeRepository.findByMenteeUUID(menteeUUID)
             ?: throw IllegalArgumentException("대상 [menteeUUID: $menteeUUID] 에 해당하는 멘티를 찾을 수 없음")
@@ -47,7 +49,8 @@ class MenteeServiceImpl(
      * @throws IllegalArgumentException 멘티가 이미 등록 돼 있을 때.
      * @return false - Mentee가 등록되지 않았다면
      */
-    private fun isMenteeEmailAlreadyRegistered(menteeEmail: String) : Boolean {
+    @Transactional(readOnly = true)
+    open fun isMenteeEmailAlreadyRegistered(menteeEmail: String) : Boolean {
         var result = false
 
         val findByEmail = menteeRepository.findByEmail(menteeEmail)
