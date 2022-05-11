@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.model
+package site.hirecruit.hr.domain.auth.dto
 
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
@@ -16,7 +16,7 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
  */
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-open class User(
+open class UserAuthInfo(
     val userId: Long,
     val name: String,
     val email: String,
