@@ -6,16 +6,15 @@ import io.mockk.verify
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.springframework.test.context.ActiveProfiles
-import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.impl.OAuth2ProcessorFacadeImpl
-import site.hirecruit.hr.domain.worker.repository.WorkerRepository
+import site.hirecruit.hr.domain.test_util.LocalTest
 import kotlin.random.Random
 
-@ActiveProfiles("local")
+@LocalTest
 internal class OAuth2ProcessorFacadeImplTest{
 
     private fun makeOAuth2Attribute() : OAuthAttributes{
