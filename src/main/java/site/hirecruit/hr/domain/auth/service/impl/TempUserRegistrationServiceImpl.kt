@@ -7,7 +7,7 @@ import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.service.TempUserRegistrationService
 
 /**
- * 임시 유저를 생성하는 service입니다. 임시 유저가 존재하면 존재하는 유저를 return합니다.
+ * 임시 유저를 생성하는 service입니다.
  *
  * @author 정시원
  * @version 1.0
