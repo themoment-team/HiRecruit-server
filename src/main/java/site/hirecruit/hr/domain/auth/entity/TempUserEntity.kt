@@ -4,7 +4,13 @@ import org.springframework.data.redis.core.RedisHash
 import javax.persistence.Column
 import javax.persistence.Id
 
-@RedisHash(value = "temp_user", timeToLive = 60 * 60) // 1시간의 유효기간을 갖는다.
+/**
+ * 임시 유저를 저장하는 Entity
+ * Redis namespace는 temp_user를 사용하고 1시간의 유효기간을 갖습니다.
+ *
+ * @author 정시원
+ */
+@RedisHash(value = "temp_user", timeToLive = 60 * 60)
 class TempUserEntity(
     @Id
     @Column(name = "github_id")
