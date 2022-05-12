@@ -24,4 +24,16 @@ class TempUserEntity(
 
     @javax.persistence.Transient
     val role = Role.GUEST // 임시 유저의 권한은 GUEST이다.
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is TempUserEntity) return false
+
+        if (githubId != other.githubId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return githubId.hashCode()
+    }
 }
