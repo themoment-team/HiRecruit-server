@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.mentoringDetails.entity
+package site.hirecruit.hr.domain.mentoringRequestDetails.entity
 
 import site.hirecruit.hr.domain.mentoringApplication.entity.MentoringApplication
 import javax.persistence.Column
@@ -8,8 +8,9 @@ import javax.persistence.JoinColumn
 import javax.persistence.MapsId
 import javax.persistence.OneToOne
 
-@Entity(name = "mentoring_details")
-class MentoringDetailsEntity(
+@Entity(name = "mentoring_request_details")
+class MentoringRequestDetailsEntity(
+
     @Id
     val mentoringId: Long? = null,
 
@@ -23,4 +24,5 @@ class MentoringDetailsEntity(
 
     @Column(name = "content")
     val content: String
+
 )
