@@ -18,10 +18,9 @@ import site.hirecruit.hr.global.annotation.Dto
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 open class AuthUserInfo(
-    val userId: Long,
+    val githubId: Long,
     val name: String,
-    val email: String,
+    val email: String?,
     val profileUri: String,
     val role: Role
-) {
-}
+)
