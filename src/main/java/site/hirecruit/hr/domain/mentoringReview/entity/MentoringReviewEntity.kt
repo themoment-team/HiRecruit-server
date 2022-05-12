@@ -3,6 +3,12 @@ package site.hirecruit.hr.domain.mentoringReview.entity
 import site.hirecruit.hr.domain.mentoringApplication.entity.MentoringApplication
 import javax.persistence.*
 
+/**
+ * 멘토링 리뷰 엔티티
+ *
+ * @author 전지환
+ * @since 1.0.0
+ */
 @Entity(name = "mentoring_review")
 class MentoringReviewEntity(
 
