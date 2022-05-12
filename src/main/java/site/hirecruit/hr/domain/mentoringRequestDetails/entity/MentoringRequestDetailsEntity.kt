@@ -18,11 +18,11 @@ import javax.persistence.OneToOne
 class MentoringRequestDetailsEntity(
 
     @Id
-    val mentoringId: Long? = null,
+    val mentoringApplicationId: Long? = null,
 
     @MapsId
     @OneToOne
-    @JoinColumn(name = "mentoring_id")
+    @JoinColumn(name = "mentoring_application_id")
     val mentoringApplication: MentoringApplication,
 
     @Column(name = "title")
@@ -33,6 +33,6 @@ class MentoringRequestDetailsEntity(
 
 ){
     override fun toString(): String {
-        return "MentoringRequestDetailsEntity(mentoringId=$mentoringId, mentoringApplication=$mentoringApplication, title='$title', content='$content')"
+        return "MentoringRequestDetailsEntity(mentoringApplicationId=$mentoringApplicationId, mentoringApplication=$mentoringApplication, title='$title', content='$content')"
     }
 }

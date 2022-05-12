@@ -16,8 +16,8 @@ class MentoringApplication(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "mentoring_id")
-    val mentoringId: Long? = null,
+    @Column(name = "mentoring_application_id")
+    val mentoringApplicationId: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     val menteeEntity: MenteeEntity,
@@ -31,6 +31,6 @@ class MentoringApplication(
 
 ) {
     override fun toString(): String {
-        return "MentoringApplication(mentoringId=$mentoringId, menteeEntity=$menteeEntity, workerEntity=$workerEntity, mentoringStatus=$mentoringStatus)"
+        return "MentoringApplication(mentoringId=$mentoringApplicationId, menteeEntity=$menteeEntity, workerEntity=$workerEntity, mentoringStatus=$mentoringStatus)"
     }
 }
