@@ -42,14 +42,14 @@ internal class OAuth2ProcessorFacadeImplTest{
         // Given
         val oAuth2Attribute : OAuthAttributes = makeOAuth2Attribute()
         val userRepository : UserRepository = mockk()
-        val userRegistrationService : UserRegistrationService = mockk()
+        val tempUserRegistrationService : TempUserRegistrationService = mockk()
         val userAuthService : UserAuthService = mockk()
 
         val oAuth2ProcessorFacadeImpl =
-            OAuth2ProcessorFacadeImpl(userRepository, userRegistrationService, userAuthService)
+            OAuth2ProcessorFacadeImpl(userRepository, tempUserRegistrationService, userAuthService)
 
         every { userRepository.existsByGithubId(oAuth2Attribute.id) } answers { false }
-        every { userRegistrationService.registration(oAuth2Attribute) } answers { Any() }
+        every { tempUserRegistrationService.registration(oAuth2Attribute) } answers { Any() }
         every { userAuthService.authentication(oAuth2Attribute) } answers {
             AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.name, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
         }
@@ -59,7 +59,7 @@ internal class OAuth2ProcessorFacadeImplTest{
 
         // then
         verify(exactly = 1) { userRepository.existsByGithubId(oAuth2Attribute.id) }
-        verify(exactly = 1) { userRegistrationService.registration(oAuth2Attribute) }
+        verify(exactly = 1) { tempUserRegistrationService.registration(oAuth2Attribute) }
         verify(exactly = 1) { userAuthService.authentication(oAuth2Attribute) }
     }
 }
