@@ -8,6 +8,12 @@ import javax.persistence.JoinColumn
 import javax.persistence.MapsId
 import javax.persistence.OneToOne
 
+/**
+ * 멘토링 신청 디테일 엔티티
+ *
+ * @author 전지환
+ * @since 1.0.0
+ */
 @Entity(name = "mentoring_request_details")
 class MentoringRequestDetailsEntity(
 
@@ -25,4 +31,8 @@ class MentoringRequestDetailsEntity(
     @Column(name = "content")
     val content: String
 
-)
+){
+    override fun toString(): String {
+        return "MentoringRequestDetailsEntity(mentoringId=$mentoringId, mentoringApplication=$mentoringApplication, title='$title', content='$content')"
+    }
+}
