@@ -8,6 +8,7 @@ import javax.persistence.*
 class MentoringApplication(
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mentoring_id")
     val mentoringId: Long? = null,
 
