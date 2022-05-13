@@ -35,21 +35,21 @@ internal class OAuth2ProcessorFacadeImplTest{
     @DisplayName("만약 유저가 처음 OAuth2로그인을 한다면?")
     fun test_processor_만약_첫_사용자라면(){
         // 만약 유저가 처음으로 OAuth2 인증을 진행한다면
-        // 1. workerRepository.existsByGithubId(github_id)를 통해 처음 회원가입 하는 여부를 확인한다.
-        // 2. 첫 OAuth2로그인이라면 userRegistrationService.registration(oAuth2Attribute)를 실행한다.
+        // 1. userRepository.existsByGithubId(github_id)를 통해 처음 회원가입 하는 여부를 확인한다.
+        // 2. 첫 OAuth2로그인이라면 tempUserRegistrationService.registration(oAuth2Attribute)를 실행한다.
         // 3, 그 후 userAuthService.authentication(oAuth2Attribute)를 실행한다.
 
         // Given
         val oAuth2Attribute : OAuthAttributes = makeOAuth2Attribute()
         val userRepository : UserRepository = mockk()
-        val userRegistrationService : UserRegistrationService = mockk()
+        val tempUserRegistrationService : TempUserRegistrationService = mockk()
         val userAuthService : UserAuthService = mockk()
 
         val oAuth2ProcessorFacadeImpl =
-            OAuth2ProcessorFacadeImpl(userRepository, userRegistrationService, userAuthService)
+            OAuth2ProcessorFacadeImpl(userRepository, tempUserRegistrationService, userAuthService)
 
         every { userRepository.existsByGithubId(oAuth2Attribute.id) } answers { false }
-        every { userRegistrationService.registration(oAuth2Attribute) } answers { Any() }
+        every { tempUserRegistrationService.registration(oAuth2Attribute) } answers { Any() }
         every { userAuthService.authentication(oAuth2Attribute) } answers {
             AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.name, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
         }
@@ -59,7 +59,7 @@ internal class OAuth2ProcessorFacadeImplTest{
 
         // then
         verify(exactly = 1) { userRepository.existsByGithubId(oAuth2Attribute.id) }
-        verify(exactly = 1) { userRegistrationService.registration(oAuth2Attribute) }
+        verify(exactly = 1) { tempUserRegistrationService.registration(oAuth2Attribute) }
         verify(exactly = 1) { userAuthService.authentication(oAuth2Attribute) }
     }
 }
