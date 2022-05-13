@@ -17,12 +17,14 @@ class TempUserRegistrationServiceImpl(
     private val tempUserRepository: TempUserRepository
 ) : TempUserRegistrationService {
     override fun registration(oAuthAttributes: OAuthAttributes) {
+        if(tempUserRepository.existsById(oAuthAttributes.id))
+            return
+
         val tempUserEntity = TempUserEntity(
             githubId = oAuthAttributes.id,
             name = oAuthAttributes.name,
             profileUri = oAuthAttributes.profileImgUri
         )
-        if(tempUserRepository.existsById(oAuthAttributes.id).not())
-            tempUserRepository.save(tempUserEntity)
+        tempUserRepository.save(tempUserEntity)
     }
 }
