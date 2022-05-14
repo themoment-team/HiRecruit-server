@@ -7,7 +7,7 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
  * 유저의 인증을 담당하는 서비스
  *
  * @author 정시원
- * @version 1.0
+ * @since 1.0
  */
 interface UserAuthService {
 
