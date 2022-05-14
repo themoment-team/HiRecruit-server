@@ -3,21 +3,20 @@ package site.hirecruit.hr.domain.auth.service.impl
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import org.springframework.stereotype.Service
-import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.UserAuthService
 
 /**
- * 세션기반 인증을 진행하는 서비스
+ * OAuth2 client의 정보를 기반으로 인증하는 서비스
  *
  * @author 정시원
- * @version 1.0
+ * @since 1.0
  */
 @Service
-class UserAuthServiceImpl(
+open class UserAuthServiceImpl(
     private val userRepository: UserRepository,
     private val tempUserRepository: TempUserRepository
 ) : UserAuthService {
