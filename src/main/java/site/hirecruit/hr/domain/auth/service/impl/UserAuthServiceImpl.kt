@@ -23,17 +23,17 @@ open class UserAuthServiceImpl(
 
     override fun authentication(oAuthAttributes: OAuthAttributes): AuthUserInfo {
         return if (tempUserRepository.existsById(oAuthAttributes.id))
-            createAuthInfoWithTempUserEntity(oAuthAttributes)
+            createAuthUserInfoWithTempUserEntity(oAuthAttributes)
         else
-            createAuthInfoWithUserEntity(oAuthAttributes)
+            createAuthUserInfoWithUserEntity(oAuthAttributes)
     }
 
-    private fun createAuthInfoWithUserEntity(oAuthAttributes: OAuthAttributes): AuthUserInfo {
+    private fun createAuthUserInfoWithUserEntity(oAuthAttributes: OAuthAttributes): AuthUserInfo {
         return userRepository.findUserAndWorkerEmailByGithubId(oAuthAttributes.id)
             ?: throw OAuth2AuthenticationException("해당 oauth정보로 회원을 찾을 수 없습니다. [githubId = '${oAuthAttributes.id}']")
     }
 
-    private fun createAuthInfoWithTempUserEntity(oAuthAttributes: OAuthAttributes): AuthUserInfo{
+    private fun createAuthUserInfoWithTempUserEntity(oAuthAttributes: OAuthAttributes): AuthUserInfo{
         val tempUserEntity = tempUserRepository.findByIdOrNull(oAuthAttributes.id)
             ?: throw OAuth2AuthenticationException("임시 회원의 유효기간이 만료되었거나, 잘못된 회원 정보입니다.")
         return AuthUserInfo(
