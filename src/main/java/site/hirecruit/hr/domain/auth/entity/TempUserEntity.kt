@@ -19,7 +19,7 @@ class TempUserEntity(
     val name: String,
 
     @Column(name = "profile_uri")
-    val profileUri: String,
+    val profileImgUri: String,
 ) {
 
     @javax.persistence.Transient

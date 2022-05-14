@@ -4,12 +4,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import net.bytebuddy.utility.RandomString
-import org.assertj.core.api.BDDAssertions.then
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.Mock
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.entity.TempUserEntity
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
@@ -43,7 +39,7 @@ internal class TempUserRegistrationServiceImplTest(){
         val tempUserEntity = TempUserEntity(
             githubId = oAuth2Attribute.id,
             name = oAuth2Attribute.name,
-            profileUri = oAuth2Attribute.profileImgUri
+            profileImgUri = oAuth2Attribute.profileImgUri
         )
         every { tempUserRepository.existsById(oAuth2Attribute.id) } answers { false }
         every { tempUserRepository.save(tempUserEntity) } answers {tempUserEntity}
