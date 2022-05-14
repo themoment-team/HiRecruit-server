@@ -2,6 +2,12 @@ package site.hirecruit.hr.domain.auth.repository
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 
+/**
+ * UserEntity의 CustomRepository입니다.
+ *
+ * @author 정시원
+ * @since 1.0
+ */
 interface UserCustomRepository {
 
     /**
