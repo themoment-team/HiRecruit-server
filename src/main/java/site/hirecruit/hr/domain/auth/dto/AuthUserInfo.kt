@@ -23,4 +23,8 @@ open class AuthUserInfo(
     val email: String?,
     val profileUri: String,
     val role: Role
-)
+): java.io.Serializable {
+    override fun toString(): String {
+        return "AuthUserInfo(githubId=$githubId, name='$name', email=$email, profileUri='$profileUri', role=$role)"
+    }
+}
