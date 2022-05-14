@@ -41,7 +41,7 @@ open class UserAuthServiceImpl(
             name = tempUserEntity.name,
             email = null,
             role = tempUserEntity.role,
-            profileUri = tempUserEntity.profileImgUri
+            profileImgUri = tempUserEntity.profileImgUri
         )
     }
 }
