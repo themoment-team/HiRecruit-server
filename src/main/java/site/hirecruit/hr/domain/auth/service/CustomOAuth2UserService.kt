@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.model.User
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import java.util.*
 
 private val log = KotlinLogging.logger {}
@@ -51,7 +51,7 @@ class CustomOAuth2UserService(
             oAuth2User.attributes
         )
 
-        val loginUser : User = OAuthProcessorFacade.process(oAuthAttributes)
+        val loginUser : AuthUserInfo = OAuthProcessorFacade.process(oAuthAttributes)
 
         return DefaultOAuth2User(
             Collections.singleton(SimpleGrantedAuthority(loginUser.role.role)),

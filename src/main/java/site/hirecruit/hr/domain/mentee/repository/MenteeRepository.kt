@@ -6,6 +6,6 @@ import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
 
 @Repository
 interface MenteeRepository : JpaRepository<MenteeEntity, Long>{
-    fun existsByEmail(email: String) : Boolean?
+    fun existsByEmail(email: String) : Boolean
     fun findByMenteeUUID(uuid: String) : MenteeEntity?
 }

@@ -12,8 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import site.hirecruit.hr.domain.mentee.dto.MenteeDto
 import site.hirecruit.hr.domain.mentee.entity.MenteeEntity
 import site.hirecruit.hr.domain.mentee.repository.MenteeRepository
+import site.hirecruit.hr.domain.test_util.LocalTest
 
 @SpringBootTest
+@LocalTest
 class MenteeCoreServiceTest(
     @Autowired private var menteeRepository: MenteeRepository
 ) {
