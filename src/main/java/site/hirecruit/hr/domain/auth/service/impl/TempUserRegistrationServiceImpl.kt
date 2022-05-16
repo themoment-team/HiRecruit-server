@@ -23,7 +23,7 @@ class TempUserRegistrationServiceImpl(
         val tempUserEntity = TempUserEntity(
             githubId = oAuthAttributes.id,
             name = oAuthAttributes.name,
-            profileUri = oAuthAttributes.profileImgUri
+            profileImgUri = oAuthAttributes.profileImgUri
         )
         tempUserRepository.save(tempUserEntity)
     }
