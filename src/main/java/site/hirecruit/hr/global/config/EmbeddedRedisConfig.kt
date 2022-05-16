@@ -20,24 +20,25 @@ private val log = KotlinLogging.logger {}
 @Configuration
 @Profile("local")
 class EmbeddedRedisConfig(
-    @Value("\${spring.redis.port}") val redisPort: Int
+    @Value("\${spring.redis.port}") private val redisPort: Int
 ) {
     init {
         log.info("embedded redis will start port = '{}'", redisPort)
     }
 
-    lateinit var redisServer: RedisServer
+    private lateinit var redisServer: RedisServer
 
     @PostConstruct
-    fun redisServer() {
+    private fun redisServer() {
         redisServer = RedisServer(redisPort)
         redisServer.start()
         log.info("embedded redis started successfully")
     }
 
     @PreDestroy
-    fun stopRedis() {
+    private fun stopRedis() {
         redisServer.stop()
         log.info("embedded redis stopped successfully")
     }
+
 }
