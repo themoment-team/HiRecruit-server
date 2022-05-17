@@ -7,12 +7,6 @@ import javax.persistence.*
 
 @Entity @Table(name = "worker")
 class WorkerEntity(
-    @Column(name = "github_id", nullable = false)
-    val githubId: Long?,
-
-    @Column(name = "email", nullable = false)
-    val email: String,
-
     @Column(name = "company", nullable = false)
     val company: String,
 

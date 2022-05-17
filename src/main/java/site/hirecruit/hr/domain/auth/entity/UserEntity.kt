@@ -13,11 +13,14 @@ class UserEntity(
     @Column(name = "github_id", nullable = false)
     val githubId: Long,
 
+    @Column(name = "email", nullable = false)
+    val email: String,
+
     @Column(name = "name", nullable = false)
     val name: String,
 
     @Column(name = "profile_uri", nullable = false)
-    val profileUri: String,
+    val profileImgUri: String,
 
     @Column(name = "role", nullable = false) @Enumerated(EnumType.STRING)
     val role: Role
