@@ -2,8 +2,8 @@ package site.hirecruit.hr.domain.auth.repository
 
 import mu.KotlinLogging
 import net.bytebuddy.utility.RandomString
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertAll
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
