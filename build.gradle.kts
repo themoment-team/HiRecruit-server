@@ -18,6 +18,7 @@ allOpen {
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
     annotation("org.springframework.context.annotation.Configuration")
+    annotation("org.springframework.stereotype.Repository")
 }
 
 noArg {
@@ -61,6 +62,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+    testImplementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
 
 
