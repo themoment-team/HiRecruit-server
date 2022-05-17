@@ -1,5 +1,6 @@
 package site.hirecruit.hr.domain.auth.dto
 
+import com.querydsl.core.annotations.QueryProjection
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.stereotype.Component
@@ -16,7 +17,7 @@ import site.hirecruit.hr.domain.auth.entity.Role
  */
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-open class AuthUserInfo(
+open class AuthUserInfo @QueryProjection constructor(
     val githubId: Long,
     val name: String,
     val email: String?,
