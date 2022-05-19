@@ -9,6 +9,7 @@ import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
+import site.hirecruit.hr.global.data.SessionAttribute
 import javax.servlet.http.HttpSession
 
 /**
@@ -32,7 +33,7 @@ class CurrentAuthUserInfoResolver(
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any {
-        return httpSession.getAttribute("authUserInfo")
+        return httpSession.getAttribute(SessionAttribute.AUTH_USER_INFO.attributeName)
             ?: throw HttpClientErrorException(HttpStatus.UNAUTHORIZED)
     }
 
