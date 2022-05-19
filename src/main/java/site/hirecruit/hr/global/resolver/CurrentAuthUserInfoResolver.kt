@@ -8,7 +8,7 @@ import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
-import site.hirecruit.hr.domain.auth.annotation.CurrentAuthUserInfo
+import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import javax.servlet.http.HttpSession
 
 /**
