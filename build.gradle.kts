@@ -89,11 +89,13 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+
+    finalizedBy("testCoverage")
 }
 
 jacoco {
     // JaCoCo 버전
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.8"
 }
 
 /**
@@ -127,7 +129,7 @@ tasks.jacocoTestCoverageVerification {
 
         rule {
             // 룰을 간단히 켜고 끌 수 있다.
-            enabled = true
+            enabled = false
 
             // 룰을 체크할 단위는 클래스 단위
             element = "CLASS"
