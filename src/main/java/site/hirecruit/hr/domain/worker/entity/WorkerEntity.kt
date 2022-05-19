@@ -16,6 +16,9 @@ class WorkerEntity(
     @Column(name = "introduction", nullable = true)
     var introduction: String? = null,
 
+    @Column(name = "dev_year", nullable = true)
+    var giveLink: String? = null,
+
     devYear: Int? = null,
 
     @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id")
