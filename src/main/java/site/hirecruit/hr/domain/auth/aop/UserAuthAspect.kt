@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
 import org.springframework.stereotype.Component
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.global.data.SessionAttribute
 import javax.servlet.http.HttpSession
 
 val log = KotlinLogging.logger {}
@@ -34,8 +35,8 @@ private open class UserAuthAspect (
     )
     private fun setSessionByAuthUserInfo(authUserInfo: AuthUserInfo): Any{
         log.debug("UserAuthAspect.setSessionByAuthUserInfo active")
-        httpSession.setAttribute("authUserInfo", authUserInfo)
-        log.debug("session id='${httpSession.id}', authUserInfo='${httpSession.getAttribute("authUserInfo")}'")
+        httpSession.setAttribute(SessionAttribute.AUTH_USER_INFO.attributeName, authUserInfo)
+        log.debug("session id='${httpSession.id}', authUserInfo='${httpSession.getAttribute(SessionAttribute.AUTH_USER_INFO.attributeName)}'")
         return authUserInfo
     }
 
