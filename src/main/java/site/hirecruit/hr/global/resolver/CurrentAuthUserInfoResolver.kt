@@ -12,6 +12,8 @@ import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import javax.servlet.http.HttpSession
 
 /**
+ * [CurrentAuthUserInfo] annotation을 통해 controller에서 Session정보를 가져오는 [HandlerMethodArgumentResolver]
+ *
  * @author 정시원
  * @since 1.0
  */
@@ -29,7 +31,7 @@ class CurrentAuthUserInfoResolver(
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
-    ): Any? {
+    ): Any {
         return httpSession.getAttribute("authUserInfo")
             ?: throw HttpClientErrorException(HttpStatus.UNAUTHORIZED)
     }
