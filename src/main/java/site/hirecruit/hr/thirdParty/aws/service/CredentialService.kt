@@ -8,7 +8,7 @@ import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.sns.SnsClient
 
 @Service
-class CredentialService(val awsSnsConfig: AwsSnsConfig) {
+class CredentialService(private val awsSnsConfig: AwsSnsConfig) {
 
     fun getAwsCredentials(accessKey: String, secretKey: String): AwsCredentialsProvider {
         return AwsCredentialsProvider {
