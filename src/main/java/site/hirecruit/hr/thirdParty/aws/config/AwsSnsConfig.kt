@@ -3,6 +3,7 @@ package site.hirecruit.hr.thirdParty.aws.config
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.PropertySource
+import site.hirecruit.hr.domain.auth.aop.log
 import javax.annotation.PostConstruct
 
 @Configuration
@@ -22,8 +23,14 @@ class AwsSnsConfig(
     val awsRegion: String
 
 ) {
+
     @PostConstruct
-    fun init(){
-        println("snsTopicARN = $snsTopicARN awsAccessKey: $awsAccessKey")
+    fun init() {
+        log.debug { "AwsSnsConfig(" +
+                "snsTopicARN='$snsTopicARN', " +
+                "awsAccessKey='$awsAccessKey', " +
+                "awsSecretKey='$awsSecretKey', " +
+                "awsRegion='$awsRegion'" +
+                ")" }
     }
 }
