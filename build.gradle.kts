@@ -65,6 +65,12 @@ dependencies {
     testImplementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
 
+    /** for aws sdks **/
+    // aws-java-sdk-core
+    implementation("com.amazonaws:aws-java-sdk-core:1.12.223")
+    // software.amazon.awssdk/sns
+    implementation("software.amazon.awssdk:sns:2.17.193")
+
 
     /** for test **/
     testImplementation("org.springframework.boot:spring-boot-starter-test")

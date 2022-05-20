@@ -38,3 +38,4 @@ out/
 
 ### Github OAuth property ###
 **/resources/oauth
+**/resources/aws
