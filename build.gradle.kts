@@ -66,9 +66,10 @@ dependencies {
     implementation("io.springfox:springfox-boot-starter:3.0.0")
 
     /** for aws sdks **/
-    implementation(platform("software.amazon.awssdk:bom:2.15.0"))
+    // aws-java-sdk-core
+    implementation("com.amazonaws:aws-java-sdk-core:1.12.223")
     // software.amazon.awssdk/sns
-    testImplementation("software.amazon.awssdk:sns:2.17.193")
+    implementation("software.amazon.awssdk:sns:2.17.193")
 
 
     /** for test **/
