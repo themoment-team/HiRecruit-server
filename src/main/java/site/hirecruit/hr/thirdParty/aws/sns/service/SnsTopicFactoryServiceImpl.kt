@@ -1,8 +1,8 @@
 package site.hirecruit.hr.thirdParty.aws.sns.service
 
 import org.springframework.stereotype.Service
+import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsTopicSubSystemFacade
-import software.amazon.awssdk.services.sns.SnsClient
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
 
 /**
@@ -12,7 +12,10 @@ import software.amazon.awssdk.services.sns.model.CreateTopicRequest
  * @since 1.0.0
  */
 @Service
-class SnsTopicFactoryServiceImpl(val snsTopicSubSystemFacade: SnsTopicSubSystemFacade) : SnsTopicFactoryService{
+class SnsTopicFactoryServiceImpl(
+    private val credentialService: CredentialService,
+    private val snsTopicSubSystemFacade: SnsTopicSubSystemFacade
+) : SnsTopicFactoryService{
 
     /**
      * aws sns topic을 생성해주는 서비스
@@ -25,7 +28,7 @@ class SnsTopicFactoryServiceImpl(val snsTopicSubSystemFacade: SnsTopicSubSystemF
         val topicRequest = snsTopicSubSystemFacade.createTopicRequest(topicName)
 
         // topic 생성
-        val createTopic = SnsClient.create().createTopic(topicRequest)
+        val createTopic = credentialService.getSnsClient().createTopic(topicRequest)
 
         // topic이 성공적으로 생성됐는지 assertion
         snsTopicSubSystemFacade.sdkHealthChecker(createTopic)

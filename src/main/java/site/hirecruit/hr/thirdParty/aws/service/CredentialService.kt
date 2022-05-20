@@ -26,7 +26,7 @@ class CredentialService(private val awsSnsConfig: AwsSnsConfig) {
         return SnsClient.builder()
             .credentialsProvider(
                 getAwsCredentials(awsSnsConfig.awsAccessKey, awsSnsConfig.awsSecretKey)
-            ).region(Region.of(awsSnsConfig.awsRegion))
+            ).region(Region.AP_NORTHEAST_2)
             .build()
     }
 }
