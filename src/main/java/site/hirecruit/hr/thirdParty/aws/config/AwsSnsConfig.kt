@@ -6,6 +6,12 @@ import org.springframework.context.annotation.PropertySource
 import site.hirecruit.hr.domain.auth.aop.log
 import javax.annotation.PostConstruct
 
+/**
+ * 인스턴스 생성 시점에 aws env 설정이 대입되어 초기화 된다.
+ *
+ * @since 1.0.0
+ * @author 전지환
+ */
 @Configuration
 @PropertySource("classpath:/aws/aws-sns-config.properties")
 class AwsSnsConfig(

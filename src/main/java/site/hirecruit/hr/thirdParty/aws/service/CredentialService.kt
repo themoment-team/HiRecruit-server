@@ -7,6 +7,12 @@ import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.sns.SnsClient
 
+/**
+ * aws sns IAM 의 accessKey, secretKey를 Provider에 제공함으로써 서비스 접근 권한을 얻는다.
+ *
+ * @since 1.0.0
+ * @author 전지환
+ */
 @Service
 class CredentialService(private val awsSnsConfig: AwsSnsConfig) {
 
