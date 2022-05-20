@@ -13,7 +13,7 @@ class SnsTopicSubSystemFacade {
      *
      * @since 1.0.0
      */
-    fun createTopicRequest(topicName: String): CreateTopicRequest? {
+    fun createTopicRequest(topicName: String): CreateTopicRequest {
 
         return CreateTopicRequest.builder()
             .name(topicName)
