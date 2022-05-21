@@ -4,7 +4,7 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
 
 /**
- * 회원가입을 진행합니다.
+ * 유저생성 서비스
  *
  * @author 정시원
  * @version 1.0
@@ -12,7 +12,9 @@ import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
 interface UserRegistrationService {
 
     /**
-     * 임시 유저에 추가 정보를 입력하여 회원가입을 완료합니다.
+     * 유저를 생성합니다.
+     *
+     * @return [AuthUserInfo] - 임시 유저의 정보
      */
-    fun registration(authUserInfo: AuthUserInfo, userRegistrationInfo: UserRegistrationDto)
+    fun registration(authUserInfo: AuthUserInfo, userRegistrationInfo: UserRegistrationDto): AuthUserInfo
 }
