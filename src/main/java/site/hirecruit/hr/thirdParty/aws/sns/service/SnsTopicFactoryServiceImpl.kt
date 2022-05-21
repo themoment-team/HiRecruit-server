@@ -20,18 +20,17 @@ class SnsTopicFactoryServiceImpl(
     /**
      * aws sns topic을 생성해주는 서비스
      *
-     * @see CreateTopicRequest.name - Constraints
+     * @see CreateTopicRequest.name - Constraints: topicName must be ASCII 0 ~ 256
+     * @see SnsTopicSubSystemFacade.servingTopicRequestToSnsClient - aws-api가 직접적으로 로직을 처리 함
      */
     override fun createTopic(topicName: String) {
 
         // topicRequest 생성
         val topicRequest = snsTopicSubSystemFacade.createTopicRequest(topicName)
 
-        // topic 생성
-        val createTopic = credentialService.getSnsClient().createTopic(topicRequest)
+        // topicRequest를 aws-sns-api가 처리하도록 serving 함.
+        snsTopicSubSystemFacade.servingTopicRequestToSnsClient(topicRequest, credentialService.getSnsClient())
 
-        // topic이 성공적으로 생성됐는지 assertion
-        snsTopicSubSystemFacade.sdkHealthChecker(createTopic)
     }
 
 }
