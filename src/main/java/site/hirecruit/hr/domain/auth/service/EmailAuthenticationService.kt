@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.auth.service
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import java.util.concurrent.CompletableFuture
 
 /**
  * email인증 서비스
