@@ -1,6 +1,7 @@
 package site.hirecruit.hr.thirdParty.aws.sns.service.facade
 
 import org.springframework.stereotype.Service
+import software.amazon.awssdk.services.sns.SnsClient
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse
 
@@ -21,16 +22,35 @@ class SnsTopicSubSystemFacade {
     }
 
     /**
+     * snsClient, aws api가 직접적으로 개입하는 로직
+     *
+     * @param topicRequest
+     * @param snsClient sns 서비스를 사용할 자격이 있는 client
+     * @throws Exception request가 정상적으로 처리되지 않았을 때.
+     */
+    fun servingTopicRequestToSnsClient(topicRequest: CreateTopicRequest, snsClient: SnsClient) : Boolean {
+
+        // topic 생성
+        val createTopicResponse = snsClient.createTopic(topicRequest)
+
+        // topic이 성공적으로 생성됐는지 assertion
+        return isSdkHttpResponseHealthy(createTopicResponse)
+    }
+
+    /**
      * sdkHttpResponse가 !isOk 대해 Exception을 발생시켜주는 HealthChecker
      *
-     * @since 1.0.0
+     * @param createTopicResponse
+     * @throws Exception
      */
-    fun sdkHealthChecker(createTopic: CreateTopicResponse) {
-        // sdkHttpResponse checker
-        val sdkHttpResponse = createTopic.sdkHttpResponse()
+    fun isSdkHttpResponseHealthy(createTopicResponse: CreateTopicResponse) : Boolean {
 
-        if (!sdkHttpResponse.isSuccessful) {
-            throw Exception("sdkHttpResponseException ====== code: ${sdkHttpResponse.statusCode()} message: ${sdkHttpResponse.statusText()}")
+        val sdkHttpResponse = createTopicResponse.sdkHttpResponse()
+
+        if (!sdkHttpResponse.isSuccessful){
+            throw Exception("sdkHttpResponse가 기대값 isSuccessful를 만족시키지 못 함 ======== code: ${sdkHttpResponse.statusCode()}  msg: ${sdkHttpResponse.statusText()}")
         }
+
+        return true
     }
 }
