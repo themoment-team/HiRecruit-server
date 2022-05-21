@@ -1,5 +1,6 @@
 package site.hirecruit.hr.domain.auth.aop
 
+import mu.KotlinLogging
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
@@ -8,6 +9,8 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.global.data.SessionAttribute
 import javax.servlet.http.HttpSession
+
+private val log = KotlinLogging.logger {}
 
 /**
  * [site.hirecruit.hr.domain.auth.service.UserRegistrationService]의 횡단 관심사를 모아놓은 AOP 클래스
@@ -36,6 +39,8 @@ private class UserRegistrationAspect(
         returning = "authUserInfo"
     )
     fun afterRegistrationMethod(authUserInfo: AuthUserInfo){
+        log.debug("UserRegistrationAspect.afterRegistrationMethod activate")
+        log.debug("AuthUserInfo='$authUserInfo'")
         deleteTempUser(authUserInfo.githubId)
         sessionUserAuthInfoUpdate(authUserInfo)
     }
