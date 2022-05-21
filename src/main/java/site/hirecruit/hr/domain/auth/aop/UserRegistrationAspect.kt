@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession
  */
 @Component
 @Aspect
-private open class UserRegistrationAspect(
+private class UserRegistrationAspect(
     private val tempUserRepository: TempUserRepository,
     private val httpSession: HttpSession
 ) {
