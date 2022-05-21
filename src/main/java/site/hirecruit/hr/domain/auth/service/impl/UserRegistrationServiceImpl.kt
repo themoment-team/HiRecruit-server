@@ -2,6 +2,7 @@ package site.hirecruit.hr.domain.auth.service.impl
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
 import site.hirecruit.hr.domain.auth.entity.Role
@@ -30,6 +31,7 @@ class UserRegistrationServiceImpl(
      * @see site.hirecruit.hr.domain.auth.aop.UserRegistrationAspect
      * @see UserRegistrationEvent
      */
+    @Transactional
     override fun registration(authUserInfo: AuthUserInfo, userRegistrationInfo: UserRegistrationDto): AuthUserInfo {
         val userEntity = UserEntity(
             githubId = authUserInfo.githubId,
@@ -42,7 +44,7 @@ class UserRegistrationServiceImpl(
 
         emailAuthenticationService.send(authUserInfo, userRegistrationInfo.email) // 비동기 처리 예정
 
-        // UserRegistrationEvent발생시킴 이후 타 도메인 로직(ex. workerEntity 생성 등...)은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
+        // UserRegistrationEvent발생시킴. 타 도메인 로직(ex. workerEntity 생성 등...)은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
         publisher.publishEvent(UserRegistrationEvent(savedUserEntity.githubId, userRegistrationInfo.workerDto))
         return AuthUserInfo(
             githubId = savedUserEntity.githubId,

@@ -8,7 +8,7 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
  * @see site.hirecruit.hr.domain.auth.service.impl.UserRegistrationServiceImpl
  * @author 정시원
  */
-class UserRegistrationEvent(
+data class UserRegistrationEvent(
     private val githubId: Long,
     private val workerInfo: WorkerDto.Registration
 )
