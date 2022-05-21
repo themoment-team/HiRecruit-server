@@ -42,7 +42,7 @@ class UserRegistrationServiceImpl(
 
         emailAuthenticationService.send(authUserInfo, userRegistrationInfo.email) // 비동기 처리 예정
 
-        // UserRegistrationEvent발생시킴 이후 타 도메인 로직은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
+        // UserRegistrationEvent발생시킴 이후 타 도메인 로직(ex. workerEntity 생성 등...)은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
         publisher.publishEvent(UserRegistrationEvent(savedUserEntity.githubId, userRegistrationInfo.workerDto))
         return AuthUserInfo(
             githubId = savedUserEntity.githubId,
