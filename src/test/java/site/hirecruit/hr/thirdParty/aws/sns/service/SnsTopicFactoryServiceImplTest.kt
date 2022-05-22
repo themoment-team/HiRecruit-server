@@ -33,7 +33,7 @@ class SnsTopicFactoryServiceImplTest{
          */
         every { snsTopicSubSystemFacade.createTopicRequest(any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
-        every { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), snsClient) }.returns(true)
+        every { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), snsClient) }.returns(any())
 
         // When
         snsTopicFactoryService.createTopic(RandomString.make(5))

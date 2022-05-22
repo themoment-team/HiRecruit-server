@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsTopicSubSystemFacade
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
+import software.amazon.awssdk.services.sns.model.CreateTopicResponse
 import software.amazon.awssdk.services.sns.model.Topic
 
 /**
@@ -24,14 +25,13 @@ class SnsTopicFactoryServiceImpl(
      * @see CreateTopicRequest.name - Constraints: topicName must be ASCII 0 ~ 256
      * @see SnsTopicSubSystemFacade.servingTopicRequestToSnsClient - aws-api가 직접적으로 로직을 처리 함
      */
-    override fun createTopic(topicName: String) {
+    override fun createTopic(topicName: String): CreateTopicResponse {
 
         // topicRequest 생성
         val topicRequest = snsTopicSubSystemFacade.createTopicRequest(topicName)
 
         // topicRequest를 aws-sns-api가 처리하도록 serving 함.
-        snsTopicSubSystemFacade.servingTopicRequestToSnsClient(topicRequest, credentialService.getSnsClient())
-
+        return snsTopicSubSystemFacade.servingTopicRequestToSnsClient(topicRequest, credentialService.getSnsClient())
     }
 
     /**

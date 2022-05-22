@@ -42,7 +42,7 @@ class SnsTopicSubSystemFacade {
      * @throws Exception request가 정상적으로 처리되지 않았을 때.
      * @return createTopicResponse topic request 결과
      */
-    fun servingTopicRequestToSnsClient(topicRequest: CreateTopicRequest, snsClient: SnsClient) : CreateTopicResponse? {
+    fun servingTopicRequestToSnsClient(topicRequest: CreateTopicRequest, snsClient: SnsClient) : CreateTopicResponse {
 
         // topic 생성
         val createTopicResponse = snsClient.createTopic(topicRequest)
