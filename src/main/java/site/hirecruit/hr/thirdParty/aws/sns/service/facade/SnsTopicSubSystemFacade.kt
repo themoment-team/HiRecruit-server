@@ -3,7 +3,6 @@ package site.hirecruit.hr.thirdParty.aws.sns.service.facade
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.services.sns.SnsClient
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
-import software.amazon.awssdk.services.sns.model.CreateTopicResponse
 
 @Service
 class SnsTopicSubSystemFacade {
@@ -33,24 +32,13 @@ class SnsTopicSubSystemFacade {
         // topic 생성
         val createTopicResponse = snsClient.createTopic(topicRequest)
 
-        // topic이 성공적으로 생성됐는지 assertion
-        return isSdkHttpResponseHealthy(createTopicResponse)
-    }
-
-    /**
-     * sdkHttpResponse가 !isOk 대해 Exception을 발생시켜주는 HealthChecker
-     *
-     * @param createTopicResponse
-     * @throws Exception
-     */
-    fun isSdkHttpResponseHealthy(createTopicResponse: CreateTopicResponse) : Boolean {
-
+        // sdkHttpResponse가 !isOk 대해 Exception을 발생시켜주는 HealthChecker
         val sdkHttpResponse = createTopicResponse.sdkHttpResponse()
-
         if (!sdkHttpResponse.isSuccessful){
             throw Exception("sdkHttpResponse가 기대값 isSuccessful를 만족시키지 못 함 ======== code: ${sdkHttpResponse.statusCode()}  msg: ${sdkHttpResponse.statusText()}")
         }
 
         return true
     }
+
 }
