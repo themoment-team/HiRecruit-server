@@ -43,7 +43,7 @@ class SnsTopicSubSystemFacade {
     /**
      * snsClient, aws api가 직접적으로 개입하는 로직
      *
-     * @param topicRequest
+     * @param topicRequest nullable
      * @param snsClient sns 서비스를 사용할 자격이 있는 client
      * @throws Exception request가 정상적으로 처리되지 않았을 때.
      * @return createTopicResponse topic request 결과
@@ -62,7 +62,7 @@ class SnsTopicSubSystemFacade {
     /**
      * 모든 sns topic 들을 가져오는 로직
      *
-     * @param listTopicRequest
+     * @param listTopicRequest nullable
      * @return listTopics
      */
     fun getAllTopicsAsList(listTopicRequest: ListTopicsRequest, snsClient: SnsClient): ListTopicsResponse? {

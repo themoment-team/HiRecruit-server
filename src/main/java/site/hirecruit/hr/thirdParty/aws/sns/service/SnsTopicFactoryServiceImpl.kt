@@ -24,6 +24,7 @@ class SnsTopicFactoryServiceImpl(
      *
      * @see CreateTopicRequest.name - Constraints: topicName must be ASCII 0 ~ 256
      * @see SnsTopicSubSystemFacade.servingTopicRequestToSnsClient - aws-api가 직접적으로 로직을 처리 함
+     * @throws NoSuchElementException - 요청은 isSuccessful 이지만 topic 결과가 없을 때.
      */
     override fun createTopic(topicName: String): CreateTopicResponse {
 
