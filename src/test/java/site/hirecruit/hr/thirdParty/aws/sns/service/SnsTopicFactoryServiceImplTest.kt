@@ -7,13 +7,11 @@ import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
-import org.springframework.boot.test.context.SpringBootTest
 import site.hirecruit.hr.domain.test_util.LocalTest
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsTopicSubSystemFacade
 import software.amazon.awssdk.services.sns.SnsClient
 
-@SpringBootTest
 @LocalTest
 class SnsTopicFactoryServiceImplTest{
 
@@ -36,7 +34,6 @@ class SnsTopicFactoryServiceImplTest{
         every { snsTopicSubSystemFacade.createTopicRequest(any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
         every { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), snsClient) }.returns(true)
-        every { snsTopicSubSystemFacade.isSdkHttpResponseHealthy(any()) }.returns(true)
 
         // When
         snsTopicFactoryService.createTopic(RandomString.make(5))
@@ -44,6 +41,6 @@ class SnsTopicFactoryServiceImplTest{
         // Then
         verify(exactly = 1) { snsTopicSubSystemFacade.createTopicRequest(any()) }
         verify(exactly = 1) { credentialService.getSnsClient() }
-        verify(exactly = 1) { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), any()) }
+        verify(exactly = 1) { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), snsClient) }
     }
 }
