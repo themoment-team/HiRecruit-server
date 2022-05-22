@@ -33,4 +33,9 @@ class SnsTopicFactoryServiceImpl(
 
     }
 
+    override fun displayAllTopics() {
+        val listTopicRequest = snsTopicSubSystemFacade.createListTopicRequest()
+        snsTopicSubSystemFacade.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient())
+    }
+
 }
