@@ -59,7 +59,7 @@ class SnsTopicSubSystemFacade {
      * @param listTopicRequest
      * @return listTopics
      */
-    fun getAllTopicsAsList(listTopicRequest: ListTopicsRequest, snsClient: SnsClient): ListTopicsResponse {
+    fun getAllTopicsAsList(listTopicRequest: ListTopicsRequest, snsClient: SnsClient): ListTopicsResponse? {
         val listTopics = snsClient.listTopics(listTopicRequest)
         isSdkHttpResponseIsSuccessful(listTopics.sdkHttpResponse())
 

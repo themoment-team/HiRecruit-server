@@ -37,12 +37,13 @@ class SnsTopicFactoryServiceImpl(
     /**
      * aws sns 모든 topic을 가져오는 서비스
      *
+     * @throws NoSuchElementException getAllTopicsAsList로 반환된 결과가 비어있는, 없는 공간일 때.
      * @return ListTopicResponse - MutableList<T> 읽기, 쓰기가 가능한 객체
      */
     override fun displayAllTopics() : MutableList<Topic> {
         val listTopicRequest = snsTopicSubSystemFacade.createListTopicRequest()
 
-        return snsTopicSubSystemFacade.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient()).topics()
+        return snsTopicSubSystemFacade.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient())?.topics()
             ?: throw NoSuchElementException("요청하신 getAllTopics의 결과: topics element가 존재하지 않습니다.")
     }
 
