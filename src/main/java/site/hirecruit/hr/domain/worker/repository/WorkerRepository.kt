@@ -6,8 +6,4 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 
 @Repository
 interface WorkerRepository : JpaRepository<WorkerEntity, Long> {
-
-    fun existsByGithubId(id: Long): Boolean
-
-    fun findByGithubId(githubId: Long): WorkerEntity?
 }

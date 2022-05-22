@@ -18,6 +18,7 @@ allOpen {
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
     annotation("org.springframework.context.annotation.Configuration")
+    annotation("org.springframework.stereotype.Repository")
 }
 
 noArg {
@@ -61,7 +62,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+    testImplementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+    /** for aws sdks **/
+    // aws-java-sdk-core
+    implementation("com.amazonaws:aws-java-sdk-core:1.12.223")
+    // software.amazon.awssdk/sns
+    implementation("software.amazon.awssdk:sns:2.17.193")
 
 
     /** for test **/
@@ -89,11 +97,13 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+
+    finalizedBy("testCoverage")
 }
 
 jacoco {
     // JaCoCo 버전
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.8"
 }
 
 /**
@@ -127,7 +137,7 @@ tasks.jacocoTestCoverageVerification {
 
         rule {
             // 룰을 간단히 켜고 끌 수 있다.
-            enabled = true
+            enabled = false
 
             // 룰을 체크할 단위는 클래스 단위
             element = "CLASS"
