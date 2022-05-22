@@ -57,9 +57,9 @@ class SnsTopicSubSystemFacade {
      * 모든 sns topic 들을 가져오는 로직
      *
      * @param listTopicRequest
-     * @return listTopics nullable
+     * @return listTopics
      */
-    fun getAllTopicsAsList(listTopicRequest: ListTopicsRequest, snsClient: SnsClient): ListTopicsResponse? {
+    fun getAllTopicsAsList(listTopicRequest: ListTopicsRequest, snsClient: SnsClient): ListTopicsResponse {
         val listTopics = snsClient.listTopics(listTopicRequest)
         isSdkHttpResponseIsSuccessful(listTopics.sdkHttpResponse())
 
