@@ -31,7 +31,9 @@ class SnsTopicFactoryServiceImpl(
         val topicRequest = snsTopicSubSystemFacade.createTopicRequest(topicName)
 
         // topicRequest를 aws-sns-api가 처리하도록 serving 함.
-        return snsTopicSubSystemFacade.servingTopicRequestToSnsClient(topicRequest, credentialService.getSnsClient())!!
+        return snsTopicSubSystemFacade.servingTopicRequestToSnsClient(topicRequest, credentialService.getSnsClient())
+            ?: throw NoSuchElementException("요청하신 createTopic 결과: CreateTopicResponse가 존재하지 않습니다.")
+
     }
 
     /**
