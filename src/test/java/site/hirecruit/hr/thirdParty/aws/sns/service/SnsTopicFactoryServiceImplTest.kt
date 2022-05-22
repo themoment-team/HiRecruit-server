@@ -6,6 +6,7 @@ import io.mockk.verify
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.any
 import site.hirecruit.hr.domain.test_util.LocalTest
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
@@ -42,5 +43,29 @@ class SnsTopicFactoryServiceImplTest{
         verify(exactly = 1) { snsTopicSubSystemFacade.createTopicRequest(any()) }
         verify(exactly = 1) { credentialService.getSnsClient() }
         verify(exactly = 1) { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), snsClient) }
+    }
+
+    @Test
+    @DisplayName("SnsClient에 등록된 topic들이 모두 조회된다.")
+    fun snsTopicsWereDisplay(){
+        // Given:: mocking
+        val snsClient : SnsClient = mockk()
+        val credentialService : CredentialService = mockk()
+        val snsTopicSubSystemFacade : SnsTopicSubSystemFacade = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsTopicSubSystemFacade)
+
+        // Given:: stubs
+        every { snsTopicSubSystemFacade.createListTopicRequest() }.returns(any())
+        every { credentialService.getSnsClient() }.returns(snsClient)
+        every { snsTopicSubSystemFacade.getAllTopicsAsList(any(), credentialService.getSnsClient()) }.returns(any())
+
+        // when:: mockSnsClient는 아무런 sns topic 도 가지지 않을 것을 확신한다.
+        assertThrows<NoSuchElementException> {
+            snsTopicFactoryService.displayAllTopics()
+        }
+
+        // Then
+        verify(exactly = 1) { snsTopicSubSystemFacade.createListTopicRequest() }
+        verify(exactly = 1) { credentialService.getSnsClient() }
     }
 }
