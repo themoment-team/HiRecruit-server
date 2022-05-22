@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import software.amazon.awssdk.http.SdkHttpResponse
 import software.amazon.awssdk.services.sns.SnsClient
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
+import software.amazon.awssdk.services.sns.model.CreateTopicResponse
 import software.amazon.awssdk.services.sns.model.ListTopicsRequest
 import software.amazon.awssdk.services.sns.model.ListTopicsResponse
 
@@ -39,8 +40,9 @@ class SnsTopicSubSystemFacade {
      * @param topicRequest
      * @param snsClient sns 서비스를 사용할 자격이 있는 client
      * @throws Exception request가 정상적으로 처리되지 않았을 때.
+     * @return createTopicResponse topic request 결과
      */
-    fun servingTopicRequestToSnsClient(topicRequest: CreateTopicRequest, snsClient: SnsClient) : Boolean {
+    fun servingTopicRequestToSnsClient(topicRequest: CreateTopicRequest, snsClient: SnsClient) : CreateTopicResponse? {
 
         // topic 생성
         val createTopicResponse = snsClient.createTopic(topicRequest)
@@ -48,7 +50,7 @@ class SnsTopicSubSystemFacade {
         // topic이 정상적으로 생성 됐는지 check
         isSdkHttpResponseIsSuccessful(createTopicResponse.sdkHttpResponse())
 
-        return true
+        return createTopicResponse
     }
 
     /**
