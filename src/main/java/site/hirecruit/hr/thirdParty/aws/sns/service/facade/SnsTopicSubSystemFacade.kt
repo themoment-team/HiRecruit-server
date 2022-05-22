@@ -8,6 +8,12 @@ import software.amazon.awssdk.services.sns.model.CreateTopicResponse
 import software.amazon.awssdk.services.sns.model.ListTopicsRequest
 import software.amazon.awssdk.services.sns.model.ListTopicsResponse
 
+/**
+ * service layer -> facade layer -> sdk
+ *
+ * @since 1.0.0
+ * @author 전지환
+ */
 @Service
 class SnsTopicSubSystemFacade {
 
