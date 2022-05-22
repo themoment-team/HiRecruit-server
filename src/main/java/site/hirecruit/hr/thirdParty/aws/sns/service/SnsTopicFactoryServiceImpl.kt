@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsTopicSubSystemFacade
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
+import software.amazon.awssdk.services.sns.model.Topic
 
 /**
  * sns topic을 생성해주는 서비스
@@ -33,9 +34,16 @@ class SnsTopicFactoryServiceImpl(
 
     }
 
-    override fun displayAllTopics() {
+    /**
+     * aws sns 모든 topic을 가져오는 서비스
+     *
+     * @return ListTopicResponse - MutableList<T> 읽기, 쓰기가 가능한 객체
+     */
+    override fun displayAllTopics() : MutableList<Topic> {
         val listTopicRequest = snsTopicSubSystemFacade.createListTopicRequest()
-        snsTopicSubSystemFacade.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient())
+
+        return snsTopicSubSystemFacade.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient()).topics()
+            ?: throw NoSuchElementException("요청하신 getAllTopics의 결과: topics element가 존재하지 않습니다.")
     }
 
 }
