@@ -55,6 +55,8 @@ class SnsTopicFactoryServiceImpl(
      *
      * @param email 등록하고자 하는 email
      * @param topicArn 대상 topicArn
+     * @see SnsTopicSubSystemFacade.subscribeEmail 값을 최종적으로 리턴 함.
+     * @return subscriptionArn - 구독을 식별할 수 있는 subscriptionArn
      */
     override fun subTopicByEmail(email: String, topicArn: String): String {
         val subscribeRequest = snsTopicSubSystemFacade.createSubscribeRequest(email, topicArn)

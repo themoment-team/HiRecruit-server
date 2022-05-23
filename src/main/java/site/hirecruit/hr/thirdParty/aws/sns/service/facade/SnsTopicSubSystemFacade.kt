@@ -95,6 +95,7 @@ class SnsTopicSubSystemFacade {
      *
      * @param subscribeRequest createSubscribeRequest() 결과
      * @param snsClient 인증된 sns 클라이언트
+     * @return subscriptionArn - 구독을 식별할 수 있는 subscriptionArn
      */
     fun subscribeEmail(
         subscribeRequest: SubscribeRequest,
