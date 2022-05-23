@@ -82,8 +82,6 @@ class SnsTopicSubSystemFacade {
      */
     fun createSubscribeRequest(targetEmail: String, targetTopicArn: String) : SubscribeRequest{
 
-        isTargetTopicArnExist(targetTopicArn)
-
         return SubscribeRequest.builder()
             .protocol(ProtocolType.EMAIL.toString().lowercase()) // "email" 이라는 sdk prefix 를 사용해야 함.
             .endpoint(targetEmail)
@@ -127,7 +125,4 @@ class SnsTopicSubSystemFacade {
         }
     }
 
-    private fun isTargetTopicArnExist(targetTopicArn: String) {
-        TODO("Not yet implemented")
-    }
 }

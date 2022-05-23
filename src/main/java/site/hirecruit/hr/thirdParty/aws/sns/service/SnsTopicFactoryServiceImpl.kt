@@ -52,6 +52,9 @@ class SnsTopicFactoryServiceImpl(
 
     /**
      * email 주소로 amazon sns topic 구독
+     *
+     * @param email 등록하고자 하는 email
+     * @param topicArn 대상 topicArn
      */
     override fun subTopicByEmail(email: String, topicArn: String): String {
         val subscribeRequest = snsTopicSubSystemFacade.createSubscribeRequest(email, topicArn)
