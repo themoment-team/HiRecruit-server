@@ -64,4 +64,18 @@ class SnsTopicFactoryServiceImpl(
         return snsTopicSubSystemFacade.subscribeEmail(subscribeRequest, credentialService.getSnsClient())
     }
 
+    /**
+     * sub client가 topic에 대해 메시지 수신을 허용했는지 확인하는 로직
+     *
+     * @param subscriptionToken sub로 등록할 때 반환한 결과 값
+     * @param topicArn sub로 등록한 targetTopicArn
+     * @return subscriptionToken - confirm 된 subscriptionToken
+     */
+    override fun isClientConfirmSub(subscriptionToken: String, topicArn: String) : String {
+        val confirmSubscriptionRequest =
+            snsTopicSubSystemFacade.createConfirmSubscriptionRequest(subscriptionToken, topicArn)
+
+        return snsTopicSubSystemFacade.isAlreadyConfirm(confirmSubscriptionRequest, credentialService.getSnsClient())
+    }
+
 }

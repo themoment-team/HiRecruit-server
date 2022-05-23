@@ -42,6 +42,20 @@ class SnsTopicSubSystemFacade {
         return ListTopicsRequest.builder().build()
     }
 
+
+    /**
+     * ConfirmSubscriptionRequest를 생성해주는 로직
+     *
+     * @return ConfirmSubscriptionRequest
+     */
+    fun createConfirmSubscriptionRequest(subscriptionToken: String, topicArn: String) : ConfirmSubscriptionRequest{
+
+        return ConfirmSubscriptionRequest.builder()
+            .token(subscriptionToken)
+            .topicArn(topicArn)
+            .build()
+    }
+
     /**
      * snsClient, aws api가 직접적으로 개입하는 로직
      *
@@ -111,6 +125,24 @@ class SnsTopicSubSystemFacade {
         }
 
         return subscribeResponse.subscriptionArn()
+    }
+
+
+    /**
+     * sns 주제(topic)에 대한 구독(sub)이 메시지를 수신하기를 원하는지 확인하는 로직
+     *
+     * @param confirmSubscriptionRequest topicArn, subArn 등의 정보를 담은 confirmRequest 객체
+     * @param snsClient sns 서비스의 권한이 있는 client
+     * @return subscriptionArn - confirmSubArn
+     */
+    fun isAlreadyConfirm(confirmSubscriptionRequest: ConfirmSubscriptionRequest, snsClient: SnsClient) : String {
+
+        // sdk에게 confirmSub 인지 확인하는 로직
+        val confirmSubscription = snsClient.confirmSubscription(confirmSubscriptionRequest)
+        isSdkHttpResponseIsSuccessful(confirmSubscription.sdkHttpResponse())
+
+        return confirmSubscription.subscriptionArn()
+            ?: throw Exception("topicArn: ${confirmSubscriptionRequest.topicArn()} 에 confirmSub한 Arn: ${confirmSubscriptionRequest.token()} 을 찾을 수 없음")
     }
 
     /**
