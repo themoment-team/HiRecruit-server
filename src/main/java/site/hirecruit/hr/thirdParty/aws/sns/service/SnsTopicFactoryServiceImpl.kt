@@ -78,4 +78,8 @@ class SnsTopicFactoryServiceImpl(
         return snsTopicSubSystemFacade.isAlreadyConfirm(confirmSubscriptionRequest, credentialService.getSnsClient())
     }
 
+    override fun publishSnsTopic(message: String, topicArn: String): String {
+        TODO("Not yet implemented")
+    }
+
 }
