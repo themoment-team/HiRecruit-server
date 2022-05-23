@@ -7,4 +7,5 @@ interface SnsTopicFactoryService {
     fun createTopic(topicName: String) : CreateTopicResponse
     fun displayAllTopics() : MutableList<Topic>
     fun subTopicByEmail(email: String, topicArn: String) : String
+    fun isClientConfirmSub(subscriptionToken: String, topicArn: String) : String
 }
