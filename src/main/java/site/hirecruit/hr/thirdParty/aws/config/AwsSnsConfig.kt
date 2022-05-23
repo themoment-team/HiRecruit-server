@@ -1,10 +1,13 @@
 package site.hirecruit.hr.thirdParty.aws.config
 
+import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.PropertySource
-import site.hirecruit.hr.domain.auth.aop.log
 import javax.annotation.PostConstruct
+
+
+private val log = KotlinLogging.logger {}
 
 /**
  * 인스턴스 생성 시점에 aws env 설정이 대입되어 초기화 된다.

@@ -6,6 +6,7 @@ import io.mockk.verify
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.any
 import site.hirecruit.hr.domain.test_util.LocalTest
@@ -69,5 +70,29 @@ class SnsTopicFactoryServiceImplTest{
         // Then
         verify(exactly = 1) { snsTopicSubSystemFacade.createListTopicRequest() }
         verify(exactly = 1) { credentialService.getSnsClient() }
+    }
+
+    @Test
+    @DisplayName("topicArn에 알맞는 topic에 email이 정상적으로 등록된다")
+    fun subEmailToTopicArnSuccessful(){
+        // Given:: mocking
+        val snsClient : SnsClient = mockk()
+        val credentialService : CredentialService = mockk()
+        val snsTopicSubSystemFacade : SnsTopicSubSystemFacade = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsTopicSubSystemFacade)
+
+        // Given:: stubs
+        every { snsTopicSubSystemFacade.createSubscribeRequest(any(), any()) }.returns(any())
+        every { credentialService.getSnsClient() }.returns(snsClient)
+        every { snsTopicSubSystemFacade.subscribeEmail(any(), snsClient) }.returns(any())
+
+        // When
+        assertDoesNotThrow {
+            snsTopicFactoryService.subTopicByEmail(RandomString.make(5), RandomString.make(5))
+        }
+
+        // Then
+        verify(exactly = 1) { snsTopicSubSystemFacade.createSubscribeRequest(any(), any()) }
+        verify(exactly = 1) { snsTopicSubSystemFacade.subscribeEmail(any(), any()) }
     }
 }
