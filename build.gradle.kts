@@ -19,6 +19,7 @@ allOpen {
     annotation("javax.persistence.Embeddable")
     annotation("org.springframework.context.annotation.Configuration")
     annotation("org.springframework.stereotype.Repository")
+    annotation("org.aspectj.lang.annotation.Aspect")
 }
 
 noArg {
