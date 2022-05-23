@@ -129,7 +129,7 @@ class SnsTopicSubSystemFacade {
 
 
     /**
-     * sns 주제(topic)에 대한 구독(sub)이 메시지를 수신하기를 원하는지 확인
+     * sns 주제(topic)에 대한 구독(sub)이 메시지를 수신하기를 원하는지 확인하는 로직
      *
      * @param confirmSubscriptionRequest topicArn, subArn 등의 정보를 담은 confirmRequest 객체
      * @param snsClient sns 서비스의 권한이 있는 client

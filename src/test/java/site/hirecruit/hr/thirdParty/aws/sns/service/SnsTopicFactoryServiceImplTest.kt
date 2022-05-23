@@ -60,7 +60,7 @@ class SnsTopicFactoryServiceImplTest{
         // Given:: stubs
         every { snsTopicSubSystemFacade.createListTopicRequest() }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
-        every { snsTopicSubSystemFacade.getAllTopicsAsList(any(), credentialService.getSnsClient()) }.returns(any())
+        every { snsTopicSubSystemFacade.getAllTopicsAsList(any(), snsClient) }.returns(any())
 
         // when:: mockSnsClient는 아무런 sns topic 도 가지지 않을 것을 확신한다.
         assertThrows<NoSuchElementException> {
@@ -69,7 +69,7 @@ class SnsTopicFactoryServiceImplTest{
 
         // Then
         verify(exactly = 1) { snsTopicSubSystemFacade.createListTopicRequest() }
-        verify(exactly = 1) { credentialService.getSnsClient() }
+        verify(exactly = 1) { snsTopicSubSystemFacade.getAllTopicsAsList(any(), any()) }
     }
 
     @Test
@@ -94,5 +94,28 @@ class SnsTopicFactoryServiceImplTest{
         // Then
         verify(exactly = 1) { snsTopicSubSystemFacade.createSubscribeRequest(any(), any()) }
         verify(exactly = 1) { snsTopicSubSystemFacade.subscribeEmail(any(), any()) }
+    }
+
+    @Test
+    @DisplayName("subArn 을 가지고 topicArn 에 대해 sns 메시지를 수신하기를 원하는지 확인한다.")
+    fun subArnConfirmCheck(){
+        // Given:: mocking
+        val snsClient : SnsClient = mockk()
+        val credentialService : CredentialService = mockk()
+        val snsTopicSubSystemFacade : SnsTopicSubSystemFacade = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsTopicSubSystemFacade)
+
+        every { snsTopicSubSystemFacade.createConfirmSubscriptionRequest(any(), any()) }.returns(any())
+        every { credentialService.getSnsClient() }.returns(snsClient)
+        every { snsTopicSubSystemFacade.isAlreadyConfirm(any(), snsClient) }.returns(any())
+
+        // when
+        assertDoesNotThrow {
+            snsTopicFactoryService.isClientConfirmSub(RandomString.make(5), RandomString.make(5))
+        }
+
+        // Then
+        verify(exactly = 1) {snsTopicSubSystemFacade.createConfirmSubscriptionRequest(any(), any())}
+        verify(exactly = 1) {snsTopicSubSystemFacade.isAlreadyConfirm(any(), any())}
     }
 }
