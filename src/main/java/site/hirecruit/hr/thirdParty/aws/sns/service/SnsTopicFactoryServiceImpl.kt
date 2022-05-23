@@ -50,4 +50,13 @@ class SnsTopicFactoryServiceImpl(
             ?: throw NoSuchElementException("요청하신 getAllTopics의 결과: topics element가 존재하지 않습니다.")
     }
 
+    /**
+     * email 주소로 amazon sns topic 구독
+     */
+    override fun subTopicByEmail(email: String, topicArn: String): String {
+        val subscribeRequest = snsTopicSubSystemFacade.createSubscribeRequest(email, topicArn)
+
+        return snsTopicSubSystemFacade.subscribeEmail(subscribeRequest, credentialService.getSnsClient())
+    }
+
 }
