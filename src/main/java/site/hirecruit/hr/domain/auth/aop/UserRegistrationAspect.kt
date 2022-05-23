@@ -21,7 +21,7 @@ private val log = KotlinLogging.logger {}
  */
 @Component
 @Aspect
-private class UserRegistrationAspect(
+class UserRegistrationAspect(
     private val tempUserRepository: TempUserRepository,
     private val httpSession: HttpSession
 ) {
