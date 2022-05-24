@@ -12,6 +12,7 @@ import org.mockito.kotlin.any
 import site.hirecruit.hr.domain.test_util.LocalTest
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsClientSubSystemFacade
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsRequestSubSystemFacade
 import software.amazon.awssdk.services.sns.SnsClient
 
 @LocalTest
@@ -25,7 +26,8 @@ class SnsTopicFactoryServiceImplTest{
         val snsClient: SnsClient = mockk()
         val credentialService: CredentialService = mockk()
         val snsClientSubSystemFacade: SnsClientSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsClientSubSystemFacade)
+        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
 
         /**
          * 1. topicReqest는 mockTopicRequest를 리턴한다.
@@ -33,7 +35,7 @@ class SnsTopicFactoryServiceImplTest{
          * 2. snsClient는 정상적으로 true를 리턴한다.
          * 3. snsClient는 HttpStatus isSuccessful를 리턴한다.
          */
-        every { snsClientSubSystemFacade.createTopicRequest(any()) }.returns(any())
+        every { snsRequestSubSystemFacade.createTopicRequest(any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
         every { snsClientSubSystemFacade.createTopic(any(), snsClient) }.returns(any())
 
@@ -43,7 +45,7 @@ class SnsTopicFactoryServiceImplTest{
         }
 
         // Then
-        verify(exactly = 1) { snsClientSubSystemFacade.createTopicRequest(any()) }
+        verify(exactly = 1) { snsRequestSubSystemFacade.createTopicRequest(any()) }
         verify(exactly = 1) { credentialService.getSnsClient() }
         verify(exactly = 1) { snsClientSubSystemFacade.createTopic(any(), snsClient) }
     }
@@ -55,10 +57,11 @@ class SnsTopicFactoryServiceImplTest{
         val snsClient : SnsClient = mockk()
         val credentialService : CredentialService = mockk()
         val snsClientSubSystemFacade : SnsClientSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsClientSubSystemFacade)
+        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
 
         // Given:: stubs
-        every { snsClientSubSystemFacade.createListTopicRequest() }.returns(any())
+        every { snsRequestSubSystemFacade.createListTopicRequest() }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
         every { snsClientSubSystemFacade.getAllTopicsAsList(any(), snsClient) }.returns(any())
 
@@ -68,7 +71,7 @@ class SnsTopicFactoryServiceImplTest{
         }
 
         // Then
-        verify(exactly = 1) { snsClientSubSystemFacade.createListTopicRequest() }
+        verify(exactly = 1) { snsRequestSubSystemFacade.createListTopicRequest() }
         verify(exactly = 1) { snsClientSubSystemFacade.getAllTopicsAsList(any(), any()) }
     }
 
@@ -79,10 +82,11 @@ class SnsTopicFactoryServiceImplTest{
         val snsClient : SnsClient = mockk()
         val credentialService : CredentialService = mockk()
         val snsClientSubSystemFacade : SnsClientSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsClientSubSystemFacade)
+        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
 
         // Given:: stubs
-        every { snsClientSubSystemFacade.createSubscribeRequest(any(), any()) }.returns(any())
+        every { snsRequestSubSystemFacade.createSubscribeRequest(any(), any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
         every { snsClientSubSystemFacade.subscribeEmail(any(), snsClient) }.returns(any())
 
@@ -92,7 +96,7 @@ class SnsTopicFactoryServiceImplTest{
         }
 
         // Then
-        verify(exactly = 1) { snsClientSubSystemFacade.createSubscribeRequest(any(), any()) }
+        verify(exactly = 1) { snsRequestSubSystemFacade.createSubscribeRequest(any(), any()) }
         verify(exactly = 1) { snsClientSubSystemFacade.subscribeEmail(any(), any()) }
     }
 
@@ -103,9 +107,10 @@ class SnsTopicFactoryServiceImplTest{
         val snsClient : SnsClient = mockk()
         val credentialService : CredentialService = mockk()
         val snsClientSubSystemFacade : SnsClientSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsClientSubSystemFacade)
+        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
 
-        every { snsClientSubSystemFacade.createConfirmSubscriptionRequest(any(), any()) }.returns(any())
+        every { snsRequestSubSystemFacade.createConfirmSubscriptionRequest(any(), any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
         every { snsClientSubSystemFacade.isAlreadyConfirm(any(), snsClient) }.returns(any())
 
@@ -115,7 +120,7 @@ class SnsTopicFactoryServiceImplTest{
         }
 
         // Then
-        verify(exactly = 1) {snsClientSubSystemFacade.createConfirmSubscriptionRequest(any(), any())}
+        verify(exactly = 1) {snsRequestSubSystemFacade.createConfirmSubscriptionRequest(any(), any())}
         verify(exactly = 1) {snsClientSubSystemFacade.isAlreadyConfirm(any(), any())}
     }
 }
