@@ -37,6 +37,8 @@ class WorkerDto {
 
         val introduction: String? = null,
 
+        val giveLink: String? = null,
+
         val devYear: Int? = null
     )
 

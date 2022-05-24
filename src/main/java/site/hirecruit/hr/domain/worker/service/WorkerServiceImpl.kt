@@ -35,12 +35,22 @@ class WorkerServiceImpl(
             company = savedWorkerEntity.company,
             location = savedWorkerEntity.location,
             introduction = savedWorkerEntity.introduction,
+            giveLink = savedWorkerEntity.giveLink,
             devYear = savedWorkerEntity.devYear
         )
     }
 
     override fun findWorkerByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info {
-        TODO("Not yet implemented")
+        val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
+            ?: throw java.lang.IllegalArgumentException("Invalid authentication information so cannot found 'WorkerEntity'. authUserInfo = '${authUserInfo}' ")
+        return WorkerDto.Info(
+            authUserInfo = authUserInfo,
+            company = workerEntity.company,
+            location = workerEntity.location,
+            introduction = workerEntity.introduction,
+            giveLink = workerEntity.giveLink,
+            devYear =  workerEntity.devYear
+        )
     }
 
     override fun update(updateDto: WorkerDto.Update) {
