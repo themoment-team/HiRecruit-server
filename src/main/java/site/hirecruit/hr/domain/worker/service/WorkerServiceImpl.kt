@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.worker.service
 
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.repository.UserRepository
@@ -13,6 +14,7 @@ import site.hirecruit.hr.domain.worker.repository.WorkerRepository
  *
  * @author 정시원
  */
+@Service
 class WorkerServiceImpl(
     private val workerRepository: WorkerRepository,
     private val userRepository: UserRepository
