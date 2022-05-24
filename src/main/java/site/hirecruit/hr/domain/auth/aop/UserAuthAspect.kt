@@ -19,7 +19,7 @@ private val log = KotlinLogging.logger {}
  */
 @Component
 @Aspect
-private class UserAuthAspect (
+class UserAuthAspect (
     private val httpSession: HttpSession
 ) {
 

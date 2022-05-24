@@ -23,10 +23,10 @@ class AuthController(
 
         @RequestBody  @Valid
         userRegistrationDto: UserRegistrationDto
-    ): ResponseEntity<Map<String, Long>>{
+    ): ResponseEntity<AuthUserInfo>{
         val registeredAuthUserInfo = userRegistrationService.registration(authUserInfo, userRegistrationDto)
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(mapOf("githubId" to registeredAuthUserInfo.githubId))
+            .body(registeredAuthUserInfo)
     }
 
 }
