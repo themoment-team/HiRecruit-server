@@ -29,8 +29,11 @@ class WorkerDto {
     )
 
     data class Info(
-        @field:JsonUnwrapped
-        val authUserInfo: AuthUserInfo,
+        val name: String,
+
+        val email: String,
+
+        val profileImgUri: String,
 
         val company: String,
 

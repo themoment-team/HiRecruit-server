@@ -34,7 +34,9 @@ class WorkerServiceImpl(
             )
         )
         return WorkerDto.Info(
-            authUserInfo = authUserInfo,
+            name = authUserInfo.name,
+            email = authUserInfo.email!!,
+            profileImgUri = authUserInfo.profileImgUri,
             company = savedWorkerEntity.company,
             location = savedWorkerEntity.location,
             introduction = savedWorkerEntity.introduction,
@@ -47,7 +49,9 @@ class WorkerServiceImpl(
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
             ?: throw IllegalArgumentException("Invalid authentication information so cannot found 'WorkerEntity'. authUserInfo = '${authUserInfo}' ")
         return WorkerDto.Info(
-            authUserInfo = authUserInfo,
+            name = authUserInfo.name,
+            email = authUserInfo.email!!,
+            profileImgUri = authUserInfo.profileImgUri,
             company = workerEntity.company,
             location = workerEntity.location,
             introduction = workerEntity.introduction,
