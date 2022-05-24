@@ -57,6 +57,22 @@ class SnsTopicSubSystemFacade {
     }
 
     /**
+     * SubscribeRequest를 만들어주는 로직
+     *
+     * @param targetEmail 등록하고자 하는 email
+     * @param targetTopicArn email 등록 대상 topicArn
+     */
+    fun createSubscribeRequest(targetEmail: String, targetTopicArn: String) : SubscribeRequest{
+
+        return SubscribeRequest.builder()
+            .protocol(ProtocolType.EMAIL.toString().lowercase()) // "email" 이라는 sdk prefix 를 사용해야 함.
+            .endpoint(targetEmail)
+            .returnSubscriptionArn(true)
+            .topicArn(targetTopicArn)
+            .build()
+    }
+
+    /**
      * snsClient, aws api가 직접적으로 개입하는 로직
      *
      * @param topicRequest nullable
@@ -64,7 +80,7 @@ class SnsTopicSubSystemFacade {
      * @throws Exception request가 정상적으로 처리되지 않았을 때.
      * @return createTopicResponse topic request 결과
      */
-    fun servingTopicRequestToSnsClient(topicRequest: CreateTopicRequest, snsClient: SnsClient) : CreateTopicResponse? {
+    fun createTopic(topicRequest: CreateTopicRequest, snsClient: SnsClient) : CreateTopicResponse? {
 
         // topic 생성
         val createTopicResponse = snsClient.createTopic(topicRequest)
@@ -86,22 +102,6 @@ class SnsTopicSubSystemFacade {
         isSdkHttpResponseIsSuccessful(listTopics.sdkHttpResponse())
 
         return listTopics
-    }
-
-    /**
-     * SubscribeRequest를 만들어주는 로직
-     *
-     * @param targetEmail 등록하고자 하는 email
-     * @param targetTopicArn email 등록 대상 topicArn
-     */
-    fun createSubscribeRequest(targetEmail: String, targetTopicArn: String) : SubscribeRequest{
-
-        return SubscribeRequest.builder()
-            .protocol(ProtocolType.EMAIL.toString().lowercase()) // "email" 이라는 sdk prefix 를 사용해야 함.
-            .endpoint(targetEmail)
-            .returnSubscriptionArn(true)
-            .topicArn(targetTopicArn)
-            .build()
     }
 
     /**

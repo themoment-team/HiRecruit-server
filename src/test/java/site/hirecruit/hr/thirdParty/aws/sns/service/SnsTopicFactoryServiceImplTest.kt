@@ -35,7 +35,7 @@ class SnsTopicFactoryServiceImplTest{
          */
         every { snsTopicSubSystemFacade.createTopicRequest(any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
-        every { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), snsClient) }.returns(any())
+        every { snsTopicSubSystemFacade.createTopic(any(), snsClient) }.returns(any())
 
         // When:: mockSnsClient는 아무런 sns topic 도 생성하지 못할것을 확신한다.
         assertThrows<NoSuchElementException> {
@@ -45,7 +45,7 @@ class SnsTopicFactoryServiceImplTest{
         // Then
         verify(exactly = 1) { snsTopicSubSystemFacade.createTopicRequest(any()) }
         verify(exactly = 1) { credentialService.getSnsClient() }
-        verify(exactly = 1) { snsTopicSubSystemFacade.servingTopicRequestToSnsClient(any(), snsClient) }
+        verify(exactly = 1) { snsTopicSubSystemFacade.createTopic(any(), snsClient) }
     }
 
     @Test

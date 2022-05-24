@@ -23,7 +23,7 @@ class SnsTopicFactoryServiceImpl(
      * aws sns topic을 생성해주는 서비스
      *
      * @see CreateTopicRequest.name - Constraints: topicName must be ASCII 0 ~ 256
-     * @see SnsTopicSubSystemFacade.servingTopicRequestToSnsClient - aws-api가 직접적으로 로직을 처리 함
+     * @see SnsTopicSubSystemFacade.createTopic - aws-api가 직접적으로 로직을 처리 함
      * @throws NoSuchElementException - 요청은 isSuccessful 이지만 topic 결과가 없을 때.
      */
     override fun createTopic(topicName: String): CreateTopicResponse {
@@ -32,7 +32,7 @@ class SnsTopicFactoryServiceImpl(
         val topicRequest = snsTopicSubSystemFacade.createTopicRequest(topicName)
 
         // topicRequest를 aws-sns-api가 처리하도록 serving 함.
-        return snsTopicSubSystemFacade.servingTopicRequestToSnsClient(topicRequest, credentialService.getSnsClient())
+        return snsTopicSubSystemFacade.createTopic(topicRequest, credentialService.getSnsClient())
             ?: throw NoSuchElementException("요청하신 createTopic 결과: CreateTopicResponse가 존재하지 않습니다.")
 
     }
