@@ -10,7 +10,7 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
 /**
- * WorkerService
+ * WorkerService Implements
  *
  * @author 정시원
  */
