@@ -22,6 +22,7 @@ class WorkerDto {
         @field:NotBlank
         val location: String,
 
+        val giveLink: String? = null,
         val introduction: String? = null,
         val devYear: Int? = null
     )
