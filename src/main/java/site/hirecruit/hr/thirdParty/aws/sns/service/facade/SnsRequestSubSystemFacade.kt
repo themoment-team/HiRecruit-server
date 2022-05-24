@@ -7,6 +7,13 @@ import software.amazon.awssdk.services.sns.model.CreateTopicRequest
 import software.amazon.awssdk.services.sns.model.ListTopicsRequest
 import software.amazon.awssdk.services.sns.model.SubscribeRequest
 
+/**
+ * snsClient에게 전달할 snsRequest 생성해주는 facade 집합
+ *
+ * @see software.amazon.awssdk.services.sns.model.SnsRequest
+ * @since 1.0.0
+ * @author 전지환
+ */
 @Service
 class SnsRequestSubSystemFacade {
 

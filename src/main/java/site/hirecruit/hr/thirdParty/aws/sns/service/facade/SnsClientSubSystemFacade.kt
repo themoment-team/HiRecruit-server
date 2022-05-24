@@ -10,8 +10,9 @@ import software.amazon.awssdk.services.sns.model.*
 private val log = KotlinLogging.logger {}
 
 /**
- * service layer -> facade layer -> sdk
+ * aws sns sdk, snsClient를 통해 실제 요청을 처리하는 subSystem들의 facade 집합
  *
+ * @see software.amazon.awssdk.services.sns.model.SnsResponse
  * @since 1.0.0
  * @author 전지환
  */
