@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.worker.service
 
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
@@ -42,7 +43,7 @@ class WorkerServiceImpl(
 
     override fun findWorkerByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info {
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
-            ?: throw java.lang.IllegalArgumentException("Invalid authentication information so cannot found 'WorkerEntity'. authUserInfo = '${authUserInfo}' ")
+            ?: throw IllegalArgumentException("Invalid authentication information so cannot found 'WorkerEntity'. authUserInfo = '${authUserInfo}' ")
         return WorkerDto.Info(
             authUserInfo = authUserInfo,
             company = workerEntity.company,
@@ -53,7 +54,18 @@ class WorkerServiceImpl(
         )
     }
 
-    override fun update(updateDto: WorkerDto.Update) {
-        TODO("Not yet implemented")
+    override fun update(authUserInfo: AuthUserInfo, updateDto: WorkerDto.Update) {
+        val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
+            ?: throw IllegalArgumentException("Invalid authentication information so cannot found 'WorkerEntity'. authUserInfo = '${authUserInfo}' ")
+
+        updateDto.updateColumns.forEach {
+            when(it) {
+                WorkerDto.Update.Column.COMPANY         -> workerEntity.company = updateDto.company!!
+                WorkerDto.Update.Column.LOCATION        -> workerEntity.location = updateDto.location!!
+                WorkerDto.Update.Column.INTRODUCTION    -> workerEntity.introduction = updateDto.introduction
+                WorkerDto.Update.Column.GIVE_LINK       -> workerEntity.giveLink = updateDto.giveLink
+                WorkerDto.Update.Column.DEV_YEAR        -> workerEntity.devYear = updateDto.devYear
+            }
+        }
     }
 }

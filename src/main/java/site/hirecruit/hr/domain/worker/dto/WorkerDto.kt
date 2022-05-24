@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.worker.dto
 import com.fasterxml.jackson.annotation.JsonUnwrapped
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 /**
@@ -43,21 +44,22 @@ class WorkerDto {
     )
 
     data class Update(
-        @field:NotBlank
-        val company: String,
+        val company: String? = null,
 
-        @field:NotBlank
-        val location: String,
+        val location: String? = null,
 
         val introduction: String? = null,
 
+        val giveLink: String? = null,
+
         val devYear: Int? = null,
 
+        @NotEmpty
         val updateColumns: List<Column> = emptyList()
     ){
 
         enum class Column{
-            COMPANY, LOCATION, INTRODUCTION, DEV_YEAR
+            COMPANY, LOCATION, INTRODUCTION, GIVE_LINK, DEV_YEAR
         }
     }
 }

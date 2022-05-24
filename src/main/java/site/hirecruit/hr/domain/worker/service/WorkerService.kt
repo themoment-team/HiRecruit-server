@@ -15,8 +15,6 @@ interface WorkerService {
 
     fun findWorkerByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info
 
-    fun update(updateDto: WorkerDto.Update)
-
-
+    fun update(authUserInfo: AuthUserInfo, updateDto: WorkerDto.Update)
 
 }
