@@ -9,6 +9,6 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
  * @author 정시원
  */
 data class UserRegistrationEvent(
-    private val githubId: Long,
+    private val userId: Long,
     private val workerInfo: WorkerDto.Registration
 )
