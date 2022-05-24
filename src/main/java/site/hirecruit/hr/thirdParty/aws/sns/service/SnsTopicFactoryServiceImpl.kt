@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.sns.model.Topic
 class SnsTopicFactoryServiceImpl(
     private val credentialService: CredentialService,
     private val snsTopicSubSystemFacade: SnsTopicSubSystemFacade
-) : SnsTopicFactoryService{
+) : SnsTopicFactoryService {
 
     /**
      * aws sns topic을 생성해주는 서비스
