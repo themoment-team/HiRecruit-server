@@ -15,20 +15,24 @@ Details here
 ```markdown
 
 - application 
-springframework - 2.6.3
+springframework - 2.6.7
 
 - core library
+spring-security
 spring-oauth2-client
 spring-data-jpa
 spring-data-redis
 modelmapper 2.1.1
 springfox-boot-starter for swagger
+aws-java-sdk-core:1.12.223
+awssdk:sns:2.17.193
 
 - test
 mockmvc
-mockito-core 3+
-spring-mockk 3+
+mockito-kotlin:4.0.0
 restdocs-mockmvc
+springmockk:3.1.1
+embedded-redis:0.7.2
 
 ```
 
