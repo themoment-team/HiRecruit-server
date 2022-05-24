@@ -18,7 +18,7 @@ import site.hirecruit.hr.global.event.UserRegistrationEvent
  * @author 정시원
  * @since 1.0
  */
-@Service
+//@Service
 class UserRegistrationServiceImpl(
     private val emailAuthenticationService: EmailAuthenticationService,
     private val userRepository: UserRepository,
