@@ -11,8 +11,8 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.any
 import site.hirecruit.hr.domain.test_util.LocalTest
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
-import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsClientSubSystemFacade
-import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsRequestSubSystemFacade
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.impl.SnsClientSubSystemFacadeImpl
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.impl.SnsRequestSubSystemFacadeImpl
 import software.amazon.awssdk.services.sns.SnsClient
 
 @LocalTest
@@ -25,9 +25,9 @@ class SnsTopicFactoryServiceImplTest{
         // mocking
         val snsClient: SnsClient = mockk()
         val credentialService: CredentialService = mockk()
-        val snsClientSubSystemFacade: SnsClientSubSystemFacade = mockk()
-        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
+        val snsClientSubSystemFacadeImpl: SnsClientSubSystemFacadeImpl = mockk()
+        val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacadeImpl = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacadeImpl, snsClientSubSystemFacadeImpl)
 
         /**
          * 1. topicReqest는 mockTopicRequest를 리턴한다.
@@ -35,19 +35,19 @@ class SnsTopicFactoryServiceImplTest{
          * 2. snsClient는 정상적으로 true를 리턴한다.
          * 3. snsClient는 HttpStatus isSuccessful를 리턴한다.
          */
-        every { snsRequestSubSystemFacade.createTopicRequest(any()) }.returns(any())
+        every { snsRequestSubSystemFacadeImpl.createTopicRequest(any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
-        every { snsClientSubSystemFacade.createTopic(any(), snsClient) }.returns(any())
+        every { snsClientSubSystemFacadeImpl.createTopic(any(), snsClient) }.returns(any())
 
         // When:: mockSnsClient는 아무런 sns topic 도 생성하지 못할것을 확신한다.
-        assertThrows<NoSuchElementException> {
+        assertDoesNotThrow {
             snsTopicFactoryService.createTopic(RandomString.make(5))
         }
 
         // Then
-        verify(exactly = 1) { snsRequestSubSystemFacade.createTopicRequest(any()) }
+        verify(exactly = 1) { snsRequestSubSystemFacadeImpl.createTopicRequest(any()) }
         verify(exactly = 1) { credentialService.getSnsClient() }
-        verify(exactly = 1) { snsClientSubSystemFacade.createTopic(any(), snsClient) }
+        verify(exactly = 1) { snsClientSubSystemFacadeImpl.createTopic(any(), snsClient) }
     }
 
     @Test
@@ -56,23 +56,24 @@ class SnsTopicFactoryServiceImplTest{
         // Given:: mocking
         val snsClient : SnsClient = mockk()
         val credentialService : CredentialService = mockk()
-        val snsClientSubSystemFacade : SnsClientSubSystemFacade = mockk()
-        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
+        val snsClientSubSystemFacadeImpl : SnsClientSubSystemFacadeImpl = mockk()
+        val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacadeImpl = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacadeImpl, snsClientSubSystemFacadeImpl)
 
         // Given:: stubs
-        every { snsRequestSubSystemFacade.createListTopicRequest() }.returns(any())
+        every { snsRequestSubSystemFacadeImpl.createListTopicRequest() }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
-        every { snsClientSubSystemFacade.getAllTopicsAsList(any(), snsClient) }.returns(any())
+        every { snsClientSubSystemFacadeImpl.getAllTopicsAsList(any(), any()) }.returns(any())
+        every { snsClientSubSystemFacadeImpl.getAllTopicsAsList(any(), snsClient).topics() }.returns(any())
 
         // when:: mockSnsClient는 아무런 sns topic 도 가지지 않을 것을 확신한다.
-        assertThrows<NoSuchElementException> {
+        assertDoesNotThrow {
             snsTopicFactoryService.displayAllTopics()
         }
 
         // Then
-        verify(exactly = 1) { snsRequestSubSystemFacade.createListTopicRequest() }
-        verify(exactly = 1) { snsClientSubSystemFacade.getAllTopicsAsList(any(), any()) }
+        verify(exactly = 1) { snsRequestSubSystemFacadeImpl.createListTopicRequest() }
+        verify(exactly = 1) { snsClientSubSystemFacadeImpl.getAllTopicsAsList(any(), any()) }
     }
 
     @Test
@@ -81,14 +82,14 @@ class SnsTopicFactoryServiceImplTest{
         // Given:: mocking
         val snsClient : SnsClient = mockk()
         val credentialService : CredentialService = mockk()
-        val snsClientSubSystemFacade : SnsClientSubSystemFacade = mockk()
-        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
+        val snsClientSubSystemFacadeImpl : SnsClientSubSystemFacadeImpl = mockk()
+        val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacadeImpl = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacadeImpl, snsClientSubSystemFacadeImpl)
 
         // Given:: stubs
-        every { snsRequestSubSystemFacade.createSubscribeRequest(any(), any()) }.returns(any())
+        every { snsRequestSubSystemFacadeImpl.createSubscribeRequest(any(), any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
-        every { snsClientSubSystemFacade.subscribeEmail(any(), snsClient) }.returns(any())
+        every { snsClientSubSystemFacadeImpl.subscribeEmail(any(), snsClient) }.returns(any())
 
         // When
         assertDoesNotThrow {
@@ -96,8 +97,8 @@ class SnsTopicFactoryServiceImplTest{
         }
 
         // Then
-        verify(exactly = 1) { snsRequestSubSystemFacade.createSubscribeRequest(any(), any()) }
-        verify(exactly = 1) { snsClientSubSystemFacade.subscribeEmail(any(), any()) }
+        verify(exactly = 1) { snsRequestSubSystemFacadeImpl.createSubscribeRequest(any(), any()) }
+        verify(exactly = 1) { snsClientSubSystemFacadeImpl.subscribeEmail(any(), any()) }
     }
 
     @Test
@@ -106,13 +107,13 @@ class SnsTopicFactoryServiceImplTest{
         // Given:: mocking
         val snsClient : SnsClient = mockk()
         val credentialService : CredentialService = mockk()
-        val snsClientSubSystemFacade : SnsClientSubSystemFacade = mockk()
-        val snsRequestSubSystemFacade: SnsRequestSubSystemFacade = mockk()
-        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacade, snsClientSubSystemFacade)
+        val snsClientSubSystemFacadeImpl : SnsClientSubSystemFacadeImpl = mockk()
+        val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacadeImpl = mockk()
+        val snsTopicFactoryService = SnsTopicFactoryServiceImpl(credentialService, snsRequestSubSystemFacadeImpl, snsClientSubSystemFacadeImpl)
 
-        every { snsRequestSubSystemFacade.createConfirmSubscriptionRequest(any(), any()) }.returns(any())
+        every { snsRequestSubSystemFacadeImpl.createConfirmSubscriptionRequest(any(), any()) }.returns(any())
         every { credentialService.getSnsClient() }.returns(snsClient)
-        every { snsClientSubSystemFacade.isAlreadyConfirm(any(), snsClient) }.returns(any())
+        every { snsClientSubSystemFacadeImpl.isAlreadyConfirm(any(), snsClient) }.returns(any())
 
         // when
         assertDoesNotThrow {
@@ -120,7 +121,7 @@ class SnsTopicFactoryServiceImplTest{
         }
 
         // Then
-        verify(exactly = 1) {snsRequestSubSystemFacade.createConfirmSubscriptionRequest(any(), any())}
-        verify(exactly = 1) {snsClientSubSystemFacade.isAlreadyConfirm(any(), any())}
+        verify(exactly = 1) {snsRequestSubSystemFacadeImpl.createConfirmSubscriptionRequest(any(), any())}
+        verify(exactly = 1) {snsClientSubSystemFacadeImpl.isAlreadyConfirm(any(), any())}
     }
 }

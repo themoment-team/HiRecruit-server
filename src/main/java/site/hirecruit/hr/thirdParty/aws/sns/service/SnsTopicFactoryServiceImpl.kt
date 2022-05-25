@@ -2,8 +2,8 @@ package site.hirecruit.hr.thirdParty.aws.sns.service
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
-import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsClientSubSystemFacade
-import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsRequestSubSystemFacade
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.impl.SnsClientSubSystemFacadeImpl
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.impl.SnsRequestSubSystemFacadeImpl
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse
 import software.amazon.awssdk.services.sns.model.Topic
@@ -17,26 +17,24 @@ import software.amazon.awssdk.services.sns.model.Topic
 @Service
 class SnsTopicFactoryServiceImpl(
     private val credentialService: CredentialService,
-    private val snsRequestSubSystemFacade: SnsRequestSubSystemFacade,
-    private val snsClientSubSystemFacade: SnsClientSubSystemFacade
+    private val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacadeImpl,
+    private val snsClientSubSystemFacadeImpl: SnsClientSubSystemFacadeImpl
 ) : SnsTopicFactoryService {
 
     /**
      * aws sns topic을 생성해주는 서비스
      *
      * @see CreateTopicRequest.name - Constraints: topicName must be ASCII 0 ~ 256
-     * @see SnsClientSubSystemFacade.createTopic - aws-api가 직접적으로 로직을 처리 함
+     * @see SnsClientSubSystemFacadeImpl.createTopic - aws-api가 직접적으로 로직을 처리 함
      * @throws NoSuchElementException - 요청은 isSuccessful 이지만 topic 결과가 없을 때.
      */
     override fun createTopic(topicName: String): CreateTopicResponse {
 
         // topicRequest 생성
-        val topicRequest = snsRequestSubSystemFacade.createTopicRequest(topicName)
+        val topicRequest = snsRequestSubSystemFacadeImpl.createTopicRequest(topicName)
 
         // topicRequest를 aws-sns-api가 처리하도록 serving 함.
-        return snsClientSubSystemFacade.createTopic(topicRequest, credentialService.getSnsClient())
-            ?: throw NoSuchElementException("요청하신 createTopic 결과: CreateTopicResponse가 존재하지 않습니다.")
-
+        return snsClientSubSystemFacadeImpl.createTopic(topicRequest, credentialService.getSnsClient())
     }
 
     /**
@@ -46,9 +44,9 @@ class SnsTopicFactoryServiceImpl(
      * @return ListTopicResponse - MutableList<T> 읽기, 쓰기가 가능한 객체
      */
     override fun displayAllTopics() : MutableList<Topic> {
-        val listTopicRequest = snsRequestSubSystemFacade.createListTopicRequest()
+        val listTopicRequest = snsRequestSubSystemFacadeImpl.createListTopicRequest()
 
-        return snsClientSubSystemFacade.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient())?.topics()
+        return snsClientSubSystemFacadeImpl.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient()).topics()
             ?: throw NoSuchElementException("요청하신 getAllTopics의 결과: topics element가 존재하지 않습니다.")
     }
 
@@ -57,13 +55,13 @@ class SnsTopicFactoryServiceImpl(
      *
      * @param email 등록하고자 하는 email
      * @param topicArn 대상 topicArn
-     * @see SnsClientSubSystemFacade.subscribeEmail 값을 최종적으로 리턴 함.
+     * @see SnsClientSubSystemFacadeImpl.subscribeEmail 값을 최종적으로 리턴 함.
      * @return subscriptionArn - 구독을 식별할 수 있는 subscriptionArn
      */
     override fun subTopicByEmail(email: String, topicArn: String): String {
-        val subscribeRequest = snsRequestSubSystemFacade.createSubscribeRequest(email, topicArn)
+        val subscribeRequest = snsRequestSubSystemFacadeImpl.createSubscribeRequest(email, topicArn)
 
-        return snsClientSubSystemFacade.subscribeEmail(subscribeRequest, credentialService.getSnsClient())
+        return snsClientSubSystemFacadeImpl.subscribeEmail(subscribeRequest, credentialService.getSnsClient())
     }
 
     /**
@@ -75,9 +73,9 @@ class SnsTopicFactoryServiceImpl(
      */
     override fun isClientConfirmSub(subscriptionToken: String, topicArn: String) : String {
         val confirmSubscriptionRequest =
-            snsRequestSubSystemFacade.createConfirmSubscriptionRequest(subscriptionToken, topicArn)
+            snsRequestSubSystemFacadeImpl.createConfirmSubscriptionRequest(subscriptionToken, topicArn)
 
-        return snsClientSubSystemFacade.isAlreadyConfirm(confirmSubscriptionRequest, credentialService.getSnsClient())
+        return snsClientSubSystemFacadeImpl.isAlreadyConfirm(confirmSubscriptionRequest, credentialService.getSnsClient())
     }
 
 }
