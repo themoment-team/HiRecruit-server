@@ -2,6 +2,7 @@ package site.hirecruit.hr.thirdParty.aws.sns.service.facade.impl
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.sns.ProtocolType
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsRequestSubSystemFacade
 import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionRequest
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
 import software.amazon.awssdk.services.sns.model.ListTopicsRequest
@@ -15,7 +16,7 @@ import software.amazon.awssdk.services.sns.model.SubscribeRequest
  * @author 전지환
  */
 @Service
-class SnsRequestSubSystemFacadeImpl {
+class SnsRequestSubSystemFacadeImpl : SnsRequestSubSystemFacade{
 
     /**
      * aws sns 의 topic 을 생성해주는 method
@@ -23,7 +24,7 @@ class SnsRequestSubSystemFacadeImpl {
      *
      * @since 1.0.0
      */
-    fun createTopicRequest(topicName: String): CreateTopicRequest {
+    override fun createTopicRequest(topicName: String): CreateTopicRequest {
 
         return CreateTopicRequest.builder()
             .name(topicName)
@@ -36,7 +37,7 @@ class SnsRequestSubSystemFacadeImpl {
      *
      * @return ListTopicsRequest
      */
-    fun createListTopicRequest() : ListTopicsRequest {
+    override fun createListTopicRequest() : ListTopicsRequest {
         return ListTopicsRequest.builder().build()
     }
 
@@ -46,7 +47,7 @@ class SnsRequestSubSystemFacadeImpl {
      *
      * @return ConfirmSubscriptionRequest
      */
-    fun createConfirmSubscriptionRequest(subscriptionToken: String, topicArn: String) : ConfirmSubscriptionRequest {
+    override fun createConfirmSubscriptionRequest(subscriptionToken: String, topicArn: String) : ConfirmSubscriptionRequest {
 
         return ConfirmSubscriptionRequest.builder()
             .token(subscriptionToken)
@@ -60,7 +61,7 @@ class SnsRequestSubSystemFacadeImpl {
      * @param targetEmail 등록하고자 하는 email
      * @param targetTopicArn email 등록 대상 topicArn
      */
-    fun createSubscribeRequest(targetEmail: String, targetTopicArn: String) : SubscribeRequest {
+    override fun createSubscribeRequest(targetEmail: String, targetTopicArn: String) : SubscribeRequest {
 
         return SubscribeRequest.builder()
             .protocol(ProtocolType.EMAIL.toString().lowercase()) // "email" 이라는 sdk prefix 를 사용해야 함.
