@@ -21,8 +21,8 @@ class WorkerServiceImpl(
 ) : WorkerService {
 
     override fun registration(authUserInfo: AuthUserInfo, registrationDto: WorkerDto.Registration): WorkerDto.Info {
-        val userEntity = userRepository.findByIdOrNull(registrationDto.userId)
-            ?: throw IllegalStateException("Cannot found UserEntity, userId='${registrationDto.userId}'")
+        val userEntity = userRepository.findByGithubId(authUserInfo.githubId)
+            ?: throw IllegalStateException("Cannot found UserEntity, githubId='${authUserInfo.githubId}'")
         val savedWorkerEntity = workerRepository.save(
             WorkerEntity(
                 company = registrationDto.company,

@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull
 class WorkerDto {
 
     data class Registration(
-        val userId: Long,
-
         @field:NotBlank
         val company: String,
 
