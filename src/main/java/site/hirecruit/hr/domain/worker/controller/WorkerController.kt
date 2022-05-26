@@ -13,8 +13,9 @@ import site.hirecruit.hr.domain.worker.service.WorkerService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 
 /**
+ * WorkerController
  *
- *
+ * @author 정시원
  * @since 1.0
  */
 @RestController

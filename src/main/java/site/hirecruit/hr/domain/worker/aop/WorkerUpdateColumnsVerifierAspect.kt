@@ -7,6 +7,12 @@ import org.aspectj.lang.annotation.Pointcut
 import org.springframework.stereotype.Component
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 
+/**
+ * Worker 필드의 값을 유요한지 확인하는 AOP
+ *
+ * @author 정시원
+ * @since 1.0
+ */
 @Component
 @Aspect
 class WorkerUpdateColumnsVerifierAspect {

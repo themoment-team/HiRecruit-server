@@ -13,6 +13,7 @@ interface WorkerService {
 
     /**
      * [AuthUserInfo]와 [WorkerDto.Registration]를 기반으로 [WorkerEntity]를 생성 및 저장한다.
+     *
      * @return Worker의 정보
      */
     fun registration(authUserInfo: AuthUserInfo, registrationDto: WorkerDto.Registration): WorkerDto.Info
