@@ -2,8 +2,6 @@ package site.hirecruit.hr.thirdParty.aws.service
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.config.AwsSnsConfig
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.sns.SnsClient
 
@@ -30,14 +28,4 @@ class SnsCredentialService(private val awsSnsConfig: AwsSnsConfig) : CredentialS
             .build()
     }
 
-    /**
-     * accessKey, secretKey 로 해당 IAM 의 자격을 얻는다.
-     *
-     * @see getSdkClient - credentials가 필요한 부분에 넣어준다.
-     */
-    override fun getAwsCredentials(accessKey: String, secretKey: String): AwsCredentialsProvider {
-        return AwsCredentialsProvider {
-            AwsBasicCredentials.create(accessKey, secretKey)
-        }
-    }
 }
