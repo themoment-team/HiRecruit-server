@@ -1,5 +1,6 @@
 package site.hirecruit.hr.global.event
 
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 
 /**
@@ -9,6 +10,6 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
  * @author 정시원
  */
 data class UserRegistrationEvent(
-    private val userId: Long,
-    private val workerInfo: WorkerDto.Registration
+    val userAuthUserInfo: AuthUserInfo,
+    val workerInfo: WorkerDto.Registration
 )
