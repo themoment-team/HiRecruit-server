@@ -36,4 +36,19 @@ class WorkerEntity(
                 throw IllegalArgumentException("'devYear' property cannot have a negative number.")
             field = value
         }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is WorkerEntity) return false
+
+        if (workerId != other.workerId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return workerId?.hashCode() ?: 0
+    }
+
+
 }
