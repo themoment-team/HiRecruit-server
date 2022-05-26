@@ -11,6 +11,7 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.service.WorkerService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
+import springfox.documentation.annotations.ApiIgnore
 
 /**
  * WorkerController
@@ -25,15 +26,21 @@ class WorkerController(
 ) {
 
     @GetMapping("/me")
-    private fun findMyWorkerInfo(@CurrentAuthUserInfo authUserInfo: AuthUserInfo): ResponseEntity<WorkerDto.Info> {
+    private fun findMyWorkerInfo(
+        @CurrentAuthUserInfo  @ApiIgnore
+        authUserInfo: AuthUserInfo
+    ): ResponseEntity<WorkerDto.Info> {
         val myWorkerInfo = workerService.findWorkerByAuthUserInfo(authUserInfo)
         return ResponseEntity.ok(myWorkerInfo)
     }
 
     @PatchMapping("/me")
     private fun updateMyWorkerInfo(
-        @CurrentAuthUserInfo authUserInfo: AuthUserInfo,
-        @RequestBody workerDto: WorkerDto.Update
+        @CurrentAuthUserInfo @ApiIgnore
+        authUserInfo: AuthUserInfo,
+
+        @RequestBody
+        workerDto: WorkerDto.Update
     ): ResponseEntity<Unit>{
         workerService.update(authUserInfo, workerDto)
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
