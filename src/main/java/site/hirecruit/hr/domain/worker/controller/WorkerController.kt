@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
-import site.hirecruit.hr.domain.worker.service.WorkerService
+import site.hirecruit.hr.domain.worker.service.AuthUserWorkerService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import springfox.documentation.annotations.ApiIgnore
 
@@ -22,7 +22,7 @@ import springfox.documentation.annotations.ApiIgnore
 @RestController
 @RequestMapping("/api/v1/worker")
 class WorkerController(
-    private val workerService: WorkerService
+    private val authUserWorkerService: AuthUserWorkerService
 ) {
 
     @GetMapping("/me")
@@ -30,7 +30,7 @@ class WorkerController(
         @CurrentAuthUserInfo  @ApiIgnore
         authUserInfo: AuthUserInfo
     ): ResponseEntity<WorkerDto.Info> {
-        val myWorkerInfo = workerService.findWorkerByAuthUserInfo(authUserInfo)
+        val myWorkerInfo = authUserWorkerService.findWorkerByAuthUserInfo(authUserInfo)
         return ResponseEntity.ok(myWorkerInfo)
     }
 
@@ -42,7 +42,7 @@ class WorkerController(
         @RequestBody
         workerDto: WorkerDto.Update
     ): ResponseEntity<Unit>{
-        workerService.update(authUserInfo, workerDto)
+        authUserWorkerService.update(authUserInfo, workerDto)
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
             .build()
     }

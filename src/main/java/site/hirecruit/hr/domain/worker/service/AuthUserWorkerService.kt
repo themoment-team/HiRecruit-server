@@ -4,12 +4,12 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 
 /**
- * Worker Service
+ * 인증된 유저에 대한 WorkerService입니다.
  *
  * @author 정시원
  * @since 1.0
  */
-interface WorkerService {
+interface AuthUserWorkerService {
 
     /**
      * [AuthUserInfo]와 [WorkerDto.Registration]를 기반으로 [WorkerEntity]를 생성 및 저장한다.

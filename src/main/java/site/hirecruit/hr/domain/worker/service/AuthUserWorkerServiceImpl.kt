@@ -1,8 +1,6 @@
 package site.hirecruit.hr.domain.worker.service
 
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
@@ -10,15 +8,15 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
 /**
- * WorkerService Implement
+ * AuthUser
  *
  * @author 정시원
  */
 @Service
-class WorkerServiceImpl(
+class AuthUserWorkerServiceImpl(
     private val workerRepository: WorkerRepository,
     private val userRepository: UserRepository
-) : WorkerService {
+) : AuthUserWorkerService {
 
     override fun registration(authUserInfo: AuthUserInfo, registrationDto: WorkerDto.Registration): WorkerDto.Info {
         val userEntity = userRepository.findByGithubId(authUserInfo.githubId)
