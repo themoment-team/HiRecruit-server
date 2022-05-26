@@ -18,8 +18,8 @@ import software.amazon.awssdk.services.sns.model.Topic
 @Service
 class SnsTopicFactoryServiceImpl(
     private val snsCredentialService: CredentialService,
-    private val snsRequestSubSystemFacade: SnsRequestSubSystemFacade,
-    private val snsClientSubSystemFacade: SnsClientSubSystemFacade
+    private val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacade,
+    private val snsClientSubSystemFacadeImpl: SnsClientSubSystemFacade
 ) : SnsTopicFactoryService {
 
     /**
@@ -32,13 +32,13 @@ class SnsTopicFactoryServiceImpl(
     override fun createTopic(topicName: String): CreateTopicResponse {
 
         // topicRequest 생성
-        val topicRequest = snsRequestSubSystemFacade.createTopicRequest(topicName)
+        val topicRequest = snsRequestSubSystemFacadeImpl.createTopicRequest(topicName)
 
         // topicRequest를 aws-sns-api가 처리하도록 serving 함.
-        return snsClientSubSystemFacade.createTopic(
+        return snsClientSubSystemFacadeImpl.createTopic(
             topicRequest,
             snsCredentialService.getSdkClient() as SnsClient
-        ) ?: throw NoSuchElementException("요청하신 createTopic 결과: CreateTopicResponse가 존재하지 않습니다.")
+        )
     }
 
     /**
@@ -48,12 +48,12 @@ class SnsTopicFactoryServiceImpl(
      * @return ListTopicResponse - MutableList<T> 읽기, 쓰기가 가능한 객체
      */
     override fun displayAllTopics() : MutableList<Topic> {
-        val listTopicRequest = snsRequestSubSystemFacade.createListTopicRequest()
+        val listTopicRequest = snsRequestSubSystemFacadeImpl.createListTopicRequest()
 
-        return snsClientSubSystemFacade.getAllTopicsAsList(
+        return snsClientSubSystemFacadeImpl.getAllTopicsAsList(
             listTopicRequest,
             snsCredentialService.getSdkClient() as SnsClient
-        )?.topics() ?: throw NoSuchElementException("요청하신 getAllTopics의 결과: topics element가 존재하지 않습니다.")
+        ).topics() ?: throw NoSuchElementException("요청하신 getAllTopics의 결과: topics element가 존재하지 않습니다.")
     }
 
     /**
@@ -65,9 +65,9 @@ class SnsTopicFactoryServiceImpl(
      * @return subscriptionArn - 구독을 식별할 수 있는 subscriptionArn
      */
     override fun subTopicByEmail(email: String, topicArn: String): String {
-        val subscribeRequest = snsRequestSubSystemFacade.createSubscribeRequest(email, topicArn)
+        val subscribeRequest = snsRequestSubSystemFacadeImpl.createSubscribeRequest(email, topicArn)
 
-        return snsClientSubSystemFacade.subscribeEmail(subscribeRequest,
+        return snsClientSubSystemFacadeImpl.subscribeEmail(subscribeRequest,
             snsCredentialService.getSdkClient() as SnsClient
         )
     }
@@ -81,9 +81,9 @@ class SnsTopicFactoryServiceImpl(
      */
     override fun isClientConfirmSub(subscriptionToken: String, topicArn: String) : String {
         val confirmSubscriptionRequest =
-            snsRequestSubSystemFacade.createConfirmSubscriptionRequest(subscriptionToken, topicArn)
+            snsRequestSubSystemFacadeImpl.createConfirmSubscriptionRequest(subscriptionToken, topicArn)
 
-        return snsClientSubSystemFacade.isAlreadyConfirm(confirmSubscriptionRequest,
+        return snsClientSubSystemFacadeImpl.isAlreadyConfirm(confirmSubscriptionRequest,
             snsCredentialService.getSdkClient() as SnsClient
         )
     }
