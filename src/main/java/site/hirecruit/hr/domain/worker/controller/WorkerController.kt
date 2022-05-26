@@ -30,7 +30,7 @@ class WorkerController(
         @CurrentAuthUserInfo  @ApiIgnore
         authUserInfo: AuthUserInfo
     ): ResponseEntity<WorkerDto.Info> {
-        val myWorkerInfo = authUserWorkerService.findWorkerEntityByAuthUserInfo(authUserInfo)
+        val myWorkerInfo = authUserWorkerService.findWorkerInfoByAuthUserInfo(authUserInfo)
         return ResponseEntity.ok(myWorkerInfo)
     }
 

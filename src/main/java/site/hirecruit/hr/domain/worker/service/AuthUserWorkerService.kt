@@ -16,7 +16,7 @@ interface AuthUserWorkerService {
      *
      * @return Worker의 정보
      */
-    fun findWorkerEntityByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info
+    fun findWorkerInfoByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info
 
     /**
      * [AuthUserInfo]정보를 기반으로 조회한 WorkerEntity를 변경한다.

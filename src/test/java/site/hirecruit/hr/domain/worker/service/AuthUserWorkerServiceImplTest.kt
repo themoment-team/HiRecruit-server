@@ -52,7 +52,7 @@ class AuthUserWorkerServiceImplTest(
         val authUserInfo = createAuthUserInfoByUserEntity()
 
         // when
-        val myWorkerInfo = authUserWorkerService.findWorkerEntityByAuthUserInfo(authUserInfo)
+        val myWorkerInfo = authUserWorkerService.findWorkerInfoByAuthUserInfo(authUserInfo)
 
         // then
         assertAll({

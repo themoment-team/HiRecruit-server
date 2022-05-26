@@ -17,7 +17,7 @@ class AuthUserWorkerServiceImpl(
 ) : AuthUserWorkerService {
 
     @Transactional(readOnly = true)
-    override fun findWorkerEntityByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info {
+    override fun findWorkerInfoByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info {
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
             ?: throw IllegalArgumentException("Invalid authentication information. So 'WorkerEntity' could not be found. authUserInfo = '${authUserInfo}' ")
         return WorkerDto.Info(
