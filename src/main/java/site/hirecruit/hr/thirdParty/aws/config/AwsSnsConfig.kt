@@ -19,9 +19,6 @@ private val log = KotlinLogging.logger {}
 @PropertySource("classpath:/aws/aws-sns-config.properties")
 class AwsSnsConfig(
 
-    @Value("\${sns.topic.arn}")
-    val snsTopicARN: String,
-
     @Value("\${aws.accessKey}")
     val awsAccessKey: String,
 
@@ -36,7 +33,6 @@ class AwsSnsConfig(
     @PostConstruct
     fun init() {
         log.debug { "AwsSnsConfig(" +
-                "snsTopicARN='$snsTopicARN', " +
                 "awsAccessKey='$awsAccessKey', " +
                 "awsSecretKey='$awsSecretKey', " +
                 "awsRegion='$awsRegion'" +
