@@ -83,12 +83,6 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
             factory.addAspect(WorkerUpdateColumnsVerifierAspect())
             val proxy = factory.getProxy<AuthUserWorkerService>()
 
-            val nullValue = WorkerDto.Update(
-                introduction = null,
-                updateColumns = listOf(
-                    WorkerDto.Update.Column.INTRODUCTION,
-                )
-            )
             val blankValue = WorkerDto.Update(
                 introduction = "     ",
                 updateColumns = listOf(
@@ -140,12 +134,6 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
             factory.addAspect(WorkerUpdateColumnsVerifierAspect())
             val proxy = factory.getProxy<AuthUserWorkerService>()
 
-            val nullValue = WorkerDto.Update(
-                giveLink = null,
-                updateColumns = listOf(
-                    WorkerDto.Update.Column.GIVE_LINK,
-                )
-            )
             val blankValue = WorkerDto.Update(
                 giveLink = "     ",
                 updateColumns = listOf(
@@ -167,12 +155,6 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
             factory.addAspect(WorkerUpdateColumnsVerifierAspect())
             val proxy = factory.getProxy<AuthUserWorkerService>()
 
-            val nullValue = WorkerDto.Update(
-                devYear = null,
-                updateColumns = listOf(
-                    WorkerDto.Update.Column.DEV_YEAR,
-                )
-            )
             val blankValue = WorkerDto.Update(
                 devYear = -1,
                 updateColumns = listOf(
