@@ -30,7 +30,7 @@ class WorkerController(
         @CurrentAuthUserInfo  @ApiIgnore
         authUserInfo: AuthUserInfo
     ): ResponseEntity<WorkerDto.Info> {
-        val myWorkerInfo = authUserWorkerService.findWorkerByAuthUserInfo(authUserInfo)
+        val myWorkerInfo = authUserWorkerService.findWorkerEntityByAuthUserInfo(authUserInfo)
         return ResponseEntity.ok(myWorkerInfo)
     }
 
@@ -42,7 +42,7 @@ class WorkerController(
         @RequestBody
         workerDto: WorkerDto.Update
     ): ResponseEntity<Unit>{
-        authUserWorkerService.update(authUserInfo, workerDto)
+        authUserWorkerService.updateWorkerEntityByAuthUserInfo(authUserInfo, workerDto)
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
             .build()
     }

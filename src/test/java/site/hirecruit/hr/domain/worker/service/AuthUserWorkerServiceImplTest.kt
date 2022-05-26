@@ -52,7 +52,7 @@ class AuthUserWorkerServiceImplTest(
         val authUserInfo = createAuthUserInfoByUserEntity()
 
         // when
-        val myWorkerInfo = authUserWorkerService.findWorkerByAuthUserInfo(authUserInfo)
+        val myWorkerInfo = authUserWorkerService.findWorkerEntityByAuthUserInfo(authUserInfo)
 
         // then
         assertAll({
@@ -92,7 +92,7 @@ class AuthUserWorkerServiceImplTest(
         val authUserInfo = createAuthUserInfoByUserEntity()
 
         // when
-        authUserWorkerService.update(authUserInfo, updateDto)
+        authUserWorkerService.updateWorkerEntityByAuthUserInfo(authUserInfo, updateDto)
 
         //then
         val updatedWorkerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)

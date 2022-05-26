@@ -40,7 +40,7 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
         )
         //when, then
         Assertions.assertDoesNotThrow({
-            proxy.update(authUserInfoMock, updateDto) // 테스트를 위해 AuthUserInfo를 가짜로 넣어준다.
+            proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, updateDto) // 테스트를 위해 AuthUserInfo를 가짜로 넣어준다.
         }, "UpdateDto의 데이터 값이 올바르지 않거나, 해당 검증로직이 잘못되었다.")
     }
 
@@ -68,10 +68,10 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
 
             assertAll({
                 assertThrows<IllegalArgumentException>("null 값은 허용되지 않는다.") {
-                    proxy.update(authUserInfoMock, nullValue)
+                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, nullValue)
                 }
                 assertThrows<IllegalArgumentException>("빈 값은 허용되지 않는다."){
-                    proxy.update(authUserInfoMock, blankValue)
+                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, blankValue)
                 }
             })
 
@@ -98,7 +98,7 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
 
             assertAll({
                 assertThrows<IllegalArgumentException>("빈 값은 허용되지 않는다."){
-                    proxy.update(authUserInfoMock, blankValue)
+                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, blankValue)
                 }
             })
 
@@ -125,10 +125,10 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
 
             assertAll({
                 assertThrows<IllegalArgumentException>("null 값은 허용되지 않는다.") {
-                    proxy.update(authUserInfoMock, nullValue)
+                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, nullValue)
                 }
                 assertThrows<IllegalArgumentException>("빈 값은 허용되지 않는다."){
-                    proxy.update(authUserInfoMock, blankValue)
+                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, blankValue)
                 }
             })
 
@@ -155,7 +155,7 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
 
             assertAll({
                 assertThrows<IllegalArgumentException>("빈 값은 허용되지 않는다."){
-                    proxy.update(authUserInfoMock, blankValue)
+                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, blankValue)
                 }
             })
 
@@ -182,7 +182,7 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
 
             assertAll({
                 assertThrows<IllegalArgumentException>("음수는 허용되지 않는다."){
-                    proxy.update(authUserInfoMock, blankValue)
+                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, blankValue)
                 }
             })
 
