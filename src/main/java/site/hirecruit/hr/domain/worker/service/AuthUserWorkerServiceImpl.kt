@@ -1,10 +1,9 @@
 package site.hirecruit.hr.domain.worker.service
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
-import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
 /**
@@ -17,10 +16,10 @@ class AuthUserWorkerServiceImpl(
     private val workerRepository: WorkerRepository,
 ) : AuthUserWorkerService {
 
-
+    @Transactional(readOnly = true)
     override fun findWorkerByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info {
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
-            ?: throw IllegalArgumentException("Invalid authentication information so cannot found 'WorkerEntity'. authUserInfo = '${authUserInfo}' ")
+            ?: throw IllegalArgumentException("Invalid authentication information. So 'WorkerEntity' could not be found. authUserInfo = '${authUserInfo}' ")
         return WorkerDto.Info(
             name = authUserInfo.name,
             email = authUserInfo.email!!,
@@ -33,10 +32,10 @@ class AuthUserWorkerServiceImpl(
         )
     }
 
+    @Transactional
     override fun update(authUserInfo: AuthUserInfo, updateDto: WorkerDto.Update) {
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
-            ?: throw IllegalArgumentException("Invalid authentication information so cannot found 'WorkerEntity'. authUserInfo = '${authUserInfo}' ")
-
+            ?: throw IllegalArgumentException("Invalid authentication information. So 'WorkerEntity' could not be found. authUserInfo = '${authUserInfo}' ")
         updateDto.updateColumns.forEach {
             when(it) {
                 WorkerDto.Update.Column.COMPANY         -> workerEntity.company = updateDto.company!!
