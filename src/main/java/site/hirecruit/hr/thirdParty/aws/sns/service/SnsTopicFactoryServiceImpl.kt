@@ -2,8 +2,9 @@ package site.hirecruit.hr.thirdParty.aws.sns.service
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsClientSubSystemFacade
+import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsRequestSubSystemFacade
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.impl.SnsClientSubSystemFacadeImpl
-import site.hirecruit.hr.thirdParty.aws.sns.service.facade.impl.SnsRequestSubSystemFacadeImpl
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse
 import software.amazon.awssdk.services.sns.model.Topic
@@ -17,8 +18,8 @@ import software.amazon.awssdk.services.sns.model.Topic
 @Service
 class SnsTopicFactoryServiceImpl(
     private val credentialService: CredentialService,
-    private val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacadeImpl,
-    private val snsClientSubSystemFacadeImpl: SnsClientSubSystemFacadeImpl
+    private val snsRequestSubSystemFacadeImpl: SnsRequestSubSystemFacade,
+    private val snsClientSubSystemFacadeImpl: SnsClientSubSystemFacade
 ) : SnsTopicFactoryService {
 
     /**
