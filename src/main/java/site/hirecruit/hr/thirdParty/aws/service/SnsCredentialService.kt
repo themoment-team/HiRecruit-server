@@ -14,14 +14,14 @@ import software.amazon.awssdk.services.sns.SnsClient
  * @author 전지환
  */
 @Service
-class SnsCredentialService(private val awsSnsConfig: AwsSnsConfig) {
+class SnsCredentialService(private val awsSnsConfig: AwsSnsConfig) : CredentialService{
 
     /**
      * aws sns 서비스의 permission이 있는 IAM의 자격을 얻어 properties에 알맞는 region으로 SnsClient를 제공해준다.
      *
      * @see AwsSnsConfig sns전용 IAM에 대한 설정
      */
-    fun getSnsClient(): SnsClient {
+    override fun getSdkClient(): SnsClient {
 
         return SnsClient.builder()
             .credentialsProvider(
@@ -33,9 +33,9 @@ class SnsCredentialService(private val awsSnsConfig: AwsSnsConfig) {
     /**
      * accessKey, secretKey 로 해당 IAM 의 자격을 얻는다.
      *
-     * @see getSnsClient - credentials가 필요한 부분에 넣어준다.
+     * @see getSdkClient - credentials가 필요한 부분에 넣어준다.
      */
-    private fun getAwsCredentials(accessKey: String, secretKey: String): AwsCredentialsProvider {
+    override fun getAwsCredentials(accessKey: String, secretKey: String): AwsCredentialsProvider {
         return AwsCredentialsProvider {
             AwsBasicCredentials.create(accessKey, secretKey)
         }
