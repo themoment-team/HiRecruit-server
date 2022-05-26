@@ -15,33 +15,8 @@ import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 @Service
 class AuthUserWorkerServiceImpl(
     private val workerRepository: WorkerRepository,
-    private val userRepository: UserRepository
 ) : AuthUserWorkerService {
 
-    override fun registration(authUserInfo: AuthUserInfo, registrationDto: WorkerDto.Registration): WorkerDto.Info {
-        val userEntity = userRepository.findByGithubId(authUserInfo.githubId)
-            ?: throw IllegalStateException("Cannot found UserEntity, githubId='${authUserInfo.githubId}'")
-        val savedWorkerEntity = workerRepository.save(
-            WorkerEntity(
-                company = registrationDto.company,
-                location = registrationDto.location,
-                introduction = registrationDto.introduction,
-                giveLink = registrationDto.giveLink,
-                devYear = registrationDto.devYear,
-                userEntity
-            )
-        )
-        return WorkerDto.Info(
-            name = authUserInfo.name,
-            email = authUserInfo.email!!,
-            profileImgUri = authUserInfo.profileImgUri,
-            company = savedWorkerEntity.company,
-            location = savedWorkerEntity.location,
-            introduction = savedWorkerEntity.introduction,
-            giveLink = savedWorkerEntity.giveLink,
-            devYear = savedWorkerEntity.devYear
-        )
-    }
 
     override fun findWorkerByAuthUserInfo(authUserInfo: AuthUserInfo): WorkerDto.Info {
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
