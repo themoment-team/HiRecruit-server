@@ -1,10 +1,7 @@
 package site.hirecruit.hr.domain.worker.dto
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped
-import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
 
 /**
  * Worker 도메인 DTO
