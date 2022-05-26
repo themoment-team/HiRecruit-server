@@ -14,7 +14,7 @@ import software.amazon.awssdk.services.sns.SnsClient
  * @author 전지환
  */
 @Service
-class CredentialService(private val awsSnsConfig: AwsSnsConfig) {
+class SnsCredentialService(private val awsSnsConfig: AwsSnsConfig) {
 
     /**
      * aws sns 서비스의 permission이 있는 IAM의 자격을 얻어 properties에 알맞는 region으로 SnsClient를 제공해준다.

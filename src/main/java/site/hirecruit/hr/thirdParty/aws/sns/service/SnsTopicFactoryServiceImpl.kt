@@ -1,7 +1,7 @@
 package site.hirecruit.hr.thirdParty.aws.sns.service
 
 import org.springframework.stereotype.Service
-import site.hirecruit.hr.thirdParty.aws.service.CredentialService
+import site.hirecruit.hr.thirdParty.aws.service.SnsCredentialService
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsClientSubSystemFacade
 import site.hirecruit.hr.thirdParty.aws.sns.service.facade.SnsRequestSubSystemFacade
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest
@@ -16,7 +16,7 @@ import software.amazon.awssdk.services.sns.model.Topic
  */
 @Service
 class SnsTopicFactoryServiceImpl(
-    private val credentialService: CredentialService,
+    private val snsCredentialService: SnsCredentialService,
     private val snsRequestSubSystemFacade: SnsRequestSubSystemFacade,
     private val snsClientSubSystemFacade: SnsClientSubSystemFacade
 ) : SnsTopicFactoryService {
@@ -34,7 +34,7 @@ class SnsTopicFactoryServiceImpl(
         val topicRequest = snsRequestSubSystemFacade.createTopicRequest(topicName)
 
         // topicRequest를 aws-sns-api가 처리하도록 serving 함.
-        return snsClientSubSystemFacade.createTopic(topicRequest, credentialService.getSnsClient())
+        return snsClientSubSystemFacade.createTopic(topicRequest, snsCredentialService.getSnsClient())
             ?: throw NoSuchElementException("요청하신 createTopic 결과: CreateTopicResponse가 존재하지 않습니다.")
 
     }
@@ -48,7 +48,7 @@ class SnsTopicFactoryServiceImpl(
     override fun displayAllTopics() : MutableList<Topic> {
         val listTopicRequest = snsRequestSubSystemFacade.createListTopicRequest()
 
-        return snsClientSubSystemFacade.getAllTopicsAsList(listTopicRequest, credentialService.getSnsClient())?.topics()
+        return snsClientSubSystemFacade.getAllTopicsAsList(listTopicRequest, snsCredentialService.getSnsClient())?.topics()
             ?: throw NoSuchElementException("요청하신 getAllTopics의 결과: topics element가 존재하지 않습니다.")
     }
 
@@ -63,7 +63,7 @@ class SnsTopicFactoryServiceImpl(
     override fun subTopicByEmail(email: String, topicArn: String): String {
         val subscribeRequest = snsRequestSubSystemFacade.createSubscribeRequest(email, topicArn)
 
-        return snsClientSubSystemFacade.subscribeEmail(subscribeRequest, credentialService.getSnsClient())
+        return snsClientSubSystemFacade.subscribeEmail(subscribeRequest, snsCredentialService.getSnsClient())
     }
 
     /**
@@ -77,7 +77,7 @@ class SnsTopicFactoryServiceImpl(
         val confirmSubscriptionRequest =
             snsRequestSubSystemFacade.createConfirmSubscriptionRequest(subscriptionToken, topicArn)
 
-        return snsClientSubSystemFacade.isAlreadyConfirm(confirmSubscriptionRequest, credentialService.getSnsClient())
+        return snsClientSubSystemFacade.isAlreadyConfirm(confirmSubscriptionRequest, snsCredentialService.getSnsClient())
     }
 
 }
