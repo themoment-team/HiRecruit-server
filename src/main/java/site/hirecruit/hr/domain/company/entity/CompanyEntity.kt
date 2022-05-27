@@ -8,7 +8,7 @@ import javax.persistence.*
  * @author 정시원
  * @since 1.0
  */
-@Entity @Table(name = "companey")
+@Entity @Table(name = "company")
 class CompanyEntity(
     @Column(name = "company_name", nullable = false)
     var name: String,
@@ -17,7 +17,7 @@ class CompanyEntity(
     var location: String,
 
     @Column(name = "company_image_uri", nullable = true)
-    var image_uri: String? = null
+    var imageUri: String? = null
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val companyId: Long? = null
