@@ -21,6 +21,9 @@ class WorkerEntity(
 
     devYear: Int? = null,
 
+    @Column(name = "position", nullable = false)
+    var position: String? = null, //확장을 위해 enum 사용하지 않음 직군이 너무 많음
+
     @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     val user: UserEntity
