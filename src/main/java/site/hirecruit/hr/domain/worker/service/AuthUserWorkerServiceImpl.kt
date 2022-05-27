@@ -7,9 +7,10 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
 /**
- * AuthUser
+ * AuthUserWorkerService 인증된 유저의 Worker service
  *
  * @author 정시원
+ * @since 1.0
  */
 @Service
 class AuthUserWorkerServiceImpl(
