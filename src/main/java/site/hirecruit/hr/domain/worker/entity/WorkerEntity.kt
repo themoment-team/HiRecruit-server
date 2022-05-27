@@ -7,8 +7,8 @@ import javax.persistence.*
 
 @Entity @Table(name = "worker")
 class WorkerEntity(
-    @Column(name = "company", nullable = false)
-    var company: String,
+    @Column(name = "companyName", nullable = false)
+    var companyName: String,
 
     @Column(name = "location", nullable = false)
     var location: String,
@@ -20,6 +20,9 @@ class WorkerEntity(
     var giveLink: String? = null,
 
     devYear: Int? = null,
+
+    @Column(name = "position", nullable = false)
+    var position: String? = null, //확장을 위해 enum 사용하지 않음 직군이 너무 많음
 
     @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)

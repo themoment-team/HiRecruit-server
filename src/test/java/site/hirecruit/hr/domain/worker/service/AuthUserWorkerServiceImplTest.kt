@@ -63,7 +63,7 @@ class AuthUserWorkerServiceImplTest(
         })
 
         assertAll({
-            assertEquals(workerEntity.company, myWorkerInfo.company)
+            assertEquals(workerEntity.companyName, myWorkerInfo.companyName)
             assertEquals(workerEntity.location, myWorkerInfo.location)
             assertEquals(workerEntity.introduction, workerEntity.introduction)
             assertEquals(workerEntity.devYear, workerEntity.devYear)
@@ -76,13 +76,13 @@ class AuthUserWorkerServiceImplTest(
         // given
         val workerEntity = workerEntityDeepCopy(createWorkerEntity())
         val updateDto = WorkerDto.Update(
-            company = RandomString.make(10),
+            companyName = RandomString.make(10),
             location = RandomString.make(10),
             introduction = RandomString.make(10),
             giveLink = RandomString.make(10),
             devYear = Random.nextInt(0, 30),
             updateColumns = listOf( // 변경할 컬럼
-                WorkerDto.Update.Column.COMPANY,
+                WorkerDto.Update.Column.COMPANY_NAME,
                 WorkerDto.Update.Column.LOCATION,
                 WorkerDto.Update.Column.INTRODUCTION,
                 WorkerDto.Update.Column.GIVE_LINK,
@@ -97,7 +97,7 @@ class AuthUserWorkerServiceImplTest(
         //then
         val updatedWorkerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
         assertAll("업데이터 전에 조회한 WorkerEntity의 값과 Update후 조회된 WorkerEntity의 값은 달라야 한다.", {
-            assertNotEquals(workerEntity.company, updatedWorkerEntity?.company)
+            assertNotEquals(workerEntity.companyName, updatedWorkerEntity?.companyName)
             assertNotEquals(workerEntity.location, updatedWorkerEntity?.location)
             assertNotEquals(workerEntity.introduction, updatedWorkerEntity?.introduction)
             assertNotEquals(workerEntity.giveLink, updatedWorkerEntity?.giveLink)
@@ -105,7 +105,7 @@ class AuthUserWorkerServiceImplTest(
         })
 
         assertAll("UpdateDto에 저장된, 값들은 update후 조회된 Entity에 반영되어야 한다.", {
-            assertEquals(updateDto.company, updatedWorkerEntity?.company)
+            assertEquals(updateDto.companyName, updatedWorkerEntity?.companyName)
             assertEquals(updateDto.location, updatedWorkerEntity?.location)
             assertEquals(updateDto.introduction, updatedWorkerEntity?.introduction)
             assertEquals(updateDto.giveLink, updatedWorkerEntity?.giveLink)
@@ -115,7 +115,7 @@ class AuthUserWorkerServiceImplTest(
 
     private fun createWorkerEntity() = workerRepository.save(
         WorkerEntity(
-            company = RandomString.make(5),
+            companyName = RandomString.make(5),
             location = RandomString.make(15),
             introduction = RandomString.make(15),
             giveLink = RandomString.make(15),
@@ -133,7 +133,7 @@ class AuthUserWorkerServiceImplTest(
     )
 
     private fun workerEntityDeepCopy(workerEntity: WorkerEntity): WorkerEntity = WorkerEntity(
-        company = workerEntity.company,
+        companyName = workerEntity.companyName,
         location = workerEntity.location,
         introduction = workerEntity.introduction,
         giveLink = workerEntity.giveLink,

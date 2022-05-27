@@ -36,7 +36,7 @@ internal class WorkerRegistrationServiceImplTest{
             role = authUserInfo.role
         )
         val workerEntity = WorkerEntity(
-            company = registrationDto.company,
+            companyName = registrationDto.companyName,
             location = registrationDto.location,
             giveLink = registrationDto.giveLink,
             introduction = registrationDto.introduction,
@@ -59,7 +59,7 @@ internal class WorkerRegistrationServiceImplTest{
             assertEquals(authUserInfo.name, registrationWorkerInfo.name)
             assertEquals(authUserInfo.email, registrationWorkerInfo.email)
             assertEquals(authUserInfo.profileImgUri, registrationWorkerInfo.profileImgUri)
-            assertEquals(registrationDto.company, registrationWorkerInfo.company)
+            assertEquals(registrationDto.companyName, registrationWorkerInfo.companyName)
             assertEquals(registrationDto.location, registrationWorkerInfo.location)
             assertEquals(registrationDto.introduction, registrationWorkerInfo.introduction)
             assertEquals(registrationDto.giveLink, registrationWorkerInfo.giveLink)
@@ -81,7 +81,7 @@ internal class WorkerRegistrationServiceImplTest{
     }
 
     private fun makeRegistrationDto() = WorkerDto.Registration(
-        company = RandomString.make(7),
+        companyName = RandomString.make(7),
         location = RandomString.make(15),
         giveLink = RandomString.make(15),
         introduction = RandomString.make(15),
