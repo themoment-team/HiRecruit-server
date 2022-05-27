@@ -13,7 +13,7 @@ class WorkerDto {
 
     data class Registration(
         @field:NotBlank
-        val company: String,
+        val companyName: String,
 
         @field:NotBlank
         val location: String,
@@ -30,7 +30,7 @@ class WorkerDto {
 
         val profileImgUri: String,
 
-        val company: String,
+        val companyName: String,
 
         val location: String,
 
@@ -42,7 +42,7 @@ class WorkerDto {
     )
 
     data class Update(
-        val company: String? = null,
+        val companyName: String? = null,
 
         val location: String? = null,
 
@@ -57,7 +57,7 @@ class WorkerDto {
     ){
 
         enum class Column{
-            COMPANY, LOCATION, INTRODUCTION, GIVE_LINK, DEV_YEAR
+            COMPANY_NAME, LOCATION, INTRODUCTION, GIVE_LINK, DEV_YEAR
         }
     }
 }

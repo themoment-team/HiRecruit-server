@@ -25,13 +25,13 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
         val proxy = factory.getProxy<AuthUserWorkerService>()
 
         val updateDto = WorkerDto.Update(
-            company = RandomString.make(10),
+            companyName = RandomString.make(10),
             location = RandomString.make(10),
             introduction = RandomString.make(10),
             giveLink = RandomString.make(10),
             devYear = Random.nextInt(0, 30),
             updateColumns = listOf( // 변경할 컬럼
-                WorkerDto.Update.Column.COMPANY,
+                WorkerDto.Update.Column.COMPANY_NAME,
                 WorkerDto.Update.Column.LOCATION,
                 WorkerDto.Update.Column.INTRODUCTION,
                 WorkerDto.Update.Column.GIVE_LINK,
@@ -48,21 +48,21 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
     inner class ValidationFailTest{
 
         @Test
-        internal fun company() {
+        internal fun companyName() {
             val factory = AspectJProxyFactory(proxy)
             factory.addAspect(WorkerUpdateColumnsVerifierAspect())
             val proxy = factory.getProxy<AuthUserWorkerService>()
 
             val nullValue = WorkerDto.Update(
-                company = null,
+                companyName = null,
                 updateColumns = listOf(
-                    WorkerDto.Update.Column.COMPANY,
+                    WorkerDto.Update.Column.COMPANY_NAME,
                 )
             )
             val blankValue = WorkerDto.Update(
-                company = "     ",
+                companyName = "     ",
                 updateColumns = listOf(
-                    WorkerDto.Update.Column.COMPANY,
+                    WorkerDto.Update.Column.COMPANY_NAME,
                 )
             )
 
@@ -158,7 +158,7 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
             val blankValue = WorkerDto.Update(
                 devYear = -1,
                 updateColumns = listOf(
-                    WorkerDto.Update.Column.COMPANY,
+                    WorkerDto.Update.Column.COMPANY_NAME,
                 )
             )
 

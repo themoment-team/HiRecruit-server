@@ -7,8 +7,8 @@ import javax.persistence.*
 
 @Entity @Table(name = "worker")
 class WorkerEntity(
-    @Column(name = "company", nullable = false)
-    var company: String,
+    @Column(name = "companyName", nullable = false)
+    var companyName: String,
 
     @Column(name = "location", nullable = false)
     var location: String,
