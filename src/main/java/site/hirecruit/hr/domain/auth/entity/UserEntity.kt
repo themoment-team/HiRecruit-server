@@ -28,4 +28,22 @@ class UserEntity(
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val userId: Long? = null
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UserEntity) return false
+
+        if (githubId != other.githubId) return false
+        if (userId != other.userId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = githubId.hashCode()
+        result = 31 * result + (userId?.hashCode() ?: 0)
+        return result
+    }
+
+
 }

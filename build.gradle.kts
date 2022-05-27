@@ -19,6 +19,7 @@ allOpen {
     annotation("javax.persistence.Embeddable")
     annotation("org.springframework.context.annotation.Configuration")
     annotation("org.springframework.stereotype.Repository")
+    annotation("org.aspectj.lang.annotation.Aspect")
 }
 
 noArg {
@@ -70,6 +71,9 @@ dependencies {
     implementation("com.amazonaws:aws-java-sdk-core:1.12.223")
     // software.amazon.awssdk/sns
     implementation("software.amazon.awssdk:sns:2.17.193")
+    // software.amazon.awssdk/ses
+    implementation("software.amazon.awssdk:ses:2.17.198")
+
 
 
     /** for test **/

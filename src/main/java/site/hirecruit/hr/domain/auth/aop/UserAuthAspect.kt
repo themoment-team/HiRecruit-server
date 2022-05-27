@@ -9,7 +9,7 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.global.data.SessionAttribute
 import javax.servlet.http.HttpSession
 
-val log = KotlinLogging.logger {}
+private val log = KotlinLogging.logger {}
 
 /**
  * UserAuth관련 AOP
@@ -19,7 +19,7 @@ val log = KotlinLogging.logger {}
  */
 @Component
 @Aspect
-private open class UserAuthAspect (
+class UserAuthAspect (
     private val httpSession: HttpSession
 ) {
 

@@ -10,15 +10,14 @@ import javax.annotation.PostConstruct
 private val log = KotlinLogging.logger {}
 
 /**
- * 인스턴스 생성 시점에 aws env 설정이 대입되어 초기화 된다.
+ * aws ses service 를 쓰기위한 설정 정보들이 init 됩니다.
  *
- * @since 1.0.0
  * @author 전지환
+ * @since 1.0.0
  */
 @Configuration
-@PropertySource("classpath:/aws/aws-sns-config.properties")
-class AwsSnsConfig(
-
+@PropertySource("classpath:/aws/aws-ses-config.properties")
+class AwsSesConfig(
     @Value("\${aws.accessKey}")
     val awsAccessKey: String,
 
@@ -27,8 +26,7 @@ class AwsSnsConfig(
 
     @Value("\${aws.region}")
     val awsRegion: String
-
-) {
+){
 
     @PostConstruct
     fun init() {
