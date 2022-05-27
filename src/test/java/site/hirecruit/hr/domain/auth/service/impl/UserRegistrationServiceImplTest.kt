@@ -62,7 +62,7 @@ internal class UserRegistrationServiceImplTest{
         //then
         verify(exactly = 1) {userRepository.save(userEntity)}
         verify(exactly = 1) {emailAuthenticationService.send(tempUserAuthUserInfo, userRegistrationDto.email)}
-        val userRegistrationEvent = UserRegistrationEvent(tempUserAuthUserInfo.githubId, userRegistrationDto.workerDto)
+        val userRegistrationEvent = UserRegistrationEvent(tempUserAuthUserInfo, userRegistrationDto.workerDto)
         verify(exactly = 1) {publisher.publishEvent(userRegistrationEvent)}
 
         // 임시 유저일 떄의 Role과 registration()를 수행한 유저일 때의 Role은 다르다.

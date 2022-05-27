@@ -20,6 +20,8 @@ interface AuthUserWorkerService {
 
     /**
      * [AuthUserInfo]정보를 기반으로 조회한 WorkerEntity를 변경한다.
+     *
+     * @see site.hirecruit.hr.domain.worker.aop.WorkerUpdateColumnsVerifierAspect
      */
     fun updateWorkerEntityByAuthUserInfo(authUserInfo: AuthUserInfo, updateDto: WorkerDto.Update)
 

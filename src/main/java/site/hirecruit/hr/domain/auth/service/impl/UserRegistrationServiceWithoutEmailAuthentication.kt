@@ -42,15 +42,16 @@ class UserRegistrationServiceWithoutEmailAuthentication(
             Role.UNAUTHENTICATED_EMAIL
         )
         val savedUserEntity = userRepository.save(userEntity)
-
-        // UserRegistrationEvent발생시킴. 타 도메인 로직(ex. workerEntity 생성 등...)은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
-        publisher.publishEvent(UserRegistrationEvent(savedUserEntity.githubId, userRegistrationInfo.workerDto))
-        return AuthUserInfo(
+        val registrationAuthUserInfo = AuthUserInfo(
             githubId = savedUserEntity.githubId,
             name = savedUserEntity.name,
             email = savedUserEntity.email,
             profileImgUri = savedUserEntity.profileImgUri,
             role = savedUserEntity.role
         )
+
+        // UserRegistrationEvent발생시킴. 타 도메인 로직(ex. workerEntity 생성 등...)은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
+        publisher.publishEvent(UserRegistrationEvent(registrationAuthUserInfo, userRegistrationInfo.workerDto))
+        return registrationAuthUserInfo
     }
 }

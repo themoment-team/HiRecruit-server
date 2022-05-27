@@ -22,7 +22,7 @@ import kotlin.random.Random
 internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
 
 
-    private val publisher: ApplicationEventPublisher = spyk()
+    private val publisher: ApplicationEventPublisher = mockk(relaxed = true)
     private val emailAuthenticationService: EmailAuthenticationService = spyk()
 
     @Test
@@ -55,6 +55,13 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
             profileImgUri = tempUserAuthUserInfo.profileImgUri,
             role = Role.UNAUTHENTICATED_EMAIL
         )
+        val registrationAuthUserInfo = AuthUserInfo(
+            githubId = userEntity.githubId,
+            name = userEntity.name,
+            email = userEntity.email,
+            profileImgUri = userEntity.profileImgUri,
+            userEntity.role
+        )
 
         /**
          * User를 저장하는 UserRepository 이외에는 메서드에 대한 리턴값이 비즈니스 로직에 영향을 미치지 않는다.
@@ -66,7 +73,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
 
         //then
         verify(exactly = 1) {userRepository.save(userEntity)}
-        val userRegistrationEvent = UserRegistrationEvent(tempUserAuthUserInfo.githubId, userRegistrationDto.workerDto)
+        val userRegistrationEvent = UserRegistrationEvent(registrationAuthUserInfo, userRegistrationDto.workerDto)
         verify(exactly = 1) {publisher.publishEvent(userRegistrationEvent)}
         verify(exactly = 0) {emailAuthenticationService.send(any(), any())} // email 인증을 수행하지 않는다.
 

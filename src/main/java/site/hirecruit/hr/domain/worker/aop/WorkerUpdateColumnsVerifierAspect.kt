@@ -17,7 +17,7 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
 @Aspect
 class WorkerUpdateColumnsVerifierAspect {
 
-    @Pointcut("execution(* site.hirecruit.hr.domain.worker.service.AuthUserWorkerService+.update(..))")
+    @Pointcut("execution(* site.hirecruit.hr.domain.worker.service.AuthUserWorkerService+.updateWorkerEntityByAuthUserInfo(..))")
     private fun authUserWorkerService_updateMethodPointCut(){}
 
     @Before("authUserWorkerService_updateMethodPointCut()")
