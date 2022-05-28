@@ -24,19 +24,19 @@ class WorkerRegistrationServiceImpl(
             ?: throw IllegalStateException("Cannot found UserEntity, githubId='${authUserInfo.githubId}'")
         val savedWorkerEntity = workerRepository.save(
             WorkerEntity(
-                company = registrationDto.company,
+                companyName = registrationDto.companyName,
                 location = registrationDto.location,
                 introduction = registrationDto.introduction,
                 giveLink = registrationDto.giveLink,
                 devYear = registrationDto.devYear,
-                userEntity
+                user = userEntity
             )
         )
         return WorkerDto.Info(
             name = authUserInfo.name,
             email = authUserInfo.email!!,
             profileImgUri = authUserInfo.profileImgUri,
-            company = savedWorkerEntity.company,
+            companyName = savedWorkerEntity.companyName,
             location = savedWorkerEntity.location,
             introduction = savedWorkerEntity.introduction,
             giveLink = savedWorkerEntity.giveLink,

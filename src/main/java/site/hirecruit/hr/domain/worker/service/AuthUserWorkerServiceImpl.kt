@@ -7,9 +7,10 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
 /**
- * AuthUser
+ * AuthUserWorkerService 인증된 유저의 Worker service
  *
  * @author 정시원
+ * @since 1.0
  */
 @Service
 class AuthUserWorkerServiceImpl(
@@ -24,7 +25,7 @@ class AuthUserWorkerServiceImpl(
             name = authUserInfo.name,
             email = authUserInfo.email!!,
             profileImgUri = authUserInfo.profileImgUri,
-            company = workerEntity.company,
+            companyName = workerEntity.companyName,
             location = workerEntity.location,
             introduction = workerEntity.introduction,
             giveLink = workerEntity.giveLink,
@@ -38,7 +39,7 @@ class AuthUserWorkerServiceImpl(
             ?: throw IllegalArgumentException("Invalid authentication information. So 'WorkerEntity' could not be found. authUserInfo = '${authUserInfo}' ")
         updateDto.updateColumns.forEach {
             when(it) {
-                WorkerDto.Update.Column.COMPANY         -> workerEntity.company = updateDto.company!!
+                WorkerDto.Update.Column.COMPANY_NAME         -> workerEntity.companyName = updateDto.companyName!!
                 WorkerDto.Update.Column.LOCATION        -> workerEntity.location = updateDto.location!!
                 WorkerDto.Update.Column.INTRODUCTION    -> workerEntity.introduction = updateDto.introduction
                 WorkerDto.Update.Column.GIVE_LINK       -> workerEntity.giveLink = updateDto.giveLink

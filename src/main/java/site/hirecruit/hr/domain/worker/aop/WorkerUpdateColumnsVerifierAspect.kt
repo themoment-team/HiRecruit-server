@@ -33,7 +33,7 @@ class WorkerUpdateColumnsVerifierAspect {
     fun verifyUpdateDtoProperty(updateDto: WorkerDto.Update){
         updateDto.updateColumns.forEach {
             when(it) {
-                WorkerDto.Update.Column.COMPANY         -> verifyCompanyColumn(updateDto.company)
+                WorkerDto.Update.Column.COMPANY_NAME         -> verifyCompanyNameColumn(updateDto.companyName)
                 WorkerDto.Update.Column.LOCATION        -> verifyLocationColumn(updateDto.location)
                 WorkerDto.Update.Column.INTRODUCTION    -> verifyIntroduction(updateDto.introduction)
                 WorkerDto.Update.Column.GIVE_LINK       -> verifyGiveLink(updateDto.giveLink)
@@ -42,9 +42,9 @@ class WorkerUpdateColumnsVerifierAspect {
         }
     }
 
-    private fun verifyCompanyColumn(company: String?){
-        if(company == null || company.isBlank())
-            throw IllegalArgumentException("company must not be blank. company='$company'")
+    private fun verifyCompanyNameColumn(companyName: String?){
+        if(companyName == null || companyName.isBlank())
+            throw IllegalArgumentException("companyName must not be blank. companyName='$companyName'")
     }
 
     private fun verifyLocationColumn(location: String?) {
