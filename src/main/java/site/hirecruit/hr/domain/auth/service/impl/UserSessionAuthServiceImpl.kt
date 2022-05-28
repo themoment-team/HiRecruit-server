@@ -8,6 +8,8 @@ import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.UserAuthService
+import site.hirecruit.hr.global.data.SessionAttribute
+import javax.servlet.http.HttpSession
 
 /**
  * OAuth2 client의 정보를 기반으로 인증하는 서비스
@@ -16,17 +18,21 @@ import site.hirecruit.hr.domain.auth.service.UserAuthService
  * @since 1.0
  */
 @Service
-open class UserAuthServiceImpl(
+open class UserSessionAuthServiceImpl(
     private val userRepository: UserRepository,
-    private val tempUserRepository: TempUserRepository
+    private val tempUserRepository: TempUserRepository,
+    private val httpSession: HttpSession,
 ) : UserAuthService {
 
     override fun authentication(oAuthAttributes: OAuthAttributes): AuthUserInfo {
-        return if (tempUserRepository.existsById(oAuthAttributes.id))
-            createAuthUserInfoWithTempUserEntity(oAuthAttributes)
-        else
-            createAuthUserInfoWithUserEntity(oAuthAttributes)
+        return getAuthUserInfoFromSession()
+            ?:  if(tempUserRepository.existsById(oAuthAttributes.id))
+                    createAuthUserInfoWithTempUserEntity(oAuthAttributes)
+                else
+                    createAuthUserInfoWithUserEntity(oAuthAttributes)
     }
+
+    private fun getAuthUserInfoFromSession(): AuthUserInfo? = httpSession.getAttribute(SessionAttribute.AUTH_USER_INFO.attributeName) as AuthUserInfo?
 
     private fun createAuthUserInfoWithUserEntity(oAuthAttributes: OAuthAttributes): AuthUserInfo {
         return userRepository.findUserAndWorkerEmailByGithubId(oAuthAttributes.id)
