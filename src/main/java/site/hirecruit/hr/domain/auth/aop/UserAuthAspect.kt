@@ -35,7 +35,10 @@ class UserAuthAspect (
     )
     private fun setSessionByAuthUserInfo(authUserInfo: AuthUserInfo): Any{
         log.debug("UserAuthAspect.setSessionByAuthUserInfo active")
-        httpSession.setAttribute(SessionAttribute.AUTH_USER_INFO.attributeName, authUserInfo)
+        if(httpSession.isNew) { // 이미 세션이 있는 경우 set하지 않는다.
+            httpSession.setAttribute(SessionAttribute.AUTH_USER_INFO.attributeName, authUserInfo)
+            log.debug("session already active")
+        }
         log.debug("session id='${httpSession.id}', authUserInfo='${httpSession.getAttribute(SessionAttribute.AUTH_USER_INFO.attributeName)}'")
         return authUserInfo
     }
