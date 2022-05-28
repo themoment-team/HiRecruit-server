@@ -29,7 +29,7 @@ class WorkerRegistrationServiceImpl(
                 introduction = registrationDto.introduction,
                 giveLink = registrationDto.giveLink,
                 devYear = registrationDto.devYear,
-                userEntity
+                user = userEntity
             )
         )
         return WorkerDto.Info(
