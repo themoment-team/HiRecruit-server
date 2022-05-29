@@ -10,6 +10,10 @@ import javax.persistence.*
  */
 @Entity @Table(name = "company")
 class CompanyEntity(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "company_id")
+    val companyId: Long? = null,
+
     @Column(name = "company_name", nullable = false)
     var name: String,
 
@@ -19,7 +23,4 @@ class CompanyEntity(
     @Column(name = "company_image_uri", nullable = true)
     var imageUri: String? = null
 ) {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_id")
-    val companyId: Long? = null
 }
