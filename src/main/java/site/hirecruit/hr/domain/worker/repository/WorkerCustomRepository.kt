@@ -14,5 +14,5 @@ interface WorkerCustomRepository {
 
     fun findWorkerInfoDtoByCompanyId(companyId: Long): WorkerDto.Info
 
-    fun findWorkerInfoDtoByAll(): WorkerDto.Info
+    fun findWorkerInfoDtoByAll(): List<WorkerDto.Info>
 }

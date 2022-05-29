@@ -22,6 +22,6 @@ class WorkerLockupServiceImpl(
     override fun findByCompanyId(companyId: Long): WorkerDto.Info =
         workerRepository.findWorkerInfoDtoByCompanyId(companyId)
 
-    override fun findAll(): WorkerDto.Info =
+    override fun findAll(): List<WorkerDto.Info> =
         workerRepository.findWorkerInfoDtoByAll()
 }
