@@ -36,11 +36,12 @@ embedded-redis:0.7.2
 
 ```
 
-## Licence
-
-Our project is operated under [this license](LICENSE).
-
 ## Deploy strategy
+
 <p align="center">
     <img src="./assets/img/hr-backend-deploy-spec.png" alt="backend-deploy-specification">
 </p>
+
+## Licence
+
+Our project is operated under [this license](LICENSE).
