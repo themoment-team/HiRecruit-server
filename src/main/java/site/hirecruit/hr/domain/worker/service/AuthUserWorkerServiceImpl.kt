@@ -37,6 +37,7 @@ class AuthUserWorkerServiceImpl(
                 companyId = workerEntity.company.companyId!!,
                 name = workerEntity.company.name,
                 location = workerEntity.company.location,
+                homepageUri = workerEntity.company.homepageUri,
                 imageUri = workerEntity.company.imageUri
             )
         )

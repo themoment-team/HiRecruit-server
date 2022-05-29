@@ -73,6 +73,14 @@ class AuthUserWorkerServiceImplTest(
             assertEquals(workerEntity.giveLink, workerEntity.giveLink)
             assertEquals(companyEntity, workerEntity.company)
         })
+
+        assertAll({
+            assertEquals(companyEntity.companyId, myWorkerInfo.companyInfoDto.companyId)
+            assertEquals(companyEntity.name, myWorkerInfo.companyInfoDto.name)
+            assertEquals(companyEntity.location, myWorkerInfo.companyInfoDto.location)
+            assertEquals(companyEntity.homepageUri, myWorkerInfo.companyInfoDto.homepageUri)
+            assertEquals(companyEntity.imageUri, myWorkerInfo.companyInfoDto.imageUri)
+        })
     }
 
     @Test @DisplayName("worker update test")
@@ -124,6 +132,7 @@ class AuthUserWorkerServiceImplTest(
         CompanyEntity(
             name = RandomString.make(10),
             location = RandomString.make(15),
+            homepageUri = RandomString.make(15),
             imageUri = RandomString.make(10)
         )
     )

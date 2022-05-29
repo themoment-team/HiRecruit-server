@@ -20,6 +20,9 @@ class CompanyEntity(
     @Column(name = "company_location", nullable = false)
     var location: String,
 
+    @Column(name = "company_homepage_uri", nullable = false)
+    var homepageUri: String?,
+
     @Column(name = "company_image_uri", nullable = true)
     var imageUri: String? = null
 ) {
