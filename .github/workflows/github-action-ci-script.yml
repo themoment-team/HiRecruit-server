@@ -11,15 +11,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
+          cache: gradle
 
       - name: Set up JDK 11 job has success
         if: ${{ success() }}
         run: echo "🎉 Set up JDK 11 job has success"
+
+      - name: Set up AWS CI bot IAM
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Set up resources/** secrets from s3 bucket
+        run: aws s3 cp --region ap-northeast-2 --acl private s3://hr-backend-secret-properties-bucket/application-resource-secret/ ./src/main/resources --recursive
+
+      - name: Set up secret resources success 🎉
+        if: ${{ success() }}
+        run: echo "🎉 Set up secret resources success"
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
