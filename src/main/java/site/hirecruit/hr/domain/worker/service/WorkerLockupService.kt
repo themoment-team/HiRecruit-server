@@ -12,7 +12,7 @@ interface WorkerLockupService {
 
     fun findByWorkerId(workerId: Long): WorkerDto.Info
 
-    fun findByCompanyId(companyId: Long): WorkerDto.Info
+    fun findByCompanyId(companyId: Long): List<WorkerDto.Info>
 
     fun findAll(): List<WorkerDto.Info>
 }
