@@ -20,5 +20,6 @@ class CompanyEntity(
     var imageUri: String? = null
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "company_id")
     val companyId: Long? = null
 }
