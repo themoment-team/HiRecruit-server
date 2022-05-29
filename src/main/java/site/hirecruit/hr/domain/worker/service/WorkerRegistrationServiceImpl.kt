@@ -45,6 +45,7 @@ class WorkerRegistrationServiceImpl(
             name = authUserInfo.name,
             email = authUserInfo.email!!,
             profileImgUri = authUserInfo.profileImgUri,
+            introduction = savedWorkerEntity.introduction,
             giveLink = savedWorkerEntity.giveLink,
             devYear = savedWorkerEntity.devYear,
             position = savedWorkerEntity.position,

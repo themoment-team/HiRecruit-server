@@ -29,6 +29,7 @@ class AuthUserWorkerServiceImpl(
             name = authUserInfo.name,
             email = authUserInfo.email!!,
             profileImgUri = authUserInfo.profileImgUri,
+            introduction = workerEntity.introduction,
             giveLink = workerEntity.giveLink,
             devYear =  workerEntity.devYear,
             position = workerEntity.position,

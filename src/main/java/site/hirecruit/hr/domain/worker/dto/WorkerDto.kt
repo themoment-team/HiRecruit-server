@@ -25,6 +25,8 @@ class WorkerDto {
 
         val email: String,
 
+        val introduction: String?,
+
         val profileImgUri: String,
 
         val giveLink: String?,
