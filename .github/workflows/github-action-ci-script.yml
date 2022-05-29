@@ -34,8 +34,8 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 --acl private s3://hr-backend-secret-properties-bucket/application-resource-secret/ ./src/main/resources/
 
       - name: Set up secret resources success 🎉
-          if: ${{ success() }}
-          run: echo "🎉 Set up secret resources success"
+        if: ${{ success() }}
+        run: echo "🎉 Set up secret resources success"
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
