@@ -26,6 +26,7 @@ class AuthUserWorkerServiceImpl(
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
             ?: throw IllegalArgumentException("Invalid authentication information. So 'WorkerEntity' could not be found. authUserInfo = '${authUserInfo}' ")
         return WorkerDto.Info(
+            workerId = workerEntity.workerId!!,
             name = authUserInfo.name,
             email = authUserInfo.email!!,
             profileImgUri = authUserInfo.profileImgUri,

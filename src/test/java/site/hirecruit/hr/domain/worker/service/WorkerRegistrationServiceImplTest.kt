@@ -46,6 +46,16 @@ internal class WorkerRegistrationServiceImplTest{
             imageUri = RandomString.make(15)
         )
         val workerEntity = WorkerEntity(
+            workerId = null,
+            giveLink = registrationDto.giveLink,
+            introduction = registrationDto.introduction,
+            devYear = registrationDto.devYear,
+            position = registrationDto.position,
+            user = userEntity,
+            company = companyEntity
+        )
+        val savedWorkerEntity = WorkerEntity(
+            workerId = Random.nextLong(),
             giveLink = registrationDto.giveLink,
             introduction = registrationDto.introduction,
             devYear = registrationDto.devYear,
@@ -55,7 +65,7 @@ internal class WorkerRegistrationServiceImplTest{
         )
 
         every { userRepository.findByGithubId(authUserInfo.githubId) } answers {userEntity}
-        every { workerRepository.save(workerEntity) } answers {workerEntity}
+        every { workerRepository.save(workerEntity) } answers {savedWorkerEntity}
         every { companyRepository.findByIdOrNull(registrationDto.companyId) } answers {companyEntity}
 
         // when

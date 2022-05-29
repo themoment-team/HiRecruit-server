@@ -8,6 +8,8 @@ import javax.persistence.*
 
 @Entity @Table(name = "worker")
 class WorkerEntity(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var workerId: Long? = null,
 
     @Column(name = "introduction", nullable = true)
     var introduction: String? = null,
@@ -27,9 +29,6 @@ class WorkerEntity(
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "company_id")
     var company: CompanyEntity
 ) {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var workerId: Long? = null
 
     @Column(name = "dev_year", nullable = true)
     var devYear: Int? = devYear

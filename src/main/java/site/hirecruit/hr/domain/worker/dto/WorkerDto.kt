@@ -21,6 +21,8 @@ class WorkerDto {
     )
 
     data class Info(
+        val workerId: Long,
+
         val name: String,
 
         val email: String,
