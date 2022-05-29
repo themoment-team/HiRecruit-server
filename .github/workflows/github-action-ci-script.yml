@@ -30,8 +30,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-      - name: Set up resources/** secret from s3 bucket
-        run: aws s3 cp --region ap-northeast-2 --acl private s3://hr-backend-secret-properties-bucket/application-resource-secret/ ./src/main/resources/
+      - name: Set up resources/** secrets from s3 bucket
+        run: aws s3 cp --region ap-northeast-2 --acl private s3://hr-backend-secret-properties-bucket/application-resource-secret/ ./src/main/resources --recursive
 
       - name: Set up secret resources success 🎉
         if: ${{ success() }}
