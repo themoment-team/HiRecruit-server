@@ -4,6 +4,7 @@ import mu.KotlinLogging
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizedClientRepository
 import org.springframework.stereotype.Component
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.global.data.SessionAttribute

@@ -1,9 +1,6 @@
 package site.hirecruit.hr.domain.auth.aop
 
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
+import io.mockk.*
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -15,6 +12,7 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.auth.service.SecurityContextAccessService
 import site.hirecruit.hr.domain.auth.service.UserRegistrationService
 import site.hirecruit.hr.domain.test_util.LocalTest
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
@@ -50,9 +48,12 @@ internal class UserRegistrationAspectTest{
         // given:: Aspect가 실행될 proxy
         val tempUserRepository: TempUserRepository = spyk()
 
+        val securityContextAccessService: SecurityContextAccessService = mockk()
+        every { securityContextAccessService.updateAuthentication(any()) } just Runs // security context authenticate update logic
+
         // given:: UserRegistrationService에 Aspect추가 및 proxy 가져오기
         val factory = AspectJProxyFactory(userRegistrationService)
-        factory.addAspect(UserRegistrationAspect(tempUserRepository, httpSession))
+        factory.addAspect(UserRegistrationAspect(tempUserRepository, httpSession, securityContextAccessService))
         val proxy = factory.getProxy<UserRegistrationService>()
 
         // given:: Aspect가 실행될 proxy
@@ -79,6 +80,7 @@ internal class UserRegistrationAspectTest{
         proxy.registration(tempUserInfo, userRegistrationDto)
 
         // then
+        verify(exactly = 1) { securityContextAccessService.updateAuthentication(any()) }
         verify(exactly = 1) { tempUserRepository.deleteById(tempUserInfo.githubId) }
         val sessionAuthUserInfo = httpSession.getAttribute(SessionAttribute.AUTH_USER_INFO.attributeName) as AuthUserInfo
         Assertions.assertEquals(proxyReturnValue, sessionAuthUserInfo, "proxy가 반환한 정보가 session에 반환되지 않았으므로 Aspect setSession로직 확인 요망")

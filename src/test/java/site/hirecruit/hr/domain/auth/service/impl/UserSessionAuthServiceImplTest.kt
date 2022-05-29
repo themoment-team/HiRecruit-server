@@ -8,6 +8,7 @@ import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.mock.web.MockHttpSession
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
@@ -17,7 +18,7 @@ import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import kotlin.random.Random
 
-internal class UserAuthServiceImplTest{
+internal class UserSessionAuthServiceImplTest{
 
     private fun makeOAuth2Attributes() : OAuthAttributes {
         val attributes = mapOf<String, Any>(
@@ -46,7 +47,7 @@ internal class UserAuthServiceImplTest{
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
 
-            val userAuthServiceImpl = UserAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {true} // 임시회원이 존재한다면
             every { tempUserRepository.findByIdOrNull(oAuth2Attributes.id) } answers {
@@ -72,7 +73,7 @@ internal class UserAuthServiceImplTest{
         fun `인증을 받을 떄 정보를 가져올 수 없다면`(){
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
-            val userAuthServiceImpl = UserAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {true} // 임시회원이 존재한다면
             every { tempUserRepository.findByIdOrNull(oAuth2Attributes.id) } answers { null }
@@ -94,7 +95,7 @@ internal class UserAuthServiceImplTest{
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
 
-            val userAuthServiceImpl = UserAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
             val authUserInfo = AuthUserInfo(
                 githubId = oAuth2Attributes.id,
                 name = oAuth2Attributes.name,
@@ -118,7 +119,7 @@ internal class UserAuthServiceImplTest{
         fun `User가 인증을 받을 떄 정보를 가져올 수 없다면`(){
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
-            val userAuthServiceImpl = UserAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {false} // 임시회원이 아니라면
             every { userRepository.findUserAndWorkerEmailByGithubId(oAuth2Attributes.id) } answers { null }
