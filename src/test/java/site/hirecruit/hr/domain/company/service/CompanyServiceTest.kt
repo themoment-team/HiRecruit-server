@@ -38,7 +38,7 @@ internal class CompanyServiceTest(
 
         // then
         assertAll({
-            assertEquals(1, createdCompanyInfo.companyId)
+            assertNotNull(createdCompanyInfo.companyId)
             assertEquals(companyDto.name, createdCompanyInfo.name)
             assertEquals(companyDto.location, createdCompanyInfo.location)
             assertEquals(companyDto.imageUri, createdCompanyInfo.imageUri)

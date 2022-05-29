@@ -7,10 +7,13 @@ import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.springframework.data.repository.findByIdOrNull
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.company.entity.CompanyEntity
+import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
@@ -20,7 +23,8 @@ internal class WorkerRegistrationServiceImplTest{
 
     private val userRepository: UserRepository = mockk()
     private val workerRepository: WorkerRepository = mockk()
-    private val workerRegistrationService = WorkerRegistrationServiceImpl(userRepository, workerRepository)
+    private val companyRepository: CompanyRepository = mockk()
+    private val workerRegistrationService = WorkerRegistrationServiceImpl(userRepository, workerRepository, companyRepository)
 
     @Test @DisplayName("Worker Registration test")
     fun workerRegistrationTest(){
@@ -34,15 +38,24 @@ internal class WorkerRegistrationServiceImplTest{
             profileImgUri = authUserInfo.profileImgUri,
             role = authUserInfo.role
         )
+        val companyEntity = CompanyEntity(
+            companyId = registrationDto.companyId,
+            name = RandomString.make(10),
+            location = RandomString.make(15),
+            imageUri = RandomString.make(15)
+        )
         val workerEntity = WorkerEntity(
             giveLink = registrationDto.giveLink,
             introduction = registrationDto.introduction,
             devYear = registrationDto.devYear,
-            user = userEntity
+            position = registrationDto.position,
+            user = userEntity,
+            company = companyEntity
         )
 
         every { userRepository.findByGithubId(authUserInfo.githubId) } answers {userEntity}
         every { workerRepository.save(workerEntity) } answers {workerEntity}
+        every { companyRepository.findByIdOrNull(registrationDto.companyId) } answers {companyEntity}
 
         // when
         val registrationWorkerInfo = workerRegistrationService.registration(authUserInfo, registrationDto)
@@ -56,8 +69,7 @@ internal class WorkerRegistrationServiceImplTest{
             assertEquals(authUserInfo.name, registrationWorkerInfo.name)
             assertEquals(authUserInfo.email, registrationWorkerInfo.email)
             assertEquals(authUserInfo.profileImgUri, registrationWorkerInfo.profileImgUri)
-            assertEquals(registrationDto.companyId, registrationWorkerInfo.companyName)
-            assertEquals(registrationDto.location, registrationWorkerInfo.location)
+            assertEquals(registrationDto.position, registrationWorkerInfo.position)
             assertEquals(registrationDto.introduction, registrationWorkerInfo.introduction)
             assertEquals(registrationDto.giveLink, registrationWorkerInfo.giveLink)
             assertEquals(registrationDto.devYear, registrationWorkerInfo.devYear)
@@ -78,11 +90,11 @@ internal class WorkerRegistrationServiceImplTest{
     }
 
     private fun makeRegistrationDto() = WorkerDto.Registration(
-        companyId = RandomString.make(7),
-        location = RandomString.make(15),
+        companyId = Random.nextLong(),
         giveLink = RandomString.make(15),
         introduction = RandomString.make(15),
-        devYear = Random.nextInt()
+        devYear = Random.nextInt(),
+        position = RandomString.make(15),
     )
 
     private fun makeAuthUserInfo() = AuthUserInfo(
