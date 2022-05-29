@@ -35,7 +35,7 @@ class WorkerDto {
 
         val position: String?,
 
-        @field:JsonProperty("worker")
+        @field:JsonProperty("company")
         val companyInfoDto: CompanyDto.Info
     )
 
