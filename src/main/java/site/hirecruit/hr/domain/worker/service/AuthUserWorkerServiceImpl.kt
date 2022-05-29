@@ -1,8 +1,11 @@
 package site.hirecruit.hr.domain.worker.service
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.company.dto.CompanyDto
+import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
@@ -15,6 +18,7 @@ import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 @Service
 class AuthUserWorkerServiceImpl(
     private val workerRepository: WorkerRepository,
+    private val companyRepository: CompanyRepository
 ) : AuthUserWorkerService {
 
     @Transactional(readOnly = true)
@@ -25,11 +29,15 @@ class AuthUserWorkerServiceImpl(
             name = authUserInfo.name,
             email = authUserInfo.email!!,
             profileImgUri = authUserInfo.profileImgUri,
-            companyName = workerEntity.companyName,
-            location = workerEntity.location,
-            introduction = workerEntity.introduction,
             giveLink = workerEntity.giveLink,
-            devYear =  workerEntity.devYear
+            devYear =  workerEntity.devYear,
+            position = workerEntity.position,
+            companyInfoDto = CompanyDto.Info(
+                companyId = workerEntity.company.companyId!!,
+                name = workerEntity.company.name,
+                location = workerEntity.company.location,
+                imageUri = workerEntity.company.imageUri
+            )
         )
     }
 
@@ -39,11 +47,14 @@ class AuthUserWorkerServiceImpl(
             ?: throw IllegalArgumentException("Invalid authentication information. So 'WorkerEntity' could not be found. authUserInfo = '${authUserInfo}' ")
         updateDto.updateColumns.forEach {
             when(it) {
-                WorkerDto.Update.Column.COMPANY_NAME         -> workerEntity.companyName = updateDto.companyName!!
-                WorkerDto.Update.Column.LOCATION        -> workerEntity.location = updateDto.location!!
+                WorkerDto.Update.Column.COMPANY_ID      -> {
+                    workerEntity.company = companyRepository.findByIdOrNull(updateDto.companyId)
+                        ?: throw IllegalArgumentException("Cannot found CompanyEntity, companyId='${updateDto.companyId}'")
+                }
                 WorkerDto.Update.Column.INTRODUCTION    -> workerEntity.introduction = updateDto.introduction
                 WorkerDto.Update.Column.GIVE_LINK       -> workerEntity.giveLink = updateDto.giveLink
                 WorkerDto.Update.Column.DEV_YEAR        -> workerEntity.devYear = updateDto.devYear
+                WorkerDto.Update.Column.POSITION        -> workerEntity.position = updateDto.position
             }
         }
     }

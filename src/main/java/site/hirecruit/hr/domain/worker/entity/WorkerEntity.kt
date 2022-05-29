@@ -25,7 +25,7 @@ class WorkerEntity(
     val user: UserEntity,
 
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "company_id")
-    val company: CompanyEntity
+    var company: CompanyEntity
 ) {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
