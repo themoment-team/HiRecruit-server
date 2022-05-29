@@ -33,23 +33,18 @@ class WorkerUpdateColumnsVerifierAspect {
     fun verifyUpdateDtoProperty(updateDto: WorkerDto.Update){
         updateDto.updateColumns.forEach {
             when(it) {
-                WorkerDto.Update.Column.COMPANY_NAME         -> verifyCompanyNameColumn(updateDto.companyName)
-                WorkerDto.Update.Column.LOCATION        -> verifyLocationColumn(updateDto.location)
+                WorkerDto.Update.Column.COMPANY_ID      -> verifyCompanyIdColumn(updateDto.companyId)
                 WorkerDto.Update.Column.INTRODUCTION    -> verifyIntroduction(updateDto.introduction)
                 WorkerDto.Update.Column.GIVE_LINK       -> verifyGiveLink(updateDto.giveLink)
                 WorkerDto.Update.Column.DEV_YEAR        -> verifyDevYear(updateDto.devYear)
+                WorkerDto.Update.Column.POSITION        -> verifyPositionColumn(updateDto.position)
             }
         }
     }
 
-    private fun verifyCompanyNameColumn(companyName: String?){
-        if(companyName == null || companyName.isBlank())
-            throw IllegalArgumentException("companyName must not be blank. companyName='$companyName'")
-    }
-
-    private fun verifyLocationColumn(location: String?) {
-        if(location == null || location.isBlank())
-            throw IllegalArgumentException("location must not be blank. location='$location'")
+    private fun verifyCompanyIdColumn(companyId: Long?){
+        if(companyId == null)
+            throw IllegalArgumentException("companyId must not be null.")
     }
 
     private fun verifyIntroduction(introduction: String?){
@@ -65,5 +60,10 @@ class WorkerUpdateColumnsVerifierAspect {
     private fun verifyDevYear(devYear: Int?) {
         if(devYear == null) return
         if(devYear <= -1) throw IllegalArgumentException("devYear must not be negative, devYear='$devYear'")
+    }
+
+    private fun verifyPositionColumn(location: String?) {
+        if(location == null || location.isBlank())
+            throw IllegalArgumentException("location must not be blank. location='$location'")
     }
 }

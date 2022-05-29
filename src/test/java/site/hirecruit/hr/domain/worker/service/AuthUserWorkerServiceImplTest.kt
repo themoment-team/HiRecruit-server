@@ -4,6 +4,7 @@ import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +15,8 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.company.entity.CompanyEntity
+import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.test_util.LocalTest
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
@@ -26,10 +29,11 @@ import kotlin.random.Random
 @DataJpaTest
 @Import(DataJpaTestConfig::class)
 class AuthUserWorkerServiceImplTest(
-    @Autowired private val workerRepository: WorkerRepository
+    @Autowired private val workerRepository: WorkerRepository,
+    @Autowired private val companyRepository: CompanyRepository
 ){
 
-    val authUserWorkerService = AuthUserWorkerServiceImpl(this.workerRepository)
+    val authUserWorkerService = AuthUserWorkerServiceImpl(this.workerRepository, companyRepository)
 
     lateinit var userEntity: UserEntity; // 현재 기준이 되는 회원 createUser() 메서드 확인
 
@@ -48,7 +52,8 @@ class AuthUserWorkerServiceImplTest(
     @Test
     fun `findWorkerByAuthUserInfo test`() {
         // given
-        val workerEntity = createWorkerEntity()
+        val companyEntity = createCompanyEntity()
+        val workerEntity = createWorkerEntity(companyEntity)
         val authUserInfo = createAuthUserInfoByUserEntity()
 
         // when
@@ -63,27 +68,36 @@ class AuthUserWorkerServiceImplTest(
         })
 
         assertAll({
-            assertEquals(workerEntity.companyName, myWorkerInfo.companyName)
-            assertEquals(workerEntity.location, myWorkerInfo.location)
             assertEquals(workerEntity.introduction, workerEntity.introduction)
             assertEquals(workerEntity.devYear, workerEntity.devYear)
             assertEquals(workerEntity.giveLink, workerEntity.giveLink)
+            assertEquals(companyEntity, workerEntity.company)
+        })
+
+        assertAll({
+            assertEquals(companyEntity.companyId, myWorkerInfo.companyInfoDto.companyId)
+            assertEquals(companyEntity.name, myWorkerInfo.companyInfoDto.name)
+            assertEquals(companyEntity.location, myWorkerInfo.companyInfoDto.location)
+            assertEquals(companyEntity.homepageUri, myWorkerInfo.companyInfoDto.homepageUri)
+            assertEquals(companyEntity.imageUri, myWorkerInfo.companyInfoDto.imageUri)
         })
     }
 
-    @Test
-    internal fun `worker update test`() {
+    @Test @DisplayName("worker update test")
+    internal fun workerUpdateTest() {
         // given
-        val workerEntity = workerEntityDeepCopy(createWorkerEntity())
+        val oldCompanyEntity = createCompanyEntity()
+        val newCompanyEntity = createCompanyEntity()
+        val workerEntity = workerEntityDeepCopy(createWorkerEntity(oldCompanyEntity))
         val updateDto = WorkerDto.Update(
-            companyName = RandomString.make(10),
-            location = RandomString.make(10),
+            companyId = newCompanyEntity.companyId,
             introduction = RandomString.make(10),
             giveLink = RandomString.make(10),
             devYear = Random.nextInt(0, 30),
+            position = RandomString.make(15),
             updateColumns = listOf( // 변경할 컬럼
-                WorkerDto.Update.Column.COMPANY_NAME,
-                WorkerDto.Update.Column.LOCATION,
+                WorkerDto.Update.Column.COMPANY_ID,
+                WorkerDto.Update.Column.POSITION,
                 WorkerDto.Update.Column.INTRODUCTION,
                 WorkerDto.Update.Column.GIVE_LINK,
                 WorkerDto.Update.Column.DEV_YEAR
@@ -97,30 +111,39 @@ class AuthUserWorkerServiceImplTest(
         //then
         val updatedWorkerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
         assertAll("업데이터 전에 조회한 WorkerEntity의 값과 Update후 조회된 WorkerEntity의 값은 달라야 한다.", {
-            assertNotEquals(workerEntity.companyName, updatedWorkerEntity?.companyName)
-            assertNotEquals(workerEntity.location, updatedWorkerEntity?.location)
             assertNotEquals(workerEntity.introduction, updatedWorkerEntity?.introduction)
             assertNotEquals(workerEntity.giveLink, updatedWorkerEntity?.giveLink)
             assertNotEquals(workerEntity.devYear, updatedWorkerEntity?.devYear)
+            assertNotEquals(workerEntity.position, updatedWorkerEntity?.position)
+            assertNotEquals(workerEntity.company, updatedWorkerEntity?.company)
         })
 
         assertAll("UpdateDto에 저장된, 값들은 update후 조회된 Entity에 반영되어야 한다.", {
-            assertEquals(updateDto.companyName, updatedWorkerEntity?.companyName)
-            assertEquals(updateDto.location, updatedWorkerEntity?.location)
+            assertEquals(updateDto.companyId, updatedWorkerEntity?.company?.companyId)
             assertEquals(updateDto.introduction, updatedWorkerEntity?.introduction)
             assertEquals(updateDto.giveLink, updatedWorkerEntity?.giveLink)
             assertEquals(updateDto.devYear, updatedWorkerEntity?.devYear)
+            assertEquals(updateDto.position, updatedWorkerEntity?.position)
+            assertEquals(authUserInfo.githubId, updatedWorkerEntity?.user?.githubId)
         })
     }
 
-    private fun createWorkerEntity() = workerRepository.save(
-        WorkerEntity(
-            companyName = RandomString.make(5),
+    private fun createCompanyEntity(): CompanyEntity = companyRepository.save(
+        CompanyEntity(
+            name = RandomString.make(10),
             location = RandomString.make(15),
+            homepageUri = RandomString.make(15),
+            imageUri = RandomString.make(10)
+        )
+    )
+
+    private fun createWorkerEntity(companyEntity: CompanyEntity) = workerRepository.save(
+        WorkerEntity(
             introduction = RandomString.make(15),
             giveLink = RandomString.make(15),
             devYear = Random.nextInt(),
-            user = this.userEntity
+            user = this.userEntity,
+            company = companyEntity
         )
     )
 
@@ -133,11 +156,11 @@ class AuthUserWorkerServiceImplTest(
     )
 
     private fun workerEntityDeepCopy(workerEntity: WorkerEntity): WorkerEntity = WorkerEntity(
-        companyName = workerEntity.companyName,
-        location = workerEntity.location,
+        position = workerEntity.position,
         introduction = workerEntity.introduction,
         giveLink = workerEntity.giveLink,
         devYear = workerEntity.devYear,
-        user = userEntity
+        user = userEntity,
+        company = workerEntity.company
     )
 }

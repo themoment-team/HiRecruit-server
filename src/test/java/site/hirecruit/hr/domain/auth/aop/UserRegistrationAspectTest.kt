@@ -61,8 +61,7 @@ internal class UserRegistrationAspectTest{
             email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
             name = RandomString.make(5),
             workerDto = WorkerDto.Registration(
-                companyName = RandomString.make(8),
-                location = RandomString.make(8)
+                companyId = Random.nextLong(),
             )
         )
         val proxyReturnValue = AuthUserInfo(

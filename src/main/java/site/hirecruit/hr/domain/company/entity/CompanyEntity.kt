@@ -10,15 +10,20 @@ import javax.persistence.*
  */
 @Entity @Table(name = "company")
 class CompanyEntity(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "company_id")
+    val companyId: Long? = null,
+
     @Column(name = "company_name", nullable = false)
     var name: String,
 
     @Column(name = "company_location", nullable = false)
     var location: String,
 
+    @Column(name = "company_homepage_uri", nullable = false)
+    var homepageUri: String?,
+
     @Column(name = "company_image_uri", nullable = true)
     var imageUri: String? = null
 ) {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val companyId: Long? = null
 }

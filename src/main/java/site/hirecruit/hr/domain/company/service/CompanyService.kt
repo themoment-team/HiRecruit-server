@@ -27,6 +27,7 @@ class CompanyService(
             CompanyEntity(
                 name = createDto.name,
                 location = createDto.location,
+                homepageUri = createDto.homepageUri,
                 imageUri = createDto.imageUri
             )
         )
@@ -34,6 +35,7 @@ class CompanyService(
             companyId = savedCompanyEntity.companyId!!,
             name = savedCompanyEntity.name,
             location = savedCompanyEntity.location,
+            homepageUri = savedCompanyEntity.homepageUri,
             imageUri = savedCompanyEntity.imageUri
         )
     }

@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.worker.dto
 
-import javax.validation.constraints.NotBlank
+import com.fasterxml.jackson.annotation.JsonProperty
+import site.hirecruit.hr.domain.company.dto.CompanyDto
 import javax.validation.constraints.NotEmpty
 
 /**
@@ -12,15 +13,11 @@ import javax.validation.constraints.NotEmpty
 class WorkerDto {
 
     data class Registration(
-        @field:NotBlank
-        val companyName: String,
-
-        @field:NotBlank
-        val location: String,
-
+        val companyId: Long,
         val giveLink: String? = null,
         val introduction: String? = null,
-        val devYear: Int? = null
+        val devYear: Int? = null,
+        val position: String? = null,
     )
 
     data class Info(
@@ -28,23 +25,22 @@ class WorkerDto {
 
         val email: String,
 
+        val introduction: String?,
+
         val profileImgUri: String,
 
-        val companyName: String,
+        val giveLink: String?,
 
-        val location: String,
+        val devYear: Int?,
 
-        val introduction: String? = null,
+        val position: String?,
 
-        val giveLink: String? = null,
-
-        val devYear: Int? = null
+        @field:JsonProperty("worker")
+        val companyInfoDto: CompanyDto.Info
     )
 
     data class Update(
-        val companyName: String? = null,
-
-        val location: String? = null,
+        val companyId: Long? = null,
 
         val introduction: String? = null,
 
@@ -52,12 +48,14 @@ class WorkerDto {
 
         val devYear: Int? = null,
 
+        val position: String? = null,
+
         @NotEmpty
         val updateColumns: List<Column> = emptyList()
     ){
 
         enum class Column{
-            COMPANY_NAME, LOCATION, INTRODUCTION, GIVE_LINK, DEV_YEAR
+            COMPANY_ID, INTRODUCTION, GIVE_LINK, DEV_YEAR, POSITION
         }
     }
 }
