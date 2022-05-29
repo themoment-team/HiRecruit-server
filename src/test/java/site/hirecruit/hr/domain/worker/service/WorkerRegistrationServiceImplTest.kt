@@ -4,7 +4,6 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import net.bytebuddy.utility.RandomString
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -36,8 +35,6 @@ internal class WorkerRegistrationServiceImplTest{
             role = authUserInfo.role
         )
         val workerEntity = WorkerEntity(
-            companyName = registrationDto.companyName,
-            location = registrationDto.location,
             giveLink = registrationDto.giveLink,
             introduction = registrationDto.introduction,
             devYear = registrationDto.devYear,
@@ -59,7 +56,7 @@ internal class WorkerRegistrationServiceImplTest{
             assertEquals(authUserInfo.name, registrationWorkerInfo.name)
             assertEquals(authUserInfo.email, registrationWorkerInfo.email)
             assertEquals(authUserInfo.profileImgUri, registrationWorkerInfo.profileImgUri)
-            assertEquals(registrationDto.companyName, registrationWorkerInfo.companyName)
+            assertEquals(registrationDto.companyId, registrationWorkerInfo.companyName)
             assertEquals(registrationDto.location, registrationWorkerInfo.location)
             assertEquals(registrationDto.introduction, registrationWorkerInfo.introduction)
             assertEquals(registrationDto.giveLink, registrationWorkerInfo.giveLink)
@@ -81,7 +78,7 @@ internal class WorkerRegistrationServiceImplTest{
     }
 
     private fun makeRegistrationDto() = WorkerDto.Registration(
-        companyName = RandomString.make(7),
+        companyId = RandomString.make(7),
         location = RandomString.make(15),
         giveLink = RandomString.make(15),
         introduction = RandomString.make(15),

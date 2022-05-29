@@ -8,11 +8,6 @@ import javax.persistence.*
 
 @Entity @Table(name = "worker")
 class WorkerEntity(
-    @Column(name = "companyName", nullable = false)
-    var companyName: String,
-
-    @Column(name = "location", nullable = false)
-    var location: String,
 
     @Column(name = "introduction", nullable = true)
     var introduction: String? = null,
