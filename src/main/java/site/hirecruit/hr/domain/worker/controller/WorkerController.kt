@@ -59,7 +59,7 @@ class WorkerController(
     private fun findByCompanyId(@RequestParam("companyId") companyId: Long): ResponseEntity<List<WorkerDto.Info>> =
         ResponseEntity.ok(workerLockupService.findByCompanyId(companyId))
 
-    @GetMapping("/")
+    @GetMapping()
     private fun findAll(): ResponseEntity<List<WorkerDto.Info>> =
         ResponseEntity.ok(workerLockupService.findAll())
 
