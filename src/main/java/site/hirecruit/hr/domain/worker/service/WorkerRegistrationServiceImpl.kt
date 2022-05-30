@@ -59,7 +59,7 @@ class WorkerRegistrationServiceImpl(
                 name = companyEntity.name,
                 location = companyEntity.location,
                 homepageUri = companyEntity.homepageUri,
-                imageUri = companyEntity.imageUri
+                companyImgUri = companyEntity.companyImgUri
             )
         )
     }

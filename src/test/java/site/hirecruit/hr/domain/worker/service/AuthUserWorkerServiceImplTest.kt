@@ -79,7 +79,7 @@ class AuthUserWorkerServiceImplTest(
             assertEquals(companyEntity.name, myWorkerInfo.companyInfoDto.name)
             assertEquals(companyEntity.location, myWorkerInfo.companyInfoDto.location)
             assertEquals(companyEntity.homepageUri, myWorkerInfo.companyInfoDto.homepageUri)
-            assertEquals(companyEntity.imageUri, myWorkerInfo.companyInfoDto.imageUri)
+            assertEquals(companyEntity.companyImgUri, myWorkerInfo.companyInfoDto.companyImgUri)
         })
     }
 
@@ -133,7 +133,7 @@ class AuthUserWorkerServiceImplTest(
             name = RandomString.make(10),
             location = RandomString.make(15),
             homepageUri = RandomString.make(15),
-            imageUri = RandomString.make(10)
+            companyImgUri = RandomString.make(10)
         )
     )
 

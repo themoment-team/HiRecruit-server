@@ -28,7 +28,7 @@ class CompanyService(
                 name = createDto.name,
                 location = createDto.location,
                 homepageUri = createDto.homepageUri,
-                imageUri = createDto.imageUri
+                companyImgUri = createDto.companyImgUri
             )
         )
         return CompanyDto.Info(
@@ -36,7 +36,7 @@ class CompanyService(
             name = savedCompanyEntity.name,
             location = savedCompanyEntity.location,
             homepageUri = savedCompanyEntity.homepageUri,
-            imageUri = savedCompanyEntity.imageUri
+            companyImgUri = savedCompanyEntity.companyImgUri
         )
     }
 

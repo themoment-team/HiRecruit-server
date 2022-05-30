@@ -35,7 +35,7 @@ class WorkerCustomRepositoryImpl(
                         workerEntity.company.name,
                         workerEntity.company.location,
                         workerEntity.company.homepageUri,
-                        workerEntity.company.imageUri
+                        workerEntity.company.companyImgUri
                     )
                 )
             ).from(workerEntity)
@@ -61,7 +61,7 @@ class WorkerCustomRepositoryImpl(
                         workerEntity.company.name,
                         workerEntity.company.location,
                         workerEntity.company.homepageUri,
-                        workerEntity.company.imageUri
+                        workerEntity.company.companyImgUri
                     )
                 )
             )
@@ -88,7 +88,7 @@ class WorkerCustomRepositoryImpl(
                         workerEntity.company.name,
                         workerEntity.company.location,
                         workerEntity.company.homepageUri,
-                        workerEntity.company.imageUri
+                        workerEntity.company.companyImgUri
                     )
                 )
             )
