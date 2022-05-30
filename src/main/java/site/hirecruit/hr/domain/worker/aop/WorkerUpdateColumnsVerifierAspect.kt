@@ -62,8 +62,8 @@ class WorkerUpdateColumnsVerifierAspect {
         if(devYear <= -1) throw IllegalArgumentException("devYear must not be negative, devYear='$devYear'")
     }
 
-    private fun verifyPositionColumn(location: String?) {
-        if(location == null || location.isBlank())
-            throw IllegalArgumentException("location must not be blank. location='$location'")
+    private fun verifyPositionColumn(position: String?) {
+        if(position == null || position.isBlank())
+            throw IllegalArgumentException("position must not be blank. location='$position'")
     }
 }
