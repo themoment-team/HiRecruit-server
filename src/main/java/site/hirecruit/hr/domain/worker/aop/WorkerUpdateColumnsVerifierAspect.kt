@@ -60,6 +60,7 @@ class WorkerUpdateColumnsVerifierAspect {
     private fun verifyDevYear(devYear: Int?) {
         if(devYear == null) return
         if(devYear <= -1) throw IllegalArgumentException("'devYear' must not be negative, devYear='$devYear'")
+        if(devYear > 50) throw IllegalArgumentException("'devYear' must be less than or equal to 50.")
     }
 
     private fun verifyPositionColumn(position: String?) {
