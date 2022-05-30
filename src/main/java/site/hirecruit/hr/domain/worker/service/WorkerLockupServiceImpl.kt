@@ -18,6 +18,7 @@ class WorkerLockupServiceImpl(
 
     override fun findByWorkerId(workerId: Long): WorkerDto.Info =
         workerRepository.findWorkerInfoDtoByWorkerId(workerId)
+            ?: throw IllegalArgumentException("No corresponding worker was found. workerId='$workerId'")
 
     override fun findByCompanyId(companyId: Long): List<WorkerDto.Info> =
         workerRepository.findWorkerInfoDtoByCompanyId(companyId)
