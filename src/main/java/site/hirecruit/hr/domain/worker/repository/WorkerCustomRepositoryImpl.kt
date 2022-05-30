@@ -72,7 +72,7 @@ class WorkerCustomRepositoryImpl(
             .fetch()
     }
 
-    override fun findWorkerInfoDtoByAll(): List<WorkerDto.Info> {
+    override fun findAllWorkerInfoDto(): List<WorkerDto.Info> {
         return queryFactory
             .select(QWorkerDto_Info(
                     workerEntity.workerId,
