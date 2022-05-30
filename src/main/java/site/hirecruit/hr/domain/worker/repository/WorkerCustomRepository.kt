@@ -10,7 +10,7 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
  */
 interface WorkerCustomRepository {
 
-    fun findWorkerInfoDtoByWorkerId(workerId: Long): WorkerDto.Info
+    fun findWorkerInfoDtoByWorkerId(workerId: Long): WorkerDto.Info?
 
     fun findWorkerInfoDtoByCompanyId(companyId: Long): List<WorkerDto.Info>
 
