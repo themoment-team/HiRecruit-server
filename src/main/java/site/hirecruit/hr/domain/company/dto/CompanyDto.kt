@@ -1,8 +1,10 @@
 package site.hirecruit.hr.domain.company.dto
 
+import com.querydsl.core.annotations.QueryProjection
+
 class CompanyDto {
 
-    data class Info(
+    data class Info @QueryProjection constructor(
         val companyId: Long,
         val name: String,
         val location: String,

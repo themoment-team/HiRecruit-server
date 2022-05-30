@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.worker.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.querydsl.core.annotations.QueryProjection
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import javax.validation.constraints.NotEmpty
 
@@ -20,14 +21,16 @@ class WorkerDto {
         val position: String? = null,
     )
 
-    data class Info(
+    data class Info @QueryProjection constructor (
+        val workerId: Long,
+
         val name: String,
 
         val email: String,
 
-        val introduction: String?,
-
         val profileImgUri: String,
+
+        val introduction: String?,
 
         val giveLink: String?,
 
@@ -35,7 +38,7 @@ class WorkerDto {
 
         val position: String?,
 
-        @field:JsonProperty("worker")
+        @field:JsonProperty("company")
         val companyInfoDto: CompanyDto.Info
     )
 
