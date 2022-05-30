@@ -1,4 +1,4 @@
-name: GitHub Actions Test Continuous Deployment
+name: Continuous Deployment / Test
 
 on:
   push:
@@ -6,16 +6,18 @@ on:
       - develop
 
 jobs:
+  call-CI-script:
+    uses: ./.github/workflows/github-action-ci-script.yml
+
   CD:
     needs: CI
     runs-on: ubuntu-latest
+    env:
+      GITHUB_SHA: hr-server
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - env:
-          GITHUB_SHA: hr-server
 
       - name: Make zip file
         run: zip -qq -r ./$GITHUB_SHA.zip .
