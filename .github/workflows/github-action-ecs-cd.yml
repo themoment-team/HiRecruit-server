@@ -3,7 +3,7 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches:
-      - master      
+      - feature/action-settings      
 jobs:
   deploy:
     name: Deploy
