@@ -7,11 +7,11 @@ on:
       - feature/cd-action-script
 
 jobs:
-  call-CI:
+  CI:
     uses: ./.github/workflows/github-action-ci-script.yml
 
   CD:
-    needs: [call-CI]
+    needs: CI
     runs-on: ubuntu-latest
     env:
       GITHUB_SHA: hr-server

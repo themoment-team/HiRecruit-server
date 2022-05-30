@@ -9,9 +9,6 @@ on:
       - feature/cd-action-script
 
   workflow_call:
-    secrets:
-      envPAT:
-        required: true
 
 jobs:
   CI:
