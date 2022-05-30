@@ -6,6 +6,9 @@ on:
       - develop
 
 jobs:
+  call-CI-script:
+    uses: ./.github/workflows/github-action-ci-script.yml
+
   CD:
     needs: CI
     runs-on: ubuntu-latest

@@ -5,6 +5,11 @@ on:
     branches:
       - develop
 
+  workflow_call:
+    secrets:
+      envPAT:
+        required: true
+
 jobs:
   CI:
     runs-on: ubuntu-latest
