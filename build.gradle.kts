@@ -86,6 +86,14 @@ dependencies {
     compileOnly("it.ozimov:embedded-redis:0.7.2")
     testImplementation("it.ozimov:embedded-redis:0.7.2")
 }
+/**
+ * custom jar naming tasks
+ */
+tasks.jar {
+    manifest {
+        archiveFileName.set("hirecruit-1.0.jar") // .jar name: name.jar
+    }
+}
 
 /** Querydsl 이 만들어주는 Qclass 경로 지정 **/
 sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
