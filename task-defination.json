@@ -1,0 +1,24 @@
+{
+  "family": "hirecruit-task-family",
+  "executionRoleArn": "arn:aws:iam::030783040786:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "hirecruit-server-container",
+      "image": "030783040786.dkr.ecr.ap-northeast-2.amazonaws.com/hirecruit:latest",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024"
+}
