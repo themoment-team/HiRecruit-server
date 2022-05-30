@@ -8,9 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.company.dto.CompanyDto
-import site.hirecruit.hr.domain.company.entity.CompanyEntity
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
-import site.hirecruit.hr.domain.company.service.CompanyService
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
