@@ -3,7 +3,7 @@ name: GitHub Actions Test Continuous Deployment
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   CD:
