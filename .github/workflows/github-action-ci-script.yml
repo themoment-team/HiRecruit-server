@@ -1,14 +1,12 @@
-name: GitHub Actions Continuous Integration
+name: Continuous Integration
+
 on:
   pull_request:
-    types:
-      - opened
     branches:
       - develop
 
 jobs:
   CI:
-
     runs-on: ubuntu-latest
 
     steps:
