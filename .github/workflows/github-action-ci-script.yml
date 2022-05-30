@@ -1,11 +1,13 @@
-name: GitHub Actions build health check script
+name: GitHub Actions Continuous Integration
 on:
-  push:
+  pull_request:
+    types:
+      - opened
     branches:
       - develop
 
 jobs:
-  build:
+  CI:
 
     runs-on: ubuntu-latest
 

@@ -1,0 +1,38 @@
+name: GitHub Actions Test Continuous Deployment
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  CD:
+    needs: CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - env:
+          GITHUB_SHA: hr-server
+
+      - name: Make zip file
+        run: zip -qq -r ./$GITHUB_SHA.zip .
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload zip to S3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://hr-backend-zip
+
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name hirecruit-backend
+          -- deployment-config-name CodeDeployDefault.AllAtOnce
+          -- deployment-group-name backend-app-group
+          -- s3-location bucket=s3://hr-backend-zip,bundleType=zip,key=$GITHUB_SHA.zip
