@@ -48,5 +48,11 @@ class SecurityConfig(
             .oauth2Login()
             .userInfoEndpoint()
             .userService(this.oauth2UserService)
+
+        http.oauth2Login { oauth2Login ->
+            oauth2Login.authorizationEndpoint{ endpoint ->
+                endpoint.baseUri("/api/v1/auth/oauth2/authorization")
+            }
+        }
     }
 }
