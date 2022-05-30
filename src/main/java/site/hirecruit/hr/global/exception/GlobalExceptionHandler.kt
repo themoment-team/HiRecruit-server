@@ -1,5 +1,6 @@
 package site.hirecruit.hr.global.exception
 
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -19,5 +20,10 @@ class GlobalExceptionHandler {
     @ExceptionHandler(HttpStatusCodeException::class)
     private fun httpStatusException(ex: HttpClientErrorException): ResponseEntity<ExceptionResponseEntity> =
         ResponseEntity.status(ex.statusCode.value())
+            .body(ExceptionResponseEntity.of(ex))
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    private fun illegalArgumentException(ex: IllegalArgumentException): ResponseEntity<ExceptionResponseEntity> =
+        ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
             .body(ExceptionResponseEntity.of(ex))
 }
