@@ -48,7 +48,30 @@ class WorkerCustomRepositoryImpl(
     }
 
     override fun findWorkerInfoDtoByCompanyId(companyId: Long): List<WorkerDto.Info> {
-        TODO("Not yet implemented")
+        return queryFactory
+            .select(QWorkerDto_Info(
+                    workerEntity.workerId,
+                    workerEntity.user.name,
+                    workerEntity.user.email,
+                    workerEntity.user.profileImgUri,
+                    workerEntity.introduction,
+                    workerEntity.giveLink,
+                    workerEntity.devYear,
+                    workerEntity.position,
+                    QCompanyDto_Info(
+                        Expressions.constantAs(companyId, workerEntity.company.companyId),
+                        workerEntity.company.name,
+                        workerEntity.company.location,
+                        workerEntity.company.homepageUri,
+                        workerEntity.company.imageUri
+                    )
+                )
+            )
+            .from(workerEntity)
+            .join(workerEntity.user, userEntity)
+            .join(workerEntity.company, companyEntity)
+            .where(companyEntity.companyId.eq(companyId))
+            .fetch()
     }
 
     override fun findWorkerInfoDtoByAll(): List<WorkerDto.Info> {
