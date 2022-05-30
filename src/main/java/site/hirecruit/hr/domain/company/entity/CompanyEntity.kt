@@ -24,6 +24,6 @@ class CompanyEntity(
     var homepageUri: String?,
 
     @Column(name = "company_image_uri", nullable = true)
-    var imageUri: String? = null
+    var companyImgUri: String? = null
 ) {
 }

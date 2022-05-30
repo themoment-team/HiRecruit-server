@@ -9,14 +9,14 @@ class CompanyDto {
         val name: String,
         val location: String,
         val homepageUri: String?,
-        val imageUri: String?
+        val companyImgUri: String?
     )
 
     data class Create(
         val name: String,
         val location: String,
         val homepageUri: String?,
-        val imageUri: String?
+        val companyImgUri: String?
     )
 
 }

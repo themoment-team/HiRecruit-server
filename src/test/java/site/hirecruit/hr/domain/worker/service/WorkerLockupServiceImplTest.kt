@@ -39,7 +39,7 @@ internal class WorkerLockupServiceImplTest {
                 name = workerEntity.company.name,
                 location = workerEntity.company.location,
                 homepageUri = workerEntity.company.homepageUri,
-                imageUri = workerEntity.company.imageUri
+                companyImgUri = workerEntity.company.companyImgUri
             )
         )
 

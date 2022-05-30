@@ -43,7 +43,7 @@ internal class WorkerRegistrationServiceImplTest{
             name = RandomString.make(10),
             location = RandomString.make(15),
             homepageUri = RandomString.make(15),
-            imageUri = RandomString.make(15)
+            companyImgUri = RandomString.make(15)
         )
         val workerEntity = WorkerEntity(
             workerId = null,

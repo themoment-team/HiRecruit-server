@@ -31,7 +31,7 @@ internal class CompanyServiceTest(
             name = RandomString.make(8),
             location = RandomString.make(10),
             homepageUri = RandomString.make(15),
-            imageUri = RandomString.make(10)
+            companyImgUri = RandomString.make(10)
         )
 
         // when
@@ -42,7 +42,7 @@ internal class CompanyServiceTest(
             assertNotNull(createdCompanyInfo.companyId)
             assertEquals(companyDto.name, createdCompanyInfo.name)
             assertEquals(companyDto.location, createdCompanyInfo.location)
-            assertEquals(companyDto.imageUri, createdCompanyInfo.imageUri)
+            assertEquals(companyDto.companyImgUri, createdCompanyInfo.companyImgUri)
         })
     }
 
@@ -56,7 +56,7 @@ internal class CompanyServiceTest(
                 name = it.name,
                 location = it.location,
                 homepageUri = it.homepageUri,
-                imageUri = it.imageUri
+                companyImgUri = it.companyImgUri
             )
         }
 
@@ -75,7 +75,7 @@ internal class CompanyServiceTest(
                     name = RandomString.make(8),
                     location = RandomString.make(10),
                     homepageUri = RandomString.make(15),
-                    imageUri = RandomString.make(10)
+                    companyImgUri = RandomString.make(10)
                 )
             )
         }
