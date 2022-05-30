@@ -1,6 +1,8 @@
 name: GitHub Actions Continuous Integration
 on:
-  push:
+  pull_request:
+    types:
+      - opened
     branches:
       - develop
 
