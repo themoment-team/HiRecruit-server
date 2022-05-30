@@ -8,9 +8,16 @@ on:
 
 jobs:
   CI:
-    uses: ./.github/workflows/github-action-ci-script.yml
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - uses: ./.github/workflows/github-action-ci-script.yml
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
 
-  CD:
+  test-CD:
     needs: CI
     runs-on: ubuntu-latest
     env:

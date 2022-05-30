@@ -4,11 +4,9 @@ on:
   pull_request:
     branches:
       - develop
-  push:
-    branches:
-      - feature/cd-action-script
 
   workflow_call:
+    secrets: inherit
 
 jobs:
   CI:
