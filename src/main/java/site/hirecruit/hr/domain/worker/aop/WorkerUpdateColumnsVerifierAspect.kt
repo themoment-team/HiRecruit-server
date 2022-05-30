@@ -44,26 +44,26 @@ class WorkerUpdateColumnsVerifierAspect {
 
     private fun verifyCompanyIdColumn(companyId: Long?){
         if(companyId == null)
-            throw IllegalArgumentException("companyId must not be null.")
+            throw IllegalArgumentException("'companyId' must not be null.")
     }
 
     private fun verifyIntroduction(introduction: String?){
         if(introduction == null) return
-        if(introduction.isBlank()) throw IllegalArgumentException("introduction must not be blank. introduction='$introduction'")
+        if(introduction.isBlank()) throw IllegalArgumentException("'introduction' must not be blank. introduction='$introduction'")
     }
 
     private fun verifyGiveLink(giveLink: String?){
         if(giveLink == null) return
-        if(giveLink.isBlank()) throw IllegalArgumentException("giveLink must not be blank. giveLink='$giveLink'")
+        if(giveLink.isBlank()) throw IllegalArgumentException("'giveLink' must not be blank. giveLink='$giveLink'")
     }
 
     private fun verifyDevYear(devYear: Int?) {
         if(devYear == null) return
-        if(devYear <= -1) throw IllegalArgumentException("devYear must not be negative, devYear='$devYear'")
+        if(devYear <= -1) throw IllegalArgumentException("'devYear' must not be negative, devYear='$devYear'")
     }
 
     private fun verifyPositionColumn(position: String?) {
         if(position == null || position.isBlank())
-            throw IllegalArgumentException("position must not be blank. location='$position'")
+            throw IllegalArgumentException("'position' must not be blank. location='$position'")
     }
 }
