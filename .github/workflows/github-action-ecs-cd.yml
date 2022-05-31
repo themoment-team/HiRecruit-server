@@ -85,7 +85,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-            task-definition: task-definition.json
+            task-definition: task-defination.json
             container-name: hirecruit-server-container
             image: ${{ steps.build-image.outputs.image }}
 
@@ -94,5 +94,5 @@ jobs:
         with:
             task-definition: ${{ steps.task-def.outputs.task-definition }}
             service: service-for-hirecruit
-            cluster: hirecruit
+            cluster: hirerecruit
             wait-for-service-stability: true
