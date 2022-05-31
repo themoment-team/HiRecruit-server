@@ -37,4 +37,4 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 hirecruit-backend-test.zip s3://hr-backend-zip
 
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name hirecruit-test-codedeploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name hirecruit-test-server-group --s3-location bucket=s3://hr-backend-zip,bundleType=zip,key=hirecruit-backend-test.zip
+        run: aws deploy create-deployment --application-name hirecruit-test-codedeploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name hirecruit-test-server-group --s3-location bucket=hr-backend-zip,bundleType=zip,key=hirecruit-test-server-group/hirecruit-backend-test.zip
