@@ -92,7 +92,7 @@ dependencies {
  */
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "site.hirecruit.hr.HRApplication.kt"
+        attributes["Main-Class"] = "site.hirecruit.hr.HRApplicationKt"
         archiveFileName.set("hirecruit-1.0.jar") // .jar name: name.jar
     }
 }
