@@ -13,6 +13,7 @@ jobs:
 
   test-CD:
     needs: CI
+    environment: test
     runs-on: ubuntu-latest
     env:
       GITHUB_SHA: hr-server
