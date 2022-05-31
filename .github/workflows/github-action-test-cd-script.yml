@@ -8,14 +8,11 @@ on:
 
 jobs:
   CI:
-    runs-on: ubuntu-latest
-    environment: test
-    steps:
-      - uses: themoment-team/HiRecruit-server/.github/workflows/github-action-ci-script.yml@$GITHUB_HEAD_REF
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
+    uses: themoment-team/HiRecruit-server/.github/workflows/github-action-ci-script.yml@$GITHUB_HEAD_REF
+    with:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
 
   test-CD:
     needs: CI
