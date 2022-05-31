@@ -6,7 +6,6 @@ on:
       - develop
 
   workflow_call:
-    secrets: inherit
 
 jobs:
   CI:

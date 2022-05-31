@@ -10,9 +10,7 @@ jobs:
   CI:
     uses: ./.github/workflows/github-action-ci-script.yml
     secrets:
-      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
+      secrets: inherit
 
   test-CD:
     needs: CI
