@@ -9,8 +9,6 @@ on:
 jobs:
   CI:
     uses: ./.github/workflows/github-action-ci-script.yml
-    secrets:
-      secrets: inherit
 
   test-CD:
     needs: CI
