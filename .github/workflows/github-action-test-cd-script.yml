@@ -26,9 +26,6 @@ jobs:
         run: zip -r hirecruit-backend-test *
         shell: bash
 
-      - name: Move app zip folder to ./deploy
-        run: mv hirecruit-backend-test.zip deploy/hirecruit-backend-test.zip
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -37,7 +34,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload zip to S3
-        run: aws s3 cp --region ap-northeast-2 deploy/hirecruit-backend-test.zip s3://hr-backend-zip
+        run: aws s3 cp --region ap-northeast-2 hirecruit-backend-test.zip s3://hr-backend-zip
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name hirecruit-test-backend
