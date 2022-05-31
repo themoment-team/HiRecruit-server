@@ -17,8 +17,8 @@
          "logDriver": "awslogs",
          "options": {
             "awslogs-create-group": "true",
-            "awslogs-group": "awslogs-wordpress",
-            "awslogs-region": "us-west-2",
+            "awslogs-group": "awslogs-hirecruit",
+            "awslogs-region": "ap-northeast-2",
             "awslogs-stream-prefix": "awslogs-example"
          }
       },
