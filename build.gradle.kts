@@ -86,11 +86,13 @@ dependencies {
     compileOnly("it.ozimov:embedded-redis:0.7.2")
     testImplementation("it.ozimov:embedded-redis:0.7.2")
 }
+
 /**
- * custom jar naming tasks
+ * jar setting with kotlin spring
  */
 tasks.jar {
     manifest {
+        attributes["Main-Class"] = "site.hirecruit.hr.HRApplication.kt"
         archiveFileName.set("hirecruit-1.0.jar") // .jar name: name.jar
     }
 }
