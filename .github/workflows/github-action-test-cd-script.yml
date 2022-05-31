@@ -22,9 +22,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
+      - name: Make app zip folder
+        run: zip -r hirecruit-backend-test *
         shell: bash
+
+      - name: Move app zip folder to ./deploy
+        run: mv hirecruit-backend-test.zip deploy/hirecruit-backend-test.zip
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -34,10 +37,10 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload zip to S3
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://hr-backend-zip
+        run: aws s3 cp --region ap-northeast-2 deploy/hirecruit-backend-test.zip s3://hr-backend-zip
 
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name hirecruit-backend
+        run: aws deploy create-deployment --application-name hirecruit-test-backend
           -- deployment-config-name CodeDeployDefault.AllAtOnce
-          -- deployment-group-name backend-app-group
-          -- s3-location bucket=s3://hr-backend-zip,bundleType=zip,key=$GITHUB_SHA.zip
+          -- deployment-group-name hirecruit-test-server-group
+          -- s3-location bucket=s3://hr-backend-zip,bundleType=zip,key=.zip
