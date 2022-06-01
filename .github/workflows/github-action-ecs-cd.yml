@@ -85,7 +85,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-            task-definition: task-defination.json
+            task-definition: task-definition.json
             container-name: hirecruit-server-container
             image: ${{ steps.build-image.outputs.image }}
 
