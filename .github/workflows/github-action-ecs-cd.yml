@@ -1,0 +1,98 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - feature/action-settings      
+jobs:
+  CI-CD:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.3.0
+        with:
+            java-version: '11'
+            distribution: 'temurin'
+            cache: gradle
+
+      - name: Set up JDK 11 job has success
+        if: ${{ success() }}
+        run: echo "🎉 Set up JDK 11 job has success"
+
+      - name: Set up AWS CI bot IAM          
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ap-northeast-2
+
+      - name: Set up resources/** secrets from s3 bucket
+        run: aws s3 cp --region ap-northeast-2 --acl private s3://hr-backend-secret-properties-bucket/application-resource-secret/ ./src/main/resources --recursive
+
+      - name: Set up secret resources success 🎉
+        if: ${{ success() }}
+        run: echo "🎉 Set up secret resources success"
+        
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        with:
+           arguments: build
+
+      - name: Build with Gradle job has success
+        if: ${{ success() }}
+        run: echo "🎉 Build with Gradle job has success"
+
+      - name: HiRecruit Backend CI success Discord Notification
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ success() }}
+        with:
+            title: 🎉 HiRecruit Backend build success 🎉
+            webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
+            color: 00FF00
+
+      - name: HiRecruit Backend CI failure Discord Notification
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ failure() }}
+        with:
+            title: ❌ HiRecruit Backend build fail ❌
+            webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
+            color: FF0000
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+            ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+            ECR_REPOSITORY: hirecruit
+            IMAGE_TAG: latest
+        run: |
+            # Build a docker container and
+            # push it to ECR so that it can
+            # be deployed to ECS.
+            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+            task-definition: task-defination.json
+            container-name: hirecruit-server-container
+            image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+            task-definition: ${{ steps.task-def.outputs.task-definition }}
+            service: service-for-hirecruit
+            cluster: hirerecruit
+            wait-for-service-stability: true
