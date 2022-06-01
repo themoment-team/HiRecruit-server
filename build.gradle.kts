@@ -26,8 +26,9 @@ noArg {
     annotation("site.hirecruit.hr.global.annotation.Dto")
 }
 
-group = "com.kts"
-version = "0.0.1-SNAPSHOT"
+group = "site.hirecruit.hr"
+base.archivesBaseName = "hirecruit"
+version = "0.1"
 java.sourceCompatibility = JavaVersion.VERSION_11
 val qeurydslVersion = "5.0.0"
 
