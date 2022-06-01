@@ -87,24 +87,6 @@ dependencies {
     testImplementation("it.ozimov:embedded-redis:0.7.2")
 }
 
-/**
- * jar setting with kotlin spring
- */
-tasks.withType<Jar> {
-    manifest {
-        attributes["Main-Class"] = "site.hirecruit.hr.HRApplicationKt"
-        archiveFileName.set("hirecruit-1.0.jar") // .jar name: name.jar
-    }
-
-    // To add all of the dependencies
-    from(sourceSets.main.get().output)
-
-    dependsOn(configurations.runtimeClasspath)
-    from({
-        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
-    })
-}
-
 /** Querydsl 이 만들어주는 Qclass 경로 지정 **/
 sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
     kotlin.srcDir("$buildDir/generated/source/kapt/main")
