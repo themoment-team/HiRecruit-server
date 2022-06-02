@@ -70,3 +70,5 @@ logging:
   level:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
+
+oauth2.login.success.uri: http://localhost:3000
