@@ -28,7 +28,7 @@ noArg {
 
 group = "site.hirecruit.hr"
 base.archivesBaseName = "hirecruit"
-version = "0.1"
+version = "1.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 val qeurydslVersion = "5.0.0"
 
