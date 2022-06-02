@@ -28,10 +28,10 @@ internal class CompanyServiceTest(
     internal fun createTest() {
         // given
         val companyDto = CompanyDto.Create(
-            name = RandomString.make(8),
-            location = RandomString.make(10),
-            homepageUri = RandomString.make(15),
-            companyImgUri = RandomString.make(10)
+            _name = RandomString.make(8),
+            _location = RandomString.make(10),
+            _homepageUri = RandomString.make(15),
+            _companyImgUri = RandomString.make(10)
         )
 
         // when
