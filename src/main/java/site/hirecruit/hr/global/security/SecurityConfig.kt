@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
 
 /**
@@ -51,7 +52,13 @@ class SecurityConfig(
 
         http.oauth2Login { oauth2Login ->
             oauth2Login.authorizationEndpoint{ endpoint ->
-                endpoint.baseUri("/api/v1/auth/oauth2/authorization")
+                endpoint.baseUri("/api/v1/auth/oauth2/authorization") // oauth2 로그인 최초 진입점
+            }
+            oauth2Login.redirectionEndpoint{
+                it.baseUri("/api/v1/auth/oauth2/redirection-endpoint")
+            }
+            oauth2Login.successHandler { _, response, _ ->
+                response.sendRedirect("/api/v1/auth/oauth2/success") // oauth2 login에 성공하면 해당 uri로 redirect
             }
         }
     }

@@ -8,6 +8,10 @@ server:
       enabled: true
       force: true
 
+    session:
+      cookie:
+        name: HRSESSION
+
 spring:
   config:
     import: classpath:oauth/github-oauth.yml
@@ -66,3 +70,5 @@ logging:
   level:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
+
+oauth2.login.success.redirect-base-uri: http://localhost:3000
