@@ -8,7 +8,7 @@
       "image": "030783040786.dkr.ecr.ap-northeast-2.amazonaws.com/hirecruit:latest",
       "portMappings": [
         {
-          "containerPort": 80,
+          "containerPort": 8080,
           "hostPort": 8080,
           "protocol": "tcp"
         }
