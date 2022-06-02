@@ -47,8 +47,11 @@ class GlobalExceptionHandler {
         for (fieldError in bindingResult.fieldErrors) {
             /**
              * 유효성검사에 통과하지 못한 field name, field name의 접두사에 "_"가 있다면 제거한다.
+             * "Dto._"문자를 "."로 치환한다.
              */
-            val fieldErrorName = fieldError.field.removePrefix("_")
+            val fieldErrorName = fieldError.field
+                .removePrefix("_")
+                .replace("Dto._", ".")
 
             /**
              * 유효성 검사에 통과하지 못한 field에 대한 메시지
