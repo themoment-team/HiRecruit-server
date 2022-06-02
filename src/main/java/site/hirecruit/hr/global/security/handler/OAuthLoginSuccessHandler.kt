@@ -16,7 +16,7 @@ import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 @org.springframework.stereotype.Controller
 @RequestMapping("/api/v1/auth/oauth2/success")
 class OAuthLoginSuccessHandler(
-    @Value("\${oauth2.login.success.uri}") val redirectBaseUri: String
+    @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String
 ) {
 
     /**
