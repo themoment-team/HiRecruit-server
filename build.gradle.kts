@@ -26,8 +26,9 @@ noArg {
     annotation("site.hirecruit.hr.global.annotation.Dto")
 }
 
-group = "com.kts"
-version = "0.0.1-SNAPSHOT"
+group = "site.hirecruit.hr"
+base.archivesBaseName = "hirecruit"
+version = "0.1"
 java.sourceCompatibility = JavaVersion.VERSION_11
 val qeurydslVersion = "5.0.0"
 
@@ -85,24 +86,6 @@ dependencies {
 
     compileOnly("it.ozimov:embedded-redis:0.7.2")
     testImplementation("it.ozimov:embedded-redis:0.7.2")
-}
-
-/**
- * jar setting with kotlin spring
- */
-tasks.withType<Jar> {
-    manifest {
-        attributes["Main-Class"] = "site.hirecruit.hr.HRApplicationKt"
-        archiveFileName.set("hirecruit-1.0.jar") // .jar name: name.jar
-    }
-
-    // To add all of the dependencies
-    from(sourceSets.main.get().output)
-
-    dependsOn(configurations.runtimeClasspath)
-    from({
-        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
-    })
 }
 
 /** Querydsl 이 만들어주는 Qclass 경로 지정 **/
