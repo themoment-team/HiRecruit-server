@@ -30,7 +30,8 @@ internal class CompanyServiceTest(
         val companyDto = CompanyDto.Create(
             name = RandomString.make(8),
             location = RandomString.make(10),
-            imageUri = RandomString.make(10)
+            homepageUri = RandomString.make(15),
+            companyImgUri = RandomString.make(10)
         )
 
         // when
@@ -38,10 +39,10 @@ internal class CompanyServiceTest(
 
         // then
         assertAll({
-            assertEquals(1, createdCompanyInfo.companyId)
+            assertNotNull(createdCompanyInfo.companyId)
             assertEquals(companyDto.name, createdCompanyInfo.name)
             assertEquals(companyDto.location, createdCompanyInfo.location)
-            assertEquals(companyDto.imageUri, createdCompanyInfo.imageUri)
+            assertEquals(companyDto.companyImgUri, createdCompanyInfo.companyImgUri)
         })
     }
 
@@ -54,7 +55,8 @@ internal class CompanyServiceTest(
                 companyId = it.companyId!!,
                 name = it.name,
                 location = it.location,
-                imageUri = it.imageUri
+                homepageUri = it.homepageUri,
+                companyImgUri = it.companyImgUri
             )
         }
 
@@ -72,7 +74,8 @@ internal class CompanyServiceTest(
                 CompanyEntity(
                     name = RandomString.make(8),
                     location = RandomString.make(10),
-                    imageUri = RandomString.make(10)
+                    homepageUri = RandomString.make(15),
+                    companyImgUri = RandomString.make(10)
                 )
             )
         }

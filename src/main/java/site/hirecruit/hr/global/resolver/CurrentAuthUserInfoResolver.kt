@@ -34,7 +34,10 @@ class CurrentAuthUserInfoResolver(
         binderFactory: WebDataBinderFactory?
     ): Any {
         return httpSession.getAttribute(SessionAttribute.AUTH_USER_INFO.attributeName)
-            ?: throw HttpClientErrorException(HttpStatus.UNAUTHORIZED)
+            ?: throw HttpClientErrorException(
+                HttpStatus.UNAUTHORIZED,
+                "Unauthorization; User information not found. Check your login status"
+            )
     }
 
 

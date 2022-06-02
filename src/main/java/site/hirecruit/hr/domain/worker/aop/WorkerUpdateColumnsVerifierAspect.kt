@@ -33,37 +33,38 @@ class WorkerUpdateColumnsVerifierAspect {
     fun verifyUpdateDtoProperty(updateDto: WorkerDto.Update){
         updateDto.updateColumns.forEach {
             when(it) {
-                WorkerDto.Update.Column.COMPANY_NAME         -> verifyCompanyNameColumn(updateDto.companyName)
-                WorkerDto.Update.Column.LOCATION        -> verifyLocationColumn(updateDto.location)
+                WorkerDto.Update.Column.COMPANY_ID      -> verifyCompanyIdColumn(updateDto.companyId)
                 WorkerDto.Update.Column.INTRODUCTION    -> verifyIntroduction(updateDto.introduction)
                 WorkerDto.Update.Column.GIVE_LINK       -> verifyGiveLink(updateDto.giveLink)
                 WorkerDto.Update.Column.DEV_YEAR        -> verifyDevYear(updateDto.devYear)
+                WorkerDto.Update.Column.POSITION        -> verifyPositionColumn(updateDto.position)
             }
         }
     }
 
-    private fun verifyCompanyNameColumn(companyName: String?){
-        if(companyName == null || companyName.isBlank())
-            throw IllegalArgumentException("companyName must not be blank. companyName='$companyName'")
-    }
-
-    private fun verifyLocationColumn(location: String?) {
-        if(location == null || location.isBlank())
-            throw IllegalArgumentException("location must not be blank. location='$location'")
+    private fun verifyCompanyIdColumn(companyId: Long?){
+        if(companyId == null)
+            throw IllegalArgumentException("'companyId' must not be null.")
     }
 
     private fun verifyIntroduction(introduction: String?){
         if(introduction == null) return
-        if(introduction.isBlank()) throw IllegalArgumentException("introduction must not be blank. introduction='$introduction'")
+        if(introduction.isBlank()) throw IllegalArgumentException("'introduction' must not be blank. introduction='$introduction'")
     }
 
     private fun verifyGiveLink(giveLink: String?){
         if(giveLink == null) return
-        if(giveLink.isBlank()) throw IllegalArgumentException("giveLink must not be blank. giveLink='$giveLink'")
+        if(giveLink.isBlank()) throw IllegalArgumentException("'giveLink' must not be blank. giveLink='$giveLink'")
     }
 
     private fun verifyDevYear(devYear: Int?) {
         if(devYear == null) return
-        if(devYear <= -1) throw IllegalArgumentException("devYear must not be negative, devYear='$devYear'")
+        if(devYear <= -1) throw IllegalArgumentException("'devYear' must not be negative, devYear='$devYear'")
+        if(devYear > 50) throw IllegalArgumentException("'devYear' must be less than or equal to 50.")
+    }
+
+    private fun verifyPositionColumn(position: String?) {
+        if(position == null || position.isBlank())
+            throw IllegalArgumentException("'position' must not be blank. location='$position'")
     }
 }

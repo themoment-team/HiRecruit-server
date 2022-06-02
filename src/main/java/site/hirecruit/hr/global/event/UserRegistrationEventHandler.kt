@@ -25,6 +25,10 @@ class UserRegistrationEventHandler(
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT) // event publisher가 commit된 후 해당 event handler가 실행된다.
     fun createWorker(userRegistrationEvent: UserRegistrationEvent){
         log.debug("UserRegistrationEvent activate UserRegistrationEvent='$userRegistrationEvent'")
-        workerRegistrationService.registration(userRegistrationEvent.userAuthUserInfo, userRegistrationEvent.workerInfo)
+        val workerInfo = workerRegistrationService.registration(
+            userRegistrationEvent.userAuthUserInfo,
+            userRegistrationEvent.workerInfo
+        )
+        log.debug("workerInfo='$workerInfo'")
     }
 }

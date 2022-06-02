@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Pointcut
 import org.springframework.stereotype.Component
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.auth.service.SecurityContextAccessService
 import site.hirecruit.hr.global.data.SessionAttribute
 import javax.servlet.http.HttpSession
 
@@ -23,7 +24,8 @@ private val log = KotlinLogging.logger {}
 @Aspect
 class UserRegistrationAspect(
     private val tempUserRepository: TempUserRepository,
-    private val httpSession: HttpSession
+    private val httpSession: HttpSession,
+    private val securityContextFacade: SecurityContextAccessService
 ) {
 
     @Pointcut("execution(* site.hirecruit.hr.domain.auth.service.UserRegistrationService+.registration(..))")
@@ -43,6 +45,7 @@ class UserRegistrationAspect(
         log.debug("AuthUserInfo='$authUserInfo'")
         deleteTempUser(authUserInfo.githubId)
         sessionUserAuthInfoUpdate(authUserInfo)
+        securityContextFacade.updateAuthentication(authUserInfo) // 회원가입 후 업데이트된 유저정보를 저장한다.
     }
 
     private fun deleteTempUser(githubId: Long){

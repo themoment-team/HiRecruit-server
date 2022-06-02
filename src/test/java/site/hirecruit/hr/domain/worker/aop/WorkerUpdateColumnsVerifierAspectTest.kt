@@ -25,14 +25,14 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
         val proxy = factory.getProxy<AuthUserWorkerService>()
 
         val updateDto = WorkerDto.Update(
-            companyName = RandomString.make(10),
-            location = RandomString.make(10),
+            companyId = Random.nextLong(),
             introduction = RandomString.make(10),
             giveLink = RandomString.make(10),
             devYear = Random.nextInt(0, 30),
+            position = RandomString.make(15),
             updateColumns = listOf( // 변경할 컬럼
-                WorkerDto.Update.Column.COMPANY_NAME,
-                WorkerDto.Update.Column.LOCATION,
+                WorkerDto.Update.Column.COMPANY_ID,
+                WorkerDto.Update.Column.POSITION,
                 WorkerDto.Update.Column.INTRODUCTION,
                 WorkerDto.Update.Column.GIVE_LINK,
                 WorkerDto.Update.Column.DEV_YEAR
@@ -48,30 +48,21 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
     inner class ValidationFailTest{
 
         @Test
-        internal fun companyName() {
+        internal fun companyId() {
             val factory = AspectJProxyFactory(proxy)
             factory.addAspect(WorkerUpdateColumnsVerifierAspect())
             val proxy = factory.getProxy<AuthUserWorkerService>()
 
             val nullValue = WorkerDto.Update(
-                companyName = null,
+                companyId = null,
                 updateColumns = listOf(
-                    WorkerDto.Update.Column.COMPANY_NAME,
-                )
-            )
-            val blankValue = WorkerDto.Update(
-                companyName = "     ",
-                updateColumns = listOf(
-                    WorkerDto.Update.Column.COMPANY_NAME,
+                    WorkerDto.Update.Column.COMPANY_ID,
                 )
             )
 
             assertAll({
                 assertThrows<IllegalArgumentException>("null 값은 허용되지 않는다.") {
                     proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, nullValue)
-                }
-                assertThrows<IllegalArgumentException>("빈 값은 허용되지 않는다."){
-                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, blankValue)
                 }
             })
 
@@ -99,30 +90,21 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
         }
 
         @Test
-        internal fun location() {
+        internal fun position() {
             val factory = AspectJProxyFactory(proxy)
             factory.addAspect(WorkerUpdateColumnsVerifierAspect())
             val proxy = factory.getProxy<AuthUserWorkerService>()
 
             val nullValue = WorkerDto.Update(
-                location = null,
+                position = null,
                 updateColumns = listOf(
-                    WorkerDto.Update.Column.LOCATION,
-                )
-            )
-            val blankValue = WorkerDto.Update(
-                location = "     ",
-                updateColumns = listOf(
-                    WorkerDto.Update.Column.LOCATION,
+                    WorkerDto.Update.Column.POSITION,
                 )
             )
 
             assertAll({
                 assertThrows<IllegalArgumentException>("null 값은 허용되지 않는다.") {
                     proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, nullValue)
-                }
-                assertThrows<IllegalArgumentException>("빈 값은 허용되지 않는다."){
-                    proxy.updateWorkerEntityByAuthUserInfo(authUserInfoMock, blankValue)
                 }
             })
 
@@ -158,7 +140,7 @@ internal class WorkerUpdateColumnsVerifierAspectTest{
             val blankValue = WorkerDto.Update(
                 devYear = -1,
                 updateColumns = listOf(
-                    WorkerDto.Update.Column.COMPANY_NAME,
+                    WorkerDto.Update.Column.COMPANY_ID,
                 )
             )
 
