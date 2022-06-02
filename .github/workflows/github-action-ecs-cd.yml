@@ -94,5 +94,5 @@ jobs:
         with:
             task-definition: ${{ steps.task-def.outputs.task-definition }}
             service: service-for-hirecruit
-            cluster: hirerecruit
+            cluster: hirecruit
             wait-for-service-stability: true
