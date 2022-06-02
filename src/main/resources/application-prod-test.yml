@@ -8,10 +8,6 @@ server:
       enabled: true
       force: true
 
-    session:
-      cookie:
-        name: HRSESSION
-
 spring:
   config:
     import: classpath:oauth/github-oauth.yml
@@ -23,7 +19,7 @@ spring:
       namespace: spring:session # redis에 세션 저장시 네임스페이스
 
   redis:
-    host: localhost
+    host: ${redis.host}
     password:
     port: 6379
 
@@ -41,18 +37,9 @@ spring:
 
   #DB 설정
   datasource:
-    url: jdbc:h2:tcp://localhost/~/HR
+    url: jdbc:h2:mem:HR
     driver-class-name: org.h2.Driver
     username: sa
-
-    # hikariCP 설정
-    hikari:
-      connectionTimeout: 30000
-      maximumPoolSize: 10
-      maxLifetime: 1800000
-      poolName: HikariCP
-      readOnly: true # mysql 사용시, read only 를 지원하지 않는 DB도 존재
-      connectionTestQuery: SELECT 1
 
   ### JPA 설정 ###
   jpa:
@@ -70,5 +57,3 @@ logging:
   level:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
-
-oauth2.login.success.redirect-base-uri: http://localhost:3000
