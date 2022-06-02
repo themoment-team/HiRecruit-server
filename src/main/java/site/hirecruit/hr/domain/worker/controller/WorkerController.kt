@@ -15,6 +15,7 @@ import site.hirecruit.hr.domain.worker.service.AuthUserWorkerService
 import site.hirecruit.hr.domain.worker.service.WorkerLockupService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import springfox.documentation.annotations.ApiIgnore
+import javax.validation.Valid
 
 /**
  * WorkerController
@@ -43,7 +44,7 @@ class WorkerController(
         @CurrentAuthUserInfo @ApiIgnore
         authUserInfo: AuthUserInfo,
 
-        @RequestBody
+        @RequestBody @Valid
         workerDto: WorkerDto.Update
     ): ResponseEntity<Unit>{
         authUserWorkerService.updateWorkerEntityByAuthUserInfo(authUserInfo, workerDto)
