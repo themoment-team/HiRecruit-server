@@ -6,11 +6,13 @@ on:
       - develop
 
 jobs:
-  call-CI-script:
+  CI:
     uses: ./.github/workflows/github-action-ci-script.yml
+    secrets: inherit
 
-  CD:
+  test-CD:
     needs: CI
+    environment: test
     runs-on: ubuntu-latest
     env:
       GITHUB_SHA: hr-server
@@ -19,8 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
+      - name: Make app zip folder
+        run: zip -r hirecruit-backend-test *
         shell: bash
 
       - name: Configure AWS credentials
@@ -31,10 +33,23 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload zip to S3
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://hr-backend-zip
+        run: aws s3 cp --region ap-northeast-2 hirecruit-backend-test.zip s3://hr-backend-zip
 
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name hirecruit-backend
-          -- deployment-config-name CodeDeployDefault.AllAtOnce
-          -- deployment-group-name backend-app-group
-          -- s3-location bucket=s3://hr-backend-zip,bundleType=zip,key=$GITHUB_SHA.zip
+        run: aws deploy create-deployment --application-name hirecruit-test-codedeploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name hirecruit-test-server-group --s3-location bucket=hr-backend-zip,bundleType=zip,key=hirecruit-backend-test.zip
+
+      - name: HiRecruit Backend TEST-CD success Discord Notification
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ success() }}
+        with:
+          title: 🎉 HiRecruit Backend TEST-CD success 🎉
+          webhook: ${{ secrets.DISCORD_WEBHOOK_TEST_CD_BOT }}
+          color: 00FF00
+
+      - name: HiRecruit Backend TEST-CD failure Discord Notification
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ failure() }}
+        with:
+          title: ❌ HiRecruit Backend TEST-CD failed ❌
+          webhook: ${{ secrets.DISCORD_WEBHOOK_TEST_CD_BOT }}
+          color: FF0000
