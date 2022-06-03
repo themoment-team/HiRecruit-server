@@ -12,11 +12,6 @@ spring:
   config:
     import: classpath:oauth/github-oauth.yml
 
-  redis:
-    host: localhost
-    password:
-    port: 6379
-
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
