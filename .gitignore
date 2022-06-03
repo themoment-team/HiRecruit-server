@@ -38,4 +38,7 @@ out/
 
 ### Github OAuth property ###
 **/resources/oauth
+
+### Aws property ###
 **/resources/aws
+**/resources/logback.xml
