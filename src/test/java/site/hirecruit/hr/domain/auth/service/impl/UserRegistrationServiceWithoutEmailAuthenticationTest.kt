@@ -37,7 +37,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
             email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
             name = RandomString.make(5),
             workerDto = WorkerDto.Registration(
-                companyId = Random.nextLong(),
+                _companyId = Random.nextLong(),
             )
         )
         val tempUserAuthUserInfo = AuthUserInfo( // 임시 유저에 대한 인증 객체
@@ -108,7 +108,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
             email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
             name = null,    // UserRegistrationDto.email = null
             workerDto = WorkerDto.Registration(
-                companyId = Random.nextLong(),
+                _companyId = Random.nextLong(),
             )
         )
         val tempUserAuthUserInfo = AuthUserInfo( // 임시 유저에 대한 인증 객체
