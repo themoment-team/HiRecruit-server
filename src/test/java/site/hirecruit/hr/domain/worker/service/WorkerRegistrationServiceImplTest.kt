@@ -101,7 +101,7 @@ internal class WorkerRegistrationServiceImplTest{
     }
 
     private fun makeRegistrationDto() = WorkerDto.Registration(
-        companyId = Random.nextLong(),
+        _companyId = Random.nextLong(),
         giveLink = RandomString.make(15),
         introduction = RandomString.make(15),
         devYear = Random.nextInt(),
