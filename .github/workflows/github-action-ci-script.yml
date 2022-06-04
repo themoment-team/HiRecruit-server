@@ -39,10 +39,17 @@ jobs:
         if: ${{ success() }}
         run: echo "🎉 Set up secret resources success"
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-        with:
-          arguments: build
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Execute Gradle build
+        run: ./gradlew build
+
+       - name: Unit Test Results
+         uses: EnricoMi/publish-unit-test-result-action@v1
+         if: ${{ always() }}
+         with:
+           files: build/test-results/**/*.xml
 
       - name: Build with Gradle job has success
         if: ${{ success() }}
