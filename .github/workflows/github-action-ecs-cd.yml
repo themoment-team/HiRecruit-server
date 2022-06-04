@@ -3,7 +3,7 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches:
-      - feature/action-settings      
+      - develop     
 jobs:
   CI-CD:
     runs-on: ubuntu-latest
