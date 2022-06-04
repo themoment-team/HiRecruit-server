@@ -20,7 +20,7 @@ private val log = KotlinLogging.logger {}
  * @author 정시원
  */
 @Configuration
-@Profile("local")
+@Profile("local", "token-auth")
 class EmbeddedRedisConfig(
     @Value("\${spring.redis.port}") private val defaultRedisPort: Int
 ) {
