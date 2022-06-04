@@ -5,6 +5,9 @@ on:
     types: [opened, reopened]
     branches:
       - develop
+  push:
+    branches:
+      - feature/unit-test-reporter
 
   workflow_call:
 
