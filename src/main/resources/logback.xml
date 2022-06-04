@@ -1,9 +1,0 @@
-<configuration>
-
-    <appender name="AWS_LOGS" class="ca.pjer.logback.AwsLogsAppender"/>
-
-    <root>
-        <appender-ref ref="AWS_LOGS"/>
-    </root>
-
-</configuration>
