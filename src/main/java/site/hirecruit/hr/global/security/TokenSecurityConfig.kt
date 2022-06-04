@@ -1,17 +1,23 @@
 package site.hirecruit.hr.global.security
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.token.filter.JwtFilter
+import site.hirecruit.hr.domain.token.service.TokenService
 
 @Configuration
 @Profile("auth-token")
 class TokenSecurityConfig(
-
+    @Autowired jwtService: TokenService
 ): WebSecurityConfigurerAdapter() {
+
+    private val jwtFilter = JwtFilter(jwtService)
 
     override fun configure(http: HttpSecurity) {
         http
@@ -53,6 +59,8 @@ class TokenSecurityConfig(
                 response.sendRedirect("/api/v1/auth/oauth2/success") // oauth2 login에 성공하면 해당 uri로 redirect
             }
         }
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
     }
 
 }
