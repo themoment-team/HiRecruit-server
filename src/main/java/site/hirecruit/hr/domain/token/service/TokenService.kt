@@ -8,9 +8,11 @@ import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.token.model.Token
 import java.security.Key
 import java.util.*
+import kotlin.collections.HashMap
 
 /**
  * token 관련 서비스
@@ -73,5 +75,19 @@ class TokenService(
         }catch (ex: JwtException){
             false
         }
+    }
+
+    fun getAuthUserInfoByAccessTokenClaim(accessToken: String): AuthUserInfo?{
+        val jwtParser= Jwts.parserBuilder()
+            .setSigningKey(this.secretKey)
+            .build()
+        val authUserInfoMap = jwtParser.parseClaimsJws(accessToken).body["authUserInfo"] as HashMap<String, *>
+        return AuthUserInfo(
+            githubId = authUserInfoMap["githubId"] as Long,
+            name = authUserInfoMap["name"] as String,
+            email = authUserInfoMap["email"] as String,
+            profileImgUri = authUserInfoMap["profileImgUri"] as String,
+            role = Role.valueOf(authUserInfoMap["role"] as String)
+        )
     }
 }
