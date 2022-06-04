@@ -47,7 +47,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run build with Gradle wrapper
-        run: ./gradlew build --scan
+        run: ./gradlew clean build
 
       - name: Upload build reports
         uses: actions/upload-artifact@v3
