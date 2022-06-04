@@ -27,10 +27,10 @@ class TokenService(
     _secretKey: String,
 
     @Value("\${auth.token.access-token.expire}")
-    private val accessTokenExpire: Int,
+    private val accessTokenExpire: Long,
 
     @Value("\${auth.token.refresh-token.expire}")
-    private val refreshTokenExpire: Int
+    private val refreshTokenExpire: Long
 ){
 
     private val secretKey: Key = Keys.hmacShaKeyFor(
