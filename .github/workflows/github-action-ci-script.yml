@@ -52,11 +52,11 @@ jobs:
           name: build-reports
           path: build/reports/
 
-       - name: Unit Test Results
-         uses: EnricoMi/publish-unit-test-result-action@v1
-         if: ${{ always() }}
-         with:
-           files: build/test-results/**/*.xml
+#       - name: Unit Test Results
+#         uses: EnricoMi/publish-unit-test-result-action@v1
+#         if: ${{ always() }}
+#         with:
+#           files: build/test-results/**/*.xml
 
       - name: Build with Gradle job has success
         if: ${{ success() }}
