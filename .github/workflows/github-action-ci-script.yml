@@ -22,6 +22,9 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
       - name: Set up JDK 11 job has success
         if: ${{ success() }}
         run: echo "🎉 Set up JDK 11 job has success"
@@ -39,9 +42,6 @@ jobs:
       - name: Set up secret resources success 🎉
         if: ${{ success() }}
         run: echo "🎉 Set up secret resources success"
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
 
       - name: Run build with Gradle wrapper
         run: ./gradlew build --scan
