@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.entity.Role
@@ -20,6 +21,7 @@ import kotlin.collections.HashMap
  * @author 정시원
  */
 @Service
+@Profile("token-auth")
 class TokenService(
     @Value("\${auth.token.secret}")
     _secretKey: String,
