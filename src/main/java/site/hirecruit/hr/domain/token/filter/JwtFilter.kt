@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse
  *
  * @author 정시원
  */
-@Component
 @Profile("token-auth")
 class JwtFilter(
     private val tokenService: TokenService
