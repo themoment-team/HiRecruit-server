@@ -5,15 +5,18 @@ on:
     types: [opened, reopened]
     branches:
       - develop
+  push:
+    branches:
+      - feature/unit-test-reporter
 
   workflow_call:
 
 jobs:
   CI:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
@@ -44,19 +47,19 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run build with Gradle wrapper
-        run: ./gradlew build --scan
-        
+        run: ./gradlew clean build
+
       - name: Upload build reports
         uses: actions/upload-artifact@v3
         with:
           name: build-reports
           path: build/reports/
 
-       - name: Unit Test Results
-         uses: EnricoMi/publish-unit-test-result-action@v1
-         if: ${{ always() }}
-         with:
-           files: build/test-results/**/*.xml
+      - name: Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: ${{ always() }}
+        with:
+          files: build/test-results/**/*.xml
 
       - name: Build with Gradle job has success
         if: ${{ success() }}
