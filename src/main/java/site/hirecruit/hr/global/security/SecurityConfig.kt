@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import site.hirecruit.hr.domain.auth.entity.Role
 
 /**
- * default, test 환경의 security config입니다.
+ * default, test과 같이 주로 테스트 환경에서 사용되는 security config입니다.
  *
  * 운영환경에서 사용하는 것을 권장하지 않습니다.
  *
@@ -19,7 +19,7 @@ import site.hirecruit.hr.domain.auth.entity.Role
  * @since 1.0
  */
 @Configuration
-@Profile("default", "local")
+@Profile("default", "local", "prod-test")
 class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     ) : WebSecurityConfigurerAdapter() {
