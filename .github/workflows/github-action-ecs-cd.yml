@@ -11,7 +11,8 @@ jobs:
     uses: ./.github/workflows/github-action-ci-script.yml
     secrets: inherit
 
-  CI-CD:
+  prod-CD:
+    needs: CI
     runs-on: ubuntu-latest
     environment: production
 
