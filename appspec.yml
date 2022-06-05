@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source:  /
-    destination: /home/ec2-user/app/hr-test-app/github-action
+    destination: /home/ec2-user/app/hr-test-app/build/
 
 hooks:
   AfterInstall: # 배포가 끝나면 아래 명령어를 실행
