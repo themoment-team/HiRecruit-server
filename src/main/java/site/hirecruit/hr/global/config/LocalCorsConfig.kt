@@ -8,12 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
 @Configuration
-@Profile("local")
+@Profile("local", "prod-test")
 class LocalCorsConfig: WebMvcConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000", "https://localhost:3000")
+            .allowedOrigins(
+                "http://localhost:3000", "https://localhost:3000",
+                "https://stg.hirecruit.site"
+            )
             .allowedMethods(
                 HttpMethod.GET.name,
                 HttpMethod.POST.name,
