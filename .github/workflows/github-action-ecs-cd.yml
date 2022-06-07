@@ -27,12 +27,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
           
-      - name: Get Server Zip from S3 & Location Move to Uziped file
+      - name: Get Server Zip from S3 & Unzip it
         run : |
           aws s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./
-          unzip hirecruit-backend-test.zip -d ./
-          cd hirecruit-backend-test
-
+          unzip hirecruit-backend-test.zip 
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
