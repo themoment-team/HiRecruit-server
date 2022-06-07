@@ -33,6 +33,7 @@ jobs:
           cd repo
           aws s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./
           unzip hirecruit-backend-test.zip 
+          ls
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
