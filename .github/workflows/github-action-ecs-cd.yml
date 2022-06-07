@@ -26,6 +26,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
+          
+      - name: Get Server Zip from S3 & Location Move to Uziped file
+        run : |
+          s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./
+          unzip hirecruit-backend-test.zip -d ./
+          cd hirecruit-backend-test
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -60,3 +66,4 @@ jobs:
             service: service-for-hirecruit
             cluster: hirecruit
             wait-for-service-stability: true
+
