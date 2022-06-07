@@ -15,7 +15,7 @@ class LocalCorsConfig: WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins(
                 "http://localhost:3000", "https://localhost:3000",
-                "https://stg.hirecruit.site"
+                "http://www.hirecruit.site", "https://www.hirecruit.site",
             )
             .allowedMethods(
                 HttpMethod.GET.name,
