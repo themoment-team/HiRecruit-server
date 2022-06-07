@@ -10,7 +10,6 @@ server:
 
     session:
       cookie:
-        domain: localhost
         name: HRSESSION
 
 spring:
