@@ -10,11 +10,10 @@ server:
 
     session:
       cookie:
-        domain:
-          - www.hirecruit.com
-          - stg.hirecruit.com
-          - localhost
+        domain: hirecruit.com
         max-age: 36000
+        name: HRSESSION
+        same-site: none
 
 spring:
   config:
