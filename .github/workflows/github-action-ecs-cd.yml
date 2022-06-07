@@ -29,7 +29,7 @@ jobs:
           
       - name: Get Server Zip from S3 & Location Move to Uziped file
         run : |
-          s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./
+          aws s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./
           unzip hirecruit-backend-test.zip -d ./
           cd hirecruit-backend-test
 
