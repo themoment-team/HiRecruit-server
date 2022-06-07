@@ -7,6 +7,12 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+    session:
+      cookie:
+        domain:
+          - www.hirecruit.site
+          - stg.hirecruit.site
+        http-only: true
 
 spring:
   config:
