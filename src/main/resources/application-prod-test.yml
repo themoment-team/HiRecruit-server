@@ -12,6 +12,14 @@ spring:
   config:
     import: classpath:oauth/github-oauth.yml
 
+  # oauth2 redirect-uri
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            redirect-uri: https://stg.hirecruit.site/api/v1/auth/oauth2/redirection-endpoint
+
   session:
     store-type: redis
     redis:
@@ -57,3 +65,5 @@ logging:
   level:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
+
+oauth2.login.success.redirect-base-uri: https://www.hirecruit.site
