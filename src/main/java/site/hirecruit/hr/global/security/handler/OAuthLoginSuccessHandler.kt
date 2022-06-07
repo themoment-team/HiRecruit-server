@@ -20,14 +20,8 @@ import javax.servlet.http.HttpServletResponse
 @RequestMapping("/api/v1/auth/oauth2/success")
 class OAuthLoginSuccessHandler(
     @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String,
-    @Value("\${spring.profiles.active}") profile: String
+    @Value("\${hr.domain}") val cookieDomain: String
 ) {
-
-    val cookieDomain = when(profile){ //프로필이 prod-test일 때 set cookie의 domain은 hirecruit.site로 한다.
-        "prod-test" -> "hirecruit.site"
-        else -> "localhost"
-    }
-
     /**
      * oauth2 login성공 후 프론트엔드 웹사이트로 리다이렉트
      */
