@@ -8,6 +8,14 @@ server:
       enabled: true
       force: true
 
+    session:
+      cookie:
+        domain:
+          - www.hirecruit.com
+          - stg.hirecruit.com
+          - localhost
+        max-age: 36000
+
 spring:
   config:
     import: classpath:oauth/github-oauth.yml
