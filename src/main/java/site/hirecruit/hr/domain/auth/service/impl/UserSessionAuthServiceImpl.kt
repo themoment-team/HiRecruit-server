@@ -21,18 +21,14 @@ import javax.servlet.http.HttpSession
 open class UserSessionAuthServiceImpl(
     private val userRepository: UserRepository,
     private val tempUserRepository: TempUserRepository,
-    private val httpSession: HttpSession,
 ) : UserAuthService {
 
     override fun authentication(oAuthAttributes: OAuthAttributes): AuthUserInfo {
-        return getAuthUserInfoFromSession()
-            ?:  if(tempUserRepository.existsById(oAuthAttributes.id))
+        return  if(tempUserRepository.existsById(oAuthAttributes.id))
                     createAuthUserInfoWithTempUserEntity(oAuthAttributes)
                 else
                     createAuthUserInfoWithUserEntity(oAuthAttributes)
     }
-
-    private fun getAuthUserInfoFromSession(): AuthUserInfo? = httpSession.getAttribute(SessionAttribute.AUTH_USER_INFO.attributeName) as AuthUserInfo?
 
     private fun createAuthUserInfoWithUserEntity(oAuthAttributes: OAuthAttributes): AuthUserInfo {
         return userRepository.findUserAndWorkerEmailByGithubId(oAuthAttributes.id)
