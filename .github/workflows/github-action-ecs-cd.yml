@@ -29,7 +29,9 @@ jobs:
           
       - name: Get Server Zip from S3 & Unzip it
         run : |
-          aws s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./
+          mkdir repo
+          cd repo
+          aws s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./ -y
           unzip hirecruit-backend-test.zip 
       - name: Login to Amazon ECR
         id: login-ecr
