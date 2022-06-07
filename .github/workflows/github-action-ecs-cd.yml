@@ -33,7 +33,6 @@ jobs:
           cd repo
           aws s3 cp s3://hr-backend-zip/hirecruit-backend-test.zip ./
           unzip hirecruit-backend-test.zip 
-          ls
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -48,7 +47,7 @@ jobs:
             # Build a docker container and
             # push it to ECR so that it can
             # be deployed to ECS.
-            ls
+            cp repo
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
             echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
@@ -57,7 +56,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-            task-definition: task-definition.json
+            task-definition: ./repo/task-definition.json
             container-name: hirecruit-server-container
             image: ${{ steps.build-image.outputs.image }}
 
