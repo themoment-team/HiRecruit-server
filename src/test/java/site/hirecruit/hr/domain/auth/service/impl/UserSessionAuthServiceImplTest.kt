@@ -47,7 +47,7 @@ internal class UserSessionAuthServiceImplTest{
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
 
-            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {true} // 임시회원이 존재한다면
             every { tempUserRepository.findByIdOrNull(oAuth2Attributes.id) } answers {
@@ -73,7 +73,7 @@ internal class UserSessionAuthServiceImplTest{
         fun `인증을 받을 떄 정보를 가져올 수 없다면`(){
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
-            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {true} // 임시회원이 존재한다면
             every { tempUserRepository.findByIdOrNull(oAuth2Attributes.id) } answers { null }
@@ -95,7 +95,7 @@ internal class UserSessionAuthServiceImplTest{
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
 
-            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
             val authUserInfo = AuthUserInfo(
                 githubId = oAuth2Attributes.id,
                 name = oAuth2Attributes.name,
@@ -119,7 +119,7 @@ internal class UserSessionAuthServiceImplTest{
         fun `User가 인증을 받을 떄 정보를 가져올 수 없다면`(){
             // Given
             val oAuth2Attributes = makeOAuth2Attributes()
-            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository)
+            val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {false} // 임시회원이 아니라면
             every { userRepository.findUserAndWorkerEmailByGithubId(oAuth2Attributes.id) } answers { null }
