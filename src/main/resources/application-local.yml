@@ -75,3 +75,4 @@ logging:
     site.hirecruit.hr : debug
 
 oauth2.login.success.redirect-base-uri: http://localhost:3000
+hr.domain: hirecruit.site
