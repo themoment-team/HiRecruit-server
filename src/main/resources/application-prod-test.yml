@@ -31,7 +31,7 @@ spring:
   session:
     store-type: redis
     redis:
-      flush-mode: on_save
+      flush-mode: immediate
       namespace: spring:session # redis에 세션 저장시 네임스페이스
 
   redis:
