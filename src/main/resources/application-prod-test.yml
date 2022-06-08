@@ -13,6 +13,8 @@ server:
         domain: hirecruit.com
         max-age: 36000
         secure: true
+        same-site: none
+      timeout: 720m
 
 spring:
   config:
