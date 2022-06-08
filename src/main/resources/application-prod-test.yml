@@ -10,11 +10,11 @@ server:
 
     session:
       cookie:
-        domain:
-          - www.hirecruit.com
-          - stg.hirecruit.com
-          - localhost
+        domain: hirecruit.com
         max-age: 36000
+        secure: true
+        same-site: none
+      timeout: 720m
 
 spring:
   config:

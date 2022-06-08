@@ -10,10 +10,7 @@ server:
 
     session:
       cookie:
-        domain:
-          - www.hirecruit.com
-          - stg.hirecruit.com
-          - localhost
+        domain: localhost
         max-age: 36000
 
 spring:
@@ -75,4 +72,4 @@ logging:
     site.hirecruit.hr : debug
 
 oauth2.login.success.redirect-base-uri: http://localhost:3000
-hr.domain: hirecruit.site
+hr.domain: localhost
