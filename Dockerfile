@@ -18,4 +18,4 @@ ARG JAR_FILE=build/libs/hirecruit-1.0.jar
 ADD ${JAR_FILE} hirecruit-1.0.jar
 
 # Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hirecruit-1.0.jar","--spring.profiles.active=prod-test","--redis.host=10.0.16.145"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hirecruit-1.0.jar","--spring.profiles.active=prod-test","--redis.host=10.0.8.208"]
