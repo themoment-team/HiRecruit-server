@@ -4,7 +4,8 @@ USE hi_recruit;
 
 create table if not exists user
 (
-    user_id     BIGINT       auto_increment PRIMARY KEY,
+    user_id     BIGINT       auto_increment
+        PRIMARY KEY,
     email       VARCHAR(50)  not null,
     github_id   BIGINT       not null,
     name        VARCHAR(255) not null,
