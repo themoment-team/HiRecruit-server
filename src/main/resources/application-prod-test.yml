@@ -11,10 +11,10 @@ server:
     session:
       cookie:
         domain: hirecruit.site
-        max-age: 36000
+        max-age: P1D # 1일
         secure: true
         same-site: none
-      timeout: 720m
+      timeout: 1440m # 1440분 = 1일
 
 spring:
   config:
