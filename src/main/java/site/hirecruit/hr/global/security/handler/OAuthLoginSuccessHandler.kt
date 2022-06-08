@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class OAuthLoginSuccessHandler(
     @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String,
-    @Value("\${hr.domain}") val cookieDomain: String
 ): AuthenticationSuccessHandler {
     /**
      * oauth2 login성공 후 쿠키를 SameSite None으로 설정 후 프론트엔드 웹사이트로 리다이렉트
@@ -43,8 +42,8 @@ class OAuthLoginSuccessHandler(
 
         val isGuest = (authentication.authorities as Collection<GrantedAuthority>)
             .contains(SimpleGrantedAuthority(Role.GUEST.role))
-        if(isGuest)
-            redirectUri += "?is-first=true"
+        if(isGuest) redirectUri += "?is_first=true"
+
         return redirectUri
     }
 }
