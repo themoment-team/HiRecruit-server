@@ -34,14 +34,6 @@ class SecurityConfig(
             .headers().frameOptions().disable()
 
         http
-            .sessionManagement {
-                it.maximumSessions(1)
-                    .maxSessionsPreventsLogin(false) // 만약 중복 로그인이 발생하면 처음 로그인한사람이 로그아웃된다.
-                it.sessionFixation()
-                    .none()
-            }
-
-        http
             .authorizeRequests()
             .antMatchers(
                 "/", "/css/**", "/images/**",
