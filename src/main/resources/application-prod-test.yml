@@ -10,7 +10,7 @@ server:
 
     session:
       cookie:
-        domain: hirecruit.com
+        domain: hirecruit.site
         max-age: 36000
         secure: true
         same-site: none
