@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
 @Configuration
-@Profile("local", "prod-test")
+@Profile("local", "staging")
 class LocalCorsConfig: WebMvcConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry) {
