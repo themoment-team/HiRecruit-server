@@ -22,7 +22,7 @@ import site.hirecruit.hr.domain.auth.entity.Role
  * @since 1.0
  */
 @Configuration
-@Profile("default", "local", "prod-test")
+@Profile("default", "local", "staging")
 class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val successHandler: AuthenticationSuccessHandler

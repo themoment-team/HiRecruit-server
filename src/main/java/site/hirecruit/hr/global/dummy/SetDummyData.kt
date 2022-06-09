@@ -15,7 +15,7 @@ import kotlin.random.Random
 
 
 @Configuration
-@Profile("local", "prod-test")
+@Profile("local", "staging")
 class SetDummyData(
     private val userRepository: UserRepository,
     private val workerRepository: WorkerRepository,
