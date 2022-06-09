@@ -5,10 +5,11 @@ import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import site.hirecruit.hr.global.data.ServerProfile
 
 
 @Configuration
-@Profile("local", "staging")
+@Profile(ServerProfile.STAGING, ServerProfile.STAGING)
 class LocalCorsConfig: WebMvcConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry) {

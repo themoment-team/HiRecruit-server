@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import redis.embedded.RedisServer
+import site.hirecruit.hr.global.data.ServerProfile
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import javax.annotation.PostConstruct
@@ -20,7 +21,7 @@ private val log = KotlinLogging.logger {}
  * @author 정시원
  */
 @Configuration
-@Profile("local")
+@Profile(ServerProfile.LOCAL)
 class EmbeddedRedisConfig(
     @Value("\${spring.redis.port}") private val defaultRedisPort: Int
 ) {
