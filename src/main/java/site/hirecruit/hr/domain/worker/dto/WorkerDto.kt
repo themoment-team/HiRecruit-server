@@ -1,9 +1,12 @@
 package site.hirecruit.hr.domain.worker.dto
 
+import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.querydsl.core.annotations.QueryProjection
 import org.hibernate.validator.constraints.URL
 import site.hirecruit.hr.domain.company.dto.CompanyDto
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
@@ -16,7 +19,8 @@ import javax.validation.constraints.NotNull
 class WorkerDto {
 
     data class Registration(
-        @field:NotNull
+        @field:JsonProperty("companyId") @get:JsonGetter("companyId")
+        @field:NotNull @field:Min(1)
         val _companyId: Long?, // validation 을 사용하기 위해 추가
         val giveLink: String? = null,
         val introduction: String? = null,
