@@ -19,14 +19,6 @@ spring:
     path match:
       matching-strategy: ant_path_matcher
 
-  # oauth2 redirect-uri
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            redirect-uri: https://stg.hirecruit.site/api/v1/auth/oauth2/redirection-endpoint
-
   session:
     store-type: redis
     redis:
