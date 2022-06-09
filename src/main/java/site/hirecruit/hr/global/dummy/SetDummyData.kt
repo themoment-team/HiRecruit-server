@@ -10,12 +10,13 @@ import site.hirecruit.hr.domain.company.entity.CompanyEntity
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
+import site.hirecruit.hr.global.data.ServerProfile
 import javax.annotation.PostConstruct
 import kotlin.random.Random
 
 
 @Configuration
-@Profile("local", "staging")
+@Profile(ServerProfile.LOCAL, ServerProfile.STAGING)
 class SetDummyData(
     private val userRepository: UserRepository,
     private val workerRepository: WorkerRepository,

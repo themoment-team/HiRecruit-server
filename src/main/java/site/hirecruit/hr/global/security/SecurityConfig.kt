@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.global.data.ServerProfile
 
 /**
  * SecurityConfig
@@ -34,7 +35,7 @@ class SecurityConfig(
      * @since 1.0
      */
     @Configuration
-    @Profile("prod")
+    @Profile(ServerProfile.PROD)
     inner class ProdRole: WebSecurityConfigurerAdapter(){
         override fun configure(http: HttpSecurity) {
             http
@@ -78,7 +79,7 @@ class SecurityConfig(
      * @since 1.0
      */
     @Configuration
-    @Profile("default", "local", "staging")
+    @Profile(ServerProfile.DEFAULT, ServerProfile.LOCAL, ServerProfile.STAGING)
     inner class TestingRole: WebSecurityConfigurerAdapter(){
         override fun configure(http: HttpSecurity) {
             http
