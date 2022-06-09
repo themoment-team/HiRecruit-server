@@ -25,7 +25,7 @@ spring:
       client:
         registration:
           github:
-            redirect-uri: https://stg.hirecruit.site/api/v1/auth/oauth2/redirection-endpoint
+            redirect-uri: https://server.hirecruit.site/api/v1/auth/oauth2/redirection-endpoint
 
   session:
     store-type: redis
@@ -33,41 +33,22 @@ spring:
       flush-mode: immediate
       namespace: spring:session # redis에 세션 저장시 네임스페이스
 
-  redis:
-    host: ${redis.host}
-    password:
-    port: 6379
-
-  #H2 DataBase
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
-
   #DB 설정
   datasource:
-    url: jdbc:h2:mem:HR
-    driver-class-name: org.h2.Driver
-    username: sa
+    url: ${database.uri}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${database.username}
+    password: ${database.password}
 
-  ### JPA 설정 ###
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        hbm2ddl:
-          auto: create
-    show-sql: true
+  redis:
+    host: ${redis.host}
+    password: ${redis.password}
+    port: ${redis.port}
 
 ### Logging ###
 logging:
   level:
-    org.hibernate.type.descriptor.sql : trace
-    site.hirecruit.hr : debug
+    site.hirecruit.hr : info
 
 oauth2.login.success.redirect-base-uri: https://www.hirecruit.site
 hr.domain: hirecruit.site
