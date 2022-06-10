@@ -13,8 +13,6 @@ import javax.servlet.annotation.WebFilter
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-val log = KotlinLogging.logger {  }
-
 /**
  * Filter단에서 발생한 Security Exception을 RestControllerAdvice로 전달하는 Filter
  *
@@ -37,7 +35,6 @@ class SecurityExceptionResolverFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (ex: RequestRejectedException) {
-            log.debug("RequestRejectedExceptionHandleFilter active")
             resolver.resolveException(request, response, null, ex)
         } catch (ex: Exception){
             // Security관련된 exception이 아니라면 핸들링 하지 않는다.
