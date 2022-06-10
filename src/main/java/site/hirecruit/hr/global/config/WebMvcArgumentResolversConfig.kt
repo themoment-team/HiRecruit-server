@@ -5,9 +5,14 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import site.hirecruit.hr.global.resolver.CurrentAuthUserInfoResolver
 
-
+/**
+ * WebMVC ArgumentResolver를 관리하는 Config
+ *
+ * @since 1.0
+ * @author 정시원
+ */
 @Configuration
-class WebConfig(
+class WebMvcArgumentResolversConfig(
     private val currentAuthUserInfoResolver: CurrentAuthUserInfoResolver
 ): WebMvcConfigurer {
 
