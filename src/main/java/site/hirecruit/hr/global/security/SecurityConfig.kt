@@ -3,12 +3,15 @@ package site.hirecruit.hr.global.security
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
+import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.global.data.ServerProfile
@@ -25,7 +28,8 @@ import site.hirecruit.hr.global.data.ServerProfile
 class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
-    private val logoutSuccessHandler: LogoutSuccessHandler
+    private val logoutSuccessHandler: LogoutSuccessHandler,
+    private val accessDeniedHandler: AccessDeniedHandler
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
@@ -51,6 +55,14 @@ class SecurityConfig(
                 it.antMatchers(HttpMethod.POST, "/api/v1/company")
                     .authenticated()
                 it.anyRequest().permitAll()
+            }
+    }
+
+    private fun accessDenied(http: HttpSecurity){
+        http
+            .exceptionHandling {
+                it.accessDeniedHandler(accessDeniedHandler)
+                it.authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
             }
     }
 
