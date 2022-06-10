@@ -29,7 +29,6 @@ class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
     private val logoutSuccessHandler: LogoutSuccessHandler,
-    private val accessDeniedHandler: AccessDeniedHandler
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
