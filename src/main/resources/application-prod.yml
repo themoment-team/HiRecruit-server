@@ -14,8 +14,8 @@ server:
 spring:
   config:
     import:
-    classpath:oauth/github-oauth.yml
-    optional:file:prod.env[properties]
+      - classpath:oauth/github-oauth.yml
+      - optional:file:prod.env[properties]
 
   mvc:
     path match:
@@ -46,6 +46,18 @@ spring:
     host: ${redis.host}
     password: ${redis.password}
     port: ${redis.port}
+
+  ### JPA 설정 ###
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: create-drop
 
 ### Logging ###
 logging:

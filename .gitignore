@@ -36,6 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
+### env file ###
+**/resources/.env
+
 ### Github OAuth property ###
 **/resources/oauth
 

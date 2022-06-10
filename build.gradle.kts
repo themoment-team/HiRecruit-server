@@ -89,6 +89,9 @@ dependencies {
 
     compileOnly("it.ozimov:embedded-redis:0.7.2")
     testImplementation("it.ozimov:embedded-redis:0.7.2")
+
+    /** for prod **/
+    implementation("me.paulschwarz:spring-dotenv:2.5.4")
 }
 
 /** Querydsl 이 만들어주는 Qclass 경로 지정 **/
