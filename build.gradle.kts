@@ -50,6 +50,7 @@ dependencies {
     /** DB **/
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.session:spring-session-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc:2.7.0")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
 
