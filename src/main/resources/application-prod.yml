@@ -1,3 +1,7 @@
+.env:
+  filename: .env.prod
+  prefix: ""
+
 server:
   port: 8080
 
@@ -35,15 +39,26 @@ spring:
 
   #DB 설정
   datasource:
-    url: ${database.uri}
+    url: ${DATABASE_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${database.username}
-    password: ${database.password}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
 
   redis:
-    host: ${redis.host}
-    password: ${redis.password}
-    port: ${redis.port}
+    host: ${REDIS_HOST}
+    port: 6379
+
+  ### JPA 설정 ###
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: create-drop
 
 ### Logging ###
 logging:
