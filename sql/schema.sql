@@ -1,6 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS hi_recruit COLLATE utf8mb4_general_ci;
+CREATE SCHEMA IF NOT EXISTS hirecruit COLLATE utf8mb4_general_ci;
 
-USE hi_recruit;
+USE hirecruit;
 
 create table if not exists user
 (
