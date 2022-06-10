@@ -1,3 +1,7 @@
+.env:
+  filename: .env.prod
+  directory: "./resources/"
+
 server:
   port: 8080
 
@@ -13,9 +17,7 @@ server:
 
 spring:
   config:
-    import:
-      - classpath:oauth/github-oauth.yml
-      - optional:file:prod.env[properties]
+    import: classpath:oauth/github-oauth.yml
 
   mvc:
     path match:
@@ -43,9 +45,8 @@ spring:
     password: ${DATABASE_PASSWORD}
 
   redis:
-    host: ${redis.host}
-    password: ${redis.password}
-    port: ${redis.port}
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 
   ### JPA 설정 ###
   jpa:
