@@ -55,7 +55,7 @@ class SecurityConfig(
                     it.antMatchers(
                         "/api/v1/worker/me",
                         "/api/v1/worker/me/**"
-                    ).authenticated()
+                    ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.role, Role.CLIENT.role)
                     it.anyRequest().permitAll()
                 }
 
@@ -90,7 +90,6 @@ class SecurityConfig(
         override fun configure(http: HttpSecurity) {
             http
                 .csrf().disable()
-                .headers().frameOptions().disable()
 
             http
                 .authorizeRequests()
