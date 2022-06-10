@@ -1,3 +1,7 @@
+.env:
+  filename: .env.staging
+  prefix: ""
+
 server:
   port: 8080
 
@@ -34,7 +38,7 @@ spring:
       namespace: spring:session # redis에 세션 저장시 네임스페이스
 
   redis:
-    host: ${redis.host}
+    host: ${REDIS_HOST}
     password:
     port: 6379
 

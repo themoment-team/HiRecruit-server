@@ -1,6 +1,6 @@
 .env:
   filename: .env.prod
-  directory: "./resources/"
+  prefix: ""
 
 server:
   port: 8080
@@ -46,7 +46,7 @@ spring:
 
   redis:
     host: ${REDIS_HOST}
-    port: ${REDIS_PORT}
+    port: 6379
 
   ### JPA 설정 ###
   jpa:
