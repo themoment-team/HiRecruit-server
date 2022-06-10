@@ -13,7 +13,9 @@ server:
 
 spring:
   config:
-    import: classpath:oauth/github-oauth.yml
+    import:
+    classpath:oauth/github-oauth.yml
+    optional:file:prod.env[properties]
 
   mvc:
     path match:
@@ -35,10 +37,10 @@ spring:
 
   #DB 설정
   datasource:
-    url: ${database.uri}
+    url: ${DATABASE_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${database.username}
-    password: ${database.password}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
 
   redis:
     host: ${redis.host}
