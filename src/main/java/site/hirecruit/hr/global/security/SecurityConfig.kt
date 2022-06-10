@@ -1,9 +1,8 @@
 package site.hirecruit.hr.global.security
 
-import org.apache.tomcat.util.descriptor.web.SecurityRoleRef
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
-import org.springframework.context.support.BeanDefinitionDsl
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
@@ -38,6 +37,23 @@ class SecurityConfig(
             .logoutUrl("/api/v1/auth/logout")
             .logoutSuccessHandler(logoutSuccessHandler)
     }
+
+    private fun authorizeRequests(http: HttpSecurity){
+        http
+            .authorizeRequests{
+                it.antMatchers(
+                    "/api/v1/worker/me",
+                    "/api/v1/worker/me/**"
+                ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.name, Role.CLIENT.name)
+                it.antMatchers(
+                    "/api/v1/auth/registration"
+                ).hasRole(Role.GUEST.name)
+                it.antMatchers(HttpMethod.POST, "/api/v1/company")
+                    .authenticated()
+                it.anyRequest().permitAll()
+            }
+    }
+
     /**
      * 운영환경(prod)에서 활성화 되는 SecurityConfig
      *
@@ -52,18 +68,7 @@ class SecurityConfig(
                 .csrf().disable()
                 .headers().frameOptions().disable()
 
-            http
-                .authorizeRequests{
-                    it.antMatchers(
-                        "/api/v1/worker/me",
-                        "/api/v1/worker/me/**"
-                    ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.role, Role.CLIENT.role)
-                    it.antMatchers(
-                        "/api/v1/auth/registration"
-                    ).hasRole(Role.GUEST.role)
-                    it.anyRequest().permitAll()
-                }
-
+            authorizeRequests(http)
             logoutConfig(http)
 
             http
@@ -106,8 +111,8 @@ class SecurityConfig(
                 .antMatchers("/test/email").hasRole(Role.UNAUTHENTICATED_EMAIL.name)
                 .antMatchers("/test/client").hasRole(Role.CLIENT.name)
                 .antMatchers("/test/guest").hasRole(Role.GUEST.name)
-                .anyRequest().permitAll()
 
+            authorizeRequests(http)
             logoutConfig(http)
 
             http
