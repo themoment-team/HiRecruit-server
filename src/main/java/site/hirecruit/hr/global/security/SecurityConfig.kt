@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.global.data.ServerProfile
 
@@ -22,12 +23,19 @@ import site.hirecruit.hr.global.data.ServerProfile
 @Configuration
 class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
-    private val successHandler: AuthenticationSuccessHandler,
+    private val authenticationSuccessHandler: AuthenticationSuccessHandler,
+    private val logoutSuccessHandler: LogoutSuccessHandler
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
     private val oauth2LoginRedirectionEndpointBaseUri = "/api/v1/auth/oauth2/redirection-endpoint"
 
+    private fun logoutConfig(http: HttpSecurity){
+        http
+            .logout()
+            .logoutUrl("/api/v1/auth/logout")
+            .logoutSuccessHandler(logoutSuccessHandler)
+    }
     /**
      * 운영환경(prod)에서 활성화 되는 SecurityConfig
      *
@@ -51,9 +59,7 @@ class SecurityConfig(
                     it.anyRequest().permitAll()
                 }
 
-            http
-                .logout()
-                .logoutSuccessUrl("/")
+            logoutConfig(http)
 
             http
                 .oauth2Login()
@@ -67,7 +73,7 @@ class SecurityConfig(
                 oauth2Login.redirectionEndpoint{
                     it.baseUri(oauth2LoginRedirectionEndpointBaseUri)
                 }
-                oauth2Login.successHandler(successHandler)
+                oauth2Login.successHandler(authenticationSuccessHandler)
             }
         }
     }
@@ -98,9 +104,7 @@ class SecurityConfig(
                 .antMatchers("/test/guest").hasRole(Role.GUEST.name)
                 .anyRequest().permitAll()
 
-            http
-                .logout()
-                .logoutSuccessUrl("/")
+            logoutConfig(http)
 
             http
                 .oauth2Login()
@@ -114,7 +118,7 @@ class SecurityConfig(
                 oauth2Login.redirectionEndpoint{
                     it.baseUri(oauth2LoginRedirectionEndpointBaseUri)
                 }
-                oauth2Login.successHandler(successHandler)
+                oauth2Login.successHandler(authenticationSuccessHandler)
             }
         }
     }
