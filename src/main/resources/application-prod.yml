@@ -58,7 +58,7 @@ spring:
     show-sql: true
     database: mysql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
 
 ### Logging ###
 logging:
