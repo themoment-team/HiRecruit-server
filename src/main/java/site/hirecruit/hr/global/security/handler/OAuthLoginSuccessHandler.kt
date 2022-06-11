@@ -1,17 +1,14 @@
 package site.hirecruit.hr.global.security.handler
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.web.server.Cookie.SameSite
-import org.springframework.http.ResponseCookie
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.util.UriComponents
+import org.springframework.web.util.UriComponentsBuilder
 import site.hirecruit.hr.domain.auth.entity.Role
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -38,12 +35,14 @@ class OAuthLoginSuccessHandler(
     }
 
     private fun buildRedirectUri(redirectBaseUri: String, authentication: Authentication): String{
-        var redirectUri = "$redirectBaseUri/"
-
         val isGuest = (authentication.authorities as Collection<GrantedAuthority>)
             .contains(SimpleGrantedAuthority(Role.GUEST.role))
-        if(isGuest) redirectUri += "?is_first=true"
+        val redirectUriBuild = UriComponentsBuilder
+            .fromUriString(redirectBaseUri)
+            .queryParam("is_first", isGuest)
+            .queryParam("is_login", true) // 로그인 여부 전달
+            .build()
 
-        return redirectUri
+        return redirectUriBuild.toUriString()
     }
 }
