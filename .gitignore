@@ -36,6 +36,12 @@ out/
 ### VS Code ###
 .vscode/
 
+### env file ###
+.env.**
+
 ### Github OAuth property ###
 **/resources/oauth
+
+### Aws property ###
 **/resources/aws
+**/resources/logback.xml

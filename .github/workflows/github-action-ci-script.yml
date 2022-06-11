@@ -2,17 +2,22 @@ name: Continuous Integration
 
 on:
   pull_request:
+    types: [opened, reopened]
     branches:
       - develop
+  push:
+    branches:
+      - feature/unit-test-reporter
 
   workflow_call:
 
 jobs:
   CI:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -38,20 +43,40 @@ jobs:
         if: ${{ success() }}
         run: echo "🎉 Set up secret resources success"
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run build with Gradle wrapper
+        run: ./gradlew clean build
+
+      - name: Upload build reports
+        uses: actions/upload-artifact@v3
         with:
-          arguments: build
+          name: build-reports
+          path: build/reports/
+
+      - name: Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: ${{ always() }}
+        with:
+          files: build/test-results/**/*.xml
 
       - name: Build with Gradle job has success
         if: ${{ success() }}
         run: echo "🎉 Build with Gradle job has success"
 
+      - name: Make app zip folder
+        run: zip -r hirecruit-backend-test *
+        shell: bash
+
+      - name: Upload zip to S3
+        run: aws s3 cp --region ap-northeast-2 hirecruit-backend-test.zip s3://hr-backend-zip
+
       - name: HiRecruit Backend CI success Discord Notification
         uses: sarisia/actions-status-discord@v1
         if: ${{ success() }}
         with:
-          title: 🎉 HiRecruit Backend build success 🎉
+          title: 🎉 HiRecruit Backend CI success 🎉
           webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
           color: 00FF00
 
@@ -59,6 +84,6 @@ jobs:
         uses: sarisia/actions-status-discord@v1
         if: ${{ failure() }}
         with:
-          title: ❌ HiRecruit Backend build fail ❌
+          title: ❌ HiRecruit Backend CI failed ❌
           webhook: ${{ secrets.DISCORD_WEBHOOK_CI_BOT }}
           color: FF0000

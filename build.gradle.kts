@@ -50,7 +50,9 @@ dependencies {
     /** DB **/
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.session:spring-session-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc:2.7.0")
     runtimeOnly("com.h2database:h2")
+    runtimeOnly("mysql:mysql-connector-java")
 
     /** for business **/
     implementation("org.springframework.boot:spring-boot-starter-hateoas")
@@ -74,6 +76,8 @@ dependencies {
     implementation("software.amazon.awssdk:sns:2.17.193")
     // software.amazon.awssdk/ses
     implementation("software.amazon.awssdk:ses:2.17.198")
+    // https://mvnrepository.com/artifact/ca.pjer/logback-awslogs-appender
+    implementation("ca.pjer:logback-awslogs-appender:1.6.0")
 
 
 
@@ -86,6 +90,9 @@ dependencies {
 
     compileOnly("it.ozimov:embedded-redis:0.7.2")
     testImplementation("it.ozimov:embedded-redis:0.7.2")
+
+    /** for prod **/
+    implementation("me.paulschwarz:spring-dotenv:2.5.4")
 }
 
 /** Querydsl 이 만들어주는 Qclass 경로 지정 **/

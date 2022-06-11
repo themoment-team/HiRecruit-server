@@ -1,35 +1,46 @@
+.env:
+  filename: .env.staging
+  prefix: ""
+
 server:
   port: 8080
 
   # UTF-8 사용
   servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-
     session:
       cookie:
-        name: HRSESSION
+        domain: hirecruit.site
+        max-age: P1D # 1일
+        secure: true
+        same-site: none
+      timeout: 1440m # 1440분 = 1일
 
 spring:
   config:
     import: classpath:oauth/github-oauth.yml
 
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+  # oauth2 redirect-uri
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            redirect-uri: https://stg.hirecruit.site/api/v1/auth/oauth2/redirection-endpoint
+
   session:
     store-type: redis
     redis:
-      flush-mode: on_save
+      flush-mode: immediate
       namespace: spring:session # redis에 세션 저장시 네임스페이스
 
   redis:
-    host: localhost
+    host: ${REDIS_HOST}
     password:
     port: 6379
-
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
 
   #H2 DataBase
   h2:
@@ -41,18 +52,9 @@ spring:
 
   #DB 설정
   datasource:
-    url: jdbc:h2:tcp://localhost/~/HR
+    url: jdbc:h2:mem:HR
     driver-class-name: org.h2.Driver
     username: sa
-
-    # hikariCP 설정
-    hikari:
-      connectionTimeout: 30000
-      maximumPoolSize: 10
-      maxLifetime: 1800000
-      poolName: HikariCP
-      readOnly: true # mysql 사용시, read only 를 지원하지 않는 DB도 존재
-      connectionTestQuery: SELECT 1
 
   ### JPA 설정 ###
   jpa:
@@ -71,4 +73,5 @@ logging:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
 
-oauth2.login.success.redirect-base-uri: http://localhost:3000
+oauth2.login.success.redirect-base-uri: https://www.hirecruit.site
+hr.domain: hirecruit.site
