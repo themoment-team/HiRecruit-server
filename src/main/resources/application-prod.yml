@@ -58,7 +58,7 @@ spring:
     show-sql: true
     database: mysql
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 ### Logging ###
 logging:
