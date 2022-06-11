@@ -51,14 +51,15 @@ spring:
   ### JPA 설정 ###
   jpa:
     database-platform: org.hibernate.dialect.MySQL57Dialect
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-    show-sql: true
     database: mysql
     hibernate:
       ddl-auto: none
+
+    defer-datasource-initialization: true # Application 실행시점에 data.sql 실행여부
+
+  sql:
+    init:
+      mode: always # 항상 data.sql를 database에 날린다.
 
 ### Logging ###
 logging:
