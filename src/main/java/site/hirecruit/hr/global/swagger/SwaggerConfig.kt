@@ -2,6 +2,8 @@ package site.hirecruit.hr.global.swagger
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
+import site.hirecruit.hr.global.data.ServerProfile
 import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
@@ -10,7 +12,9 @@ import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
 
 @Configuration
+@Profile(ServerProfile.DEFAULT, ServerProfile.LOCAL, ServerProfile.STAGING)
 class SwaggerConfig {
+
     @Bean
     fun api(): Docket {
         return Docket(DocumentationType.OAS_30)
