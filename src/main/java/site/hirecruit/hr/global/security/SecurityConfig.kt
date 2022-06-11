@@ -42,6 +42,7 @@ class SecurityConfig(
 
     private fun authorizeRequests(http: HttpSecurity) = http
             .authorizeRequests{
+                it.antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS를 위해 OPTION method는 모든 요청에 대해 권한없이 접근할 수 있다.
                 it.antMatchers(
                     "/api/v1/worker/me",
                     "/api/v1/worker/me/**"
