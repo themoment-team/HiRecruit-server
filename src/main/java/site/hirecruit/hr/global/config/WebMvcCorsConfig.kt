@@ -63,5 +63,6 @@ class WebMvcCorsConfig {
             HttpMethod.DELETE.name,
             HttpMethod.HEAD.name,
             HttpMethod.OPTIONS.name,
+            HttpMethod.TRACE.name
         )
 }
