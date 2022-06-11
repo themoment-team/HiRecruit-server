@@ -29,21 +29,18 @@ class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
     private val logoutSuccessHandler: LogoutSuccessHandler,
-    private val accessDeniedHandler: AccessDeniedHandler
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
     private val oauth2LoginRedirectionEndpointBaseUri = "/api/v1/auth/oauth2/redirection-endpoint"
 
-    private fun logoutConfig(http: HttpSecurity){
-        http
+    private fun logoutConfig(http: HttpSecurity) = http
             .logout()
             .logoutUrl("/api/v1/auth/logout")
             .logoutSuccessHandler(logoutSuccessHandler)
-    }
 
-    private fun authorizeRequests(http: HttpSecurity){
-        http
+
+    private fun authorizeRequests(http: HttpSecurity) = http
             .authorizeRequests{
                 it.antMatchers(
                     "/api/v1/worker/me",
@@ -56,15 +53,28 @@ class SecurityConfig(
                     .authenticated()
                 it.anyRequest().permitAll()
             }
-    }
 
     private fun accessDenied(http: HttpSecurity){
         http
             .exceptionHandling {
-                it.accessDeniedHandler(accessDeniedHandler)
                 it.authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
             }
     }
+
+    private fun oauth2Login(http: HttpSecurity) =
+        http.oauth2Login{ oauth2Login ->
+            oauth2Login.userInfoEndpoint{
+                it.userService(oauth2UserService)
+            }
+            oauth2Login.authorizationEndpoint{ authorizationEndPoint ->
+                authorizationEndPoint.baseUri(oauth2LoginEndpointBaseUri) // oauth2 로그인 최초 진입점
+            }
+            oauth2Login.redirectionEndpoint{ redirectEndPoint ->
+                redirectEndPoint.baseUri(oauth2LoginRedirectionEndpointBaseUri)
+            }
+            oauth2Login.successHandler(authenticationSuccessHandler)
+        }
+
 
     /**
      * 운영환경(prod)에서 활성화 되는 SecurityConfig
@@ -78,25 +88,11 @@ class SecurityConfig(
         override fun configure(http: HttpSecurity) {
             http
                 .csrf().disable()
-                .headers().frameOptions().disable()
 
             authorizeRequests(http)
             logoutConfig(http)
-
-            http
-                .oauth2Login()
-                .userInfoEndpoint()
-                .userService(oauth2UserService)
-
-            http.oauth2Login { oauth2Login ->
-                oauth2Login.authorizationEndpoint{ endpoint ->
-                    endpoint.baseUri(oauth2LoginEndpointBaseUri) // oauth2 로그인 최초 진입점
-                }
-                oauth2Login.redirectionEndpoint{
-                    it.baseUri(oauth2LoginRedirectionEndpointBaseUri)
-                }
-                oauth2Login.successHandler(authenticationSuccessHandler)
-            }
+            accessDenied(http)
+            oauth2Login(http)
         }
     }
 
@@ -112,7 +108,7 @@ class SecurityConfig(
         override fun configure(http: HttpSecurity) {
             http
                 .csrf().disable()
-
+                .headers().frameOptions().disable()
             http
                 .authorizeRequests()
                 .antMatchers(
@@ -126,21 +122,8 @@ class SecurityConfig(
 
             authorizeRequests(http)
             logoutConfig(http)
-
-            http
-                .oauth2Login()
-                .userInfoEndpoint()
-                .userService(oauth2UserService)
-
-            http.oauth2Login { oauth2Login ->
-                oauth2Login.authorizationEndpoint{ endpoint ->
-                    endpoint.baseUri(oauth2LoginEndpointBaseUri) // oauth2 로그인 최초 진입점
-                }
-                oauth2Login.redirectionEndpoint{
-                    it.baseUri(oauth2LoginRedirectionEndpointBaseUri)
-                }
-                oauth2Login.successHandler(authenticationSuccessHandler)
-            }
+            accessDenied(http)
+            oauth2Login(http)
         }
     }
 }
