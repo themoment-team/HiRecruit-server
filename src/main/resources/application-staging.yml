@@ -72,6 +72,7 @@ logging:
   level:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
+  config: classpath:logback/logback-staging.xml
 
 oauth2.login.success.redirect-base-uri: https://www.hirecruit.site
 hr.domain: hirecruit.site
