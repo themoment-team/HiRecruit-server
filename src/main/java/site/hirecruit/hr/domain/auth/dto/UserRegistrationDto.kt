@@ -11,7 +11,7 @@ data class UserRegistrationDto(
     @field:NotBlank @field:Email
     val email: String,
 
-    val name: String? = null,
+    val name: String,
 
     @field:JsonProperty("worker") @field:NotNull @field:Valid
     val workerDto: WorkerDto.Registration

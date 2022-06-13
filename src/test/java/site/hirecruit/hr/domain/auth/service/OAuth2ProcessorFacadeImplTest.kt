@@ -51,7 +51,7 @@ internal class OAuth2ProcessorFacadeImplTest{
         every { userRepository.existsByGithubId(oAuth2Attribute.id) } answers { false }
         every { tempUserRegistrationService.registration(oAuth2Attribute) } answers { Any() }
         every { userAuthService.authentication(oAuth2Attribute) } answers {
-            AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.name, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
+            AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.name!!, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
         }
 
         // when
