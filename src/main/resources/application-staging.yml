@@ -13,6 +13,7 @@ server:
         max-age: P1D # 1일
         secure: true
         same-site: none
+        name: HRSESSION
       timeout: 1440m # 1440분 = 1일
 
 spring:
