@@ -25,10 +25,17 @@ class WorkerDto {
         @field:JsonProperty("companyId") @get:JsonGetter("companyId")
         @field:NotNull @field:Min(1) @field:CompanyIsNotExistByCompanyId
         val _companyId: Long?, // validation 을 사용하기 위해 추가
+
+        @field:URL
         val giveLink: String? = null,
-        @field:Length(min = 0, max = 35)
+
+        @field:Length(min = 0, max = 100)
         val introduction: String? = null,
+
+        @field:Min(0) @field:Max(50)
         val devYear: Int? = null,
+
+        @field:NotEmpty
         val position: String? = null,
     ){
         val companyId get() = _companyId!!
