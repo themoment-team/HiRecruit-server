@@ -65,6 +65,7 @@ spring:
 logging:
   level:
     site.hirecruit.hr : info
+  config: classpath:logback/logback-prod.xml
 
 oauth2.login.success.redirect-base-uri: https://www.hirecruit.site
 hr.domain: hirecruit.site
