@@ -37,7 +37,7 @@ class UserRegistrationServiceWithoutEmailAuthentication(
         val userEntity = UserEntity(
             githubId = authUserInfo.githubId,
             email = userRegistrationInfo.email,
-            name = userRegistrationInfo.name ?: authUserInfo.name,
+            name = userRegistrationInfo.name,
             profileImgUri = authUserInfo.profileImgUri,
             Role.UNAUTHENTICATED_EMAIL
         )
