@@ -12,6 +12,7 @@ server:
       cookie:
         domain: localhost
         max-age: 36000
+        name: HRSESSION
 
 spring:
   config:

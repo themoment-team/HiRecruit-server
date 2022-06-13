@@ -38,10 +38,10 @@ out/
 
 ### env file ###
 .env.**
+**/resources/logback
 
 ### Github OAuth property ###
 **/resources/oauth
 
 ### Aws property ###
 **/resources/aws
-**/resources/logback.xml

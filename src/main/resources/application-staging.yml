@@ -13,6 +13,7 @@ server:
         max-age: P1D # 1일
         secure: true
         same-site: none
+        name: HRSESSION
       timeout: 1440m # 1440분 = 1일
 
 spring:
@@ -72,6 +73,7 @@ logging:
   level:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
+  config: classpath:logback/logback-staging.xml
 
 oauth2.login.success.redirect-base-uri: https://www.hirecruit.site
 hr.domain: hirecruit.site
