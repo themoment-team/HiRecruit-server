@@ -41,7 +41,7 @@ internal class UserAuthAspectTest{
         val proxyReturnValue = AuthUserInfo(
             githubId = oAuth2Attributes.id,
             email = null,
-            name = oAuth2Attributes.name,
+            name = oAuth2Attributes.name!!,
             profileImgUri = oAuth2Attributes.profileImgUri,
             role = Role.GUEST
         )

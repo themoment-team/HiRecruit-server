@@ -53,7 +53,6 @@ internal class UserSessionAuthServiceImplTest{
             every { tempUserRepository.findByIdOrNull(oAuth2Attributes.id) } answers {
                 TempUserEntity(
                     githubId = oAuth2Attributes.id,
-                    name = oAuth2Attributes.name,
                     profileImgUri = oAuth2Attributes.profileImgUri
                 )
             }
@@ -63,10 +62,10 @@ internal class UserSessionAuthServiceImplTest{
 
             // then
             verify(exactly = 1) {tempUserRepository.findByIdOrNull(oAuth2Attributes.id)}
-            assertEquals(userAuthInfo.githubId, oAuth2Attributes.id)
-            assertEquals(userAuthInfo.name, oAuth2Attributes.name)
-            assertEquals(userAuthInfo.profileImgUri, oAuth2Attributes.profileImgUri)
-            assertEquals(userAuthInfo.role, Role.GUEST)
+            assertEquals(oAuth2Attributes.id, userAuthInfo.githubId)
+            assertEquals("임시유저", userAuthInfo.name)
+            assertEquals(oAuth2Attributes.profileImgUri, userAuthInfo.profileImgUri)
+            assertEquals(Role.GUEST, userAuthInfo.role)
         }
 
         @Test @DisplayName("인증을 받을 떄 인증정보가 조회되지 않는다면?")
@@ -98,7 +97,7 @@ internal class UserSessionAuthServiceImplTest{
             val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
             val authUserInfo = AuthUserInfo(
                 githubId = oAuth2Attributes.id,
-                name = oAuth2Attributes.name,
+                name = oAuth2Attributes.name!!,
                 email = "${RandomString.make(8)}@${RandomString.make(5)}.${RandomString.make(3)}",
                 profileImgUri = oAuth2Attributes.profileImgUri,
                 Role.CLIENT

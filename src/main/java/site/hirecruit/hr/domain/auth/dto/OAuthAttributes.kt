@@ -19,7 +19,7 @@ class OAuthAttributes private constructor(
     val attributes: Map<String, Any>,
     val userNameAttributeName: String,
     val id: Long,
-    val name: String,
+    val name: String?,
     val email: String?,
     val profileImgUri: String
 ) {
@@ -39,7 +39,7 @@ class OAuthAttributes private constructor(
                 attributes = attributes,
                 userNameAttributeName = userNameAttributeName,
                 id = (attributes[userNameAttributeName] as Int).toLong(),
-                name = attributes["name"] as String,
+                name = attributes["name"] as String?,
                 email = attributes["email"] as String?,
                 profileImgUri = attributes["avatar_url"] as String
             )

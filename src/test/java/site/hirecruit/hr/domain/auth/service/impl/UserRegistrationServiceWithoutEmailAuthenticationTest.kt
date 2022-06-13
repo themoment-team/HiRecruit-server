@@ -106,7 +106,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
 
         val userRegistrationDto = UserRegistrationDto(
             email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
-            name = null,    // UserRegistrationDto.email = null
+            name = RandomString.make(5),    // UserRegistrationDto.email = null
             workerDto = WorkerDto.Registration(
                 _companyId = Random.nextLong(),
             )

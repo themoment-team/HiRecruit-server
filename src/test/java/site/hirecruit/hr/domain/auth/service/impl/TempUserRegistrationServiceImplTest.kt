@@ -38,7 +38,6 @@ internal class TempUserRegistrationServiceImplTest(){
         val tempUserRepository: TempUserRepository = mockk()
         val tempUserEntity = TempUserEntity(
             githubId = oAuth2Attribute.id,
-            name = oAuth2Attribute.name,
             profileImgUri = oAuth2Attribute.profileImgUri
         )
         every { tempUserRepository.existsById(oAuth2Attribute.id) } answers { false }
