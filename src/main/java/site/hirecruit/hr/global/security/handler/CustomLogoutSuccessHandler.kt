@@ -8,6 +8,12 @@ import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * Logout 성공 후 수행되는 Handler
+ *
+ * @since 1.0
+ * @author 정시원
+ */
 @Component
 class CustomLogoutSuccessHandler(
     @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String,
