@@ -22,6 +22,7 @@ class UserRegistrationRollbackServiceImpl(
 
     /**
      * 회원 등록 트랜잭션이 실패 했을 떄 User데이터를 Rollback한다.
+     * 일종의 SAGA Pattern의 보상 트랜잭션이다.
      */
     override fun rollback(rollbackUserInfo: AuthUserInfo): AuthUserInfo {
         userRepository.deleteByGithubId(rollbackUserInfo.githubId)
