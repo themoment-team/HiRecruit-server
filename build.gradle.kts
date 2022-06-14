@@ -74,8 +74,8 @@ dependencies {
     implementation("com.amazonaws:aws-java-sdk-core:1.12.223")
     // software.amazon.awssdk/sns
     implementation("software.amazon.awssdk:sns:2.17.193")
-    // software.amazon.awssdk/ses
-    implementation("software.amazon.awssdk:ses:2.17.198")
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/sesv2
+    implementation("software.amazon.awssdk:sesv2:2.17.209")
     // https://mvnrepository.com/artifact/ca.pjer/logback-awslogs-appender
     implementation("ca.pjer:logback-awslogs-appender:1.6.0")
 
