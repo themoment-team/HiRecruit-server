@@ -6,7 +6,6 @@ import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.mock
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory
 import org.springframework.mock.web.MockHttpSession
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
@@ -16,7 +15,7 @@ import site.hirecruit.hr.domain.auth.service.UserAuthService
 import site.hirecruit.hr.global.data.SessionAttribute
 import kotlin.random.Random
 
-internal class UserAuthAspectTest{
+internal class UserSessionInfoUpdateAspectTest{
 
     private fun makeOAuth2Attributes() : OAuthAttributes {
         val attributes = mapOf<String, Any>(
@@ -49,7 +48,7 @@ internal class UserAuthAspectTest{
         val userAuthService: UserAuthService = mockk() // proxy
         val factory = AspectJProxyFactory(userAuthService)
         every { userAuthService.authentication(oAuth2Attributes) } answers { proxyReturnValue }
-        factory.addAspect(UserAuthAspect(httpSession))
+        factory.addAspect(UserSessionInfoUpdateAspect(httpSession))
         val proxy = factory.getProxy<UserAuthService>()
 
         // when
