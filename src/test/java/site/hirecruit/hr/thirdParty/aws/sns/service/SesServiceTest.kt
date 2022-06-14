@@ -35,7 +35,7 @@ class SesServiceTest {
                             ).build()
                     ).build()
             ).destination(Destination.builder()
-                .toAddresses("jihwan.official@gmail.com")
+                .toAddresses("jihwan.official@gmail.com") // sandbox mode:: only verified email
                 .build()
             ).fromEmailAddress("support@hirecruit.site")
             .build()
