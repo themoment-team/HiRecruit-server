@@ -2,7 +2,6 @@ package site.hirecruit.hr.thirdParty.aws.service
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.config.AwsSesConfig
-import software.amazon.awssdk.core.SdkClient
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.sesv2.SesV2Client
 
@@ -22,7 +21,7 @@ class SesCredentialService(
      *
      * @see AwsSesConfig ses IAM에 접근할 수 있는 설정
      */
-    override fun getSdkClient(): SdkClient {
+    override fun getSdkClient(): SesV2Client {
 
         return SesV2Client.builder()
             .credentialsProvider(
