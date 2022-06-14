@@ -58,8 +58,8 @@ internal class UserRegistrationAspectTest{
 
         // given:: Aspect가 실행될 proxy
         val userRegistrationDto = UserRegistrationDto(
-            email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
-            name = RandomString.make(5),
+            _email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
+            _name = RandomString.make(5),
             workerDto = WorkerDto.Registration(
                 _companyId = Random.nextLong(),
             )
