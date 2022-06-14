@@ -15,7 +15,7 @@ package site.hirecruit.hr.domain.auth.dto
  * ```
  * @author 정시원
  */
-class OAuthAttributes private constructor(
+data class OAuthAttributes private constructor(
     val attributes: Map<String, Any>,
     val userNameAttributeName: String,
     val id: Long,
