@@ -25,4 +25,5 @@ class WorkerLockupServiceImpl(
 
     override fun findAll(): List<WorkerDto.Info> =
         workerRepository.findAllWorkerInfoDto()
+            .shuffled()
 }
