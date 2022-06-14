@@ -50,6 +50,7 @@ class CustomLogoutSuccessHandler(
     }
 
     private fun deleteCookie(cookie: Cookie){
+        cookie.secure = true
         cookie.maxAge = 0 // 쿠키 삭제하게 위해 maxAge 0으로 설정
     }
 
