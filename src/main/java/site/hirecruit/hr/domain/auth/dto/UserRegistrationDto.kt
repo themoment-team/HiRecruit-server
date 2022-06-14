@@ -9,10 +9,14 @@ import javax.validation.constraints.NotNull
 
 data class UserRegistrationDto(
     @field:NotBlank @field:Email
-    val email: String,
+    val _email: String?,
 
-    val name: String,
+    @field:NotBlank
+    var _name: String?,
 
     @field:JsonProperty("worker") @field:NotNull @field:Valid
     val workerDto: WorkerDto.Registration
-)
+){
+    val email get() = _email!!
+    val name get() = _name!!
+}

@@ -34,8 +34,8 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         val userRegistrationService = UserRegistrationServiceWithoutEmailAuthentication(userRepository, publisher)
 
         val userRegistrationDto = UserRegistrationDto(
-            email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
-            name = RandomString.make(5),
+            _email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
+            _name = RandomString.make(5),
             workerDto = WorkerDto.Registration(
                 _companyId = Random.nextLong(),
             )
@@ -105,8 +105,8 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         val userRegistrationService = UserRegistrationServiceWithoutEmailAuthentication(userRepository, publisher)
 
         val userRegistrationDto = UserRegistrationDto(
-            email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
-            name = RandomString.make(5),    // UserRegistrationDto.email = null
+            _email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
+            _name = RandomString.make(5),    // UserRegistrationDto.email = null
             workerDto = WorkerDto.Registration(
                 _companyId = Random.nextLong(),
             )
