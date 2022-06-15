@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class CustomLogoutSuccessHandler(
     @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String,
+    @Value("\${server.servlet.session.cookie.domain}") val domain: String
 ): LogoutSuccessHandler {
 
     /**
@@ -33,11 +34,7 @@ class CustomLogoutSuccessHandler(
         val hrsessionCookie = Cookie("HRSESSION", null)
         deleteCookieBuild(hrsessionCookie)
 
-        val sessionCookie = Cookie("SESSION", null)
-        deleteCookieBuild(sessionCookie)
-
         response.addCookie(hrsessionCookie)
-        response.addCookie(sessionCookie)
 
         response.sendRedirect(redirectBaseUri)
     }
@@ -45,6 +42,9 @@ class CustomLogoutSuccessHandler(
     private fun deleteCookieBuild(cookie: Cookie){
         cookie.secure = true
         cookie.maxAge = 0 // 쿠키 삭제하게 위해 maxAge 0으로 설정
+        cookie.isHttpOnly = true
+        cookie.domain = domain
+        cookie.path = "/"
     }
 
 
