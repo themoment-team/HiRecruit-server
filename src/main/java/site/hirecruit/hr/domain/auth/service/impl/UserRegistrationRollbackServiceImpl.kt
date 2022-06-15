@@ -30,7 +30,7 @@ class UserRegistrationRollbackServiceImpl(
         tempUserRegistrationService.registration(rollbackTempUserRegistrationData) // 회원등록에 실패하였으므로 임시유저로 rollback
         return AuthUserInfo(
             githubId = rollbackUserInfo.githubId,
-            name = rollbackUserInfo.name,
+            name = "임시유저",
             email = rollbackUserInfo.email,
             profileImgUri = rollbackUserInfo.profileImgUri,
             role = Role.GUEST
