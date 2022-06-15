@@ -6,17 +6,19 @@ package site.hirecruit.hr.thirdParty.aws.ses.dto
  * @since 1.2.0
  * @author 전지환
  */
-class SesRequestDto() {
+open class SesRequestDto {
 
     /**
      * 기본적으로 ses 메시지를 만들 때 사용하는 ReqeustDto 입니다.
      *
      * @param subjectData 이메일 제목
      * @param bodyText 이메일 내용
+     * @param destinationDto 받는 사람 정보
      */
     class BasicSesRequestDto(
         private val subjectData: String,
         private val bodyText: String,
+        private val destinationDto: DestinationDto
     )
 
     /**
@@ -24,23 +26,29 @@ class SesRequestDto() {
      *
      * @param subjectData 이메일 제목
      * @param bodyMinifyHtml 이메일 내용 html
+     * @param destinationDto 받는 사람 정보
      */
     class HtmlFormSesRequestDto(
         private val subjectData: String,
         private val bodyMinifyHtml: String,
+        private val destinationDto: DestinationDto
     )
 
     /**
      * 미리 만들어진 template을 사용해서 이메일을 보내고자 할 때 사용하는 RequestDto 입니다.
      *
+     * @param subjectData 이메일 제목
      * @param templateArn emailTemplate 고유의 Arn
      * @param templateData {{something}} 에 넣을 데이터:: ex) "TemplateData": "{ \"name\":\"Alejandro\", \"favoriteanimal\": \"alligator\" }"
-     * @param templateName HiRe
+     * @param templateName
+     * @param destinationDto 받는 사람 정보
      */
     class TemplateSesRequestDto(
+        private val subjectData: String,
         private val templateArn: String,
         private val templateData: String,
-        private val templateName: String
+        private val templateName: String,
+        private val destinationDto: DestinationDto
     )
 
     /**
