@@ -44,11 +44,10 @@ open class SesRequestDto {
      * @param destinationDto 받는 사람 정보
      */
     class TemplateSesRequestDto(
-        private val subjectData: String,
-        private val templateArn: String,
-        private val templateData: String,
-        private val templateName: String,
-        private val destinationDto: DestinationDto
+        val templateArn: String,
+        val templateData: String,
+        val templateName: String,
+        val destinationDto: DestinationDto
     )
 
     /**
@@ -59,8 +58,8 @@ open class SesRequestDto {
      * @param toAddress not-null, 받는사람 email
      */
     class DestinationDto(
-        private val bccAddress: String?,
-        private val ccAddress: String?,
-        private val toAddress: String
+        val bccAddress: List<String>,
+        val ccAddress: List<String>,
+        val toAddress: List<String>
     )
 }
