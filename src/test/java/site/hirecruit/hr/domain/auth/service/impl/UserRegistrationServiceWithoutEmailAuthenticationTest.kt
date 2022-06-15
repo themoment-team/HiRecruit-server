@@ -2,7 +2,6 @@ package site.hirecruit.hr.domain.auth.service.impl
 
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.spyk
 import io.mockk.verify
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions.*
@@ -14,7 +13,6 @@ import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.UserRepository
-import site.hirecruit.hr.domain.auth.service.EmailAuthenticationService
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.global.event.UserRegistrationEvent
 import kotlin.random.Random
@@ -23,7 +21,6 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
 
 
     private val publisher: ApplicationEventPublisher = mockk(relaxed = true)
-    private val emailAuthenticationService: EmailAuthenticationService = spyk()
 
     @Test
     @DisplayName("유저 회원가입 로직(UserRegistrationService.registration(...)) 테스트")
@@ -31,7 +28,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         // Given
         val userRepository: UserRepository = mockk()
 
-        val userRegistrationService = UserRegistrationServiceWithoutEmailAuthentication(userRepository, publisher)
+        val userRegistrationServiceImpl = UserRegistrationServiceImpl(userRepository, publisher)
 
         val userRegistrationDto = UserRegistrationDto(
             _email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
@@ -68,13 +65,12 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         every { userRepository.save(userEntity) } answers {userEntity}
 
         // when
-        val registeredAuthUserInfo = userRegistrationService.registration(tempUserAuthUserInfo, userRegistrationDto)
+        val registeredAuthUserInfo = userRegistrationServiceImpl.registration(tempUserAuthUserInfo, userRegistrationDto)
 
         //then
         verify(exactly = 1) {userRepository.save(userEntity)}
         val userRegistrationEvent = UserRegistrationEvent(registrationAuthUserInfo, userRegistrationDto.workerDto)
         verify(exactly = 1) {publisher.publishEvent(userRegistrationEvent)}
-        verify(exactly = 0) {emailAuthenticationService.send(any(), any())} // email 인증을 수행하지 않는다.
 
         // 임시 유저일 떄의 Role과 registration()를 수행한 유저일 때의 Role은 다르다.
         assertAll({
@@ -102,7 +98,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         // Given
         val userRepository: UserRepository = mockk()
 
-        val userRegistrationService = UserRegistrationServiceWithoutEmailAuthentication(userRepository, publisher)
+        val userRegistrationServiceImpl = UserRegistrationServiceImpl(userRepository, publisher)
 
         val userRegistrationDto = UserRegistrationDto(
             _email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
@@ -132,7 +128,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         every { userRepository.save(userEntity) } answers {userEntity}
 
         // when
-        val registeredAuthUserInfo = userRegistrationService.registration(tempUserAuthUserInfo, userRegistrationDto)
+        val registeredAuthUserInfo = userRegistrationServiceImpl.registration(tempUserAuthUserInfo, userRegistrationDto)
 
         // then
         verify(exactly = 1) {userRepository.save(userEntity)}
