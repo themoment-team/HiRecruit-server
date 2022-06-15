@@ -1,45 +1,42 @@
-package site.hirecruit.hr.thirdParty.aws.ses.service.facade
+package site.hirecruit.hr.thirdParty.aws.ses.service.subSystemFacade
 
-import org.springframework.beans.factory.annotation.Autowired
-import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.ses.dto.SesRequestDto
-import software.amazon.awssdk.services.sesv2.model.*
+import software.amazon.awssdk.services.sesv2.model.Destination
+import software.amazon.awssdk.services.sesv2.model.EmailContent
+import software.amazon.awssdk.services.sesv2.model.SendEmailRequest
+import software.amazon.awssdk.services.sesv2.model.Template
 
-class SesRequestSubSystemFacadeImpl(
-    @Autowired sesCredentialService: CredentialService
-) : SesRequestSubSystemFacade{
+// const fromEmailAddress: AWS SES authenticated domain
+private const val FROM_EMAIL_ADDRESS = "support@hirecruit.site"
+
+class SesRequestSubSystemFacadeImpl() : SesRequestSubSystemFacade{
 
     /**
-     * HiRecruit support-side 이메일을 요청을 보낼 때 사용하는 subSystem
+     * HiRecruit support-side 이메일을 요청을 보낼 때 사용하는 emailRequest
      *
+     * @param templateRequestDto support email은 template을 사용한다.
      * @since 1.2.0
      * @author 전지환
      */
-    override fun createEmailRequest(sesRequestDto: SesRequestDto): SendEmailRequest {
-        SendEmailRequest.builder()
+    override fun createHiRecruitSupportEmailRequest(templateRequestDto: SesRequestDto.TemplateSesRequestDto): SendEmailRequest {
+
+        return SendEmailRequest.builder()
             .content(
                 EmailContent.builder()
-                    .simple(
-                        Message.builder()
-                            .subject(
-                                Content.builder()
-                                .data("HiRecruit | 하이리쿠르트 테스트 이메일 입니다.")
-                                .charset("UTF-8")
-                                .build())
-                            .body(
-                                Body.builder()
-                                .text(
-                                    Content.builder()
-                                        .data("테스트 이메일 입니다")
-                                        .charset("UTF-8").build()
-                                ).build()
-                            ).build()
+                    .template(
+                        Template.builder()
+                            .templateArn(templateRequestDto.templateArn)
+                            .templateName(templateRequestDto.templateName)
+                            .templateData(templateRequestDto.templateData)
+                            .build()
                     ).build()
             ).destination(
                 Destination.builder()
-                .toAddresses("jihwan.official@gmail.com") // sandbox mode:: only verified email
-                .build()
-            ).fromEmailAddress("support@hirecruit.site")
+                    .bccAddresses(templateRequestDto.destinationDto.bccAddress)
+                    .ccAddresses(templateRequestDto.destinationDto.ccAddress)
+                    .toAddresses(templateRequestDto.destinationDto.toAddress) // sandbox mode:: only verified email
+                    .build()
+            ).fromEmailAddress(FROM_EMAIL_ADDRESS)
             .build()
     }
 
