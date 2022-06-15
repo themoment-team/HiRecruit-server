@@ -21,7 +21,7 @@ import site.hirecruit.hr.global.event.UserRegistrationEvent
  * @since 1.0
  */
 @Service
-class UserRegistrationServiceWithoutEmailAuthentication(
+class UserRegistrationServiceImpl(
     private val userRepository: UserRepository,
     private val publisher: ApplicationEventPublisher
 ): UserRegistrationService {
