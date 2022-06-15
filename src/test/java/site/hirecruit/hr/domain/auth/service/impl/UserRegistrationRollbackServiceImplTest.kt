@@ -38,15 +38,15 @@ internal class UserRegistrationRollbackServiceImplTest{
         verify(exactly = 1) { userRepository.deleteByGithubId(afterRollbackAuthUserInfo.githubId) }
         verify(exactly = 1) { tempUserRegistrationService.registration(userRollbackDataOAuthAttributes) }
 
-        assertAll("롤백 전 AuthUserInfo와 롤백 후 AuthUserInfo는 githubId, email, profileImgUri에 대해 같은 값을 가진다.", {
+        assertAll("롤백 전 AuthUserInfo와 롤백 후 AuthUserInfo는 githubId, email, name, profileImgUri에 대해 같은 값을 가진다.", {
             assertEquals(beforeRollbackAuthUserInfo.githubId, afterRollbackAuthUserInfo.githubId)
             assertEquals(beforeRollbackAuthUserInfo.email, afterRollbackAuthUserInfo.email)
+            assertEquals(beforeRollbackAuthUserInfo.name, afterRollbackAuthUserInfo.name)
             assertEquals(beforeRollbackAuthUserInfo.profileImgUri, afterRollbackAuthUserInfo.profileImgUri)
         })
 
-        assertAll("롤백 전 AuthUserInfo와 롤백 후 AuthUserInfo는 role, name에 대해 다른 값을 가진다.", {
+        assertAll("롤백 전 AuthUserInfo와 롤백 후 AuthUserInfo는 role에 대해 다른 값을 가진다.", {
             assertNotEquals(afterRollbackAuthUserInfo.role, beforeRollbackAuthUserInfo.role)
-            assertNotEquals(afterRollbackAuthUserInfo.name, beforeRollbackAuthUserInfo.name)
         })
 
         assertAll("롤백 후 AuthUserInfo의 name=\"임시유저\" role=GUEST를 만족해야 한다.", {
