@@ -1,4 +1,4 @@
-package site.hirecruit.hr.thirdParty.aws.ses.service.facade
+package site.hirecruit.hr.thirdParty.aws.ses.service.subSystemFacade
 
 import site.hirecruit.hr.thirdParty.aws.ses.dto.SesRequestDto
 import software.amazon.awssdk.services.sesv2.model.SendEmailRequest
@@ -10,5 +10,5 @@ import software.amazon.awssdk.services.sesv2.model.SendEmailRequest
  * @since 1.2.0
  */
 interface SesRequestSubSystemFacade {
-    fun createEmailRequest(sesRequestDto: SesRequestDto): SendEmailRequest
+    fun createHiRecruitSupportEmailRequest(templateRequestDto: SesRequestDto.TemplateSesRequestDto): SendEmailRequest
 }
