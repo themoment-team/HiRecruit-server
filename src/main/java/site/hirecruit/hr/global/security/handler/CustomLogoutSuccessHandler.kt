@@ -29,27 +29,21 @@ class CustomLogoutSuccessHandler(
         authentication: Authentication?
     ) {
         response.status = HttpServletResponse.SC_OK
-        val willDeleteInvalidCookies = deleteInvalidCookies(request.cookies)
-        willDeleteInvalidCookies.forEach{ deleteCookie ->
-            response.addCookie(deleteCookie)
-        }
+
+        val hrsessionCookie = Cookie("HRSESSION", null)
+        deleteCookieBuild(hrsessionCookie)
+
+        val sessionCookie = Cookie("SESSION", null)
+        deleteCookieBuild(sessionCookie)
+
+        response.addCookie(hrsessionCookie)
+        response.addCookie(sessionCookie)
+
         response.sendRedirect(redirectBaseUri)
     }
 
-    private fun deleteInvalidCookies(cookies: Array<Cookie>): List<Cookie>  {
-        val willDeleteCookie = mutableListOf<Cookie>()
-        cookies.forEach { cookie ->
-            when(cookie.name){
-                "SESSION", "HRSESSION" -> {
-                    deleteCookie(cookie)
-                    willDeleteCookie.add(cookie)
-                }
-            }
-        }
-        return willDeleteCookie
-    }
-
-    private fun deleteCookie(cookie: Cookie){
+    private fun deleteCookieBuild(cookie: Cookie){
+        cookie.secure = true
         cookie.maxAge = 0 // 쿠키 삭제하게 위해 maxAge 0으로 설정
     }
 
