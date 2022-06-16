@@ -1,15 +1,16 @@
-package site.hirecruit.hr.thirdParty.aws.ses.service.subSystemFacade
+package site.hirecruit.hr.thirdParty.aws.ses.service.component.templateEmail
 
+import org.springframework.stereotype.Component
 import site.hirecruit.hr.thirdParty.aws.ses.dto.SesRequestDto
 import software.amazon.awssdk.services.sesv2.model.Destination
 import software.amazon.awssdk.services.sesv2.model.EmailContent
 import software.amazon.awssdk.services.sesv2.model.SendEmailRequest
 import software.amazon.awssdk.services.sesv2.model.Template
 
-// const fromEmailAddress: AWS SES authenticated domain
 private const val FROM_EMAIL_ADDRESS = "support@hirecruit.site"
 
-class SesRequestSubSystemFacadeImpl() : SesRequestSubSystemFacade{
+@Component
+class SesTemplateEmailComponentImpl : SesTemplateEmailComponent {
 
     /**
      * HiRecruit support-side 이메일을 요청을 보낼 때 사용하는 emailRequest
@@ -18,7 +19,7 @@ class SesRequestSubSystemFacadeImpl() : SesRequestSubSystemFacade{
      * @since 1.2.0
      * @author 전지환
      */
-    override fun createHiRecruitSupportEmailRequest(templateRequestDto: SesRequestDto.TemplateSesRequestDto): SendEmailRequest {
+    override fun createTemplateEmailRequest(templateRequestDto: SesRequestDto.TemplateSesRequestDto): SendEmailRequest {
 
         return SendEmailRequest.builder()
             .content(
