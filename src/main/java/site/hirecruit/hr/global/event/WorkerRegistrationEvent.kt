@@ -7,6 +7,7 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
  * WorkerRegistration Event객체
  *
  * @see site.hirecruit.hr.domain.worker.service.WorkerRegistrationService
+ * @see WorkerRegistrationEventHandler
  * @author 정시원
  * @since 1.1.2
  */
