@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.UserAuthService
@@ -46,7 +47,7 @@ open class UserSessionAuthServiceImpl(
             githubId = tempUserEntity.githubId,
             name = "임시유저",
             email = null,
-            role = tempUserEntity.role,
+            role = Role.GUEST,
             profileImgUri = tempUserEntity.profileImgUri
         )
     }
