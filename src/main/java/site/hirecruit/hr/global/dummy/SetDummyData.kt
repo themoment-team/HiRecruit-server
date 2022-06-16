@@ -29,7 +29,7 @@ class SetDummyData(
             email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
             name = name,
             profileImgUri = profileImgUri,
-            role = Role.UNAUTHENTICATED_EMAIL
+            role = Role.WORKER
         )
     )
 
