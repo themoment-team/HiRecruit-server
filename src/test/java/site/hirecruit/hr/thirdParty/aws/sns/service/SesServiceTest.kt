@@ -1,23 +1,29 @@
 package site.hirecruit.hr.thirdParty.aws.sns.service
 
+import io.mockk.every
+import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import site.hirecruit.hr.domain.test_util.LocalTest
+import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.service.SesCredentialService
 import site.hirecruit.hr.thirdParty.aws.ses.dto.SesRequestDto
+import site.hirecruit.hr.thirdParty.aws.ses.service.HrSesService
 import site.hirecruit.hr.thirdParty.aws.ses.service.HrSesServiceImpl
 import site.hirecruit.hr.thirdParty.aws.ses.service.component.templateEmail.SesTemplateEmailComponent
+import site.hirecruit.hr.thirdParty.aws.ses.service.component.templateEmail.SesTemplateEmailComponentImpl
+import software.amazon.awssdk.services.sesv2.SesV2Client
 import software.amazon.awssdk.services.sesv2.model.*
 
-@LocalTest
-@SpringBootTest
+
 class SesServiceTest {
 
-    @Test
+    @Test @Disabled
     fun createSendEmailRequestAndSend(
         @Autowired credentialService: SesCredentialService
     ){
@@ -54,24 +60,27 @@ class SesServiceTest {
 
     @Test
     @DisplayName("단건의 templateEmail을 destination에게 정상적으로 보낼 수 있다.")
-    fun aSesMessageSendSuccessful(
-        @Autowired sesFactoryService: HrSesServiceImpl,
-        @Autowired sesTemplateEmailComponent: SesTemplateEmailComponent,
-    ){
-
-        val templateName = "HiRecruitEmailAuthenticationTemplate"
-        val templateData = "{ \"name\":\"이선우\", \"authenticationCode\":\"1234\" }"
-        val to = "hirecruit@gsm.hs.kr"
+    fun templateEmailWasSendSuccessfulToDestination(){
 
         // Given
-        val templateSesRequestDto = SesRequestDto.TemplateSesRequestDto(
-            templateName, templateData, SesRequestDto.DestinationDto(listOf(), listOf(), listOf(to))
-        )
+        val sesV2Client: SesV2Client = mockk()
+        val sendEmailRequest: SendEmailRequest = mockk()
+        val sesCredentialService: CredentialService = mockk()
+        val sesTemplateEmailComponentImpl: SesTemplateEmailComponentImpl = mockk()
+        val templateSesRequestDto: SesRequestDto.TemplateSesRequestDto = mockk()
 
-        // when
-        sesFactoryService.sendEmailWithEmailTemplate(templateSesRequestDto)
+        // mocking
+        every { sesTemplateEmailComponentImpl.createTemplateEmailRequest(templateSesRequestDto) }.returns(sendEmailRequest)
+        every { sesCredentialService.getSdkClient() }.returns(sesV2Client)
+        every { sesV2Client.sendEmail(sendEmailRequest).sdkHttpResponse().isSuccessful }.returns(any())
 
-        // then: 1. hr support 전용 SES Request 를 만든다.
-//        verify(exactly=1) {sesTemplateEmailComponent.createTemplateEmailRequest(templateSesRequestDto) }
+        // when:: emailTemplate을 이용한 이메일을 보낸다.
+        val hrSesServiceImpl = HrSesServiceImpl(sesTemplateEmailComponentImpl, sesCredentialService)
+        hrSesServiceImpl.sendEmailWithEmailTemplate(templateSesRequestDto)
+
+        // then
+        verify(exactly = 1) {sesTemplateEmailComponentImpl.createTemplateEmailRequest(any()) }
+        verify(exactly = 1) { sesCredentialService.getSdkClient() }
+        verify(exactly = 1) { sesV2Client.sendEmail(sendEmailRequest) }
     }
 }
