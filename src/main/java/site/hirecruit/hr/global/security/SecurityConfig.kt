@@ -46,7 +46,7 @@ class SecurityConfig(
                 it.antMatchers(
                     "/api/v1/worker/me",
                     "/api/v1/worker/me/**"
-                ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.name, Role.CLIENT.name)
+                ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.name, Role.CLIENT.name, Role.WORKER.name, Role.MENTOR.name) //TODO 추후 UNAUTHENTICATED_EMAIL role 제거
                 it.antMatchers(
                     "/api/v1/auth/registration"
                 ).hasRole(Role.GUEST.name)
