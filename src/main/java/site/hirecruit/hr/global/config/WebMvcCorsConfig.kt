@@ -1,5 +1,6 @@
 package site.hirecruit.hr.global.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
@@ -17,7 +18,9 @@ import site.hirecruit.hr.global.data.ServerProfile.Companion.STAGING
  * @since 1.0
  */
 @Configuration
-class WebMvcCorsConfig {
+class WebMvcCorsConfig(
+    @Value("\${hr.domain}") private val hrDomain: String
+) {
 
     /**
      * 운영환경(prod)에서 활성화 되는 WebMvcConfigurer
@@ -46,7 +49,7 @@ class WebMvcCorsConfig {
                 .addMapping("/**")
                 .allowedOrigins(
                     "http://localhost:3000", "https://localhost:3000",
-                    "http://www.hirecruit.site", "https://www.hirecruit.site",
+                    "http://dev.${hrDomain}", "https://dev.${hrDomain}"
                 )
                 .allowedMethods(*allowedHttpMethod())
                 .allowCredentials(true)
