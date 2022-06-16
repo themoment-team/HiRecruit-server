@@ -1,6 +1,8 @@
 package site.hirecruit.hr.domain.auth.service.impl
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.entity.Role
@@ -24,6 +26,7 @@ class UserRegistrationRollbackServiceImpl(
      * 회원 등록 트랜잭션이 실패 했을 떄 User데이터를 Rollback한다.
      * 일종의 SAGA Pattern의 보상 트랜잭션이다.
      */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     override fun rollback(rollbackUserInfo: AuthUserInfo): AuthUserInfo {
         userRepository.deleteByGithubId(rollbackUserInfo.githubId)
         val rollbackTempUserRegistrationData = OAuthAttributes.ofUserRollbackData(rollbackUserInfo)
