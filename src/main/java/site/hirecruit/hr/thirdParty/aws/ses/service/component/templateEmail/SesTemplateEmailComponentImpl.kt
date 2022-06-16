@@ -26,7 +26,6 @@ class SesTemplateEmailComponentImpl : SesTemplateEmailComponent {
                 EmailContent.builder()
                     .template(
                         Template.builder()
-                            .templateArn(templateRequestDto.templateArn)
                             .templateName(templateRequestDto.templateName)
                             .templateData(templateRequestDto.templateData)
                             .build()
