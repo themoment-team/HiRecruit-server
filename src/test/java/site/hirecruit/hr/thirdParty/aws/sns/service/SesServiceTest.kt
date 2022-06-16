@@ -8,14 +8,11 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
 import org.springframework.beans.factory.annotation.Autowired
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.service.SesCredentialService
 import site.hirecruit.hr.thirdParty.aws.ses.dto.SesRequestDto
-import site.hirecruit.hr.thirdParty.aws.ses.service.HrSesService
 import site.hirecruit.hr.thirdParty.aws.ses.service.HrSesServiceImpl
-import site.hirecruit.hr.thirdParty.aws.ses.service.component.templateEmail.SesTemplateEmailComponent
 import site.hirecruit.hr.thirdParty.aws.ses.service.component.templateEmail.SesTemplateEmailComponentImpl
 import software.amazon.awssdk.services.sesv2.SesV2Client
 import software.amazon.awssdk.services.sesv2.model.*
