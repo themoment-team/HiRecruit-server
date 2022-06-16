@@ -1,4 +1,4 @@
 package site.hirecruit.hr.domain.mentor.service
 
-class MentorServiceImpl {
+class MentorServiceImpl : MentorService {
 }
