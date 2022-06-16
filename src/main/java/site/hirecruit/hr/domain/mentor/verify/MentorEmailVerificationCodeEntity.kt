@@ -1,10 +1,10 @@
-package site.hirecruit.hr.domain.mentor
+package site.hirecruit.hr.domain.mentor.verify
 
 import org.springframework.data.redis.core.RedisHash
 import javax.persistence.Id
 
 /**
- * 멘토가 되기 위해, 멘토 이메일 인증번호를 저장하는 엔티티 입니다.
+ * 멘토가 되기 위해, 멘토 이메일 : 인증번호를 저장하는 엔티티 입니다.
  *
  * @since 1.2.0
  * @author 전지환
