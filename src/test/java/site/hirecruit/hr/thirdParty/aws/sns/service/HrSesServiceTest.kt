@@ -18,9 +18,10 @@ import software.amazon.awssdk.services.sesv2.SesV2Client
 import software.amazon.awssdk.services.sesv2.model.*
 
 
-class SesServiceTest {
+class HrSesServiceTest {
 
     @Test @Disabled
+    @DisplayName("실제로 ses sdk 랑 상호작용하여 결과를 만들어내는 테스트:: disabled")
     fun createSendEmailRequestAndSend(
         @Autowired credentialService: SesCredentialService
     ){
