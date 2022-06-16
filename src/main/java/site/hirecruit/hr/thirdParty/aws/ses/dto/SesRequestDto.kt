@@ -37,16 +37,13 @@ open class SesRequestDto {
     /**
      * 미리 만들어진 template을 사용해서 이메일을 보내고자 할 때 사용하는 RequestDto 입니다.
      *
-     * @param subjectData 이메일 제목
-     * @param templateArn emailTemplate 고유의 Arn
+     * @param templateName SES 서비스에 등록한 템플릿 이메일 이름
      * @param templateData {{something}} 에 넣을 데이터:: ex) "TemplateData": "{ \"name\":\"Alejandro\", \"favoriteanimal\": \"alligator\" }"
-     * @param templateName
      * @param destinationDto 받는 사람 정보
      */
     class TemplateSesRequestDto(
-        val templateArn: String,
-        val templateData: String,
         val templateName: String,
+        val templateData: String,
         val destinationDto: DestinationDto
     )
 

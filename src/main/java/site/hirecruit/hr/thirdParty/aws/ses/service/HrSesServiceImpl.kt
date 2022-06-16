@@ -22,13 +22,14 @@ class HrSesServiceImpl(
      * 템플릿 이메일을 보내는 서비스
      *
      * @see `https://docs.aws.amazon.com/ko_kr/ses/latest/dg/send-personalized-email-api.html`
+     * @return Boolean - 성공 여부
      */
-    override fun sendEmailWithEmailTemplate(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto) {
+    override fun sendEmailWithEmailTemplate(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto): Boolean {
         // templateRequest 만들기
         val templateEmailRequest = sesTemplateEmailComponentImpl.createTemplateEmailRequest(templateSesRequestDto)
 
         // sdk 실제 요청
         val sesClient = sesCredentialService.getSdkClient() as SesV2Client
-        sesClient.sendEmail(templateEmailRequest)
+        return sesClient.sendEmail(templateEmailRequest).sdkHttpResponse().isSuccessful
     }
 }
