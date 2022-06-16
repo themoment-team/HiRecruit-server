@@ -24,12 +24,16 @@ class HrSesServiceImpl(
      * @see `https://docs.aws.amazon.com/ko_kr/ses/latest/dg/send-personalized-email-api.html`
      * @return Boolean - 성공 여부
      */
-    override fun sendEmailWithEmailTemplate(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto): Boolean {
+    override fun sendEmailWithEmailTemplate(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto): List<String> {
         // templateRequest 만들기
         val templateEmailRequest = sesTemplateEmailComponentImpl.createTemplateEmailRequest(templateSesRequestDto)
 
         // sdk 실제 요청
         val sesClient = sesCredentialService.getSdkClient() as SesV2Client
-        return sesClient.sendEmail(templateEmailRequest).sdkHttpResponse().isSuccessful
+        if (!sesClient.sendEmail(templateEmailRequest).sdkHttpResponse().isSuccessful) {
+            throw Exception("templateEmail을 보낼 수 없음")
+        }
+
+        return templateSesRequestDto.destinationDto.toAddress
     }
 }
