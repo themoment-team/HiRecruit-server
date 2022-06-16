@@ -19,10 +19,6 @@ class TempUserEntity(
     @Column(name = "profile_uri")
     val profileImgUri: String,
 ) {
-
-    @javax.persistence.Transient
-    final var role = Role.GUEST // 임시 유저의 권한은 GUEST이다.
-        private set
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TempUserEntity) return false
