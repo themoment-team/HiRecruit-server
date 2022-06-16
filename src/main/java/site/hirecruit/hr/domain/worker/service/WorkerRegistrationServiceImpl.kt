@@ -33,7 +33,7 @@ class WorkerRegistrationServiceImpl(
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     override fun registration(authUserInfo: AuthUserInfo, registrationDto: WorkerDto.Registration): WorkerDto.Info{
-        publisher.publishEvent(WorkerRegistrationEvent(authUserInfo))
+        publisher.publishEvent(WorkerRegistrationEvent(authUserInfo, registrationDto))
         val userEntity = userRepository.findByGithubId(authUserInfo.githubId)
             ?: throw IllegalStateException("Cannot found UserEntity, githubId='${authUserInfo.githubId}'")
         val companyEntity = companyRepository.findByIdOrNull(registrationDto.companyId)
