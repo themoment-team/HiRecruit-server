@@ -55,8 +55,8 @@ open class SesRequestDto {
      * @param toAddress not-null, 받는사람 email
      */
     class DestinationDto(
-        val bccAddress: List<String>,
-        val ccAddress: List<String>,
+        val bccAddress: List<String>?,
+        val ccAddress: List<String>?,
         val toAddress: List<String>
     )
 }
