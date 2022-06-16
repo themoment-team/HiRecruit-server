@@ -1,4 +1,4 @@
-package site.hirecruit.hr.global.security.handler
+package site.hirecruit.hr.global.security.handler.v1_0
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse
  * @author 정시원
  * @since 1.0
  */
-@Component
+@Deprecated("v1.0에 사용되었던 레거시 입니다.")
 class OAuthLoginSuccessHandler(
     @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String,
 ): AuthenticationSuccessHandler {
