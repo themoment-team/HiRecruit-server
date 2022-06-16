@@ -32,17 +32,26 @@ class CustomLogoutSuccessHandler(
         response.status = HttpServletResponse.SC_OK
 
         val hrsessionCookie = Cookie("HRSESSION", null)
-        deleteCookieBuild(hrsessionCookie)
+        setDeleteHrsessionCookie(hrsessionCookie)
+        val userTypeCookie = Cookie("USER_TYPE", null)
+        setDeleteUserTypeCookie(userTypeCookie)
 
         response.addCookie(hrsessionCookie)
+        response.addCookie(userTypeCookie)
 
         response.sendRedirect(redirectBaseUri)
     }
 
-    private fun deleteCookieBuild(cookie: Cookie){
+    private fun setDeleteHrsessionCookie(cookie: Cookie){
         cookie.secure = true
         cookie.maxAge = 0 // 쿠키 삭제하게 위해 maxAge 0으로 설정
         cookie.isHttpOnly = true
+        cookie.domain = domain
+        cookie.path = "/"
+    }
+
+    private fun setDeleteUserTypeCookie(cookie: Cookie){
+        cookie.maxAge = 0
         cookie.domain = domain
         cookie.path = "/"
     }

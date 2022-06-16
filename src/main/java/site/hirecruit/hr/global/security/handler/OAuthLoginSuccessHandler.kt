@@ -2,24 +2,22 @@ package site.hirecruit.hr.global.security.handler
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.stereotype.Component
-import org.springframework.web.util.UriComponents
-import org.springframework.web.util.UriComponentsBuilder
-import site.hirecruit.hr.domain.auth.entity.Role
+import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
  * OAuthLogin 성공 후 특정 uri로 리다이렉트 하는 핸들러
+ * USER_TYPE쿠키를 발급한다.
  *
  * @author 정시원
- * @since 1.0
+ * @since 1.1.1
  */
 @Component
 class OAuthLoginSuccessHandler(
+    @Value("\${hr.domain}") val hrDomain: String,
     @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String,
 ): AuthenticationSuccessHandler {
     /**
@@ -30,19 +28,20 @@ class OAuthLoginSuccessHandler(
         response: HttpServletResponse,
         authentication: Authentication
     ){
-        val redirectUri = buildRedirectUri(this.redirectBaseUri, authentication)
-        response.sendRedirect(redirectUri)
+        val userTypeCookie = createUserTypeCookie(authentication)
+        response.addCookie(userTypeCookie)
+        response.sendRedirect(this.redirectBaseUri)
     }
 
-    private fun buildRedirectUri(redirectBaseUri: String, authentication: Authentication): String{
-        val isGuest = (authentication.authorities as Collection<GrantedAuthority>)
-            .contains(SimpleGrantedAuthority(Role.GUEST.role))
-        val redirectUriBuild = UriComponentsBuilder
-            .fromUriString(redirectBaseUri)
-            .queryParam("is_first", isGuest)
-            .queryParam("is_login", true) // 로그인 여부 전달
-            .build()
-
-        return redirectUriBuild.toUriString()
+    private fun createUserTypeCookie(authentication: Authentication): Cookie{
+        val userType = authentication.authorities.first()
+            .authority
+            .removePrefix("ROLE_")
+        val userTypeCookie = Cookie("USER_TYPE", userType)
+        userTypeCookie.maxAge = 86400
+        userTypeCookie.path = "/"
+        userTypeCookie.domain = hrDomain
+        return userTypeCookie
     }
+
 }

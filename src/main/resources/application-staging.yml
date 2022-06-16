@@ -75,5 +75,5 @@ logging:
     site.hirecruit.hr : debug
   config: classpath:logback/logback-staging.xml
 
-oauth2.login.success.redirect-base-uri: https://www.hirecruit.site
+oauth2.login.success.redirect-base-uri: https://dev.hirecruit.site
 hr.domain: hirecruit.site

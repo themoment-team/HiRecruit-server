@@ -1,5 +1,6 @@
 package site.hirecruit.hr.domain.auth.dto
 
+import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import javax.validation.Valid
@@ -9,9 +10,11 @@ import javax.validation.constraints.NotNull
 
 data class UserRegistrationDto(
     @field:NotBlank @field:Email
+    @field:JsonProperty("email") @get:JsonGetter("email")
     val _email: String?,
 
-    @field:NotBlank
+    @field:NotBlank @get:JsonGetter("name")
+    @field:JsonProperty("name")
     var _name: String?,
 
     @field:JsonProperty("worker") @field:NotNull @field:Valid

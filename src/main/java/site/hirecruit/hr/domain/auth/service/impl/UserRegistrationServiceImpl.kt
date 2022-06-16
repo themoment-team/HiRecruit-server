@@ -39,7 +39,7 @@ class UserRegistrationServiceImpl(
             email = userRegistrationInfo.email,
             name = userRegistrationInfo.name,
             profileImgUri = authUserInfo.profileImgUri,
-            Role.UNAUTHENTICATED_EMAIL
+            Role.WORKER
         )
         val savedUserEntity = userRepository.save(userEntity)
         val registrationAuthUserInfo = AuthUserInfo(
