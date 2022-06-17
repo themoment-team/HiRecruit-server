@@ -19,7 +19,10 @@ class CompanyDuplicateValidator(
 ): ConstraintValidator<CompanyNotDuplicate, CompanyDto.Create>
  {
      override fun isValid(createDto: CompanyDto.Create, context: ConstraintValidatorContext): Boolean {
-         return companyRepository.existsByNameAndLocation(createDto.name, createDto.location).not()
+         if(createDto._name == null || createDto._location == null)
+             return true
+
+         return companyRepository.existsByNameAndLocation(createDto._name, createDto._location).not()
      }
 
  }
