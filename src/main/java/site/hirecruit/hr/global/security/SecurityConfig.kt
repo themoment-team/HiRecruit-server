@@ -1,5 +1,6 @@
 package site.hirecruit.hr.global.security
 
+import mu.KotlinLogging
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
@@ -9,12 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
-import org.springframework.security.web.access.AccessDeniedHandler
+import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.global.data.ServerProfile
+
+private val log = KotlinLogging.logger {  }
 
 /**
  * SecurityConfig
@@ -29,6 +32,7 @@ class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
     private val logoutSuccessHandler: LogoutSuccessHandler,
+    private val authenticationFailureHandler: AuthenticationFailureHandler
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
@@ -74,6 +78,7 @@ class SecurityConfig(
                 redirectEndPoint.baseUri(oauth2LoginRedirectionEndpointBaseUri)
             }
             oauth2Login.successHandler(authenticationSuccessHandler)
+            oauth2Login.failureHandler(authenticationFailureHandler)
         }
 
 
