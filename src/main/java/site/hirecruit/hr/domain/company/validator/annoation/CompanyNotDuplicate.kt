@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
  */
 @MustBeDocumented
 @Constraint(validatedBy = [CompanyDuplicateValidator::class])
-@Target(AnnotationTarget.TYPE)
+@Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class CompanyNotDuplicate(
     val message: String = "해당 company(회사)는 이미 존재합니다.",
