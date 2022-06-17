@@ -37,9 +37,10 @@ internal class MentorVerificationServiceImplTest{
         @Autowired mentorVerificationService: MentorVerificationService
     ){
         val worker = workerRepository.findByUser_Email("hirecruit@gsm.hs.kr")
+            ?: throw Exception("email 보낼 대상이 없기 때문에 비즈니스 로직 수행 불가")
 
         assertDoesNotThrow {
-            mentorVerificationService.sendVerificationCode(worker?.workerId, worker?.user?.email, worker?.user?.name)
+            mentorVerificationService.sendVerificationCode(worker.workerId!!, worker.user.email, worker.user.name)
         }
     }
 }

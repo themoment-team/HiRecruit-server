@@ -13,9 +13,9 @@ private const val FROM_EMAIL_ADDRESS = "support@hirecruit.site"
 class SesTemplateEmailComponentImpl : SesTemplateEmailComponent {
 
     /**
-     * HiRecruit support-side 이메일을 요청을 보낼 때 사용하는 emailRequest
+     * HiRecruit aws SES / templateEmail 요청을 생성할 때 사용하는 함수
      *
-     * @param templateRequestDto support email은 template을 사용한다.
+     * @param templateRequestDto
      * @since 1.2.0
      * @author 전지환
      */
