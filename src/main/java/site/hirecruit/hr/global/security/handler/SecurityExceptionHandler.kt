@@ -52,7 +52,7 @@ class SecurityExceptionHandler(
                 redirectUrlBuilder.queryParam("login", "cancel")
             }
             else -> {
-                log.error { "예외 처리하지 않은 OAuth2 Exception 발생" } //
+                log.error(ex){ "예외 처리하지 않은 OAuth2 Exception 발생" } //
                 redirectUrlBuilder.queryParam("login", "fail")
                 redirectUrlBuilder.queryParam("server_error", true)
             }
