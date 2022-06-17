@@ -1,10 +1,7 @@
 package site.hirecruit.hr.domain.mentor.verify.service
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
@@ -33,7 +30,8 @@ internal class MentorVerificationServiceImplTest{
     }
 
     @Test
-    @DisplayName("실제 서비스를 사용하여 인증번호를 전송합니다.")
+    @Disabled
+    @DisplayName("실제 SES 서비스를 사용하여 인증번호를 전송합니다. :: Disabled")
     fun verificationCodeWasSentToDestination(
         @Autowired workerRepository: WorkerRepository,
         @Autowired mentorVerificationService: MentorVerificationService
