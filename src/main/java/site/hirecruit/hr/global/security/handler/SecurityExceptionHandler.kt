@@ -4,6 +4,7 @@ import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.AuthenticationException
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes
 import org.springframework.security.web.firewall.RequestRejectedException
@@ -35,6 +36,11 @@ class SecurityExceptionHandler(
     private fun requestRejectedException(requestRejectedException: RequestRejectedException): ResponseEntity<ExceptionResponseEntity> =
         ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
             .body(ExceptionResponseEntity(requestRejectedException.localizedMessage))
+
+    @ExceptionHandler(AuthenticationException::class)
+    private fun authenticationException(authenticationException: AuthenticationException): ResponseEntity<ExceptionResponseEntity> =
+        ResponseEntity.status(HttpStatus.UNAUTHORIZED.value())
+            .body(ExceptionResponseEntity.of(authenticationException))
 
     /**
      * Oauth2 인증이 실패할 떄 발생하는 exception
