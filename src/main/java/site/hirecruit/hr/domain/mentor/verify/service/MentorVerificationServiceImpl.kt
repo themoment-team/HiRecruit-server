@@ -24,7 +24,7 @@ class MentorVerificationServiceImpl(
      *
      * @param workerId 멘토를 신청한 재직자 id
      * @param workerId 멘토를 신청한 재직자 email
-     * @return workerEmail 전송에 성공한 toAddress
+     * @return verificationCode 전송한 인증번호
      */
     override fun sendVerificationCode(workerId: Long, workerEmail: String, workerName: String) : String {
         // 난수 인증코드 생성
@@ -36,28 +36,27 @@ class MentorVerificationServiceImpl(
 
         // 인증코드 보내기 v1.2.1 async
         verificationEmailSenderService.sendEmailVerificationSES(mentorEmailVerificationEmailRequest)
-        log.info { "======== 인증번호 sendEmail success =======" }
 
         // [workerId : 인증번호] 저장
         val mentorEmailVerificationCodeEntity = MentorEmailVerificationCodeEntity(workerId, verificationCode)
         mentorEmailVerificationCodeRepository.save(mentorEmailVerificationCodeEntity)
-        log.info { "=========== 인증번호 redis 저장 완료 ============" }
 
-        return workerEmail
+        return verificationCode
     }
 
     /**
      * 재직자가 입력한 인증번호가 == 발급된 인증번호 인지 검증하는 서비스
      *
      * @param workerId 재직자 id
-     * @param verificationCode 사용자가 입력한 인증번호
+     * @param expectedVerificationCode 사용자가 입력한 인증번호
      */
-    override fun verifyVerificationCode(workerId: Long, verificationCode: String) {
+    override fun verifyVerificationCode(workerId: Long, expectedVerificationCode: String) {
         val mentorEmailVerificationCodeEntity = getVerificationCodeByWorkerId(workerId)
 
         // verify
-        if (mentorEmailVerificationCodeEntity.get().verificationCode != verificationCode){
-            throw Exception("사용자가 입력한 verificationCode: $verificationCode 는 실제 인증번호와 일치하지 않음")
+        val actualVerificationCode = mentorEmailVerificationCodeEntity.get().verificationCode
+        if (actualVerificationCode != expectedVerificationCode){
+            throw Exception("사용자가 입력한 verificationCode: $expectedVerificationCode 는 실제 인증번호와 일치하지 않음")
         }
     }
 
