@@ -7,6 +7,7 @@ import site.hirecruit.hr.domain.mailer.verifyEmail.service.VerificationEmailSend
 import site.hirecruit.hr.domain.mentor.verify.entity.MentorEmailVerificationCodeEntity
 import site.hirecruit.hr.domain.mentor.verify.repository.MentorEmailVerificationCodeRepository
 import site.hirecruit.hr.global.util.randomNumberGenerator
+import java.util.*
 
 
 private val log = KotlinLogging.logger {}
@@ -49,9 +50,31 @@ class MentorVerificationServiceImpl(
      * 재직자가 입력한 인증번호가 == 발급된 인증번호 인지 검증하는 서비스
      *
      * @param workerId 재직자 id
-     * @param verificationCode 인증번호
+     * @param verificationCode 사용자가 입력한 인증번호
      */
     override fun verifyVerificationCode(workerId: Long, verificationCode: String) {
+        val mentorEmailVerificationCodeEntity = getVerificationCodeByWorkerId(workerId)
 
+        // verify
+        if (mentorEmailVerificationCodeEntity.get().verificationCode != verificationCode){
+            throw Exception("사용자가 입력한 verificationCode: $verificationCode 는 실제 인증번호와 일치하지 않음")
+        }
+    }
+
+    /**
+     * workerId를 통해 verificationCode 를 가져오는 함수
+     *
+     * @param workerId 재직자 id
+     * @return MentorEmailVerificationCodeEntity
+     */
+    private fun getVerificationCodeByWorkerId(workerId: Long): Optional<MentorEmailVerificationCodeEntity> {
+        val mentorEmailVerificationCodeEntity = mentorEmailVerificationCodeRepository.findById(workerId)
+
+        // null-check
+        if (mentorEmailVerificationCodeEntity.isEmpty) {
+            throw Exception("workerId: $workerId 로 인증번호를 발급한 기록이 없음.")
+        }
+
+        return mentorEmailVerificationCodeEntity
     }
 }
