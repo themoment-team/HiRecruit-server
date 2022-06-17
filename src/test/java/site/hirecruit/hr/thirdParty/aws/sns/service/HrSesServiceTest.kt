@@ -7,7 +7,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.any
 import org.springframework.beans.factory.annotation.Autowired
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
 import site.hirecruit.hr.thirdParty.aws.service.SesCredentialService
