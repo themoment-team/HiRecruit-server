@@ -2,18 +2,19 @@ package site.hirecruit.hr.domain.mentor.verify.service
 
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
-import site.hirecruit.hr.domain.emailTemplate.verifyEmail.VerifyEmailServiceImpl
-import site.hirecruit.hr.domain.mentor.verify.MentorEmailVerificationCodeEntity
+import site.hirecruit.hr.domain.mailer.verifyEmail.component.VerificationCodeEmailTemplate
+import site.hirecruit.hr.domain.mailer.verifyEmail.service.VerificationEmailSenderService
+import site.hirecruit.hr.domain.mentor.verify.entity.MentorEmailVerificationCodeEntity
 import site.hirecruit.hr.domain.mentor.verify.repository.MentorEmailVerificationCodeRepository
 import site.hirecruit.hr.global.util.randomNumberGenerator
-import site.hirecruit.hr.thirdParty.aws.ses.dto.SesRequestDto
 
 
 private val log = KotlinLogging.logger {}
 
 @Service
 class MentorVerificationServiceImpl(
-    private val verifyEmailServiceImpl: VerifyEmailServiceImpl,
+    private val verificationEmailSenderService: VerificationEmailSenderService,
+    private val verificationCodeEmailTemplate: VerificationCodeEmailTemplate,
     private val mentorEmailVerificationCodeRepository: MentorEmailVerificationCodeRepository
 ) : MentorVerificationService{
 
@@ -27,20 +28,17 @@ class MentorVerificationServiceImpl(
     override fun sendVerificationCode(workerId: Long, workerEmail: String, workerName: String) : String {
         // 난수 인증코드 생성
         val verificationCode = randomNumberGenerator(6)
-        val mentorEmailVerificationCodeEntity = MentorEmailVerificationCodeEntity(workerId, verificationCode)
 
-        // templateSesReqeustDto 작성
-        val mentorEmailVerificationEmailRequest = SesRequestDto.TemplateSesRequestDto(
-            "HiRecruitEmailAuthenticationTemplate",
-            "{ \"name\":\"${workerName}\", \"authenticationCode\":\"${verificationCode}\" }",
-            SesRequestDto.DestinationDto(null, null, listOf(workerEmail))
-        )
+        // 사용자에게 받은 정보를 기반으로 적절한 이메일 요청 형식을 만든다.
+        val mentorEmailVerificationEmailRequest =
+            verificationCodeEmailTemplate.createMentorEmailVerificationEmailRequest(workerName, verificationCode, workerEmail)
 
         // 인증코드 보내기 v1.2.1 async
-        verifyEmailServiceImpl.sendEmailVerificationSES(mentorEmailVerificationEmailRequest)
+        verificationEmailSenderService.sendEmailVerificationSES(mentorEmailVerificationEmailRequest)
         log.info { "======== 인증번호 sendEmail success =======" }
 
-        // workerId : 인증번호 저장 시도
+        // [workerId : 인증번호] 저장
+        val mentorEmailVerificationCodeEntity = MentorEmailVerificationCodeEntity(workerId, verificationCode)
         mentorEmailVerificationCodeRepository.save(mentorEmailVerificationCodeEntity)
         log.info { "=========== 인증번호 redis 저장 완료 ============" }
 
