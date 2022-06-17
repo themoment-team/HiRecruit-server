@@ -70,7 +70,8 @@ class HrSesServiceTest {
         // mocking
         every { sesTemplateEmailComponentImpl.createTemplateEmailRequest(templateSesRequestDto) }.returns(sendEmailRequest)
         every { sesCredentialService.getSdkClient() }.returns(sesV2Client)
-        every { sesV2Client.sendEmail(sendEmailRequest).sdkHttpResponse().isSuccessful }.returns(any())
+        every { sesV2Client.sendEmail(sendEmailRequest).sdkHttpResponse().isSuccessful }.returns(true)
+        every { templateSesRequestDto.destinationDto.toAddress }.returns(listOf())
 
         // when:: emailTemplate을 이용한 이메일을 보낸다.
         val hrSesServiceImpl = HrSesServiceImpl(sesTemplateEmailComponentImpl, sesCredentialService)
