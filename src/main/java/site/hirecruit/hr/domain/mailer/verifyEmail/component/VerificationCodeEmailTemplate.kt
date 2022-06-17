@@ -29,7 +29,7 @@ class VerificationCodeEmailTemplate {
         return SesRequestDto.TemplateSesRequestDto(
             "HiRecruitEmailAuthenticationTemplate",
             "{ \"name\":\"${workerName}\", \"authenticationCode\":\"${verificationCode}\" }",
-            SesRequestDto.DestinationDto(null, null, listOf(workerEmail))
+            SesRequestDto.DestinationDto(emptyList(), emptyList(), listOf(workerEmail))
         )
     }
 }
