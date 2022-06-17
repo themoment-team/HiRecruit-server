@@ -5,10 +5,9 @@ import site.hirecruit.hr.thirdParty.aws.ses.dto.SesRequestDto
 import site.hirecruit.hr.thirdParty.aws.ses.service.HrSesService
 
 @Service
-class VerifyEmailServiceImpl(private val hrSesServiceImpl: HrSesService){
+class VerificationEmailSenderService(private val hrSesServiceImpl: HrSesService){
 
     fun sendEmailVerificationSES(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto): List<String> {
         return hrSesServiceImpl.sendEmailWithEmailTemplate(templateSesRequestDto)
     }
-
 }
