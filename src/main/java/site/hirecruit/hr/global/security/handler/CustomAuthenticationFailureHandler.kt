@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerExceptionResolver
 import org.springframework.web.util.UriComponentsBuilder
+import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -23,7 +24,8 @@ private val log = KotlinLogging.logger {  }
 @Component
 class CustomAuthenticationFailureHandler(
     @Value("\${oauth2.login.success.redirect-base-uri}") val redirectBaseUri: String,
-    @Qualifier("handlerExceptionResolver") private val resolver: HandlerExceptionResolver
+    @Qualifier("handlerExceptionResolver") private val resolver: HandlerExceptionResolver,
+    @Value("\${server.servlet.session.cookie.domain}") val cookieDomain: String
 ): AuthenticationFailureHandler {
 
     /**
@@ -40,6 +42,7 @@ class CustomAuthenticationFailureHandler(
         exception: AuthenticationException
     ) {
         val redirectUriBuilder = UriComponentsBuilder.fromUriString(redirectBaseUri)
+        response.addCookie(setDeleteHrsessionCookie()) // OAuth2 login 실패시 HRSESSION제거
         if(exception is OAuth2AuthenticationException){ // OAuth2 로그인 예외라면
             log.debug { "OAuth2AuthenticationException error code = '${exception.error.errorCode}'" }
             oAuth2AuthenticationExceptionHandling(request, response, exception)
@@ -65,5 +68,16 @@ class CustomAuthenticationFailureHandler(
                 .build().toUriString()
         )
     }
+
+    private fun setDeleteHrsessionCookie(): Cookie{
+        val hrsessionCookie = Cookie("HRSESSION", null)
+        hrsessionCookie.secure = true
+        hrsessionCookie.maxAge = 0 // 쿠키 삭제하게 위해 maxAge 0으로 설정
+        hrsessionCookie.isHttpOnly = true
+        hrsessionCookie.domain = cookieDomain
+        hrsessionCookie.path = "/"
+        return hrsessionCookie
+    }
+
 
 }
