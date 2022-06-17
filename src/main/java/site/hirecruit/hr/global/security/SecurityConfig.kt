@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
+import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
@@ -32,7 +33,8 @@ class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
     private val logoutSuccessHandler: LogoutSuccessHandler,
-    private val authenticationFailureHandler: AuthenticationFailureHandler
+    private val authenticationFailureHandler: AuthenticationFailureHandler,
+    private val authenticationEntryPoint: AuthenticationEntryPoint
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
@@ -62,8 +64,13 @@ class SecurityConfig(
     private fun accessDenied(http: HttpSecurity){
         http
             .exceptionHandling {
-                it.authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+//                it.accessDeniedHandler()
+                it.authenticationEntryPoint(authenticationEntryPoint)
             }
+    }
+
+    private fun cors(http: HttpSecurity){
+        http.cors()
     }
 
     private fun oauth2Login(http: HttpSecurity) =
@@ -95,6 +102,7 @@ class SecurityConfig(
             http
                 .csrf().disable()
 
+            cors(http)
             authorizeRequests(http)
             logoutConfig(http)
             accessDenied(http)
@@ -112,6 +120,8 @@ class SecurityConfig(
     @Profile(ServerProfile.DEFAULT, ServerProfile.LOCAL, ServerProfile.STAGING)
     inner class TestingRole: WebSecurityConfigurerAdapter(){
         override fun configure(http: HttpSecurity) {
+            cors(http)
+
             http
                 .csrf().disable()
                 .headers().frameOptions().disable()
