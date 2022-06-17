@@ -1,5 +1,6 @@
 package site.hirecruit.hr.global.exception
 
+import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.HttpStatusCodeException
 import site.hirecruit.hr.global.exception.model.ExceptionResponseEntity
+
+private val log = KotlinLogging.logger {  }
 
 /**
  * Global한 예외를 핸들링 하는 Handler입니다.
@@ -43,7 +46,7 @@ class GlobalExceptionHandler {
     private fun validationException(ex: MethodArgumentNotValidException): ResponseEntity<ExceptionResponseEntity>{
         val bindingResult: BindingResult = ex.bindingResult
 
-        val errorResult = StringBuilder()
+        val errorResultBuilder = StringBuilder()
         for (fieldError in bindingResult.fieldErrors) {
             /**
              * 유효성검사에 통과하지 못한 field name, field name의 접두사에 "_"가 있다면 제거한다.
@@ -58,13 +61,13 @@ class GlobalExceptionHandler {
              */
             val errorMessage = fieldError.defaultMessage
 
-            errorResult.append("'$fieldErrorName'").append(":")
-            errorResult.append("'${errorMessage}.'")
-            errorResult.append(", ")
+            errorResultBuilder.append("'$fieldErrorName'").append(":")
+            errorResultBuilder.append("'${errorMessage}.'")
+            errorResultBuilder.append(", ")
         }
-        errorResult.delete(errorResult.lastIndexOf(", "), errorResult.lastIndex + 1) // 마지막 리스트일 경우  ", " 문자열을 제거한다.
 
+        val errorResult = errorResultBuilder.removeSuffix(", ").toString() // 마지막 리스트일 경우  ", " 문자열을 제거한다.
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
-            .body(ExceptionResponseEntity(errorResult.toString()))
+            .body(ExceptionResponseEntity(errorResult))
     }
 }
