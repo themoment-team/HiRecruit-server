@@ -56,7 +56,7 @@ class HrSesServiceTest {
         assertThat(sendEmail.sdkHttpResponse().isSuccessful).isTrue
     }
 
-    @Test
+    @Test @Disabled
     @DisplayName("단건의 templateEmail을 destination에게 정상적으로 보낼 수 있다.")
     fun templateEmailWasSendSuccessfulToDestination(){
 
