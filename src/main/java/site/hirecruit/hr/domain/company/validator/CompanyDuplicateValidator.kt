@@ -15,12 +15,11 @@ import javax.validation.ConstraintValidatorContext
  */
 @Component
 class CompanyDuplicateValidator(
-        private val companyRepository: CompanyRepository
+    private val companyRepository: CompanyRepository
 ): ConstraintValidator<CompanyNotDuplicate, CompanyDto.Create>
  {
-     override fun isValid(value: CompanyDto.Create?, context: ConstraintValidatorContext?): Boolean {
-         TODO("Not yet implemented")
+     override fun isValid(createDto: CompanyDto.Create, context: ConstraintValidatorContext): Boolean {
+         return companyRepository.existsByNameAndLocation(createDto.name, createDto.location).not()
      }
-
 
  }
