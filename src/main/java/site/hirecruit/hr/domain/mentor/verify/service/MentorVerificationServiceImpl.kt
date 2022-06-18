@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.mentor.verify.service
 
 import mu.KotlinLogging
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.mailer.verifyEmail.component.VerificationCodeEmailTemplate
 import site.hirecruit.hr.domain.mailer.verifyEmail.service.VerificationEmailSenderService
@@ -54,7 +55,7 @@ class MentorVerificationServiceImpl(
         val mentorEmailVerificationCodeEntity = getVerificationCodeByWorkerId(workerId)
 
         // verify
-        val actualVerificationCode = mentorEmailVerificationCodeEntity.get().verificationCode
+        val actualVerificationCode = mentorEmailVerificationCodeEntity.verificationCode
         if (actualVerificationCode != expectedVerificationCode){
             throw Exception("사용자가 입력한 verificationCode: $expectedVerificationCode 는 실제 인증번호와 일치하지 않음")
         }
@@ -66,14 +67,9 @@ class MentorVerificationServiceImpl(
      * @param workerId 재직자 id
      * @return MentorEmailVerificationCodeEntity
      */
-    private fun getVerificationCodeByWorkerId(workerId: Long): Optional<MentorEmailVerificationCodeEntity> {
-        val mentorEmailVerificationCodeEntity = mentorEmailVerificationCodeRepository.findById(workerId)
+    private fun getVerificationCodeByWorkerId(workerId: Long): MentorEmailVerificationCodeEntity {
 
-        // null-check
-        if (mentorEmailVerificationCodeEntity.isEmpty) {
-            throw Exception("workerId: $workerId 로 인증번호를 발급한 기록이 없음.")
-        }
-
-        return mentorEmailVerificationCodeEntity
+        return mentorEmailVerificationCodeRepository.findByIdOrNull(workerId)
+            ?: throw Exception("workerId: $workerId 로 인증번호를 발급한 기록이 없음.")
     }
 }
