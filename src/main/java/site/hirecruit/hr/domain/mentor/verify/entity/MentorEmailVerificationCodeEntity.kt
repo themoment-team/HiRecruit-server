@@ -12,6 +12,6 @@ import org.springframework.data.redis.core.RedisHash
 @RedisHash(value = "verificationCode", timeToLive = 60 * 60 * 24) // 유효시간: 24시간
 class MentorEmailVerificationCodeEntity(
     @Id
-    private val workerId: Long,
-    private val verificationCode: String
+    val workerId: Long,
+    val verificationCode: String
 )
