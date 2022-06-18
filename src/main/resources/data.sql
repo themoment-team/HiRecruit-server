@@ -1,3 +1,10 @@
+create table if not exists temp_user
+(
+    github_id   BIGINT not null
+        primary key,
+    profile_uri VARCHAR(255) not null
+);
+
 create table if not exists user
 (
     user_id     BIGINT       auto_increment
