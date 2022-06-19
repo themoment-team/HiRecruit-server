@@ -2,7 +2,10 @@ package site.hirecruit.hr.domain.mentor.service
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.mentor.verify.service.MentorVerificationService
+import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
 @Service
@@ -17,9 +20,9 @@ class MentorServiceImpl(
      */
     override fun mentorPromotionProcess(workerId: Long): Map<Long, String> {
         // 현재 worker가 맞는지 verify
-        val workerEntity = (workerRepository.findByIdOrNull(workerId)
-            ?: throw Exception("workerId: $workerId 에 해당하는 worker를 찾을 수 없음"))
+        val workerEntity = findWorkerEntityByWorkerIdOrElseThrow(workerId)
 
+        // worker 인증체계에 verificationCode 전송
         val sentVerificationCode = mentorVerificationServiceImpl.sendVerificationCode(
             workerEntity.workerId!!,
             workerEntity.user.email,
@@ -33,8 +36,27 @@ class MentorServiceImpl(
      * HR의 적합한 mentor 승격 절차를 밟아 역할을 worker -> mentor 업데이트한다.
      * 연락체계에 대한 인증이 완료되어야 한다.
      */
-    override fun grantMentorRole(workerId: Long): String {
-        
-        return "a"
+    @Transactional
+    override fun grantMentorRole(workerId: Long, verificationCode: String): Long {
+        // 인증번호 검증
+        mentorVerificationServiceImpl.verifyVerificationCode(workerId, verificationCode)
+
+        // user role update:: worker -> mentor
+        val workerEntity = findWorkerEntityByWorkerIdOrElseThrow(workerId)
+        workerEntity.user.updateRole(Role.MENTOR)
+
+        return workerEntity.workerId!!
+    }
+
+    /**
+     * workerId를 통해 workerEntity를 찾습니다.
+     *
+     * @param workerId 찾고자 하는 workerId
+     * @throws Exception worker가 존재하지 않을 때.
+     * @return WorkerEntity
+     */
+    private fun findWorkerEntityByWorkerIdOrElseThrow(workerId: Long): WorkerEntity {
+        return (workerRepository.findByIdOrNull(workerId)
+            ?: throw Exception("workerId: $workerId 에 해당하는 worker를 찾을 수 없음"))
     }
 }
