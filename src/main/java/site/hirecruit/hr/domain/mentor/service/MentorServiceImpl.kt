@@ -17,6 +17,9 @@ class MentorServiceImpl(
     /**
      * worker -> mentor 로의 승격절차를 밟는다.
      * 연락수단에 대해 인증을 요청한다.
+     *
+     * @param workerId mentor로 승격하고 싶은 workerId
+     * @return workerId : verificationCode
      */
     override fun mentorPromotionProcess(workerId: Long): Map<Long, String> {
         // 현재 worker가 맞는지 verify
