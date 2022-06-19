@@ -35,6 +35,10 @@ class MentorServiceImpl(
     /**
      * HR의 적합한 mentor 승격 절차를 밟아 역할을 worker -> mentor 업데이트한다.
      * 연락체계에 대한 인증이 완료되어야 한다.
+     *
+     * @param workerId
+     * @param verificationCode 사용자가 입력한 인증번호
+     * @return workerId - mentor로 승격된 workerId
      */
     @Transactional
     override fun grantMentorRole(workerId: Long, verificationCode: String): Long {
