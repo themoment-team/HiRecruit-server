@@ -23,7 +23,7 @@ class UserEntity(
     val profileImgUri: String,
 
     @Column(name = "role", nullable = false) @Enumerated(EnumType.STRING)
-    private var role: Role
+    var role: Role
 ) {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

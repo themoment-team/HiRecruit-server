@@ -1,14 +1,12 @@
 package site.hirecruit.hr.domain.mentor.service
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.mentor.verify.repository.MentorEmailVerificationCodeRepository
@@ -53,25 +51,31 @@ internal class MentorServiceImplTest{
         assertThat(processing[worker.workerId]).isEqualTo(verificationCode?.verificationCode)
     }
 
-    @Test
+    @Test @Disabled
     @DisplayName("worker가 입력한 인증번호를 원본과 대조하여 역할을 mentor로 업데이트 한다.")
     fun updateWorkerToMentorIfAllStepsPassed(
         @Autowired workerRepository: WorkerRepository,
         @Autowired mentorVerificationServiceImpl: MentorVerificationService,
         @Autowired mentorServiceImpl: MentorService
     ){
-        // Given
+        // Given :: setup sandbox access worker
         val worker = workerRepository.findByUser_Email("hirecruit@gsm.hs.kr") ?: throw Exception("email에 해당하는 worker 없음")
+        // Given :: send VerificationCode to worker
         val sentVerificationCode = mentorVerificationServiceImpl.sendVerificationCode(
             workerId = worker.workerId!!,
             workerEmail = worker.user.email,
             workerName = worker.user.name
         )
 
-        // when
-        val grantMentorRole = mentorServiceImpl.grantMentorRole(
-            workerId = worker.workerId!!,
-            verificationCode = sentVerificationCode[worker.workerId!!]
-        )
+        // when :: grant 요청 올바른 인증번호로
+        assertDoesNotThrow {
+            mentorServiceImpl.grantMentorRole(
+                workerId = worker.workerId!!,
+                verificationCode = sentVerificationCode
+            )
+        }
+
+        // Then :: 사용자가 입력한 verificationCode가 유효하기 때문에 mentor가 되었을 것.
+        assertThat(worker.user.role).isEqualTo(Role.MENTOR)
     }
 }
