@@ -8,6 +8,10 @@ import site.hirecruit.hr.domain.mentor.verify.service.MentorVerificationService
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 
+/**
+ * @author 전지환
+ * @since 1.2.0
+ */
 @Service
 class MentorServiceImpl(
     private val workerRepository: WorkerRepository,
