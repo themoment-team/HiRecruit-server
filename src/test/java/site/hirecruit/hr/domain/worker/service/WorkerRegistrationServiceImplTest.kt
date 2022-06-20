@@ -24,7 +24,7 @@ internal class WorkerRegistrationServiceImplTest{
     private val userRepository: UserRepository = mockk()
     private val workerRepository: WorkerRepository = mockk()
     private val companyRepository: CompanyRepository = mockk()
-    private val workerRegistrationService = WorkerRegistrationServiceImpl(userRepository, workerRepository, companyRepository)
+    private val workerRegistrationService = WorkerRegistrationServiceImpl(userRepository, workerRepository, companyRepository, mockk(relaxed = true))
 
     @Test @DisplayName("Worker Registration test")
     fun workerRegistrationTest(){

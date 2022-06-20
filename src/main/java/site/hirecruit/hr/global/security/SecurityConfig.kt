@@ -1,5 +1,6 @@
 package site.hirecruit.hr.global.security
 
+import mu.KotlinLogging
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
@@ -9,12 +10,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
-import org.springframework.security.web.access.AccessDeniedHandler
+import org.springframework.security.web.AuthenticationEntryPoint
+import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.global.data.ServerProfile
+
+private val log = KotlinLogging.logger {  }
 
 /**
  * SecurityConfig
@@ -29,6 +33,8 @@ class SecurityConfig(
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
     private val logoutSuccessHandler: LogoutSuccessHandler,
+    private val authenticationFailureHandler: AuthenticationFailureHandler,
+    private val authenticationEntryPoint: AuthenticationEntryPoint
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
@@ -46,7 +52,7 @@ class SecurityConfig(
                 it.antMatchers(
                     "/api/v1/worker/me",
                     "/api/v1/worker/me/**"
-                ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.name, Role.CLIENT.name)
+                ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.name, Role.CLIENT.name, Role.WORKER.name, Role.MENTOR.name) //TODO 추후 UNAUTHENTICATED_EMAIL role 제거
                 it.antMatchers(
                     "/api/v1/auth/registration"
                 ).hasRole(Role.GUEST.name)
@@ -58,8 +64,13 @@ class SecurityConfig(
     private fun accessDenied(http: HttpSecurity){
         http
             .exceptionHandling {
-                it.authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+//                it.accessDeniedHandler()
+                it.authenticationEntryPoint(authenticationEntryPoint)
             }
+    }
+
+    private fun cors(http: HttpSecurity){
+        http.cors()
     }
 
     private fun oauth2Login(http: HttpSecurity) =
@@ -74,6 +85,7 @@ class SecurityConfig(
                 redirectEndPoint.baseUri(oauth2LoginRedirectionEndpointBaseUri)
             }
             oauth2Login.successHandler(authenticationSuccessHandler)
+            oauth2Login.failureHandler(authenticationFailureHandler)
         }
 
 
@@ -90,6 +102,7 @@ class SecurityConfig(
             http
                 .csrf().disable()
 
+            cors(http)
             authorizeRequests(http)
             logoutConfig(http)
             accessDenied(http)
@@ -107,6 +120,8 @@ class SecurityConfig(
     @Profile(ServerProfile.DEFAULT, ServerProfile.LOCAL, ServerProfile.STAGING)
     inner class TestingRole: WebSecurityConfigurerAdapter(){
         override fun configure(http: HttpSecurity) {
+            cors(http)
+
             http
                 .csrf().disable()
                 .headers().frameOptions().disable()
