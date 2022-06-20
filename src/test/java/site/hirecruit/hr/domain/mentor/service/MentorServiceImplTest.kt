@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
@@ -43,8 +44,20 @@ internal class MentorServiceImplTest{
         // Given :: process 를 진행할 worker 찾기
         val worker = workerRepository.findByUser_Email("hirecruit@gsm.hs.kr") ?: throw Exception("email에 해당하는 worker 없음")
 
+        // Given :: 로그인
+        val authUserInfoCopyWorker = AuthUserInfo(
+            worker.user.githubId,
+            worker.user.name,
+            worker.user.email,
+            worker.user.profileImgUri,
+            worker.user.role
+        )
+
         // When :: process 진행하기
-        val processing = mentorServiceImpl.mentorPromotionProcess(workerId = worker.workerId!!)
+        val processing = mentorServiceImpl.mentorPromotionProcess(
+            workerId = worker.workerId!!,
+            authUserInfo = authUserInfoCopyWorker
+        )
 
         // Then :: DB 에서 조회한 값과 == process 가 반환한 값
         val verificationCode = mentorVerificationRepository.findByIdOrNull(id = worker.workerId!!)
