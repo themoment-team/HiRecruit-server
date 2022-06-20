@@ -65,6 +65,32 @@ internal class MentorServiceImplTest{
     }
 
     @Test @Disabled
+    fun `등업_시킬_worker와_login된_주체는_같아야_한다_다르면_실패한다`(
+        @Autowired workerRepository: WorkerRepository,
+        @Autowired mentorServiceImpl: MentorService,
+    ){
+        // Given :: process 를 진행할 worker 찾기
+        val worker = workerRepository.findByUser_Email("hirecruit@gsm.hs.kr") ?: throw Exception("email에 해당하는 worker 없음")
+
+        // Given :: 로그인
+        val authUserInfoCopyWorker = AuthUserInfo(
+            123L,
+            worker.user.name,
+            worker.user.email,
+            worker.user.profileImgUri,
+            worker.user.role
+        )
+
+        assertThrows<Exception> {
+            // When :: process 진행하기
+            mentorServiceImpl.mentorPromotionProcess(
+                workerId = worker.workerId!!,
+                authUserInfo = authUserInfoCopyWorker
+            )
+        }
+    }
+
+    @Test @Disabled
     @DisplayName("worker가 입력한 인증번호를 원본과 대조하여 역할을 mentor로 업데이트 한다.")
     fun updateWorkerToMentorIfAllStepsPassed(
         @Autowired workerRepository: WorkerRepository,
