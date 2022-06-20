@@ -38,15 +38,26 @@ class MentorController(
             )
     }
 
+    /**
+     * 인증 체계에 대한 검증을 요청하는 controller
+     *
+     * @param mentorVerifyVerificationMethodRequestDto mentor 로 등업하기 위해 검증 필요한 data들
+     */
     @PatchMapping("/verify")
     fun verifyVerificationMethod(
-        @RequestBody mentorVerifyVerificationMethodRequestDto: MentorDto.MentorVerifyVerificationMethodRequestDto,
-        @CurrentAuthUserInfo authUserInfo: AuthUserInfo
-    ){
-        mentorServiceImpl.grantMentorRole(
+        @RequestBody mentorVerifyVerificationMethodRequestDto: MentorDto.MentorVerifyVerificationMethodRequestDto
+    ): ResponseEntity<Map<String, String>> {
+
+        // 적절한 검증을 통해 mentor로 등업
+        val mentorId = mentorServiceImpl.grantMentorRole(
             mentorVerifyVerificationMethodRequestDto.workerId,
             mentorVerifyVerificationMethodRequestDto.verificationCode,
-            authUserInfo
         )
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(
+                mapOf("msg" to "workerId: $mentorId 에게 성공적으로 mentor 권한을 부여 함.")
+            )
     }
 }
