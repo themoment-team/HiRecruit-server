@@ -8,11 +8,16 @@ import site.hirecruit.hr.domain.mailer.verifyEmail.service.VerificationEmailSend
 import site.hirecruit.hr.domain.mentor.verify.entity.MentorEmailVerificationCodeEntity
 import site.hirecruit.hr.domain.mentor.verify.repository.MentorEmailVerificationCodeRepository
 import site.hirecruit.hr.global.util.randomNumberGenerator
-import java.util.*
 
 
 private val log = KotlinLogging.logger {}
 
+/**
+ * HR 멘토 인증에 대한 서비스
+ *
+ * @author 전지환
+ * @since 1.2.0
+ */
 @Service
 class MentorVerificationServiceImpl(
     private val verificationEmailSenderService: VerificationEmailSenderService,

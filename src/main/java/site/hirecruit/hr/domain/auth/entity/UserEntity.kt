@@ -23,11 +23,15 @@ class UserEntity(
     val profileImgUri: String,
 
     @Column(name = "role", nullable = false) @Enumerated(EnumType.STRING)
-    val role: Role
+    var role: Role
 ) {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val userId: Long? = null
+
+    fun updateRole(role: Role){
+        this.role = role
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
