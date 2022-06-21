@@ -22,7 +22,7 @@ class MentorController(
      * @param authUserInfo AOP, 현재 로그인 된 사용자
      * @return ResponseEntity
      */
-    @PostMapping("/process/{workerId}")
+    @PostMapping("/promotion/process/{workerId}")
     fun executeMentorPromotion(
         @PathVariable
         workerId: Long,
@@ -46,7 +46,7 @@ class MentorController(
      *
      * @param mentorVerifyVerificationMethodRequestDto mentor 로 등업하기 위해 검증 필요한 data들
      */
-    @PatchMapping("/verify")
+    @PatchMapping("/promotion/process/verify")
     fun verifyVerificationMethod(
         @RequestBody mentorVerifyVerificationMethodRequestDto: MentorDto.MentorVerifyVerificationMethodRequestDto
     ): ResponseEntity<Map<String, String>> {
