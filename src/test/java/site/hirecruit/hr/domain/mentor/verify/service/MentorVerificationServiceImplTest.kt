@@ -57,7 +57,7 @@ internal class MentorVerificationServiceImplTest{
         val expectedVerificationCode = randomNumberGenerator(6)
         val sendVerificationCode = mentorVerificationService.sendVerificationCode(worker.workerId!!, worker.user.email, worker.user.name)
 
-        assertThrows<Exception> {
+        assertThrows<IllegalArgumentException> {
             if (sendVerificationCode != expectedVerificationCode) {
                 mentorVerificationService.verifyVerificationCode(worker.workerId!!, expectedVerificationCode)
             }

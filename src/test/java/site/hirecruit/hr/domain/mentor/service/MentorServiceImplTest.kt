@@ -81,7 +81,7 @@ internal class MentorServiceImplTest{
             worker.user.role
         )
 
-        assertThrows<Exception> {
+        assertThrows<IllegalArgumentException> {
             // When :: process 진행하기
             mentorServiceImpl.mentorPromotionProcess(
                 workerId = worker.workerId!!,

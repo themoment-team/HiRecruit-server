@@ -30,7 +30,7 @@ class MentorServiceImpl(
         // 현재 worker가 맞는지 verify
         val workerEntity = findWorkerEntityByWorkerIdOrElseThrow(workerId)
         if (workerEntity.user.githubId != authUserInfo.githubId)
-            throw Exception("mentorPromotion을 진행할 workerId: $workerId 에 대한 권한이 없음")
+            throw IllegalArgumentException("mentorPromotion을 진행할 workerId: $workerId 에 대한 권한이 없음")
 
         // worker 인증체계에 verificationCode 전송
         val sentVerificationCode = mentorVerificationServiceImpl.sendVerificationCode(
@@ -71,6 +71,6 @@ class MentorServiceImpl(
      */
     private fun findWorkerEntityByWorkerIdOrElseThrow(workerId: Long): WorkerEntity {
         return (workerRepository.findByIdOrNull(workerId)
-            ?: throw Exception("workerId: $workerId 에 해당하는 worker를 찾을 수 없음"))
+            ?: throw IllegalArgumentException("workerId: $workerId 에 해당하는 worker를 찾을 수 없음"))
     }
 }

@@ -37,7 +37,7 @@ class MentorController(
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(
-                mapOf("msg" to "workerId: $workerId 에게 성공적으로 인증번호를 보냈습니다.")
+                mapOf("message" to "workerId: $workerId 에게 성공적으로 인증번호를 보냈습니다.")
             )
     }
 
@@ -60,7 +60,7 @@ class MentorController(
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(
-                mapOf("msg" to "workerId: $mentorId 에게 성공적으로 mentor 권한을 부여 함.")
+                mapOf("message" to "workerId: $mentorId 에게 성공적으로 mentor 권한을 부여 함.")
             )
     }
 }
