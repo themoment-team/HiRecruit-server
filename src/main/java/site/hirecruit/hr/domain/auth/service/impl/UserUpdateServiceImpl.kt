@@ -21,6 +21,8 @@ class UserUpdateServiceImpl(
                 UserUpdateDto.Column.NAME       -> userEntity.name = updateDto.name!!
             }
         }
+
+        userRepository.save(userEntity)
     }
 
 
