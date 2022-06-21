@@ -14,10 +14,10 @@ class UserEntity(
     val githubId: Long,
 
     @Column(name = "email", nullable = false)
-    val email: String,
+    var email: String,
 
     @Column(name = "name", nullable = false)
-    val name: String,
+    var name: String,
 
     @Column(name = "profile_uri", nullable = false)
     val profileImgUri: String,
