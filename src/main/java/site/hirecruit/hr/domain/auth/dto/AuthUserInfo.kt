@@ -19,6 +19,7 @@ import site.hirecruit.hr.domain.auth.entity.Role
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 open class AuthUserInfo @QueryProjection constructor(
     val githubId: Long,
+    val githubLoginId: String,
     val name: String,
     val email: String?,
     val profileImgUri: String,
