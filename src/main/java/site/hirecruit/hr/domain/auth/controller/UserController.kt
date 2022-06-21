@@ -12,6 +12,7 @@ import site.hirecruit.hr.domain.auth.dto.UserUpdateDto
 import site.hirecruit.hr.domain.auth.service.UserUpdateService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import springfox.documentation.annotations.ApiIgnore
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -25,7 +26,7 @@ class UserController(
         @CurrentAuthUserInfo
         authUserInfo: AuthUserInfo,
 
-        @RequestBody
+        @RequestBody @Valid
         updateDto: UserUpdateDto
     ): ResponseEntity<Unit>{
         userUpdateService.update(updateDto, authUserInfo)
