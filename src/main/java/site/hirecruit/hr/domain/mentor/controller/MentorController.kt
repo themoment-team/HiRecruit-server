@@ -7,6 +7,7 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.mentor.dto.MentorDto
 import site.hirecruit.hr.domain.mentor.service.MentorService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
+import springfox.documentation.annotations.ApiIgnore
 
 @RestController
 @RequestMapping("/api/v1/mentor")
@@ -23,8 +24,10 @@ class MentorController(
      */
     @PostMapping("/process/{workerId}")
     fun executeMentorPromotion(
-        @PathVariable workerId: Long,
-        @CurrentAuthUserInfo authUserInfo: AuthUserInfo
+        @PathVariable
+        workerId: Long,
+        @CurrentAuthUserInfo @ApiIgnore
+        authUserInfo: AuthUserInfo,
     ): ResponseEntity<Map<String, String>> {
 
         // service 실행
