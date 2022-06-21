@@ -31,7 +31,7 @@ data class OAuthAttributes private constructor(
          */
         fun ofUserRollbackData(rollbackAuthUserInfo: AuthUserInfo) =
             OAuthAttributes(
-                attributes = mapOf("login_id" to rollbackAuthUserInfo.githubLoginId),
+                attributes = mapOf("login" to rollbackAuthUserInfo.githubLoginId),
                 userNameAttributeName = "id",
                 id = rollbackAuthUserInfo.githubId,
                 email = rollbackAuthUserInfo.email,
