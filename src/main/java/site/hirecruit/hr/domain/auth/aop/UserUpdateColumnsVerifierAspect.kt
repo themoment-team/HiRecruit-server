@@ -40,12 +40,12 @@ class UserUpdateColumnsVerifierAspect {
     }
 
     private fun verifyEmailColumn(email: String?){
-        if(email == null) throw IllegalArgumentException("email : must not be null.")
-        if(email.isBlank()) throw IllegalArgumentException("email : must not be blank.")
+        if(email == null) throw IllegalArgumentException("'email' : `must not be null.`")
+        if(email.isBlank()) throw IllegalArgumentException("'email' : 'must not be blank.'")
     }
 
     private fun verifyNameColumn(name: String?){
-        if(name == null) throw IllegalArgumentException("name : must not be null.")
-        if(name.isBlank()) throw IllegalArgumentException("name : must not be blank.")
+        if(name == null) throw IllegalArgumentException("'name' : 'must not be null.'")
+        if(name.isBlank()) throw IllegalArgumentException("'name' : 'must not be blank.'")
     }
 }
