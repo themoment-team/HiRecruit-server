@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
@@ -58,6 +59,7 @@ class WorkerRegistrationServiceImpl(
             giveLink = savedWorkerEntity.giveLink,
             devYear = savedWorkerEntity.devYear,
             position = savedWorkerEntity.position,
+            userType = Role.WORKER,
             companyInfoDto = CompanyDto.Info(
                 companyId = companyEntity.companyId!!,
                 name = companyEntity.name,
