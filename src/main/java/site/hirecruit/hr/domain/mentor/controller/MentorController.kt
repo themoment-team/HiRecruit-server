@@ -53,9 +53,7 @@ class MentorController(
     fun verifyVerificationMethod(
         @CurrentAuthUserInfo @ApiIgnore
         authUserInfo: AuthUserInfo,
-
-        @RequestBody verificationCode : String,
-
+        @RequestParam verificationCode : String,
         response: HttpServletResponse
     ): ResponseEntity<Map<String, String>> {
 
