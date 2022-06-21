@@ -56,6 +56,9 @@ class SecurityConfig(
                 it.antMatchers(
                     "/api/v1/auth/registration"
                 ).hasRole(Role.GUEST.name)
+                it.antMatchers(
+                    HttpMethod.PATCH, "/api/v1/user"
+                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name, Role.CLIENT.name)
                 it.antMatchers(HttpMethod.POST, "/api/v1/company")
                     .authenticated()
                 it.anyRequest().permitAll()
