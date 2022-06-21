@@ -20,7 +20,7 @@ class UserController(
     private val userUpdateService: UserUpdateService
 ) {
 
-    @PatchMapping
+    @PatchMapping("/me")
     fun updateUser(
         @ApiIgnore
         @CurrentAuthUserInfo
