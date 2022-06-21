@@ -13,7 +13,7 @@ class UserUpdateServiceImpl(
 
     override fun update(updateDto: UserUpdateDto, authUserInfo: AuthUserInfo) {
         val userEntity = userRepository.findByGithubId(authUserInfo.githubId)
-            ?: throw IllegalArgumentException("")
+            ?: throw IllegalArgumentException("Cannot found user info")
 
         updateDto.updateColumns.forEach {
             when(it) {
