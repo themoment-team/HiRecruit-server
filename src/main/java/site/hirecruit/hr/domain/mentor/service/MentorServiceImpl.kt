@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.mentor.service
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.mentor.verify.service.MentorVerificationService
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
@@ -25,9 +26,11 @@ class MentorServiceImpl(
      * @param workerId mentor로 승격하고 싶은 workerId
      * @return workerId : verificationCode
      */
-    override fun mentorPromotionProcess(workerId: Long): Map<Long, String> {
+    override fun mentorPromotionProcess(workerId: Long, authUserInfo: AuthUserInfo): Map<Long, String> {
         // 현재 worker가 맞는지 verify
         val workerEntity = findWorkerEntityByWorkerIdOrElseThrow(workerId)
+        if (workerEntity.user.githubId != authUserInfo.githubId)
+            throw IllegalArgumentException("mentorPromotion을 진행할 workerId: $workerId 에 대한 권한이 없음")
 
         // worker 인증체계에 verificationCode 전송
         val sentVerificationCode = mentorVerificationServiceImpl.sendVerificationCode(
@@ -68,6 +71,6 @@ class MentorServiceImpl(
      */
     private fun findWorkerEntityByWorkerIdOrElseThrow(workerId: Long): WorkerEntity {
         return (workerRepository.findByIdOrNull(workerId)
-            ?: throw Exception("workerId: $workerId 에 해당하는 worker를 찾을 수 없음"))
+            ?: throw IllegalArgumentException("workerId: $workerId 에 해당하는 worker를 찾을 수 없음"))
     }
 }

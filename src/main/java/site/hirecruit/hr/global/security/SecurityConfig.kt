@@ -56,6 +56,10 @@ class SecurityConfig(
                 it.antMatchers(
                     "/api/v1/auth/registration"
                 ).hasRole(Role.GUEST.name)
+                it.antMatchers(
+                    "/api/v1/mentor/promotion/process/{workerId}",
+                    "/api/v1/mentor/promotion/process/verify"
+                ).hasRole(Role.WORKER.name)
                 it.antMatchers(HttpMethod.POST, "/api/v1/company")
                     .authenticated()
                 it.anyRequest().permitAll()

@@ -62,7 +62,7 @@ class MentorVerificationServiceImpl(
         // verify
         val actualVerificationCode = mentorEmailVerificationCodeEntity.verificationCode
         if (actualVerificationCode != expectedVerificationCode){
-            throw Exception("사용자가 입력한 verificationCode: $expectedVerificationCode 는 실제 인증번호와 일치하지 않음")
+            throw IllegalArgumentException("사용자가 입력한 verificationCode: $expectedVerificationCode 는 실제 인증번호와 일치하지 않음")
         }
     }
 
@@ -75,6 +75,6 @@ class MentorVerificationServiceImpl(
     private fun getVerificationCodeByWorkerId(workerId: Long): MentorEmailVerificationCodeEntity {
 
         return mentorEmailVerificationCodeRepository.findByIdOrNull(workerId)
-            ?: throw Exception("workerId: $workerId 로 인증번호를 발급한 기록이 없음.")
+            ?: throw IllegalArgumentException("workerId: $workerId 로 인증번호를 발급한 기록이 없음.")
     }
 }
