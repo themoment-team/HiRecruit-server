@@ -23,9 +23,9 @@ class SetDummyData(
     private val companyRepository: CompanyRepository
 ) {
 
-    private fun createUser(email: String?, name: String, profileImgUri: String) = userRepository.save(
+    private fun createUser(githubId: Long?, email: String?, name: String, profileImgUri: String) = userRepository.save(
         UserEntity(
-            githubId = Random.nextLong(0, Long.MAX_VALUE),
+            githubId = githubId ?: Random.nextLong(0, Long.MAX_VALUE),
             email = email ?: "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
             name = name,
             profileImgUri = profileImgUri,
@@ -60,13 +60,14 @@ class SetDummyData(
         val companyDRX = createCompany("DRX", "서울시 마포구 독막로7길 59", "https://drx-media.s3.ap-northeast-2.amazonaws.com/image/icon/icon-no-padding.png")
         val companyTM = createCompany("themoment-team", "광주광역시 광산구 상무대로 312", "https://images.velog.io/images/im_chang_1217/post/87073cce-cbea-4079-af78-cca389b17f7a/GSM.png")
 
-        val si_wony = createUser(null, "정시원", "https://avatars.githubusercontent.com/u/62932968?v=4")
-        val sunwoo0706 = createUser(null, "이선우", "https://avatars.githubusercontent.com/u/60869316?v=4")
-        val _4yj = createUser(null, "나예준", "https://avatars.githubusercontent.com/u/67637706?v=4")
-        val jyeonjyan = createUser(null, "전지환", "https://avatars.githubusercontent.com/u/67095821?v=4")
-        val songsihyeon = createUser(null, "송시현", "https://avatars.githubusercontent.com/u/75899332?v=4")
+        val si_wony = createUser(null, null, "정시원", "https://avatars.githubusercontent.com/u/62932968?v=4")
+        val sunwoo0706 = createUser(null, null, "이선우", "https://avatars.githubusercontent.com/u/60869316?v=4")
+        val _4yj = createUser(null, null, "나예준", "https://avatars.githubusercontent.com/u/67637706?v=4")
+        // 전지환은 실제 githubId를 갖는다.
+        val jyeonjyan = createUser(67095821L, "s20062@gsm.hs.kr", "전지환", "https://avatars.githubusercontent.com/u/67095821?v=4")
+        val songsihyeon = createUser(null, null, "송시현", "https://avatars.githubusercontent.com/u/75899332?v=4")
         // 임창규는 SES sandbox 모드에서 발송할 수 있는 있는 허용된 이메일을 갖는다.
-        val imchanggyu = createUser("hirecruit@gsm.hs.kr", "임창규", "https://avatars.githubusercontent.com/u/66630940?v=4")
+        val imchanggyu = createUser(null, "hirecruit@gsm.hs.kr", "임창규", "https://avatars.githubusercontent.com/u/66630940?v=4")
 
         val worker_si_wony = createWorker("안녕하세유~~~~ 저는 영광 굴비 테크노 킹이에유~~~~~", "테크노킹", si_wony, companyOzu)
         val worker_sunwoo0706 = createWorker("홀리몰리과카몰리투모로우나라의마일스", "서울야스킹", sunwoo0706, companyOzu)
