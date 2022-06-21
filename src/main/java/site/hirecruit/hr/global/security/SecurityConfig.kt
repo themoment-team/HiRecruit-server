@@ -57,6 +57,9 @@ class SecurityConfig(
                     "/api/v1/auth/registration"
                 ).hasRole(Role.GUEST.name)
                 it.antMatchers(
+                    HttpMethod.PATCH, "/api/v1/user/me"
+                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name, Role.CLIENT.name)
+                it.antMatchers(
                     "/api/v1/mentor/promotion/process/{workerId}",
                     "/api/v1/mentor/promotion/process/verify"
                 ).hasRole(Role.WORKER.name)
