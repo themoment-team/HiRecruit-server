@@ -17,6 +17,8 @@ import site.hirecruit.hr.global.util.randomNumberGenerator
 @Transactional
 internal class MentorVerificationServiceImplTest{
 
+    private val GITHUB_ID = 67095821L
+
     @BeforeEach
     internal fun setUp(
         @Autowired userRepository: UserRepository,
@@ -27,8 +29,8 @@ internal class MentorVerificationServiceImplTest{
         site.hirecruit.hr.global.dummy.SetDummyData(userRepository, workerRepository, companyRepository)
 
         // 데미데이터가 잘 생성되었는지 검증
-        val expectedImchang = workerRepository.findByUser_Email("hirecruit@gsm.hs.kr")
-        assertThat(expectedImchang?.user?.name).isEqualTo("임창규")
+        val expectedImchang = workerRepository.findByUser_GithubId(GITHUB_ID)
+        assertThat(expectedImchang?.user?.name).isEqualTo("전지환")
     }
 
     @Test
@@ -70,7 +72,7 @@ internal class MentorVerificationServiceImplTest{
 
 
     private fun `SES에서 승인된 이메일을 갖고 있는 worker 가져오기 `(workerRepository: WorkerRepository): WorkerEntity {
-        return workerRepository.findByUser_Email("hirecruit@gsm.hs.kr")
+        return workerRepository.findByUser_GithubId(GITHUB_ID)
             ?: throw Exception("email 보낼 대상이 없기 때문에 비즈니스 로직 수행 불가")
     }
 }
