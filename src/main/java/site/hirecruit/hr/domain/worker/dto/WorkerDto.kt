@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.querydsl.core.annotations.QueryProjection
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.constraints.URL
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.company.validator.annoation.CompanyIsNotExistByCompanyId
 import javax.validation.constraints.Max
@@ -57,6 +58,8 @@ class WorkerDto {
         val devYear: Int?,
 
         val position: String?,
+
+        val userType: Role,
 
         @field:JsonProperty("company")
         val companyInfoDto: CompanyDto.Info
