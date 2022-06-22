@@ -132,6 +132,8 @@ class SecurityConfig(
             http
                 .csrf().disable()
                 .headers().frameOptions().disable()
+                .and()
+                .cors().disable()
             http
                 .authorizeRequests()
                 .antMatchers(
