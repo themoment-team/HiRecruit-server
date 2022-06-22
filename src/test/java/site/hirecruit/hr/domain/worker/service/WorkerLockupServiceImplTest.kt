@@ -6,6 +6,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
@@ -34,6 +35,7 @@ internal class WorkerLockupServiceImplTest {
             giveLink = workerEntity.giveLink,
             devYear = workerEntity.devYear,
             position = workerEntity.position,
+            userType = Role.WORKER,
             companyInfoDto = CompanyDto.Info(
                 companyId = workerEntity.company.companyId!!,
                 name = workerEntity.company.name,
