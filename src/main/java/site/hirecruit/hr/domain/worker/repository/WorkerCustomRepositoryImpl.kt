@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.worker.repository
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.jpa.impl.JPAQueryFactory
 import site.hirecruit.hr.domain.auth.entity.QUserEntity.userEntity
+import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.domain.company.dto.QCompanyDto_Info
 import site.hirecruit.hr.domain.company.entity.QCompanyEntity.companyEntity
 import site.hirecruit.hr.domain.worker.dto.QWorkerDto_Info
@@ -30,6 +31,7 @@ class WorkerCustomRepositoryImpl(
                 workerEntity.giveLink,
                 workerEntity.devYear,
                 workerEntity.position,
+                workerEntity.user.role,
                 QCompanyDto_Info(
                         workerEntity.company.companyId,
                         workerEntity.company.name,
@@ -56,6 +58,7 @@ class WorkerCustomRepositoryImpl(
                     workerEntity.giveLink,
                     workerEntity.devYear,
                     workerEntity.position,
+                    workerEntity.user.role,
                     QCompanyDto_Info(
                         Expressions.constantAs(companyId, workerEntity.company.companyId),
                         workerEntity.company.name,
@@ -83,6 +86,7 @@ class WorkerCustomRepositoryImpl(
                     workerEntity.giveLink,
                     workerEntity.devYear,
                     workerEntity.position,
+                    workerEntity.user.role,
                     QCompanyDto_Info(
                         workerEntity.company.companyId,
                         workerEntity.company.name,
