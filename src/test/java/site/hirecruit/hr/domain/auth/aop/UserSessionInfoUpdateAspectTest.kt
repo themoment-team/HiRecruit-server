@@ -40,6 +40,7 @@ internal class UserSessionInfoUpdateAspectTest{
         val oAuth2Attributes = makeOAuth2Attributes()
         val proxyReturnValue = AuthUserInfo(
             githubId = oAuth2Attributes.id,
+            githubLoginId = RandomString.make(5),
             email = null,
             name = oAuth2Attributes.name!!,
             profileImgUri = oAuth2Attributes.profileImgUri,
@@ -67,6 +68,7 @@ internal class UserSessionInfoUpdateAspectTest{
 
         val authUserInfo = AuthUserInfo(
             githubId = Random.nextLong(),
+            githubLoginId = RandomString.make(5),
             name = RandomString.make(5),
             email = RandomString.make(5),
             profileImgUri = RandomString.make(10),
@@ -74,6 +76,7 @@ internal class UserSessionInfoUpdateAspectTest{
         )
         val proxyReturnValue = AuthUserInfo(
             githubId = authUserInfo.githubId,
+            githubLoginId = authUserInfo.githubLoginId,
             email = authUserInfo.email,
             name = authUserInfo.name,
             profileImgUri = authUserInfo.profileImgUri,

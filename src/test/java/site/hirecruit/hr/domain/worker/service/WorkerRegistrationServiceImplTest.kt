@@ -33,6 +33,7 @@ internal class WorkerRegistrationServiceImplTest{
         val registrationDto = makeRegistrationDto()
         val userEntity = UserEntity(
             githubId = authUserInfo.githubId,
+            githubLoginId = authUserInfo.githubLoginId,
             email = authUserInfo.email!!,
             name = authUserInfo.name,
             profileImgUri = authUserInfo.profileImgUri,
@@ -110,6 +111,7 @@ internal class WorkerRegistrationServiceImplTest{
 
     private fun makeAuthUserInfo() = AuthUserInfo(
         githubId = Random.nextLong(),
+        githubLoginId = RandomString.make(5),
         name = RandomString.make(5),
         email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
         profileImgUri = RandomString.make(10),
