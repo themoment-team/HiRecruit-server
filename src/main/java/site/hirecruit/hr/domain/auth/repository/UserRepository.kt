@@ -9,4 +9,6 @@ interface UserRepository : JpaRepository<UserEntity, Long>, UserCustomRepository
     fun findByGithubId(githubId: Long): UserEntity?
 
     fun deleteByGithubId(githubId: Long)
+
+    fun findByProfileImgUri(profileImgUri: String) : UserEntity?
 }
