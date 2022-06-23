@@ -3,9 +3,16 @@ package site.hirecruit.hr.domain.auth.entity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
+/**
+ * username
+ * @see UserEntity.profileImgUri
+ *
+ * password
+ * @see UserEntity.githubId
+ */
 class CustomUserDetails(
-    private val githubId : String,
-    private val password : String,
+    private val profileImgUri : String,
+    private val githubId : Long,
     private val authorities : MutableCollection<out GrantedAuthority>,
 ) : UserDetails {
 
@@ -13,12 +20,12 @@ class CustomUserDetails(
         return this.authorities
     }
 
-    override fun getPassword(): String {
-        return this.password
+    override fun getUsername(): String {
+        return this.profileImgUri
     }
 
-    override fun getUsername(): String {
-        return this.githubId
+    override fun getPassword(): String {
+        return this.githubId.toString()
     }
 
     override fun isAccountNonLocked(): Boolean {
