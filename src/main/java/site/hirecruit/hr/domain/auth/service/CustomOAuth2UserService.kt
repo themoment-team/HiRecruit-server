@@ -8,8 +8,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
-import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import java.util.*
 
 private val log = KotlinLogging.logger {}

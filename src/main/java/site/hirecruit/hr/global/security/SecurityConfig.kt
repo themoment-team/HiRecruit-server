@@ -4,16 +4,15 @@ import mu.KotlinLogging
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
-import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.global.data.ServerProfile
@@ -34,11 +33,21 @@ class SecurityConfig(
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
     private val logoutSuccessHandler: LogoutSuccessHandler,
     private val authenticationFailureHandler: AuthenticationFailureHandler,
-    private val authenticationEntryPoint: AuthenticationEntryPoint
+    private val authenticationEntryPoint: AuthenticationEntryPoint,
+    private val userDetailsServiceImpl: UserDetailsService
 ) {
 
     private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
     private val oauth2LoginRedirectionEndpointBaseUri = "/api/v1/auth/oauth2/redirection-endpoint"
+
+    private fun rememberMeConfig(http: HttpSecurity) = http
+        .rememberMe()
+        .key("hr")
+        .rememberMeParameter("hr-remember-me")
+        .rememberMeCookieName("hr-remember-me")
+        .tokenValiditySeconds(14*86400) // 14일
+        .userDetailsService(userDetailsServiceImpl)
+        .alwaysRemember(true) // 사용자의 요구와 관계없이 항상 remember
 
     private fun logoutConfig(http: HttpSecurity) = http
             .logout()
@@ -149,6 +158,7 @@ class SecurityConfig(
             logoutConfig(http)
             accessDenied(http)
             oauth2Login(http)
+            rememberMeConfig(http)
         }
     }
 }
