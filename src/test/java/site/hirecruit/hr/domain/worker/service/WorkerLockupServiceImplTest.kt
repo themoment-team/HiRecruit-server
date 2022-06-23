@@ -28,6 +28,7 @@ internal class WorkerLockupServiceImplTest {
         )
         val workerInfoDto = WorkerDto.Info(
             workerId = workerEntity.workerId!!,
+            githubLoginId = workerEntity.user.githubLoginId,
             name = workerEntity.user.name,
             email = workerEntity.user.email,
             profileImgUri = workerEntity.user.profileImgUri,

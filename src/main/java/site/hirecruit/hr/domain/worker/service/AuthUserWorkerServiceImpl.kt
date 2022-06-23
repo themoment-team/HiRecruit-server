@@ -30,6 +30,7 @@ class AuthUserWorkerServiceImpl(
             workerId = workerEntity.workerId!!,
             name = authUserInfo.name,
             email = authUserInfo.email!!,
+            githubLoginId = authUserInfo.githubLoginId,
             profileImgUri = authUserInfo.profileImgUri,
             introduction = workerEntity.introduction,
             giveLink = workerEntity.giveLink,

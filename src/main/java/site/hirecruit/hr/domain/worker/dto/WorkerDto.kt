@@ -45,6 +45,8 @@ class WorkerDto {
     data class Info @QueryProjection constructor (
         val workerId: Long,
 
+        val githubLoginId: String,
+
         val name: String,
 
         val email: String,

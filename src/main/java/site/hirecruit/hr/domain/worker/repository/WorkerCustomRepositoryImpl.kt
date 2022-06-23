@@ -24,6 +24,7 @@ class WorkerCustomRepositoryImpl(
         return queryFactory
             .select(QWorkerDto_Info(
                 Expressions.constantAs(workerId, workerEntity.workerId),
+                workerEntity.user.githubLoginId,
                 workerEntity.user.name,
                 workerEntity.user.email,
                 workerEntity.user.profileImgUri,
@@ -51,6 +52,7 @@ class WorkerCustomRepositoryImpl(
         return queryFactory
             .select(QWorkerDto_Info(
                     workerEntity.workerId,
+                    workerEntity.user.githubLoginId,
                     workerEntity.user.name,
                     workerEntity.user.email,
                     workerEntity.user.profileImgUri,
@@ -79,6 +81,7 @@ class WorkerCustomRepositoryImpl(
         return queryFactory
             .select(QWorkerDto_Info(
                     workerEntity.workerId,
+                    workerEntity.user.githubLoginId,
                     workerEntity.user.name,
                     workerEntity.user.email,
                     workerEntity.user.profileImgUri,
