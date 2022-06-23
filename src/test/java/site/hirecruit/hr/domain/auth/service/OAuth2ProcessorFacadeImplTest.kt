@@ -20,6 +20,7 @@ internal class OAuth2ProcessorFacadeImplTest{
     private fun makeOAuth2Attribute() : OAuthAttributes{
         val attributes = mapOf<String, Any>(
             "id" to Random.nextInt(8),
+            "login" to RandomString.make(5),
             "name" to RandomString.make(8),
             "email" to "${RandomString.make(10)}${RandomString.make(6)}.${RandomString.make(3)}}",
             "avatar_url" to RandomString.make()
@@ -51,7 +52,7 @@ internal class OAuth2ProcessorFacadeImplTest{
         every { userRepository.existsByGithubId(oAuth2Attribute.id) } answers { false }
         every { tempUserRegistrationService.registration(oAuth2Attribute) } answers { Any() }
         every { userAuthService.authentication(oAuth2Attribute) } answers {
-            AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.name!!, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
+            AuthUserInfo(oAuth2Attribute.id, oAuth2Attribute.attributes["login"] as String, oAuth2Attribute.name!!, oAuth2Attribute.email!!, oAuth2Attribute.profileImgUri, Role.GUEST)
         }
 
         // when

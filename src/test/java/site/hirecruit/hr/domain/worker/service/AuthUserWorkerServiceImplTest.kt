@@ -4,6 +4,7 @@ import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
@@ -28,6 +29,7 @@ import kotlin.random.Random
 @Transactional
 @DataJpaTest
 @Import(DataJpaTestConfig::class)
+@Disabled
 class AuthUserWorkerServiceImplTest(
     @Autowired private val workerRepository: WorkerRepository,
     @Autowired private val companyRepository: CompanyRepository
@@ -41,10 +43,11 @@ class AuthUserWorkerServiceImplTest(
     fun createUser(@Autowired userRepository: UserRepository){
         val userEntity = UserEntity(
             githubId = Random.nextLong(),
+            githubLoginId = RandomString.make(5),
             email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
             name = RandomString.make(5),
             profileImgUri = RandomString.make(15),
-            Role.UNAUTHENTICATED_EMAIL
+            Role.WORKER
         )
         this.userEntity = userRepository.save(userEntity)
     }
@@ -128,7 +131,7 @@ class AuthUserWorkerServiceImplTest(
         })
     }
 
-    private fun createCompanyEntity(): CompanyEntity = companyRepository.save(
+    fun createCompanyEntity(): CompanyEntity = companyRepository.save(
         CompanyEntity(
             name = RandomString.make(10),
             location = RandomString.make(15),
@@ -136,8 +139,7 @@ class AuthUserWorkerServiceImplTest(
             companyImgUri = RandomString.make(10)
         )
     )
-
-    private fun createWorkerEntity(companyEntity: CompanyEntity) = workerRepository.save(
+    fun createWorkerEntity(companyEntity: CompanyEntity) = workerRepository.save(
         WorkerEntity(
             introduction = RandomString.make(15),
             giveLink = RandomString.make(15),
@@ -149,6 +151,7 @@ class AuthUserWorkerServiceImplTest(
 
     private fun createAuthUserInfoByUserEntity() = AuthUserInfo(
         githubId = this.userEntity.githubId,
+        githubLoginId = this.userEntity.githubLoginId,
         name = this.userEntity.name,
         email = this.userEntity.email,
         profileImgUri = this.userEntity.profileImgUri,

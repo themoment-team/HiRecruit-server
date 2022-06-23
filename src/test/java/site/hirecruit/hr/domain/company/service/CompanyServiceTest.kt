@@ -2,6 +2,7 @@ package site.hirecruit.hr.domain.company.service
 
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,6 +19,7 @@ import site.hirecruit.hr.test_config.DataJpaTestConfig
 @LocalTest
 @DataJpaTest
 @Transactional
+@Disabled
 internal class CompanyServiceTest(
     @Autowired private val companyRepository: CompanyRepository
 ){

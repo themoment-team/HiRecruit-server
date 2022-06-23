@@ -49,6 +49,7 @@ internal class MentorServiceImplTest{
         // Given :: 로그인
         val authUserInfoCopyWorker = AuthUserInfo(
             worker.user.githubId,
+            worker.user.githubLoginId,
             worker.user.name,
             worker.user.email,
             worker.user.profileImgUri,

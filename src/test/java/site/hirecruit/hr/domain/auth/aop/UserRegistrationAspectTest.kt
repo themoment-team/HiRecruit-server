@@ -30,6 +30,7 @@ internal class UserRegistrationAspectTest{
         httpSession = MockHttpSession()
         tempUserInfo = AuthUserInfo(
             githubId = Random.nextLong(),
+            githubLoginId = RandomString.make(5),
             name = RandomString.make(5),
             email = null,
             profileImgUri = RandomString.make(15),
@@ -66,6 +67,7 @@ internal class UserRegistrationAspectTest{
         )
         val proxyReturnValue = AuthUserInfo(
             githubId = tempUserInfo.githubId,
+            githubLoginId = tempUserInfo.githubLoginId,
             name = userRegistrationDto.name!!,
             email = userRegistrationDto.email,
             profileImgUri = tempUserInfo.profileImgUri,

@@ -22,6 +22,7 @@ class UserCustomRepositoryImpl(
         return queryFactory
             .select(QAuthUserInfo(
                 Expressions.constantAs(githubId, userEntity.githubId),
+                userEntity.githubLoginId,
                 userEntity.name,
                 userEntity.email,
                 userEntity.profileImgUri,

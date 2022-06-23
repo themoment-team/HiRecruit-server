@@ -23,6 +23,7 @@ internal class UserRegistrationRollbackServiceImplTest{
     internal fun rollbackTest(){
         val beforeRollbackAuthUserInfo = AuthUserInfo(
             githubId = Random.nextLong(),
+            githubLoginId = RandomString.make(5),
             name = RandomString.make(5),
             email = RandomString.make(10),
             profileImgUri = RandomString.make(10),

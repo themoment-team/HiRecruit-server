@@ -93,6 +93,9 @@ dependencies {
 
     /** for prod **/
     implementation("me.paulschwarz:spring-dotenv:2.5.4")
+
+    implementation("org.springframework.boot:spring-boot-starter-batch")
+    testImplementation("org.springframework.batch:spring-batch-test")
 }
 
 /** Querydsl 이 만들어주는 Qclass 경로 지정 **/

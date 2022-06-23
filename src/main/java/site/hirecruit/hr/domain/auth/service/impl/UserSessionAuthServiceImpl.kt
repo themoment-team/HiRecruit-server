@@ -45,6 +45,7 @@ open class UserSessionAuthServiceImpl(
             ?: throw OAuth2AuthenticationException("임시 회원의 유효기간이 만료되었거나, 잘못된 회원 정보입니다.")
         return AuthUserInfo(
             githubId = tempUserEntity.githubId,
+            githubLoginId = tempUserEntity.githubLoginId,
             name = "임시유저",
             email = null,
             role = Role.GUEST,
