@@ -9,6 +9,7 @@ create table if not exists user
 (
     user_id     BIGINT       auto_increment
         PRIMARY KEY,
+    github_login_id VARCHAR(50), # alter table user add column github_login_id varchar(50);
     email       VARCHAR(50)  not null,
     github_id   BIGINT       not null,
     name        VARCHAR(255) not null,
