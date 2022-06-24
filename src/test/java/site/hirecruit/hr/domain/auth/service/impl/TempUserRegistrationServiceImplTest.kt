@@ -18,6 +18,7 @@ internal class TempUserRegistrationServiceImplTest(){
     private fun makeOAuth2Attribute() : OAuthAttributes{
         val attributes = mapOf<String, Any>(
             "id" to Random.nextInt(8),
+            "login" to RandomString.make(5),
             "name" to RandomString.make(8),
             "email" to "${RandomString.make(10)}${RandomString.make(6)}.${RandomString.make(3)}}",
             "avatar_url" to RandomString.make()
@@ -38,6 +39,7 @@ internal class TempUserRegistrationServiceImplTest(){
         val tempUserRepository: TempUserRepository = mockk()
         val tempUserEntity = TempUserEntity(
             githubId = oAuth2Attribute.id,
+            githubLoginId = oAuth2Attribute.attributes["login"] as String,
             profileImgUri = oAuth2Attribute.profileImgUri
         )
         every { tempUserRepository.existsById(oAuth2Attribute.id) } answers { false }

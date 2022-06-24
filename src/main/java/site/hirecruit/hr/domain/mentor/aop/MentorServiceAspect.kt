@@ -37,6 +37,7 @@ class MentorServiceAspect(
 
         val authUserInfoAfterMentor = AuthUserInfo(
             githubId = authUserInfoBeforeMentor.githubId,
+            githubLoginId = authUserInfoBeforeMentor.githubLoginId,
             name = authUserInfoBeforeMentor.name,
             email = authUserInfoBeforeMentor.email,
             profileImgUri = authUserInfoBeforeMentor.profileImgUri,

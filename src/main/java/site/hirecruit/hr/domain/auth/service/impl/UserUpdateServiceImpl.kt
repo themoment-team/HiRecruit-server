@@ -11,7 +11,7 @@ class UserUpdateServiceImpl(
     private val userRepository: UserRepository
 ): UserUpdateService {
 
-    override fun update(updateDto: UserUpdateDto, authUserInfo: AuthUserInfo) {
+    override fun update(updateDto: UserUpdateDto, authUserInfo: AuthUserInfo): AuthUserInfo {
         val userEntity = userRepository.findByGithubId(authUserInfo.githubId)
             ?: throw IllegalArgumentException("Cannot found user info")
 
@@ -22,7 +22,15 @@ class UserUpdateServiceImpl(
             }
         }
 
-        userRepository.save(userEntity)
+        val savedUserEntity = userRepository.save(userEntity)
+        return AuthUserInfo(
+            githubId = savedUserEntity.githubId,
+            githubLoginId = savedUserEntity.githubLoginId,
+            name = savedUserEntity.name,
+            email = savedUserEntity.email,
+            profileImgUri = savedUserEntity.profileImgUri,
+            role = savedUserEntity.role
+        )
     }
 
 

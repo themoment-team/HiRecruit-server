@@ -13,6 +13,9 @@ class UserEntity(
     @Column(name = "github_id", nullable = false)
     val githubId: Long,
 
+    @Column(name = "github_login_id")
+    var githubLoginId: String,
+
     @Column(name = "email", nullable = false)
     var email: String,
 

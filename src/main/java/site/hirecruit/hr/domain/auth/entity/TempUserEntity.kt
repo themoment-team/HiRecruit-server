@@ -16,6 +16,9 @@ class TempUserEntity(
     @Id @Column(name = "github_id")
     val githubId: Long,
 
+    @Column(name = "github_login_id")
+    var githubLoginId: String,
+
     @Column(name = "profile_uri")
     val profileImgUri: String,
 ) {

@@ -54,6 +54,7 @@ class WorkerRegistrationServiceImpl(
             name = authUserInfo.name,
             email = authUserInfo.email!!,
             profileImgUri = authUserInfo.profileImgUri,
+            githubLoginId = authUserInfo.githubLoginId,
             workerId = savedWorkerEntity.workerId!!,
             introduction = savedWorkerEntity.introduction,
             giveLink = savedWorkerEntity.giveLink,

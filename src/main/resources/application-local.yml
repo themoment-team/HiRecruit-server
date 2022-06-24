@@ -18,6 +18,10 @@ spring:
   config:
     import: classpath:oauth/github-oauth-local.yml
 
+  batch:
+    job:
+      enabled: false
+
   # oauth2 redirect-uri
   security:
     oauth2:

@@ -23,6 +23,7 @@ internal class UserSessionAuthServiceImplTest{
     private fun makeOAuth2Attributes() : OAuthAttributes {
         val attributes = mapOf<String, Any>(
             "id" to Random.nextInt(8),
+            "login" to RandomString.make(5),
             "name" to RandomString.make(8),
             "email" to "${RandomString.make(10)}${RandomString.make(6)}.${RandomString.make(3)}}",
             "avatar_url" to RandomString.make()
@@ -53,6 +54,7 @@ internal class UserSessionAuthServiceImplTest{
             every { tempUserRepository.findByIdOrNull(oAuth2Attributes.id) } answers {
                 TempUserEntity(
                     githubId = oAuth2Attributes.id,
+                    githubLoginId = oAuth2Attributes.attributes["login"] as String,
                     profileImgUri = oAuth2Attributes.profileImgUri
                 )
             }
@@ -97,6 +99,7 @@ internal class UserSessionAuthServiceImplTest{
             val userAuthServiceImpl = UserSessionAuthServiceImpl(userRepository, tempUserRepository, MockHttpSession())
             val authUserInfo = AuthUserInfo(
                 githubId = oAuth2Attributes.id,
+                githubLoginId = oAuth2Attributes.attributes["login"] as String,
                 name = oAuth2Attributes.name!!,
                 email = "${RandomString.make(8)}@${RandomString.make(5)}.${RandomString.make(3)}",
                 profileImgUri = oAuth2Attributes.profileImgUri,

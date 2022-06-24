@@ -36,14 +36,16 @@ class UserRegistrationServiceImpl(
     override fun registration(authUserInfo: AuthUserInfo, userRegistrationInfo: UserRegistrationDto): AuthUserInfo {
         val userEntity = UserEntity(
             githubId = authUserInfo.githubId,
+            githubLoginId = authUserInfo.githubLoginId,
             email = userRegistrationInfo.email,
             name = userRegistrationInfo.name,
             profileImgUri = authUserInfo.profileImgUri,
-            Role.WORKER
+            role = Role.WORKER
         )
         val savedUserEntity = userRepository.save(userEntity)
         val registrationAuthUserInfo = AuthUserInfo(
             githubId = savedUserEntity.githubId,
+            githubLoginId = savedUserEntity.githubLoginId,
             name = savedUserEntity.name,
             email = savedUserEntity.email,
             profileImgUri = savedUserEntity.profileImgUri,

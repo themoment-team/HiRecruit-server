@@ -20,6 +20,10 @@ spring:
   config:
     import: classpath:oauth/github-oauth-staging.yml
 
+  batch:
+    job:
+      enabled: false
+
   mvc:
     path match:
       matching-strategy: ant_path_matcher

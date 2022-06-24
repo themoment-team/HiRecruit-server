@@ -17,7 +17,7 @@ import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.global.event.UserRegistrationEvent
 import kotlin.random.Random
 
-internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
+internal class UserRegistrationServiceTest{
 
 
     private val publisher: ApplicationEventPublisher = mockk(relaxed = true)
@@ -39,6 +39,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         )
         val tempUserAuthUserInfo = AuthUserInfo( // 임시 유저에 대한 인증 객체
             githubId = Random.nextLong(),
+            githubLoginId = RandomString.make(5),
             name = RandomString.make(5),
             email = null,
             profileImgUri = RandomString.make(),
@@ -46,6 +47,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         )
         val userEntity = UserEntity(
             githubId = tempUserAuthUserInfo.githubId,
+            githubLoginId = tempUserAuthUserInfo.githubLoginId,
             name = userRegistrationDto.name!!,
             email = userRegistrationDto.email,
             profileImgUri = tempUserAuthUserInfo.profileImgUri,
@@ -53,6 +55,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         )
         val registrationAuthUserInfo = AuthUserInfo(
             githubId = userEntity.githubId,
+            githubLoginId = userEntity.githubLoginId,
             name = userEntity.name,
             email = userEntity.email,
             profileImgUri = userEntity.profileImgUri,
@@ -109,6 +112,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         )
         val tempUserAuthUserInfo = AuthUserInfo( // 임시 유저에 대한 인증 객체
             githubId = Random.nextLong(),
+            githubLoginId = RandomString.make(5),
             name = RandomString.make(5),
             email = null,
             profileImgUri = RandomString.make(),
@@ -116,6 +120,7 @@ internal class UserRegistrationServiceWithoutEmailAuthenticationTest{
         )
         val userEntity = UserEntity(
             githubId = tempUserAuthUserInfo.githubId,
+            githubLoginId = tempUserAuthUserInfo.githubLoginId,
             name = tempUserAuthUserInfo.name, // 임시 유저가 가지고 있는 name
             email = userRegistrationDto.email,
             profileImgUri = tempUserAuthUserInfo.profileImgUri,
