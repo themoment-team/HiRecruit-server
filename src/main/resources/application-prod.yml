@@ -61,6 +61,9 @@ spring:
   sql:
     init:
       mode: always # 항상 data.sql를 database에 날린다.
+      schema-locations:
+        - classpath:data.sql
+        - classpath:batch-application.sql
 
 ### Logging ###
 logging:
