@@ -5,7 +5,7 @@ import site.hirecruit.hr.domain.auth.dto.UserUpdateDto
 
 /**
  * User의 기본정보를 Update하는 Service
- * @author 정시ㅜ언
+ * @author 정시원
  * @since 1.2
  */
 interface UserUpdateService {
