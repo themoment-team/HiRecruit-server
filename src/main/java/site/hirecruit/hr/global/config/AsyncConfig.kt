@@ -16,7 +16,7 @@ class AsyncConfig : AsyncConfigurerSupport() {
         executor.corePoolSize = 5
         executor.maxPoolSize = 30
         executor.setQueueCapacity(50)
-        executor.setThreadNamePrefix("AWS-SERVICE-ASYNC-")
+        executor.setThreadNamePrefix("AWS-ASYNC-")
         executor.initialize()
 
         return executor
