@@ -22,14 +22,14 @@ class UserUpdateServiceImpl(
             }
         }
 
-        val savedUserEntity = userRepository.save(userEntity)
+        val updatedUserEntity = userRepository.save(userEntity)
         return AuthUserInfo(
-            githubId = savedUserEntity.githubId,
-            githubLoginId = savedUserEntity.githubLoginId,
-            name = savedUserEntity.name,
-            email = savedUserEntity.email,
-            profileImgUri = savedUserEntity.profileImgUri,
-            role = savedUserEntity.role
+            githubId = updatedUserEntity.githubId,
+            githubLoginId = updatedUserEntity.githubLoginId,
+            name = updatedUserEntity.name,
+            email = updatedUserEntity.email,
+            profileImgUri = updatedUserEntity.profileImgUri,
+            role = updatedUserEntity.role
         )
     }
 
