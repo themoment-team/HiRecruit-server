@@ -19,17 +19,10 @@ class UserUpdateServiceImpl(
         val userEntity = userRepository.findByGithubId(authUserInfoBeforeUpdate.githubId)
             ?: throw IllegalArgumentException("Cannot found user info")
 
-        updateDto.updateColumns.forEach {
-            when(it) {
-                UserUpdateDto.Column.EMAIL      -> userEntity.email = updateDto.email!!
-                UserUpdateDto.Column.NAME       -> userEntity.name = updateDto.name!!
-            }
-        }
-
-        val updatedUserEntity = userRepository.save(userEntity)
+        val updatedUserEntity = userEntity.update(updateDto)
 
         if(isMentorEmailChanged(authUserInfoBeforeUpdate, updatedUserEntity))
-            updatedUserEntity.role = Role.WORKER
+            updatedUserEntity.updateRole(Role.WORKER)
         return AuthUserInfo(
             githubId = updatedUserEntity.githubId,
             githubLoginId = updatedUserEntity.githubLoginId,
