@@ -67,24 +67,23 @@ class WorkerDto {
         val companyInfoDto: CompanyDto.Info
     )
 
+    @CompanyIsNotExistByCompanyId
     data class Update(
+        @field:JsonProperty("companyId") @get:JsonGetter("companyId")
+        @field:NotNull @field:Min(1) @field:CompanyIsNotExistByCompanyId
         val companyId: Long? = null,
 
+        @field:Length(min = 0, max = 100)
         val introduction: String? = null,
 
         @field:URL
         val giveLink: String? = null,
 
+        @field:Min(0) @field:Max(50)
         val devYear: Int? = null,
 
+        @field:NotEmpty
         val position: String? = null,
-
-        @NotEmpty
-        val updateColumns: List<Column> = emptyList()
     ){
-
-        enum class Column{
-            COMPANY_ID, INTRODUCTION, GIVE_LINK, DEV_YEAR, POSITION
-        }
     }
 }
