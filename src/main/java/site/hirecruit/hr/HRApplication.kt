@@ -13,7 +13,6 @@ private val log = KotlinLogging.logger {}
 
 @SpringBootApplication
 @EnableBatchProcessing
-@EnableAsync
 class HRApplication {
 
     @PostConstruct
