@@ -79,7 +79,9 @@ dependencies {
     // https://mvnrepository.com/artifact/ca.pjer/logback-awslogs-appender
     implementation("ca.pjer:logback-awslogs-appender:1.6.0")
 
-
+    /** for coroutines **/
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3")
 
     /** for test **/
     testImplementation("org.springframework.boot:spring-boot-starter-test")
