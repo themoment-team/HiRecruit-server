@@ -19,7 +19,7 @@ class VerificationEmailSenderService(private val hrSesServiceImpl: HrSesService)
      *
      * @see HrSesService.sendEmailWithEmailTemplate
      */
-    fun sendEmailVerificationSES(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto): List<String> {
-        return hrSesServiceImpl.sendEmailWithEmailTemplate(templateSesRequestDto)
+    fun sendEmailVerificationSES(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto) {
+        hrSesServiceImpl.sendEmailWithEmailTemplate(templateSesRequestDto)
     }
 }
