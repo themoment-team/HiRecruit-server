@@ -1,5 +1,8 @@
 package site.hirecruit.hr.domain.mentor.service
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -42,9 +45,11 @@ internal class MentorServiceImplTest{
         @Autowired workerRepository: WorkerRepository,
         @Autowired mentorServiceImpl: MentorService,
         @Autowired mentorVerificationRepository: MentorEmailVerificationCodeRepository
-    ){
+    ) = runTest{
         // Given :: process 를 진행할 worker 찾기
-        val worker = workerRepository.findByUser_GithubId(GITHUB_ID) ?: throw Exception("email에 해당하는 worker 없음")
+        val worker = withContext(Dispatchers.IO) {
+            workerRepository.findByUser_GithubId(GITHUB_ID)
+        } ?: throw Exception("email에 해당하는 worker 없음")
 
         // Given :: 로그인
         val authUserInfoCopyWorker = AuthUserInfo(
@@ -57,26 +62,26 @@ internal class MentorServiceImplTest{
         )
 
         // When :: process 진행하기
-        for(i in 1..10){
-            mentorServiceImpl.mentorPromotionProcess(
-                githubId = worker.user.githubId,
-            )
-        }
+        val processing = mentorServiceImpl.mentorPromotionProcess(
+            githubId = worker.user.githubId,
+        )
 
         // Then :: DB 에서 조회한 값과 == process 가 반환한 값
-//        val verificationCode = mentorVerificationRepository.findByIdOrNull(id = worker.workerId!!)
-//        assertThat(processing[worker.workerId]).isEqualTo(verificationCode?.verificationCode)
+        val verificationCode = mentorVerificationRepository.findByIdOrNull(id = worker.workerId!!)
+        assertThat(processing[worker.workerId]).isEqualTo(verificationCode?.verificationCode)
     }
 
     @Test @Disabled
     @DisplayName("worker가 입력한 인증번호를 원본과 대조하여 역할을 mentor로 업데이트 한다.")
-    fun updateWorkerToMentorIfAllStepsPassed(
+    suspend fun updateWorkerToMentorIfAllStepsPassed(
         @Autowired workerRepository: WorkerRepository,
         @Autowired mentorVerificationServiceImpl: MentorVerificationService,
         @Autowired mentorServiceImpl: MentorService
     ){
         // Given :: setup sandbox access worker
-        val worker = workerRepository.findByUser_GithubId(GITHUB_ID) ?: throw Exception("email에 해당하는 worker 없음")
+        val worker = withContext(Dispatchers.IO) {
+            workerRepository.findByUser_GithubId(GITHUB_ID)
+        } ?: throw Exception("email에 해당하는 worker 없음")
 
         // Given :: send VerificationCode to worker
         val sentVerificationCode = mentorVerificationServiceImpl.sendVerificationCode(

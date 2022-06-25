@@ -24,7 +24,7 @@ class MentorServiceImpl(
      * @param githubId mentor로 승격하고 싶은 githubId
      * @return workerId : verificationCode
      */
-    override fun mentorPromotionProcess(githubId: Long): Map<Long, String> {
+    override suspend fun mentorPromotionProcess(githubId: Long): Map<Long, String> {
         // githubId로 worker 조회하기
         val workerEntity = findWorkerEntityByGithubIdOrElseThrow(githubId)
 

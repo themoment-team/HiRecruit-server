@@ -1,5 +1,6 @@
 package site.hirecruit.hr.domain.mentor.verify.service
 
+import kotlinx.coroutines.*
 import mu.KotlinLogging
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -32,22 +33,47 @@ class MentorVerificationServiceImpl(
      * @param workerId 멘토를 신청한 재직자 email
      * @return verificationCode 전송한 인증번호
      */
-    override fun sendVerificationCode(workerId: Long, workerEmail: String, workerName: String) : String {
+    override suspend fun sendVerificationCode(workerId: Long, workerEmail: String, workerName: String) : String = coroutineScope{
         // 난수 인증코드 생성
-        val verificationCode = randomNumberGenerator(6)
+        val verificationCode = async {
+            log.info { "========= randomNumberGenerator() =========" }
+            randomNumberGenerator(6)
+        }
 
         // 사용자에게 받은 정보를 기반으로 적절한 이메일 요청 형식을 만든다.
-        val mentorEmailVerificationEmailRequest =
-            verificationCodeEmailTemplate.createMentorEmailVerificationEmailRequest(workerName, verificationCode, workerEmail)
+        val mentorEmailVerificationEmailRequest = async {
+            log.info { "========= await verificationCode, createMentorEmailVerificationEmailRequest() =========" }
+            verificationCodeEmailTemplate.createMentorEmailVerificationEmailRequest(
+                workerName = workerName,
+                verificationCode = verificationCode.await(),
+                workerEmail = workerEmail
+            )
+        }
 
         // 인증코드 보내기 v1.2.1 async
-        verificationEmailSenderService.sendEmailVerificationSES(mentorEmailVerificationEmailRequest)
+        launch {
+            log.info { "========= launch sendEmailVerificationSES() =========" }
+            verificationEmailSenderService.sendEmailVerificationSES(mentorEmailVerificationEmailRequest.await())
+        }
+
 
         // [workerId : 인증번호] 저장
-        val mentorEmailVerificationCodeEntity = MentorEmailVerificationCodeEntity(workerId, verificationCode)
-        mentorEmailVerificationCodeRepository.save(mentorEmailVerificationCodeEntity)
+        val mentorEmailVerificationCodeEntity = async {
+            log.info { "========= make MentorEmailVerificationCodeEntity() =========" }
+            MentorEmailVerificationCodeEntity(
+                workerId = workerId,
+                verificationCode = verificationCode.await()
+            )
+        }
 
-        return verificationCode
+        launch {
+            log.info { "========= await MentorEmailVerificationCodeEntity() and save =========" }
+            withContext(Dispatchers.IO) {
+                mentorEmailVerificationCodeRepository.save(mentorEmailVerificationCodeEntity.await())
+            }
+        }
+
+        return@coroutineScope verificationCode.await()
     }
 
     /**

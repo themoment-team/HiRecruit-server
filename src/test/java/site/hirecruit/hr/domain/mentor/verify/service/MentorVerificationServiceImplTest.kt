@@ -36,7 +36,7 @@ internal class MentorVerificationServiceImplTest{
     @Test
     @Disabled
     @DisplayName("실제 SES 서비스를 사용하여 인증번호를 전송합니다. :: Disabled")
-    fun verificationCodeWasSentToDestination(
+    suspend fun verificationCodeWasSentToDestination(
         @Autowired workerRepository: WorkerRepository,
         @Autowired mentorVerificationService: MentorVerificationService
     ){
@@ -50,7 +50,7 @@ internal class MentorVerificationServiceImplTest{
     @Test
     @Disabled
     @DisplayName("사용자가 입력한 인증번호 == HR이 발급한 인증번호")
-    fun isVerificationCodeCorrectTest(
+    suspend fun isVerificationCodeCorrectTest(
         @Autowired workerRepository: WorkerRepository,
         @Autowired mentorVerificationService: MentorVerificationService
     ){

@@ -1,7 +1,7 @@
 package site.hirecruit.hr.thirdParty.aws.ses.service
 
 import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.coroutineScope
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.thirdParty.aws.service.CredentialService
@@ -30,7 +30,7 @@ class HrSesServiceImpl(
      * @see `https://docs.aws.amazon.com/ko_kr/ses/latest/dg/send-personalized-email-api.html`
      * @return List<String> - 받는 사람 이메일
      */
-    override fun sendEmailWithEmailTemplate(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto): Unit = runBlocking{
+    override suspend fun sendEmailWithEmailTemplate(templateSesRequestDto: SesRequestDto.TemplateSesRequestDto): Unit = coroutineScope{
         // sdk에 요청할 templateRequest 객체 만들기
         val makeTemplateRequest = async {
             log.info { "========= async makeTemplateRequest ==========" }
@@ -49,4 +49,5 @@ class HrSesServiceImpl(
             throw Exception("sesClient가 templateEmail을 보낼 수 있는 상태가 아님")
         }
     }
+
 }

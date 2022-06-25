@@ -82,6 +82,9 @@ dependencies {
     /** for coroutines **/
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3")
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor
+    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.3")
+
 
     /** for test **/
     testImplementation("org.springframework.boot:spring-boot-starter-test")

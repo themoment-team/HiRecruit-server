@@ -26,7 +26,7 @@ class MentorController(
      * @return ResponseEntity
      */
     @PostMapping("/promotion/process")
-    fun executeMentorPromotion(
+    suspend fun executeMentorPromotion(
         @CurrentAuthUserInfo @ApiIgnore
         authUserInfo: AuthUserInfo,
     ): ResponseEntity<Map<String, String>> {
