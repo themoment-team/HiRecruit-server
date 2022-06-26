@@ -98,13 +98,6 @@ class AuthUserWorkerServiceImplTest(
             giveLink = RandomString.make(10),
             devYear = Random.nextInt(0, 30),
             position = RandomString.make(15),
-            updateColumns = listOf( // 변경할 컬럼
-                WorkerDto.Update.Column.COMPANY_ID,
-                WorkerDto.Update.Column.POSITION,
-                WorkerDto.Update.Column.INTRODUCTION,
-                WorkerDto.Update.Column.GIVE_LINK,
-                WorkerDto.Update.Column.DEV_YEAR
-            )
         )
         val authUserInfo = createAuthUserInfoByUserEntity()
 

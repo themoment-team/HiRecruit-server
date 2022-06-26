@@ -4,6 +4,7 @@ import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import site.hirecruit.hr.domain.auth.entity.UserEntity
 import site.hirecruit.hr.domain.company.entity.CompanyEntity
+import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import javax.persistence.*
 
 @Entity @Table(name = "worker")
@@ -37,6 +38,13 @@ class WorkerEntity(
                 throw IllegalArgumentException("'devYear' property cannot have a negative number.")
             field = value
         }
+
+    fun update(updateDto: WorkerDto.Update, company: CompanyEntity? = null) = apply {
+        this.introduction = updateDto.introduction
+        this.giveLink = updateDto.giveLink
+        this.position = updateDto.position
+        this.company = company ?: this.company
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

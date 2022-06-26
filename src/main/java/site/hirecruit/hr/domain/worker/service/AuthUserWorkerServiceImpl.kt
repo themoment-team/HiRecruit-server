@@ -51,17 +51,9 @@ class AuthUserWorkerServiceImpl(
     override fun updateWorkerEntityByAuthUserInfo(authUserInfo: AuthUserInfo, updateDto: WorkerDto.Update) {
         val workerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
             ?: throw IllegalArgumentException("Invalid authentication information. So 'WorkerEntity' could not be found. authUserInfo = '${authUserInfo}' ")
-        updateDto.updateColumns.forEach {
-            when(it) {
-                WorkerDto.Update.Column.COMPANY_ID      -> {
-                    workerEntity.company = companyRepository.findByIdOrNull(updateDto.companyId)
-                        ?: throw IllegalArgumentException("Cannot found CompanyEntity, companyId='${updateDto.companyId}'")
-                }
-                WorkerDto.Update.Column.INTRODUCTION    -> workerEntity.introduction = updateDto.introduction
-                WorkerDto.Update.Column.GIVE_LINK       -> workerEntity.giveLink = updateDto.giveLink
-                WorkerDto.Update.Column.DEV_YEAR        -> workerEntity.devYear = updateDto.devYear
-                WorkerDto.Update.Column.POSITION        -> workerEntity.position = updateDto.position
-            }
-        }
+        val company = (companyRepository.findByIdOrNull(updateDto.companyId)
+            ?: throw IllegalArgumentException("Cannot found CompanyEntity, companyId='${updateDto.companyId}'"))
+
+        workerEntity.update(updateDto, company)
     }
 }
