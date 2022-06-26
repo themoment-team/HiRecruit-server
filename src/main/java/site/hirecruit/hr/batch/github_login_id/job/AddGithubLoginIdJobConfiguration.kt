@@ -28,7 +28,7 @@ private val log = KotlinLogging.logger {  }
  * @author 정시원
  * @since 1.2
  */
-@Configuration
+//@Configuration
 class AddGithubLoginIdJobConfiguration(
     private val jobBuilderFactory: JobBuilderFactory,
     private val stepBuilderFactory: StepBuilderFactory,
