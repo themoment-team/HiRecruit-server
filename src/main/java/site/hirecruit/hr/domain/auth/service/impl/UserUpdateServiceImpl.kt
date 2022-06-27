@@ -18,7 +18,6 @@ class UserUpdateServiceImpl(
     override fun update(updateDto: UserUpdateDto, authUserInfoBeforeUpdate: AuthUserInfo): AuthUserInfo {
         val userEntity = userRepository.findByGithubId(authUserInfoBeforeUpdate.githubId)
             ?: throw IllegalArgumentException("Cannot found user info")
-
         val updatedUserEntity = userEntity.update(updateDto)
 
         if(isMentorEmailChanged(authUserInfoBeforeUpdate, updatedUserEntity))
