@@ -24,6 +24,10 @@ spring:
     path match:
       matching-strategy: ant_path_matcher
 
+  batch:
+    job:
+      enabled: false # application 실행시점에 batch를 실행하지 않는다.
+
   # oauth2 redirect-uri
   security:
     oauth2:

@@ -1,4 +1,4 @@
-CREATE TABLE BATCH_JOB_INSTANCE  (
+CREATE TABLE IF NOT EXISTS BATCH_JOB_INSTANCE  (
                                      JOB_INSTANCE_ID BIGINT  NOT NULL PRIMARY KEY ,
                                      VERSION BIGINT ,
                                      JOB_NAME VARCHAR(100) NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE BATCH_JOB_INSTANCE  (
                                      constraint JOB_INST_UN unique (JOB_NAME, JOB_KEY)
 ) ENGINE=InnoDB;
 
-CREATE TABLE BATCH_JOB_EXECUTION  (
+CREATE TABLE IF NOT EXISTS BATCH_JOB_EXECUTION  (
                                       JOB_EXECUTION_ID BIGINT  NOT NULL PRIMARY KEY ,
                                       VERSION BIGINT  ,
                                       JOB_INSTANCE_ID BIGINT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE BATCH_JOB_EXECUTION  (
                                           references BATCH_JOB_INSTANCE(JOB_INSTANCE_ID)
 ) ENGINE=InnoDB;
 
-CREATE TABLE BATCH_JOB_EXECUTION_PARAMS  (
+CREATE TABLE IF NOT EXISTS BATCH_JOB_EXECUTION_PARAMS  (
                                              JOB_EXECUTION_ID BIGINT NOT NULL ,
                                              TYPE_CD VARCHAR(6) NOT NULL ,
                                              KEY_NAME VARCHAR(100) NOT NULL ,
@@ -35,7 +35,7 @@ CREATE TABLE BATCH_JOB_EXECUTION_PARAMS  (
                                                  references BATCH_JOB_EXECUTION(JOB_EXECUTION_ID)
 ) ENGINE=InnoDB;
 
-CREATE TABLE BATCH_STEP_EXECUTION  (
+CREATE TABLE IF NOT EXISTS BATCH_STEP_EXECUTION  (
                                        STEP_EXECUTION_ID BIGINT  NOT NULL PRIMARY KEY ,
                                        VERSION BIGINT NOT NULL,
                                        STEP_NAME VARCHAR(100) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE BATCH_STEP_EXECUTION  (
                                            references BATCH_JOB_EXECUTION(JOB_EXECUTION_ID)
 ) ENGINE=InnoDB;
 
-CREATE TABLE BATCH_STEP_EXECUTION_CONTEXT  (
+CREATE TABLE IF NOT EXISTS BATCH_STEP_EXECUTION_CONTEXT  (
                                                STEP_EXECUTION_ID BIGINT NOT NULL PRIMARY KEY,
                                                SHORT_CONTEXT VARCHAR(2500) NOT NULL,
                                                SERIALIZED_CONTEXT TEXT ,
@@ -66,7 +66,7 @@ CREATE TABLE BATCH_STEP_EXECUTION_CONTEXT  (
                                                    references BATCH_STEP_EXECUTION(STEP_EXECUTION_ID)
 ) ENGINE=InnoDB;
 
-CREATE TABLE BATCH_JOB_EXECUTION_CONTEXT  (
+CREATE TABLE IF NOT EXISTS BATCH_JOB_EXECUTION_CONTEXT  (
                                               JOB_EXECUTION_ID BIGINT NOT NULL PRIMARY KEY,
                                               SHORT_CONTEXT VARCHAR(2500) NOT NULL,
                                               SERIALIZED_CONTEXT TEXT ,
@@ -74,7 +74,7 @@ CREATE TABLE BATCH_JOB_EXECUTION_CONTEXT  (
                                                   references BATCH_JOB_EXECUTION(JOB_EXECUTION_ID)
 ) ENGINE=InnoDB;
 
-CREATE TABLE BATCH_STEP_EXECUTION_SEQ (
+CREATE TABLE IF NOT EXISTS BATCH_STEP_EXECUTION_SEQ (
                                           ID BIGINT NOT NULL,
                                           UNIQUE_KEY CHAR(1) NOT NULL,
                                           constraint UNIQUE_KEY_UN unique (UNIQUE_KEY)
@@ -82,7 +82,7 @@ CREATE TABLE BATCH_STEP_EXECUTION_SEQ (
 
 INSERT INTO BATCH_STEP_EXECUTION_SEQ (ID, UNIQUE_KEY) select * from (select 0 as ID, '0' as UNIQUE_KEY) as tmp where not exists(select * from BATCH_STEP_EXECUTION_SEQ);
 
-CREATE TABLE BATCH_JOB_EXECUTION_SEQ (
+CREATE TABLE IF NOT EXISTS BATCH_JOB_EXECUTION_SEQ (
                                          ID BIGINT NOT NULL,
                                          UNIQUE_KEY CHAR(1) NOT NULL,
                                          constraint UNIQUE_KEY_UN unique (UNIQUE_KEY)
@@ -90,7 +90,7 @@ CREATE TABLE BATCH_JOB_EXECUTION_SEQ (
 
 INSERT INTO BATCH_JOB_EXECUTION_SEQ (ID, UNIQUE_KEY) select * from (select 0 as ID, '0' as UNIQUE_KEY) as tmp where not exists(select * from BATCH_JOB_EXECUTION_SEQ);
 
-CREATE TABLE BATCH_JOB_SEQ (
+CREATE TABLE IF NOT EXISTS BATCH_JOB_SEQ (
                                ID BIGINT NOT NULL,
                                UNIQUE_KEY CHAR(1) NOT NULL,
                                constraint UNIQUE_KEY_UN unique (UNIQUE_KEY)
