@@ -1,7 +1,9 @@
 package site.hirecruit.hr.domain.auth.dto
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.Email
+import javax.validation.constraints.NotBlank
 
 /**
  * 유저 정보 Update DTO
@@ -11,17 +13,16 @@ import javax.validation.constraints.Email
  */
 data class UserUpdateDto(
 
-    @field:Email
+    @field:Email @field:NotBlank
     @field:JsonProperty("email")
-    var email: String?,
+    private var _email: String?,
 
-    @field:JsonProperty("name")
-    var name: String?,
+    @field:JsonProperty("name") @NotBlank
+    private var _name: String?,
+){
+    @get:JsonIgnore
+    val email: String get() = _email!!
 
-    val updateColumns: List<Column> = emptyList()
-) {
-
-    enum class Column{
-        EMAIL, NAME
-    }
+    @get:JsonIgnore
+    val name: String get() = _name!!
 }

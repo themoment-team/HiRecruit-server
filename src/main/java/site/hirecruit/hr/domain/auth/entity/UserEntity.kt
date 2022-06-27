@@ -38,8 +38,8 @@ class UserEntity(
     }
 
     fun update(updateDto:UserUpdateDto) = apply {
-        this.email = updateDto.email!!
-        this.name = updateDto.name!!
+        this.email = updateDto.email
+        this.name = updateDto.name
     }
 
     override fun equals(other: Any?): Boolean {
