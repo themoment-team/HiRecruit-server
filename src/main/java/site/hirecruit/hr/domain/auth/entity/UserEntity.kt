@@ -1,5 +1,6 @@
 package site.hirecruit.hr.domain.auth.entity
 
+import site.hirecruit.hr.domain.auth.dto.UserUpdateDto
 import javax.persistence.*
 
 /**
@@ -34,6 +35,11 @@ class UserEntity(
 
     fun updateRole(role: Role){
         this.role = role
+    }
+
+    fun update(updateDto:UserUpdateDto) = apply {
+        this.email = updateDto.email!!
+        this.name = updateDto.name!!
     }
 
     override fun equals(other: Any?): Boolean {
