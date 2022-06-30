@@ -57,10 +57,19 @@ class SecurityExceptionHandler(
                 log.info { "OAuth2ErrorCodes.${OAuth2ErrorCodes.ACCESS_DENIED}"}
                 redirectUrlBuilder.queryParam("login", "cancel")
             }
-            else -> {
+            "authorization_request_not_found" -> {
+                log.info { """
+                    authorization_request_not_found 발생 
+                """.trimIndent() }
+                redirectUrlBuilder.queryParam("login", "fail")
+                redirectUrlBuilder.queryParam("server_error", false)
+            }else -> {
                 log.error(ex){ """
                     예외 처리하지 않은 OAuth2 Exception 발생
-                    error details='${ex.error}'
+                    error details={
+                        error_code = '${ex.error.errorCode}',
+                        error_description = '${ex.error.description}'
+                    }
                 """.trimIndent() } //
                 redirectUrlBuilder.queryParam("login", "fail")
                 redirectUrlBuilder.queryParam("server_error", true)
