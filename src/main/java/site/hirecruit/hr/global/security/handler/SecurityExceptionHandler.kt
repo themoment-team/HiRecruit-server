@@ -52,6 +52,7 @@ class SecurityExceptionHandler(
     ) {
         val redirectUrlBuilder = UriComponentsBuilder.fromUriString(redirectBaseUri)
         log.debug { "Oauth2AuthenticationExceptionHandler Active" }
+
         when(ex.error.errorCode){
             OAuth2ErrorCodes.ACCESS_DENIED -> { // 유저가 Oauth2 login동의를 하지 않을 때
                 log.info { "OAuth2ErrorCodes.${OAuth2ErrorCodes.ACCESS_DENIED}"}
@@ -70,7 +71,8 @@ class SecurityExceptionHandler(
                         error_code = '${ex.error.errorCode}',
                         error_description = '${ex.error.description}'
                     }
-                """.trimIndent() } //
+                """.trimIndent() }
+
                 redirectUrlBuilder.queryParam("login", "fail")
                 redirectUrlBuilder.queryParam("server_error", true)
             }
