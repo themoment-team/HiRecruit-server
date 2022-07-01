@@ -4,8 +4,8 @@ import mu.KotlinLogging
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
-import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import site.hirecruit.hr.domain.auth.entity.Role
 import site.hirecruit.hr.global.data.ServerProfile
@@ -126,6 +125,16 @@ class SecurityConfig(
     @Configuration
     @Profile(ServerProfile.DEFAULT, ServerProfile.LOCAL, ServerProfile.STAGING)
     inner class TestingRole: WebSecurityConfigurerAdapter(){
+
+        override fun configure(web: WebSecurity) {
+            web
+                /**
+                 * antMatchers에 설정한 url에 대해 security 설정을 무시하는 설정
+                 */
+                .ignoring()
+                .antMatchers("/h2-console/**")
+        }
+
         override fun configure(http: HttpSecurity) {
             http.headers { headers ->
                 headers.frameOptions {
