@@ -67,7 +67,6 @@ class WorkerDto {
         val companyInfoDto: CompanyDto.Info
     )
 
-    @CompanyIsNotExistByCompanyId
     data class Update(
         @field:JsonProperty("companyId") @get:JsonGetter("companyId")
         @field:NotNull @field:Min(1) @field:CompanyIsNotExistByCompanyId

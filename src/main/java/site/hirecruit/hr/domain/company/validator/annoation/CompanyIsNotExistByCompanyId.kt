@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
  */
 @MustBeDocumented
 @Constraint(validatedBy = [CompanyExistValidator::class])
-@Target(AnnotationTarget.FIELD, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.CLASS)
+@Target(AnnotationTarget.FIELD, AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class CompanyIsNotExistByCompanyId(
     val message: String = "해당 Company를 찾을 수 없습니다",
