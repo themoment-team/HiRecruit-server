@@ -127,13 +127,15 @@ class SecurityConfig(
     @Profile(ServerProfile.DEFAULT, ServerProfile.LOCAL, ServerProfile.STAGING)
     inner class TestingRole: WebSecurityConfigurerAdapter(){
         override fun configure(http: HttpSecurity) {
-            cors(http)
+            http.headers { headers ->
+                headers.frameOptions {
+                    it.sameOrigin()
+                }
+            }
 
             http
                 .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .cors().disable()
+
             http
                 .authorizeRequests()
                 .antMatchers(
@@ -149,6 +151,7 @@ class SecurityConfig(
             logoutConfig(http)
             accessDenied(http)
             oauth2Login(http)
+            cors(http)
         }
     }
 }
