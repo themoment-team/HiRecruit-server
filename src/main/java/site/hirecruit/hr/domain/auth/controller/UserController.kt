@@ -11,9 +11,8 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.UserUpdateDto
 import site.hirecruit.hr.domain.auth.service.UserUpdateService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
-import site.hirecruit.hr.global.util.CookieMakerUtil
+import site.hirecruit.hr.global.util.CookieUtil
 import springfox.documentation.annotations.ApiIgnore
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
@@ -41,7 +40,7 @@ class UserController(
     ): ResponseEntity<Unit>{
         val updatedAuthUserInfo = userUpdateService.update(updateDto, authUserInfo)
 
-        val userTypeCookie = CookieMakerUtil.userTypeCookie(updatedAuthUserInfo.role.name, hrDomain)
+        val userTypeCookie = CookieUtil.userTypeCookie(updatedAuthUserInfo.role.name, hrDomain)
         response.addCookie(userTypeCookie)
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
             .build()
