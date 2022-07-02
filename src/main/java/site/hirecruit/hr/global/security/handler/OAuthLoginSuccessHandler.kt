@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.stereotype.Component
+import site.hirecruit.hr.global.util.CookieUtil
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -28,20 +29,13 @@ class OAuthLoginSuccessHandler(
         response: HttpServletResponse,
         authentication: Authentication
     ){
-        val userTypeCookie = createUserTypeCookie(authentication)
+        val userTypeCookie = CookieUtil.userTypeCookie(getUserType(authentication), hrDomain)
         response.addCookie(userTypeCookie)
         response.sendRedirect(this.redirectBaseUri)
     }
 
-    private fun createUserTypeCookie(authentication: Authentication): Cookie{
-        val userType = authentication.authorities.first()
-            .authority
-            .removePrefix("ROLE_")
-        val userTypeCookie = Cookie("USER_TYPE", userType)
-        userTypeCookie.maxAge = 86400
-        userTypeCookie.path = "/"
-        userTypeCookie.domain = hrDomain
-        return userTypeCookie
-    }
-
+    private fun getUserType(authentication: Authentication) =
+        authentication.authorities.first()
+        .authority
+        .removePrefix("ROLE_")
 }
