@@ -9,8 +9,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerExceptionResolver
 import org.springframework.web.util.UriComponentsBuilder
-import site.hirecruit.hr.global.util.CookieMakerUtil
-import javax.servlet.http.Cookie
+import site.hirecruit.hr.global.util.CookieUtil
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -43,7 +42,7 @@ class CustomAuthenticationFailureHandler(
         exception: AuthenticationException
     ) {
         val redirectUriBuilder = UriComponentsBuilder.fromUriString(redirectBaseUri)
-        response.addCookie(CookieMakerUtil.deleteHrsessionCookie(cookieDomain)) // OAuth2 login 실패시 HRSESSION제거
+        response.addCookie(CookieUtil.deleteHrsessionCookie(cookieDomain)) // OAuth2 login 실패시 HRSESSION제거
         if(exception is OAuth2AuthenticationException){ // OAuth2 로그인 예외라면
             log.debug { "OAuth2AuthenticationException error code = '${exception.error.errorCode}'" }
             oAuth2AuthenticationExceptionHandling(request, response, exception)

@@ -8,9 +8,8 @@ import site.hirecruit.hr.domain.auth.service.UserRegistrationService
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
-import site.hirecruit.hr.global.util.CookieMakerUtil
+import site.hirecruit.hr.global.util.CookieUtil
 import springfox.documentation.annotations.ApiIgnore
-import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 
@@ -33,7 +32,7 @@ class AuthController(
     ): ResponseEntity<AuthUserInfo>{
         val registeredAuthUserInfo = userRegistrationService.registration(authUserInfo, userRegistrationDto)
 
-        response.addCookie(CookieMakerUtil.userTypeCookie(registeredAuthUserInfo.role.name, hrDomain)) // 등록된 유저의 role을 USER_TYPE 쿠키로 넘겨줌
+        response.addCookie(CookieUtil.userTypeCookie(registeredAuthUserInfo.role.name, hrDomain)) // 등록된 유저의 role을 USER_TYPE 쿠키로 넘겨줌
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(registeredAuthUserInfo)
     }

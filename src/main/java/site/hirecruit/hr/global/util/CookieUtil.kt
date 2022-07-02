@@ -1,6 +1,5 @@
 package site.hirecruit.hr.global.util
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import javax.servlet.http.Cookie
 
@@ -11,7 +10,7 @@ import javax.servlet.http.Cookie
  * @since 1.1.1
  */
 @Component
-class CookieMakerUtil{
+class CookieUtil{
 
     companion object{
         fun userTypeCookie(value: String, hrDomain: String): Cookie{
