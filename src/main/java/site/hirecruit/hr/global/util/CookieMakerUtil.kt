@@ -21,5 +21,15 @@ class CookieMakerUtil{
             userTypeCookie.domain = hrDomain
             return userTypeCookie
         }
+
+        fun deleteHrsessionCookie(domain: String): Cookie{
+            val hrsessionCookie = Cookie("HRSESSION", null)
+            hrsessionCookie.secure = true
+            hrsessionCookie.maxAge = 0 // 쿠키 삭제하게 위해 maxAge 0으로 설정
+            hrsessionCookie.isHttpOnly = true
+            hrsessionCookie.domain = domain
+            hrsessionCookie.path = "/"
+            return hrsessionCookie
+        }
     }
 }
