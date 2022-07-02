@@ -9,7 +9,6 @@ import javax.servlet.http.Cookie
  * @author 정시원
  * @since 1.1.1
  */
-@Component
 class CookieUtil{
 
     companion object{
