@@ -21,6 +21,14 @@ class CookieUtil{
             return userTypeCookie
         }
 
+        fun deleteUserTypeCookie(domain: String): Cookie{
+            val userTypeCookie = Cookie("USER_TYPE", null)
+            userTypeCookie.maxAge = 0
+            userTypeCookie.domain = domain
+            userTypeCookie.path = "/"
+            return userTypeCookie
+        }
+
         fun deleteHrsessionCookie(domain: String): Cookie{
             val hrsessionCookie = Cookie("HRSESSION", null)
             hrsessionCookie.secure = true
