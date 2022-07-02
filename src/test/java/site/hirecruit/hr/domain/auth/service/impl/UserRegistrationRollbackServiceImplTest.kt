@@ -27,7 +27,7 @@ internal class UserRegistrationRollbackServiceImplTest{
             name = RandomString.make(5),
             email = RandomString.make(10),
             profileImgUri = RandomString.make(10),
-            Role.CLIENT
+            role = Role.WORKER
         )
         val userRollbackDataOAuthAttributes = OAuthAttributes.ofUserRollbackData(beforeRollbackAuthUserInfo)
 

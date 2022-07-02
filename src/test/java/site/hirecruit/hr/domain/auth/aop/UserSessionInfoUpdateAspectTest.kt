@@ -72,7 +72,7 @@ internal class UserSessionInfoUpdateAspectTest{
             name = RandomString.make(5),
             email = RandomString.make(5),
             profileImgUri = RandomString.make(10),
-            role = Role.CLIENT
+            role = Role.WORKER
         )
         val proxyReturnValue = AuthUserInfo(
             githubId = authUserInfo.githubId,

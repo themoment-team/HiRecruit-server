@@ -71,7 +71,7 @@ internal class UserRegistrationAspectTest{
             name = userRegistrationDto.name!!,
             email = userRegistrationDto.email,
             profileImgUri = tempUserInfo.profileImgUri,
-            role = Role.UNAUTHENTICATED_EMAIL
+            role = Role.GUEST
         )
 
         // proxy(userRegistrationService) 객체는 proxyReturnValue를 반환한다.
