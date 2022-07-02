@@ -103,7 +103,7 @@ internal class UserSessionAuthServiceImplTest{
                 name = oAuth2Attributes.name!!,
                 email = "${RandomString.make(8)}@${RandomString.make(5)}.${RandomString.make(3)}",
                 profileImgUri = oAuth2Attributes.profileImgUri,
-                Role.CLIENT
+                role = Role.WORKER
             )
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {false} // 임시회원이 존재한다면

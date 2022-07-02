@@ -115,6 +115,6 @@ internal class WorkerRegistrationServiceImplTest{
         name = RandomString.make(5),
         email = "${RandomString.make(5)}@${RandomString.make(5)}.${RandomString.make(3)}",
         profileImgUri = RandomString.make(10),
-        role = Role.UNAUTHENTICATED_EMAIL
+        role = Role.GUEST
     )
 }

@@ -51,13 +51,13 @@ class SecurityConfig(
                 it.antMatchers(
                     "/api/v1/worker/me",
                     "/api/v1/worker/me/**"
-                ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.name, Role.CLIENT.name, Role.WORKER.name, Role.MENTOR.name) //TODO 추후 UNAUTHENTICATED_EMAIL role 제거
+                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name)
                 it.antMatchers(
                     "/api/v1/auth/registration"
                 ).hasRole(Role.GUEST.name)
                 it.antMatchers(
                     HttpMethod.PATCH, "/api/v1/user/me"
-                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name, Role.CLIENT.name)
+                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name)
                 it.antMatchers(
                     "/api/v1/mentor/promotion/process/{workerId}",
                     "/api/v1/mentor/promotion/process/verify"
@@ -151,10 +151,6 @@ class SecurityConfig(
                     "/", "/css/**", "/images/**",
                     "/js/**", "/h2-console/**"
                 ).permitAll()
-                // 권한 테스트용 end point
-                .antMatchers("/test/email").hasRole(Role.UNAUTHENTICATED_EMAIL.name)
-                .antMatchers("/test/client").hasRole(Role.CLIENT.name)
-                .antMatchers("/test/guest").hasRole(Role.GUEST.name)
 
             authorizeRequests(http)
             logoutConfig(http)

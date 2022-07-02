@@ -51,7 +51,7 @@ internal class UserRegistrationServiceTest{
             name = userRegistrationDto.name!!,
             email = userRegistrationDto.email,
             profileImgUri = tempUserAuthUserInfo.profileImgUri,
-            role = Role.UNAUTHENTICATED_EMAIL
+            role = Role.WORKER
         )
         val registrationAuthUserInfo = AuthUserInfo(
             githubId = userEntity.githubId,
@@ -78,7 +78,7 @@ internal class UserRegistrationServiceTest{
         // 임시 유저일 떄의 Role과 registration()를 수행한 유저일 때의 Role은 다르다.
         assertAll({
             assertNotEquals(tempUserAuthUserInfo.role, registeredAuthUserInfo.role)
-            assertEquals(Role.UNAUTHENTICATED_EMAIL, registeredAuthUserInfo.role)
+            assertEquals(Role.WORKER, registeredAuthUserInfo.role)
         })
 
         // 임시 유저일 때 githubId와 profileImgUri는 registration()을 수행한 후도 같다.
@@ -124,7 +124,7 @@ internal class UserRegistrationServiceTest{
             name = tempUserAuthUserInfo.name, // 임시 유저가 가지고 있는 name
             email = userRegistrationDto.email,
             profileImgUri = tempUserAuthUserInfo.profileImgUri,
-            role = Role.UNAUTHENTICATED_EMAIL
+            role = Role.GUEST
         )
 
         /**
