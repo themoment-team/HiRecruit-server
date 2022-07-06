@@ -1,7 +1,7 @@
 package site.hirecruit.hr.domain.auth.service
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
+import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
 
 /**
  * 유저생성 서비스

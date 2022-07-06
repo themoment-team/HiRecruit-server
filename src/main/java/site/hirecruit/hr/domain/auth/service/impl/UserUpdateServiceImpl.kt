@@ -3,7 +3,7 @@ package site.hirecruit.hr.domain.auth.service.impl
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.dto.UserUpdateDto
+import site.hirecruit.hr.domain.user.dto.UserUpdateDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.UserRepository

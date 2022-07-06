@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.context.ApplicationEventPublisher
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
+import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.UserRepository

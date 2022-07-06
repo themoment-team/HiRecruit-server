@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.dto
+package site.hirecruit.hr.domain.user.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty

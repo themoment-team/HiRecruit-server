@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory
 import org.springframework.mock.web.MockHttpSession
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
+import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.service.SecurityContextAccessService
