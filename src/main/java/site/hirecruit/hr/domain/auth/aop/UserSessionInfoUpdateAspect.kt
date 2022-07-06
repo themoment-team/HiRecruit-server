@@ -36,7 +36,7 @@ class UserSessionInfoUpdateAspect (
      * [site.hirecruit.hr.domain.auth.service.UserAuthService.authentication]에서의 유저 인증 수행 후 세션을 발급하는 AOP method
      */
     @AfterReturning(
-        "userAuthService_AuthenticationMethodPointCut() || userRegistrationRollbackService_rollback()",
+        "userAuthService_AuthenticationMethodPointCut() || userRegistrationRollbackService_rollback() || userUpdateService_update()",
         returning = "authUserInfo"
     )
     private fun setSessionByAuthUserInfo(authUserInfo: AuthUserInfo): Any{
