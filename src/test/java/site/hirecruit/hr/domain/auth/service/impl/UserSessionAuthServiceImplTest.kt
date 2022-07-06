@@ -15,7 +15,7 @@ import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.auth.entity.TempUserEntity
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import kotlin.random.Random
 
 internal class UserSessionAuthServiceImplTest{

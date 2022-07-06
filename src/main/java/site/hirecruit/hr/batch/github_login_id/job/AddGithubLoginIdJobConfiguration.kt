@@ -16,7 +16,7 @@ import org.springframework.data.domain.Sort
 import site.hirecruit.hr.batch.github_login_id.service.LockupGithubLoginIdService
 import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.repository.UserRepository
 
 
 private val log = KotlinLogging.logger {  }

@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.repository
+package site.hirecruit.hr.domain.user.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
 import site.hirecruit.hr.domain.user.entity.UserEntity

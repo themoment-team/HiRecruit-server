@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.repository
+package site.hirecruit.hr.domain.user.repository
 
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.jpa.impl.JPAQueryFactory
