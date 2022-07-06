@@ -13,8 +13,9 @@ import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.service.SecurityContextAccessService
-import site.hirecruit.hr.domain.auth.service.UserRegistrationService
+import site.hirecruit.hr.domain.user.service.UserRegistrationService
 import site.hirecruit.hr.domain.test_util.LocalTest
+import site.hirecruit.hr.domain.user.aop.UserRegistrationAspect
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.global.data.SessionAttribute
 import kotlin.random.Random
