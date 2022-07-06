@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.entity
+package site.hirecruit.hr.domain.user.entity
 
 enum class Role(
     val role: String,

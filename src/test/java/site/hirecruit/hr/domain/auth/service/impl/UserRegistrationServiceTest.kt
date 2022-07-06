@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.context.ApplicationEventPublisher
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
-import site.hirecruit.hr.domain.auth.entity.Role
-import site.hirecruit.hr.domain.auth.entity.UserEntity
+import site.hirecruit.hr.domain.user.entity.Role
+import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.global.event.UserRegistrationEvent

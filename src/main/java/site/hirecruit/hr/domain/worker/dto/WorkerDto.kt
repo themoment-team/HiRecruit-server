@@ -5,14 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.querydsl.core.annotations.QueryProjection
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.constraints.URL
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.company.validator.annoation.CompanyIsNotExistByCompanyId
 import javax.validation.constraints.Max
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
-import kotlin.math.max
 
 /**
  * Worker 도메인 DTO

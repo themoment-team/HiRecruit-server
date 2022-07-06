@@ -2,7 +2,7 @@ package site.hirecruit.hr.domain.worker.entity
 
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-import site.hirecruit.hr.domain.auth.entity.UserEntity
+import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.company.entity.CompanyEntity
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import javax.persistence.*

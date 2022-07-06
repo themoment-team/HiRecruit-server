@@ -12,10 +12,9 @@ import org.springframework.batch.item.data.RepositoryItemWriter
 import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.Sort
 import site.hirecruit.hr.batch.github_login_id.service.LockupGithubLoginIdService
-import site.hirecruit.hr.domain.auth.entity.UserEntity
+import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.repository.UserRepository
 

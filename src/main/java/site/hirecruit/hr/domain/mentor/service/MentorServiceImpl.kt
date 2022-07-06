@@ -2,7 +2,7 @@ package site.hirecruit.hr.domain.mentor.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.mentor.verify.service.MentorVerificationService
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
