@@ -5,7 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.QAuthUserInfo
-import site.hirecruit.hr.domain.auth.entity.QUserEntity.userEntity
+import site.hirecruit.hr.domain.user.entity.QUserEntity.userEntity
 
 /**
  * UserCustomRepository의 구현체 입니다.
