@@ -5,10 +5,8 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
-import org.springframework.stereotype.Component
-import org.springframework.web.util.UriComponents
 import org.springframework.web.util.UriComponentsBuilder
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.Role
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 

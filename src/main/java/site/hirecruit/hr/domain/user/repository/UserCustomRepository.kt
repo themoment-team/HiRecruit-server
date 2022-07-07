@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.repository
+package site.hirecruit.hr.domain.user.repository
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 

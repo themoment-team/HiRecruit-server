@@ -1,6 +1,6 @@
-package site.hirecruit.hr.domain.auth.entity
+package site.hirecruit.hr.domain.user.entity
 
-import site.hirecruit.hr.domain.auth.dto.UserUpdateDto
+import site.hirecruit.hr.domain.user.dto.UserUpdateDto
 import javax.persistence.*
 
 /**
@@ -37,7 +37,7 @@ class UserEntity(
         this.role = role
     }
 
-    fun update(updateDto:UserUpdateDto) = apply {
+    fun update(updateDto: UserUpdateDto) = apply {
         this.email = updateDto.email
         this.name = updateDto.name
     }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.dto.UserUpdateDto
+import site.hirecruit.hr.domain.user.dto.UserUpdateDto
 import site.hirecruit.hr.domain.auth.service.UserUpdateService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import site.hirecruit.hr.global.util.CookieUtil

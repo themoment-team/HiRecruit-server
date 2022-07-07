@@ -12,10 +12,10 @@ import org.springframework.mock.web.MockHttpSession
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.auth.entity.TempUserEntity
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import kotlin.random.Random
 
 internal class UserSessionAuthServiceImplTest{
