@@ -22,7 +22,7 @@ class WorkerUserRegistrationService(
 ): NewUserRegistrationService<RegularUserRegistrationDto> {
 
     /**
-     * 정식 사용자를 등록하는 매서드
+     * role타입이 [Role.WORKER]인 사용자를 등록하는 매서드
      *
      * @return 등록된 정식 사용자의 정보
      */
