@@ -13,6 +13,7 @@ import site.hirecruit.hr.domain.auth.service.TempUserRegistrationService
  * @version 1.0
  */
 @Service
+@Deprecated("해당 구현체는 v1.3부터 더 이상 사용하지 않습니다. 해당 구현체의 역할은 domain.user.TempUserService로 이전될 에정입니다.")
 class TempUserRegistrationServiceImpl(
     private val tempUserRepository: TempUserRepository
 ) : TempUserRegistrationService {

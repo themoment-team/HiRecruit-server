@@ -8,6 +8,7 @@ import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
  * @author 정시원
  * @version 1.0
  */
+@Deprecated("해당 인터페이스는 v1.3부터 더 이상 사용되지 않습니다. domain.user.service 패키지에 TempUserRegistrationService로 대체됩니다.")
 interface TempUserRegistrationService {
 
     /**
