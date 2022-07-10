@@ -4,7 +4,7 @@ import mu.KotlinLogging
 import org.springframework.stereotype.Component
 import org.springframework.transaction.event.TransactionPhase
 import org.springframework.transaction.event.TransactionalEventListener
-import site.hirecruit.hr.domain.auth.service.UserRegistrationRollbackService
+import site.hirecruit.hr.domain.user.service.UserRegistrationRollbackService
 
 private val log = KotlinLogging.logger {  }
 

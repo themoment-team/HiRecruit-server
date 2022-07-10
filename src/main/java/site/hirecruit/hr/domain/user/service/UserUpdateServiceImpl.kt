@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.service.impl
+package site.hirecruit.hr.domain.user.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -7,7 +7,6 @@ import site.hirecruit.hr.domain.user.dto.UserUpdateDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.user.repository.UserRepository
-import site.hirecruit.hr.domain.auth.service.UserUpdateService
 
 @Service
 class UserUpdateServiceImpl(

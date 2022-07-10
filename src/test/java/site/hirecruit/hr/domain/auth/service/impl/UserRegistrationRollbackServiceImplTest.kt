@@ -9,6 +9,7 @@ import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.TempUserRegistrationService
+import site.hirecruit.hr.domain.user.service.UserRegistrationRollbackServiceImpl
 import kotlin.random.Random
 
 internal class UserRegistrationRollbackServiceImplTest{

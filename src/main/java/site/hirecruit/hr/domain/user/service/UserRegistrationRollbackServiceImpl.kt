@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.service.impl
+package site.hirecruit.hr.domain.user.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
@@ -8,7 +8,6 @@ import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.TempUserRegistrationService
-import site.hirecruit.hr.domain.auth.service.UserRegistrationRollbackService
 
 /**
  * UserRegistrationRollbackService 구현체
