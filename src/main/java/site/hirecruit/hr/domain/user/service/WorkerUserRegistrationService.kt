@@ -10,13 +10,13 @@ import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.global.event.UserRegistrationEvent
 
 /**
- * 정식 사용자 등록 서비스
+ * 직장인 유저 등록 서비스
  *
  * @author 정시원
  * @since 1.3
  */
 @Component
-class RegularUserRegistrationService(
+class WorkerUserRegistrationService(
     private val userRepository: UserRepository,
     private val publisher: ApplicationEventPublisher
 ): NewUserRegistrationService<RegularUserRegistrationDto> {
@@ -38,7 +38,7 @@ class RegularUserRegistrationService(
             )
         )
 
-        val registrationAuthUserInfo = AuthUserInfo(
+        val registeredAuthUserInfo = AuthUserInfo(
             githubId = savedUserEntity.githubId,
             githubLoginId = savedUserEntity.githubLoginId,
             name = savedUserEntity.name,
@@ -47,8 +47,8 @@ class RegularUserRegistrationService(
             role = savedUserEntity.role
         )
         // UserRegistrationEvent발생시킴. 타 도메인 로직(ex. workerEntity 생성 등...)은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
-        publisher.publishEvent(UserRegistrationEvent(registrationAuthUserInfo, registrationDto.userRegistrationInfo.workerDto))
-        return registrationAuthUserInfo
+        publisher.publishEvent(UserRegistrationEvent(registeredAuthUserInfo, registrationDto.userRegistrationInfo.workerDto))
+        return registeredAuthUserInfo
     }
 
 }
