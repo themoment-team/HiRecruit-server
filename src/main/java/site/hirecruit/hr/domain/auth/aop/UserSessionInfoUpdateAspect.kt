@@ -29,7 +29,7 @@ class UserSessionInfoUpdateAspect (
     @Pointcut("execution(* site.hirecruit.hr.domain.auth.service.UserRegistrationRollbackService+.rollback(..))")
     private fun userRegistrationRollbackService_rollback(){}
 
-    @Pointcut("execution(* site.hirecruit.hr.domain.auth.service.UserUpdateService+.update(..))")
+    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.UserUpdateService+.update(..))")
     private fun userUpdateService_update(){}
 
     /**
