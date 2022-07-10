@@ -14,8 +14,6 @@ jobs:
     needs: CI
     environment: test
     runs-on: ubuntu-latest
-    env:
-      GITHUB_SHA: hr-server
 
     steps:
       - name: Checkout
