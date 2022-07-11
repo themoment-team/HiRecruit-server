@@ -29,10 +29,7 @@ jobs:
           aws-region: ap-northeast-2
       
       - name: downloads zip to s3
-        run : |
-              aws s3 cp s3://hr-backend-zip/hirecruit-backend-jar.zip .
-              unzip hirecruit-backend-jar.zip
-
+        run : aws s3 cp s3://hr-backend-zip/hirecruit-1.0.jar .
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
