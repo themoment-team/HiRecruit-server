@@ -49,6 +49,9 @@ jobs:
       - name: Run build with Gradle wrapper
         run: ./gradlew clean build
 
+      - name: BootJar for layering jar
+        run: ./gradlew bootJar
+
       - name: Upload build reports
         uses: actions/upload-artifact@v3
         with:
