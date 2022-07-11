@@ -69,11 +69,11 @@ jobs:
         run: echo "🎉 Build with Gradle job has success"
 
       - name: Make app zip folder
-        run: zip -r hirecruit-backend-test *
+        run: zip -r hirecruit-backend-project *
         shell: bash
 
       - name: Upload zip to S3
-        run: aws s3 cp --region ap-northeast-2 hirecruit-backend-test.zip s3://hr-backend-zip
+        run: aws s3 cp --region ap-northeast-2 hirecruit-backend-project.zip s3://hr-backend-zip
 
       - name: HiRecruit Backend CI success Discord Notification
         uses: sarisia/actions-status-discord@v1
