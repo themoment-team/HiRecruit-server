@@ -27,7 +27,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name hirecruit-test-codedeploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name hirecruit-test-server-group --s3-location bucket=hr-backend-zip,bundleType=zip,key=hirecruit-backend-test.zip
+        run: aws deploy create-deployment --application-name hirecruit-test-codedeploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name hirecruit-test-server-group --s3-location bucket=hr-backend-zip,bundleType=zip,key=hirecruit-backend-project.zip
 
       - name: HiRecruit Backend TEST-CD success Discord Notification
         uses: sarisia/actions-status-discord@v1
