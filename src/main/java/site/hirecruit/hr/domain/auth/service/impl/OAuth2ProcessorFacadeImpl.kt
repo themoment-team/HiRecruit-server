@@ -3,7 +3,7 @@ package site.hirecruit.hr.domain.auth.service.impl
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.OAuthProcessorFacade
 import site.hirecruit.hr.domain.auth.service.UserAuthService
 import site.hirecruit.hr.domain.auth.service.TempUserRegistrationService

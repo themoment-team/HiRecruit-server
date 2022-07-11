@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.entity.Role
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.entity.Role
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto

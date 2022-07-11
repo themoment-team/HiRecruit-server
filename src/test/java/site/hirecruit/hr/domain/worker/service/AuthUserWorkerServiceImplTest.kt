@@ -13,9 +13,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.entity.Role
-import site.hirecruit.hr.domain.auth.entity.UserEntity
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.entity.Role
+import site.hirecruit.hr.domain.user.entity.UserEntity
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.company.entity.CompanyEntity
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.test_util.LocalTest
@@ -98,13 +98,6 @@ class AuthUserWorkerServiceImplTest(
             giveLink = RandomString.make(10),
             devYear = Random.nextInt(0, 30),
             position = RandomString.make(15),
-            updateColumns = listOf( // 변경할 컬럼
-                WorkerDto.Update.Column.COMPANY_ID,
-                WorkerDto.Update.Column.POSITION,
-                WorkerDto.Update.Column.INTRODUCTION,
-                WorkerDto.Update.Column.GIVE_LINK,
-                WorkerDto.Update.Column.DEV_YEAR
-            )
         )
         val authUserInfo = createAuthUserInfoByUserEntity()
 

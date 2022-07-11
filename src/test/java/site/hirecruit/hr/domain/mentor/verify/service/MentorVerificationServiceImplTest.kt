@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.test_util.LocalTest
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity

@@ -9,12 +9,13 @@ import org.junit.jupiter.api.Test
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory
 import org.springframework.mock.web.MockHttpSession
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
+import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.service.SecurityContextAccessService
-import site.hirecruit.hr.domain.auth.service.UserRegistrationService
+import site.hirecruit.hr.domain.user.service.UserRegistrationService
 import site.hirecruit.hr.domain.test_util.LocalTest
+import site.hirecruit.hr.domain.user.aop.UserRegistrationAspect
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.global.data.SessionAttribute
 import kotlin.random.Random
@@ -71,7 +72,7 @@ internal class UserRegistrationAspectTest{
             name = userRegistrationDto.name!!,
             email = userRegistrationDto.email,
             profileImgUri = tempUserInfo.profileImgUri,
-            role = Role.UNAUTHENTICATED_EMAIL
+            role = Role.GUEST
         )
 
         // proxy(userRegistrationService) 객체는 proxyReturnValue를 반환한다.

@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.entity.Role
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.entity.Role
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.TempUserRegistrationService
+import site.hirecruit.hr.domain.user.service.UserRegistrationRollbackServiceImpl
 import kotlin.random.Random
 
 internal class UserRegistrationRollbackServiceImplTest{
@@ -27,7 +28,7 @@ internal class UserRegistrationRollbackServiceImplTest{
             name = RandomString.make(5),
             email = RandomString.make(10),
             profileImgUri = RandomString.make(10),
-            Role.CLIENT
+            role = Role.WORKER
         )
         val userRollbackDataOAuthAttributes = OAuthAttributes.ofUserRollbackData(beforeRollbackAuthUserInfo)
 

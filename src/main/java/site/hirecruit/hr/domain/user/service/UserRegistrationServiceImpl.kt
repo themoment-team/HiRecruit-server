@@ -1,14 +1,13 @@
-package site.hirecruit.hr.domain.auth.service.impl
+package site.hirecruit.hr.domain.user.service
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.dto.UserRegistrationDto
-import site.hirecruit.hr.domain.auth.entity.Role
-import site.hirecruit.hr.domain.auth.entity.UserEntity
-import site.hirecruit.hr.domain.auth.repository.UserRepository
-import site.hirecruit.hr.domain.auth.service.UserRegistrationService
+import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
+import site.hirecruit.hr.domain.user.entity.Role
+import site.hirecruit.hr.domain.user.entity.UserEntity
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.global.event.UserRegistrationEvent
 
 /**

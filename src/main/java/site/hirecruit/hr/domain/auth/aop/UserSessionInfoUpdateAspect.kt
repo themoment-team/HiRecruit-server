@@ -26,17 +26,17 @@ class UserSessionInfoUpdateAspect (
     @Pointcut("execution(* site.hirecruit.hr.domain.auth.service.UserAuthService+.authentication(..))")
     private fun userAuthService_AuthenticationMethodPointCut(){}
 
-    @Pointcut("execution(* site.hirecruit.hr.domain.auth.service.UserRegistrationRollbackService+.rollback(..))")
+    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.UserRegistrationRollbackService+.rollback(..))")
     private fun userRegistrationRollbackService_rollback(){}
 
-    @Pointcut("execution(* site.hirecruit.hr.domain.auth.service.UserUpdateService+.update(..))")
+    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.UserUpdateService+.update(..))")
     private fun userUpdateService_update(){}
 
     /**
      * [site.hirecruit.hr.domain.auth.service.UserAuthService.authentication]에서의 유저 인증 수행 후 세션을 발급하는 AOP method
      */
     @AfterReturning(
-        "userAuthService_AuthenticationMethodPointCut() || userRegistrationRollbackService_rollback()",
+        "userAuthService_AuthenticationMethodPointCut() || userRegistrationRollbackService_rollback() || userUpdateService_update()",
         returning = "authUserInfo"
     )
     private fun setSessionByAuthUserInfo(authUserInfo: AuthUserInfo): Any{

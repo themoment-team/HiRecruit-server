@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.entity.Role
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.entity.Role
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.mentor.verify.repository.MentorEmailVerificationCodeRepository
 import site.hirecruit.hr.domain.mentor.verify.service.MentorVerificationService

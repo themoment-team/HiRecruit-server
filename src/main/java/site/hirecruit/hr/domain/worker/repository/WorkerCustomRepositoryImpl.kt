@@ -2,8 +2,7 @@ package site.hirecruit.hr.domain.worker.repository
 
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.jpa.impl.JPAQueryFactory
-import site.hirecruit.hr.domain.auth.entity.QUserEntity.userEntity
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.QUserEntity.userEntity
 import site.hirecruit.hr.domain.company.dto.QCompanyDto_Info
 import site.hirecruit.hr.domain.company.entity.QCompanyEntity.companyEntity
 import site.hirecruit.hr.domain.worker.dto.QWorkerDto_Info

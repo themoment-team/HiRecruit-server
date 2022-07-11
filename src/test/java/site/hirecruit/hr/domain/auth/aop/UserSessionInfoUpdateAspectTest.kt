@@ -10,9 +10,9 @@ import org.springframework.aop.aspectj.annotation.AspectJProxyFactory
 import org.springframework.mock.web.MockHttpSession
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.auth.service.UserAuthService
-import site.hirecruit.hr.domain.auth.service.UserRegistrationRollbackService
+import site.hirecruit.hr.domain.user.service.UserRegistrationRollbackService
 import site.hirecruit.hr.global.data.SessionAttribute
 import kotlin.random.Random
 
@@ -72,7 +72,7 @@ internal class UserSessionInfoUpdateAspectTest{
             name = RandomString.make(5),
             email = RandomString.make(5),
             profileImgUri = RandomString.make(10),
-            role = Role.CLIENT
+            role = Role.WORKER
         )
         val proxyReturnValue = AuthUserInfo(
             githubId = authUserInfo.githubId,

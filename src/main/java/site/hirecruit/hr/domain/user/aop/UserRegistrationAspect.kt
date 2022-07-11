@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.aop
+package site.hirecruit.hr.domain.user.aop
 
 import mu.KotlinLogging
 import org.aspectj.lang.annotation.AfterReturning
@@ -28,7 +28,7 @@ class UserRegistrationAspect(
     private val securityContextFacade: SecurityContextAccessService
 ) {
 
-    @Pointcut("execution(* site.hirecruit.hr.domain.auth.service.UserRegistrationService+.registration(..))")
+    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.UserRegistrationService+.registration(..))")
     private fun userRegistrationService_registrationMethodPointCut(){}
 
     /**

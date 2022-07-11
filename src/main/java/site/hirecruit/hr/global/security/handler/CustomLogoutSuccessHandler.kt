@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import org.springframework.stereotype.Component
+import site.hirecruit.hr.global.util.CookieUtil
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -31,30 +32,13 @@ class CustomLogoutSuccessHandler(
     ) {
         response.status = HttpServletResponse.SC_OK
 
-        val hrsessionCookie = Cookie("HRSESSION", null)
-        setDeleteHrsessionCookie(hrsessionCookie)
-        val userTypeCookie = Cookie("USER_TYPE", null)
-        setDeleteUserTypeCookie(userTypeCookie)
+        val deletedHrsessionCookie = CookieUtil.deleteHrsessionCookie(domain)
+        val deletedUserTypeCookie = CookieUtil.deleteUserTypeCookie(domain)
 
-        response.addCookie(hrsessionCookie)
-        response.addCookie(userTypeCookie)
+        response.addCookie(deletedHrsessionCookie)
+        response.addCookie(deletedUserTypeCookie)
 
         response.sendRedirect(redirectBaseUri)
     }
-
-    private fun setDeleteHrsessionCookie(cookie: Cookie){
-        cookie.secure = true
-        cookie.maxAge = 0 // 쿠키 삭제하게 위해 maxAge 0으로 설정
-        cookie.isHttpOnly = true
-        cookie.domain = domain
-        cookie.path = "/"
-    }
-
-    private fun setDeleteUserTypeCookie(cookie: Cookie){
-        cookie.maxAge = 0
-        cookie.domain = domain
-        cookie.path = "/"
-    }
-
 
 }

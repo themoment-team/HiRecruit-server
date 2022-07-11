@@ -12,10 +12,10 @@ import org.springframework.mock.web.MockHttpSession
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.auth.entity.TempUserEntity
 import site.hirecruit.hr.domain.auth.repository.TempUserRepository
-import site.hirecruit.hr.domain.auth.repository.UserRepository
+import site.hirecruit.hr.domain.user.repository.UserRepository
 import kotlin.random.Random
 
 internal class UserSessionAuthServiceImplTest{
@@ -103,7 +103,7 @@ internal class UserSessionAuthServiceImplTest{
                 name = oAuth2Attributes.name!!,
                 email = "${RandomString.make(8)}@${RandomString.make(5)}.${RandomString.make(3)}",
                 profileImgUri = oAuth2Attributes.profileImgUri,
-                Role.CLIENT
+                role = Role.WORKER
             )
 
             every { tempUserRepository.existsById(oAuth2Attributes.id) } answers {false} // 임시회원이 존재한다면

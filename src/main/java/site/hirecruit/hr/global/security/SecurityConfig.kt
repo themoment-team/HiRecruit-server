@@ -4,8 +4,8 @@ import mu.KotlinLogging
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
@@ -13,9 +13,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
-import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
-import site.hirecruit.hr.domain.auth.entity.Role
+import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.global.data.ServerProfile
 
 private val log = KotlinLogging.logger {  }
@@ -52,13 +51,13 @@ class SecurityConfig(
                 it.antMatchers(
                     "/api/v1/worker/me",
                     "/api/v1/worker/me/**"
-                ).hasAnyRole(Role.UNAUTHENTICATED_EMAIL.name, Role.CLIENT.name, Role.WORKER.name, Role.MENTOR.name) //TODO 추후 UNAUTHENTICATED_EMAIL role 제거
+                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name)
                 it.antMatchers(
                     "/api/v1/auth/registration"
                 ).hasRole(Role.GUEST.name)
                 it.antMatchers(
                     HttpMethod.PATCH, "/api/v1/user/me"
-                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name, Role.CLIENT.name)
+                ).hasAnyRole(Role.WORKER.name, Role.MENTOR.name)
                 it.antMatchers(
                     "/api/v1/mentor/promotion/process/{workerId}",
                     "/api/v1/mentor/promotion/process/verify"
@@ -126,29 +125,38 @@ class SecurityConfig(
     @Configuration
     @Profile(ServerProfile.DEFAULT, ServerProfile.LOCAL, ServerProfile.STAGING)
     inner class TestingRole: WebSecurityConfigurerAdapter(){
+
+        override fun configure(web: WebSecurity) {
+            web
+                /**
+                 * antMatchers에 설정한 url에 대해 security 설정을 무시하는 설정
+                 */
+                .ignoring()
+                .antMatchers("/h2-console/**")
+        }
+
         override fun configure(http: HttpSecurity) {
-            cors(http)
+            http.headers { headers ->
+                headers.frameOptions {
+                    it.sameOrigin()
+                }
+            }
 
             http
                 .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .cors().disable()
+
             http
                 .authorizeRequests()
                 .antMatchers(
                     "/", "/css/**", "/images/**",
                     "/js/**", "/h2-console/**"
                 ).permitAll()
-                // 권한 테스트용 end point
-                .antMatchers("/test/email").hasRole(Role.UNAUTHENTICATED_EMAIL.name)
-                .antMatchers("/test/client").hasRole(Role.CLIENT.name)
-                .antMatchers("/test/guest").hasRole(Role.GUEST.name)
 
             authorizeRequests(http)
             logoutConfig(http)
             accessDenied(http)
             oauth2Login(http)
+            cors(http)
         }
     }
 }
