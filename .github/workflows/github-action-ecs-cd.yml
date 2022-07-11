@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - feature/prod-cd-perfomance-improve
+      - feature/build-script-eidt
 
 
 jobs:
