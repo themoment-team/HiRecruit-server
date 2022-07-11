@@ -27,6 +27,11 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
+      
+      - name: downloads zip to s3
+        run : |
+              aws s3 cp s3://hr-backend-zip/hirecruit-backend-jar.zip .
+              unzip hirecruit-backend-jar.zip
 
       - name: Login to Amazon ECR
         id: login-ecr
