@@ -17,11 +17,12 @@ ADD build.gradle.kts /HiRecruit-server/
 RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
 
 
-# The application's jar file
+# HR application jar file
 ARG JAR_FILE=build/libs/hirecruit-1.0.jar
 ADD ${JAR_FILE} hirecruit-1.0.jar
-RUN java -Djarmode=layertools -jar hirecruit-1.0.jar extract
 
+# Layering HR jar file
+RUN java -Djarmode=layertools -jar hirecruit-1.0.jar extract
 COPY build/libs/dependencies/ ./
 COPY build/libs/spring-boot-loader ./
 COPY build/libs/snapshot-dependencies ./
