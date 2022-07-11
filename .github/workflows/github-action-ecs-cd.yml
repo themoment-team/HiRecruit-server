@@ -27,7 +27,7 @@ jobs:
       
       - name: downloads zip to s3
         run : |
-          aws s3 cp s3://hr-backend-zip/hirecruit-backend-project.zip
+          aws s3 cp s3://hr-backend-zip/hirecruit-backend-project.zip .
           unzip hirecruit-backend-project.zip .
 
       - name: Login to Amazon ECR
