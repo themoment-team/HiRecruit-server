@@ -11,6 +11,12 @@ VOLUME /tmp
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
 
+# gradle dependency caching with docker cache
+WORKDIR /HiRecruit-server
+ADD build.gradle.kts /HiRecruit-server/
+RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
+
+
 # The application's jar file
 ARG JAR_FILE=build/libs/hirecruit-1.0.jar
 ADD ${JAR_FILE} hirecruit-1.0.jar
