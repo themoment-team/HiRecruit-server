@@ -18,9 +18,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Set up AWS IAM
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -29,7 +26,10 @@ jobs:
           aws-region: ap-northeast-2
       
       - name: downloads zip to s3
-        run : aws s3 cp s3://hr-backend-zip/hirecruit-1.0.jar .
+        run : |
+        aws s3 cp s3://hr-backend-zip/hirecruit-backend-project.zip
+        unzip hirecruit-backend-project.zip .
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -44,7 +44,6 @@ jobs:
             # Build a docker container and
             # push it to ECR so that it can
             # be deployed to ECS.
-            ls -la
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
             echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
