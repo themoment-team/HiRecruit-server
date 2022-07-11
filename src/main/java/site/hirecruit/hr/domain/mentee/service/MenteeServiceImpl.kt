@@ -50,7 +50,7 @@ open class MenteeServiceImpl(
      * @return false - Mentee가 등록되지 않았다면
      */
     @Transactional(readOnly = true)
-    open fun isMenteeEmailAlreadyRegistered(menteeEmail: String) : Boolean {
+    fun isMenteeEmailAlreadyRegistered(menteeEmail: String) : Boolean {
         return menteeRepository.existsByEmail(menteeEmail)
     }
 

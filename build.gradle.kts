@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "2.6.7"
@@ -31,6 +32,10 @@ base.archivesBaseName = "hirecruit"
 version = "1.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 val qeurydslVersion = "5.0.0"
+
+tasks.getByName<BootJar>("bootJar") {
+    layered
+}
 
 repositories {
     mavenCentral()
