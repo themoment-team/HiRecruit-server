@@ -20,6 +20,7 @@ import site.hirecruit.hr.global.event.UserRegistrationEvent
  * @since 1.0
  */
 @Service
+@Deprecated("v1.3부터 더 이상 사용하지 않는 유저 등록 서비스 입니다. 해당 서비스는 WorkerUserRegistrationService로 대체됩니다.")
 class UserRegistrationServiceImpl(
     private val userRepository: UserRepository,
     private val publisher: ApplicationEventPublisher

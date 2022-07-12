@@ -9,6 +9,7 @@ import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
  * @author 정시원
  * @version 1.0
  */
+@Deprecated("v1.3부터 더 이상 사용하지 않는 유저 등록 서비스 인터페이스 입니다.")
 interface UserRegistrationService {
 
     /**
