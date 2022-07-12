@@ -68,6 +68,9 @@ jobs:
         if: ${{ success() }}
         run: echo "🎉 Build with Gradle job has success"
 
+      - name: view current all directories & files
+        run: ls -la
+
       - name: Make app zip folder
         run: zip -r hirecruit-backend-project *
         shell: bash
