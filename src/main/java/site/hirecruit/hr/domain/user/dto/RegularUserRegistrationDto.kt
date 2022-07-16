@@ -1,7 +1,5 @@
 package site.hirecruit.hr.domain.user.dto
 
-import site.hirecruit.hr.domain.user.vo.RegularUserRegistrationRequestVo
-
 /**
  * 정식 사용자 등록 DTO
  *
@@ -15,6 +13,6 @@ data class RegularUserRegistrationDto(
 
     override val profileImgUri: String,
 
-    val userRegistrationInfo: RegularUserRegistrationRequestVo
+    val userRegistrationInfo: RegularUserRegistrationRequestDto
 ) : CommonUserRegistrationDto {
 }

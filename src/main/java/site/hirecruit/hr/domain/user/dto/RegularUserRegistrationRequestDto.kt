@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.user.vo
+package site.hirecruit.hr.domain.user.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull
  * @author 정시원
  * @since 1.3
  */
-data class RegularUserRegistrationRequestVo(
+data class RegularUserRegistrationRequestDto(
 
     @field:NotBlank @field:Email
     @field:JsonProperty("email")
