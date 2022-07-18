@@ -12,8 +12,9 @@ VOLUME /tmp
 EXPOSE 8080
 
 # gradle dependency caching with docker cache
-WORKDIR /HiRecruit-server
-ADD build.gradle.kts /HiRecruit-server/
+ARG workpath=/HiRecruit-server
+WORKDIR $workpath
+ADD build.gradle.kts $workpath/
 RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
 
 
@@ -37,4 +38,4 @@ COPY build/libs/application ./
 RUN true
 
 # Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hirecruit-1.0.jar","--spring.profiles.active=prod","--redis.host=10.0.4.66"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","$workpath/hirecruit-1.0.jar","--spring.profiles.active=prod","--redis.host=10.0.4.66"]
