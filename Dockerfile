@@ -20,7 +20,7 @@ RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
 
 # HR application jar file
 ARG JAR_FILE=build/libs/hirecruit-1.0.jar
-ADD ${JAR_FILE} hirecruit-1.0.jar
+ADD ${JAR_FILE} ./hirecruit-1.0.jar
 
 # Layering HR jar file
 RUN java -Djarmode=layertools -jar hirecruit-1.0.jar extract
