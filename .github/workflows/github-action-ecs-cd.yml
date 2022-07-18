@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-      - feature/build-script-eidt
-
 
 jobs:
   CI:
@@ -63,3 +61,19 @@ jobs:
             service: service-for-hirecruit
             cluster: hirecruit
             wait-for-service-stability: true
+
+      - name: HiRecruit Backend PROD-CD success Discord Notification
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ success() }}
+        with:
+          title: 🎉 HiRecruit Backend PROD-CD success 🎉
+          webhook: ${{ secrets.DISCORD_WEBHOOK_TEST_CD_BOT }}
+          color: 00FF00
+
+      - name: HiRecruit Backend PROD-CD failure Discord Notification
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ failure() }}
+        with:
+          title: ❌ HiRecruit Backend PROD-CD failed ❌
+          webhook: ${{ secrets.DISCORD_WEBHOOK_TEST_CD_BOT }}
+          color: FF0000
