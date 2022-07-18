@@ -23,10 +23,18 @@ ADD ${JAR_FILE} hirecruit-1.0.jar
 
 # Layering HR jar file
 RUN java -Djarmode=layertools -jar hirecruit-1.0.jar extract
+
 COPY build/libs/dependencies/ ./
+RUN true
+
 COPY build/libs/spring-boot-loader ./
+RUN true
+
 COPY build/libs/snapshot-dependencies ./
+RUN true
+
 COPY build/libs/application ./
+RUN true
 
 # Run the jar file
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hirecruit-1.0.jar","--spring.profiles.active=prod","--redis.host=10.0.4.66"]
