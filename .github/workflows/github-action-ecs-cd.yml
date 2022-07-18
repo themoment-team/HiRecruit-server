@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - feature/build-script-eidt
+      - hotfix/esc-Essential-container-in-task-exited
 
 
 jobs:
