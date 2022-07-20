@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.user.service
+package site.hirecruit.hr.domain.user.service.legacy
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.user.dto.UserRegistrationDto

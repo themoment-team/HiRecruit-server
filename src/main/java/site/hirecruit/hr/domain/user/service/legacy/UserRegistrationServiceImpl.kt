@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.user.service
+package site.hirecruit.hr.domain.user.service.legacy
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service

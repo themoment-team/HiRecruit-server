@@ -13,7 +13,7 @@ import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.entity.UserEntity
 import site.hirecruit.hr.domain.user.repository.UserRepository
-import site.hirecruit.hr.domain.user.service.UserRegistrationServiceImpl
+import site.hirecruit.hr.domain.user.service.legacy.UserRegistrationServiceImpl
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.global.event.UserRegistrationEvent
 import kotlin.random.Random
