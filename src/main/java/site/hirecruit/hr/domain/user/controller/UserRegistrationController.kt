@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.user.dto.RegularUserRegistrationDto
 import site.hirecruit.hr.domain.user.dto.RegularUserRegistrationRequestDto
-import site.hirecruit.hr.domain.user.service.NewUserRegistrationService
+import site.hirecruit.hr.domain.user.service.UserRegistrationService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import site.hirecruit.hr.global.util.CookieUtil
 import springfox.documentation.annotations.ApiIgnore
@@ -20,7 +20,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/api/v1/user")
 class UserRegistrationController(
-    private val regularUserRegistrationService: NewUserRegistrationService<RegularUserRegistrationDto>,
+    private val regularUserRegistrationService: UserRegistrationService<RegularUserRegistrationDto>,
     @Value("\${hr.domain}") private val hrDomain: String
 ) {
 

@@ -19,7 +19,7 @@ import site.hirecruit.hr.global.event.UserRegistrationEvent
 class WorkerUserRegistrationService(
     private val userRepository: UserRepository,
     private val publisher: ApplicationEventPublisher
-): NewUserRegistrationService<RegularUserRegistrationDto> {
+): UserRegistrationService<RegularUserRegistrationDto> {
 
     /**
      * role타입이 [Role.WORKER]인 사용자를 등록하는 매서드

@@ -14,7 +14,7 @@ import site.hirecruit.hr.domain.user.entity.Role
  */
 class TempUserRegistrationService(
     private val tempUserRepository: TempUserRepository
-): NewUserRegistrationService<TempUserRegistrationDto> {
+): UserRegistrationService<TempUserRegistrationDto> {
 
     /**
      * 임시 사용자 등록 매서드

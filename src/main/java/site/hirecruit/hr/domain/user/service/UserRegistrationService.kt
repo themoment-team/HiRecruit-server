@@ -9,7 +9,7 @@ import site.hirecruit.hr.domain.user.dto.CommonUserRegistrationDto
  * @author 정시원
  * @since 1.3
  */
-interface NewUserRegistrationService<T : CommonUserRegistrationDto> {
+interface UserRegistrationService<T : CommonUserRegistrationDto> {
 
 
     /**
