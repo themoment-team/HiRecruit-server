@@ -28,11 +28,8 @@ class UserRegistrationAspect(
     private val securityContextFacade: SecurityContextAccessService
 ) {
 
-    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.legacy.UserRegistrationService+.registration(..))")
+    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.UserRegistrationService+.registration(..))")
     private fun userRegistrationService_registrationMethodPointCut(){}
-
-    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.NewUserRegistrationService+.registration(..))")
-    private fun newUserRegistrationService_registrationMethodPointCut(){}
 
     /**
      * 회원가입 후 진행해야 하는 횡단 관심사
@@ -40,7 +37,7 @@ class UserRegistrationAspect(
      * 2. 세션에 유저 인증 정보 업데이트
      */
     @AfterReturning(
-        "userRegistrationService_registrationMethodPointCut() || newUserRegistrationService_registrationMethodPointCut()",
+        "userRegistrationService_registrationMethodPointCut()",
         returning = "authUserInfo"
     )
     fun afterRegistrationMethod(authUserInfo: AuthUserInfo){
