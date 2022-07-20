@@ -31,13 +31,16 @@ class UserRegistrationAspect(
     @Pointcut("execution(* site.hirecruit.hr.domain.user.service.UserRegistrationService+.registration(..))")
     private fun userRegistrationService_registrationMethodPointCut(){}
 
+    @Pointcut("execution(* site.hirecruit.hr.domain.user.service.NewUserRegistrationService+.registration(..))")
+    private fun newUserRegistrationService_registrationMethodPointCut(){}
+
     /**
      * 회원가입 후 진행해야 하는 횡단 관심사
      * 1. 임시유저 제거
      * 2. 세션에 유저 인증 정보 업데이트
      */
     @AfterReturning(
-        "userRegistrationService_registrationMethodPointCut()",
+        "userRegistrationService_registrationMethodPointCut() || newUserRegistrationService_registrationMethodPointCut()",
         returning = "authUserInfo"
     )
     fun afterRegistrationMethod(authUserInfo: AuthUserInfo){
