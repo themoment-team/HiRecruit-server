@@ -7,5 +7,5 @@ package site.hirecruit.hr.domain.mentoringApplication.entity
  * @since 1.0.0
  */
 enum class MentoringStatus {
-    PENDING, BROWSE, APPROVED, REJECT
+    PENDING, REVIEW, APPROVED, REJECT
 }
