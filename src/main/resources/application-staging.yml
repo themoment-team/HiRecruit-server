@@ -40,7 +40,7 @@ spring:
     store-type: redis
     redis:
       flush-mode: immediate
-      namespace: spring:session:staging-server # redis에 세션 저장시 네임스페이스
+      namespace: spring:session:staging # redis에 세션 저장시 네임스페이스
 
   redis:
     host: ${REDIS_HOST}
