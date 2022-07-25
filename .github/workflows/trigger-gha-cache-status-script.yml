@@ -1,0 +1,24 @@
+name: trigger GHA cache status check lambda function
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches:
+      - develop
+  push:
+    branches:
+      - master
+      - feature/GHA-CACHE-lambda-trigger
+
+jobs:
+  GHA-CACHE-lambda-trigger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: HTTP Request to gha-cache-status lambda function
+      uses: fjogeleit/http-request-action@v1.10.0
+      with:
+        url: ${{ secrets.GHA_CACHE_LAMBDA_FUN }}
+        method: 'GET'
+    - name: Show Response
+      run: |
+        echo ${{ steps.myRequest.outputs.response }}
