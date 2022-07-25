@@ -1,21 +1,21 @@
 package site.hirecruit.hr.domain.user.service
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.user.dto.UserRegistrationDto
+import site.hirecruit.hr.domain.user.dto.CommonUserRegistrationDto
 
 /**
- * 유저생성 서비스
+ * 사용자 등록 서비스 인터페이스
  *
  * @author 정시원
- * @version 1.0
+ * @since 1.3
  */
-@Deprecated("v1.3부터 더 이상 사용하지 않는 유저 등록 서비스 인터페이스 입니다.")
-interface UserRegistrationService {
+interface UserRegistrationService<T : CommonUserRegistrationDto> {
+
 
     /**
      * 유저를 생성합니다.
      *
-     * @return [AuthUserInfo] - 임시 유저의 정보
+     * @return 생성된 사용자의 정보
      */
-    fun registration(authUserInfo: AuthUserInfo, userRegistrationInfo: UserRegistrationDto): AuthUserInfo
+    fun registration(registrationDto : T): AuthUserInfo
 }

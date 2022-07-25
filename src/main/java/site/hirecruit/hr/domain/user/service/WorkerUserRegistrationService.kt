@@ -2,6 +2,7 @@ package site.hirecruit.hr.domain.user.service
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.user.dto.RegularUserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
@@ -15,11 +16,11 @@ import site.hirecruit.hr.global.event.UserRegistrationEvent
  * @author 정시원
  * @since 1.3
  */
-@Component
+@Service("workerUserRegistrationService")
 class WorkerUserRegistrationService(
     private val userRepository: UserRepository,
     private val publisher: ApplicationEventPublisher
-): NewUserRegistrationService<RegularUserRegistrationDto> {
+): UserRegistrationService<RegularUserRegistrationDto> {
 
     /**
      * role타입이 [Role.WORKER]인 사용자를 등록하는 매서드
