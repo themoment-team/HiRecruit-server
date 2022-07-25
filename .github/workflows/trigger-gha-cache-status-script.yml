@@ -17,7 +17,7 @@ jobs:
     - name: HTTP Request to gha-cache-status lambda function
       uses: fjogeleit/http-request-action@v1.10.0
       with:
-        url: ${{ secrets.GHA_CACHE_LAMBDA_FUN }}
+        url: ${{ secrets.GHA_CACHE_LAMBDA_FUN_URI }}
         method: 'GET'
     - name: Show Response
       run: |
