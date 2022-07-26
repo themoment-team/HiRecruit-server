@@ -2,13 +2,14 @@ name: trigger GHA cache status check lambda function
 
 on:
   pull_request:
+    # CI
     types: [opened, reopened]
     branches:
       - develop
   push:
+    # prod-CD
     branches:
       - master
-      - feature/GHA-CACHE-lambda-trigger
 
 jobs:
   GHA-CACHE-lambda-trigger:
