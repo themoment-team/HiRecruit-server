@@ -3,6 +3,9 @@ package site.hirecruit.hr.domain.mentee.entity
 import site.hirecruit.hr.domain.user.entity.UserEntity
 import javax.persistence.*
 
+/**
+ * satisfied v1.3 erd
+ */
 @Entity(name = "mentee")
 class MenteeEntity(
     @Id
@@ -17,5 +20,7 @@ class MenteeEntity(
     @Column(name = "mentee_certified")
     val certified: Boolean = false
 ) {
-
+    override fun toString(): String {
+        return "MenteeEntity(menteeId=$menteeId, user=$user, certified=$certified)"
+    }
 }
