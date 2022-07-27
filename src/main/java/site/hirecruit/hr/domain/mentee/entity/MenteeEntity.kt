@@ -1,5 +1,6 @@
 package site.hirecruit.hr.domain.mentee.entity
 
+import site.hirecruit.hr.domain.user.entity.UserEntity
 import javax.persistence.*
 
 @Entity(name = "mentee")
@@ -9,20 +10,12 @@ class MenteeEntity(
     @Column(name = "mentee_id")
     val menteeId: Long?,
 
-    @Column(name = "mentee_uuid", unique = true)
-    val menteeUUID: String,
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    val user: UserEntity?,
 
-    @Column(name = "name")
-    val name: String,
-
-    @Column(name = "email")
-    val email: String,
-
-    @Column(name = "email_certified")
-    val emailCertified: Boolean = false
+    @Column(name = "mentee_certified")
+    val certified: Boolean = false
 ) {
 
-    override fun toString(): String {
-        return "MenteeEntity(menteeId=$menteeId, menteeUUID='$menteeUUID', name='$name', email='$email', emailCertified=$emailCertified)"
-    }
 }
