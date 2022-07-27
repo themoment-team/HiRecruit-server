@@ -55,7 +55,7 @@ spring:
 
   #DB 설정
   datasource:
-    url: jdbc:h2:tcp://localhost/~/local-hr-db
+    url: jdbc:h2:mem:HR
     driver-class-name: org.h2.Driver
     username: sa
 
