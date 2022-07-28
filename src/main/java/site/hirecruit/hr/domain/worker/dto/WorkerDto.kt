@@ -26,9 +26,6 @@ class WorkerDto {
         @field:NotNull @field:Min(1) @field:CompanyIsNotExistByCompanyId
         val _companyId: Long?, // validation 을 사용하기 위해 추가
 
-        @field:URL
-        val giveLink: String? = null,
-
         @field:Length(min = 0, max = 100)
         val introduction: String? = null,
 
@@ -54,8 +51,6 @@ class WorkerDto {
 
         val introduction: String?,
 
-        val giveLink: String?,
-
         val devYear: Int?,
 
         val position: String?,
@@ -73,9 +68,6 @@ class WorkerDto {
 
         @field:Length(min = 0, max = 100)
         val introduction: String? = null,
-
-        @field:URL
-        val giveLink: String? = null,
 
         @field:Min(0) @field:Max(50)
         val devYear: Int? = null,
