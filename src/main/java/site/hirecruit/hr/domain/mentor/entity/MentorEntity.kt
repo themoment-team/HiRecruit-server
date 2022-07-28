@@ -15,10 +15,10 @@ class MentorEntity(
     val user: UserEntity?,
 
     @Column(name = "mentor_certified")
-    val certified: Boolean = false,
+    var certified: Boolean = false,
 
     @Column(name = "donation_link")
-    val donationLink: String?
+    var donationLink: String?
 ) {
 
     override fun toString(): String {
