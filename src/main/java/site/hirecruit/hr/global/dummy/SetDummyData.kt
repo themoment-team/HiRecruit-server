@@ -70,7 +70,7 @@ class SetDummyData(
     fun createDummyData(){
         val companyOzu = createCompany("Ozu", "서울 송파구 올림픽로300, 35층", "https://avatars.githubusercontent.com/u/62932968?v=4")
         val companyToss = createCompany("toss", "서울특별시 강남구 테헤란로 142, 12층", "https://image.rocketpunch.com/company/153891/toss-1_logo_1628388572.png?s=400x400&t=inside")
-        val companyTheSwing = createCompany("THE SWING", "서울특별시 강남구 선릉로 577, 3층", "https://contents.sixshop.com/uploadedFiles/145168/default/image_1622101035126.gif")
+        val companyFlo = createCompany("드림어스컴퍼니 FLO", "서울 서초구 강남대로 311 15층", "https://www.music-flo.com/og_default_190911.png")
         val companyDRX = createCompany("DRX", "서울시 마포구 독막로7길 59", "https://drx-media.s3.ap-northeast-2.amazonaws.com/image/icon/icon-no-padding.png")
         val companyTM = createCompany("themoment-team", "광주광역시 광산구 상무대로 312", "https://images.velog.io/images/im_chang_1217/post/87073cce-cbea-4079-af78-cca389b17f7a/GSM.png")
 
@@ -86,7 +86,7 @@ class SetDummyData(
         val worker_si_wony = createWorker("안녕하세유~~~~ 저는 영광 굴비 테크노 킹이에유~~~~~", "테크노킹", si_wony, companyOzu)
         val worker_sunwoo0706 = createWorker("홀리몰리과카몰리투모로우나라의마일스", "서울야스킹", sunwoo0706, companyOzu)
         val worker_4yj = createWorker("mainly webpack ecosystem", "풀스텍 Sr.시니어 개발자", _4yj, companyToss)
-        val worker_jyeonjyan = createWorker("mainly JVM ecosystem", "백엔드 개발자", jyeonjyan, companyTheSwing)
+        val worker_jyeonjyan = createWorker("mainly JVM ecosystem", "백엔드 개발자", jyeonjyan, companyFlo)
         val worker_songsihyeon = createWorker("GOAT 개발자 를 꿈꾸는 송시현입니다.", "프론트엔드 개발자", songsihyeon, companyDRX)
         val woker_imchanggyu = createWorker("앞단 개발자 임창규입니다.", "프론트엔드 개발자", imchanggyu, companyTM)
     }
