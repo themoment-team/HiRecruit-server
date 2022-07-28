@@ -15,9 +15,6 @@ class WorkerEntity(
     @Column(name = "introduction", nullable = true)
     var introduction: String? = null,
 
-    @Column(name = "give_link", nullable = true)
-    var giveLink: String? = null,
-
     devYear: Int? = null,
 
     @Column(name = "position", nullable = true)
@@ -41,7 +38,6 @@ class WorkerEntity(
 
     fun update(updateDto: WorkerDto.Update, company: CompanyEntity? = null) = apply {
         this.introduction = updateDto.introduction
-        this.giveLink = updateDto.giveLink
         this.position = updateDto.position
         this.company = company ?: this.company
     }

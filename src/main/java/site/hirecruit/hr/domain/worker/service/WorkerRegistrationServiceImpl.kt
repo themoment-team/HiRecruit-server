@@ -43,7 +43,6 @@ class WorkerRegistrationServiceImpl(
         val savedWorkerEntity = workerRepository.save(
             WorkerEntity(
                 introduction = registrationDto.introduction,
-                giveLink = registrationDto.giveLink,
                 devYear = registrationDto.devYear,
                 position = registrationDto.position,
                 user = userEntity,
@@ -57,7 +56,6 @@ class WorkerRegistrationServiceImpl(
             githubLoginId = authUserInfo.githubLoginId,
             workerId = savedWorkerEntity.workerId!!,
             introduction = savedWorkerEntity.introduction,
-            giveLink = savedWorkerEntity.giveLink,
             devYear = savedWorkerEntity.devYear,
             position = savedWorkerEntity.position,
             userType = Role.WORKER,

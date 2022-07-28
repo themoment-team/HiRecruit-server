@@ -48,7 +48,6 @@ internal class WorkerRegistrationServiceImplTest{
         )
         val workerEntity = WorkerEntity(
             workerId = null,
-            giveLink = registrationDto.giveLink,
             introduction = registrationDto.introduction,
             devYear = registrationDto.devYear,
             position = registrationDto.position,
@@ -57,7 +56,6 @@ internal class WorkerRegistrationServiceImplTest{
         )
         val savedWorkerEntity = WorkerEntity(
             workerId = Random.nextLong(),
-            giveLink = registrationDto.giveLink,
             introduction = registrationDto.introduction,
             devYear = registrationDto.devYear,
             position = registrationDto.position,
@@ -83,7 +81,6 @@ internal class WorkerRegistrationServiceImplTest{
             assertEquals(authUserInfo.profileImgUri, registrationWorkerInfo.profileImgUri)
             assertEquals(registrationDto.position, registrationWorkerInfo.position)
             assertEquals(registrationDto.introduction, registrationWorkerInfo.introduction)
-            assertEquals(registrationDto.giveLink, registrationWorkerInfo.giveLink)
             assertEquals(registrationDto.devYear, registrationWorkerInfo.devYear)
         })
     }
@@ -103,7 +100,6 @@ internal class WorkerRegistrationServiceImplTest{
 
     private fun makeRegistrationDto() = WorkerDto.Registration(
         _companyId = Random.nextLong(),
-        giveLink = RandomString.make(15),
         introduction = RandomString.make(15),
         devYear = Random.nextInt(),
         position = RandomString.make(15),

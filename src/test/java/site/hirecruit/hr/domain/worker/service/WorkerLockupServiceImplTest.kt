@@ -33,7 +33,6 @@ internal class WorkerLockupServiceImplTest {
             email = workerEntity.user.email,
             profileImgUri = workerEntity.user.profileImgUri,
             introduction = workerEntity.introduction,
-            giveLink = workerEntity.giveLink,
             devYear = workerEntity.devYear,
             position = workerEntity.position,
             userType = Role.WORKER,
