@@ -21,3 +21,6 @@ jobs:
       with:
         url: ${{ secrets.GHA_CACHE_LAMBDA_FUN_URI }}
         method: 'GET'
+    - name: Show Response
+      run: |
+        echo ${{ steps.request.outputs.response }}
