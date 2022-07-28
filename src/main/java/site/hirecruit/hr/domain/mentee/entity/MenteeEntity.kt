@@ -18,7 +18,7 @@ class MenteeEntity(
     val user: UserEntity?,
 
     @Column(name = "mentee_certified")
-    val certified: Boolean = false
+    var certified: Boolean = false
 ) {
     override fun toString(): String {
         return "MenteeEntity(menteeId=$menteeId, user=$user, certified=$certified)"
