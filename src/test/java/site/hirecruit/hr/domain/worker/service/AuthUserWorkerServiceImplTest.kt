@@ -73,7 +73,6 @@ class AuthUserWorkerServiceImplTest(
         assertAll({
             assertEquals(workerEntity.introduction, workerEntity.introduction)
             assertEquals(workerEntity.devYear, workerEntity.devYear)
-            assertEquals(workerEntity.giveLink, workerEntity.giveLink)
             assertEquals(companyEntity, workerEntity.company)
         })
 
@@ -95,7 +94,6 @@ class AuthUserWorkerServiceImplTest(
         val updateDto = WorkerDto.Update(
             companyId = newCompanyEntity.companyId,
             introduction = RandomString.make(10),
-            giveLink = RandomString.make(10),
             devYear = Random.nextInt(0, 30),
             position = RandomString.make(15),
         )
@@ -108,7 +106,6 @@ class AuthUserWorkerServiceImplTest(
         val updatedWorkerEntity = workerRepository.findByUser_GithubId(authUserInfo.githubId)
         assertAll("업데이터 전에 조회한 WorkerEntity의 값과 Update후 조회된 WorkerEntity의 값은 달라야 한다.", {
             assertNotEquals(workerEntity.introduction, updatedWorkerEntity?.introduction)
-            assertNotEquals(workerEntity.giveLink, updatedWorkerEntity?.giveLink)
             assertNotEquals(workerEntity.devYear, updatedWorkerEntity?.devYear)
             assertNotEquals(workerEntity.position, updatedWorkerEntity?.position)
             assertNotEquals(workerEntity.company, updatedWorkerEntity?.company)
@@ -117,7 +114,6 @@ class AuthUserWorkerServiceImplTest(
         assertAll("UpdateDto에 저장된, 값들은 update후 조회된 Entity에 반영되어야 한다.", {
             assertEquals(updateDto.companyId, updatedWorkerEntity?.company?.companyId)
             assertEquals(updateDto.introduction, updatedWorkerEntity?.introduction)
-            assertEquals(updateDto.giveLink, updatedWorkerEntity?.giveLink)
             assertEquals(updateDto.devYear, updatedWorkerEntity?.devYear)
             assertEquals(updateDto.position, updatedWorkerEntity?.position)
             assertEquals(authUserInfo.githubId, updatedWorkerEntity?.user?.githubId)
@@ -135,7 +131,6 @@ class AuthUserWorkerServiceImplTest(
     fun createWorkerEntity(companyEntity: CompanyEntity) = workerRepository.save(
         WorkerEntity(
             introduction = RandomString.make(15),
-            giveLink = RandomString.make(15),
             devYear = Random.nextInt(),
             user = this.userEntity,
             company = companyEntity
@@ -154,7 +149,6 @@ class AuthUserWorkerServiceImplTest(
     private fun workerEntityDeepCopy(workerEntity: WorkerEntity): WorkerEntity = WorkerEntity(
         position = workerEntity.position,
         introduction = workerEntity.introduction,
-        giveLink = workerEntity.giveLink,
         devYear = workerEntity.devYear,
         user = userEntity,
         company = workerEntity.company

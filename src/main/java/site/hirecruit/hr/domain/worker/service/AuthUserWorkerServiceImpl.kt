@@ -32,7 +32,6 @@ class AuthUserWorkerServiceImpl(
             githubLoginId = workerEntity.user.githubLoginId,
             profileImgUri = workerEntity.user.profileImgUri,
             introduction = workerEntity.introduction,
-            giveLink = workerEntity.giveLink,
             devYear =  workerEntity.devYear,
             position = workerEntity.position,
             userType = workerEntity.user.role,
