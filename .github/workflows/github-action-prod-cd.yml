@@ -39,14 +39,10 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         uses: docker/build-push-action@v2
-        env:
-            ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-            ECR_REPOSITORY: hirecruit
-            IMAGE_TAG: latest 
         with:
           context: .
           push: true
-          tags: ${ ECR_REGISTRY }/${ ECR_REPOSITORY }:${ IMAGE_TAG }
+          tags: ${{ steps.login-ecr.outputs.registry }}/hirecruit:latest
           no-cache: true
 
       - name: Fill in the new image ID in the Amazon ECS task definition
