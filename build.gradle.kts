@@ -101,6 +101,11 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-batch")
     testImplementation("org.springframework.batch:spring-batch-test")
+
+    /** MapStruct **/
+    implementation("org.mapstruct:mapstruct:1.5.2.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.5.2.Final")
+    kaptTest("org.mapstruct:mapstruct-processor:1.5.2.Final")
 }
 
 /** Querydsl 이 만들어주는 Qclass 경로 지정 **/
