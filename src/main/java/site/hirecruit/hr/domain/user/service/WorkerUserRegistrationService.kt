@@ -1,12 +1,11 @@
 package site.hirecruit.hr.domain.user.service
 
 import org.springframework.context.ApplicationEventPublisher
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.user.dto.RegularUserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
-import site.hirecruit.hr.domain.user.entity.UserEntity
+import site.hirecruit.hr.domain.user.mapper.UserEntityMapper
 import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.global.event.UserRegistrationEvent
 
@@ -29,14 +28,7 @@ class WorkerUserRegistrationService(
      */
     override fun registration(registrationDto: RegularUserRegistrationDto): AuthUserInfo {
         val savedUserEntity = userRepository.save(
-            UserEntity(
-                githubId = registrationDto.githubId,
-                githubLoginId = registrationDto.githubLoginId,
-                email = registrationDto.userRegistrationInfo.email,
-                name = registrationDto.userRegistrationInfo.name,
-                profileImgUri = registrationDto.profileImgUri,
-                role = Role.WORKER
-            )
+            UserEntityMapper.INSTANCE.toEntity(registrationDto, Role.WORKER)
         )
 
         val registeredAuthUserInfo = AuthUserInfo(
