@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.user.service
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
 import site.hirecruit.hr.domain.user.dto.RegularUserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.mapper.UserEntityMapper
@@ -31,14 +32,7 @@ class WorkerUserRegistrationService(
             UserEntityMapper.INSTANCE.toEntity(registrationDto, Role.WORKER)
         )
 
-        val registeredAuthUserInfo = AuthUserInfo(
-            githubId = savedUserEntity.githubId,
-            githubLoginId = savedUserEntity.githubLoginId,
-            name = savedUserEntity.name,
-            email = savedUserEntity.email,
-            profileImgUri = savedUserEntity.profileImgUri,
-            role = savedUserEntity.role
-        )
+        val registeredAuthUserInfo = AuthUserInfoMapper.INSTANCE.toAuthUserInfo(savedUserEntity)
         // UserRegistrationEvent발생시킴. 타 도메인 로직(ex. workerEntity 생성 등...)은 해당 이벤트의 헨들러가 담당하여 도메인간 느슨한 결합을 유지
         publisher.publishEvent(UserRegistrationEvent(registeredAuthUserInfo, registrationDto.userRegistrationInfo.workerDto))
         return registeredAuthUserInfo
