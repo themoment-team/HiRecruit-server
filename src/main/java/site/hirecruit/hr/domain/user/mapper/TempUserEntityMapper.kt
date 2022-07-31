@@ -6,9 +6,10 @@ import site.hirecruit.hr.domain.auth.entity.TempUserEntity
 import site.hirecruit.hr.domain.user.dto.TempUserRegistrationDto
 
 /**
- * UserEntity의 mapper class
+ * TempUserEntity의 mapper class
  *
  * @author 정시원
+ * @since 1.2.4
  */
 @Mapper(
     componentModel = MappingConstants.ComponentModel.SPRING,

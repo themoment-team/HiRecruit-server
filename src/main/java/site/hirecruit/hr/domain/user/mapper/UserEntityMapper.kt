@@ -15,6 +15,7 @@ import site.hirecruit.hr.domain.user.entity.UserEntity
  * UserEntity의 mapper class
  *
  * @author 정시원
+ * @since 1.2.4
  */
 @Mapper(
     componentModel = MappingConstants.ComponentModel.SPRING,
