@@ -2,8 +2,8 @@ package site.hirecruit.hr.domain.auth.service.impl
 
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.entity.TempUserEntity
-import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.user.entity.TempUserEntity
+import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.service.TempUserRegistrationService
 
 /**
