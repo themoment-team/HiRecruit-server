@@ -7,7 +7,6 @@ import org.mapstruct.MappingConstants
 import org.mapstruct.Mappings
 import org.mapstruct.ReportingPolicy
 import org.mapstruct.factory.Mappers
-import site.hirecruit.hr.domain.user.dto.CommonUserRegistrationDto
 import site.hirecruit.hr.domain.user.dto.RegularUserRegistrationDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.entity.UserEntity
@@ -20,7 +19,7 @@ import site.hirecruit.hr.domain.user.entity.UserEntity
 @Mapper(
     componentModel = MappingConstants.ComponentModel.SPRING,
     injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-    unmappedTargetPolicy = ReportingPolicy.ERROR,
+    unmappedTargetPolicy = ReportingPolicy.WARN,
 )
 interface UserEntityMapper {
 
