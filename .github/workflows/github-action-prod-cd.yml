@@ -79,8 +79,7 @@ jobs:
             task-definition: task-definition.json
             container-name: hirecruit-server-container
             image: ${{ steps.build-image.outputs.image }}
-            entryPoint: entrypoint.sh
-
+            
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
