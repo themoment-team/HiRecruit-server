@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - hotfix/docker-build-push-cache
+      - hotfix/workflow-rollback
 
 jobs:
   CI:
@@ -29,8 +29,8 @@ jobs:
           aws s3 cp s3://hr-backend-zip/hirecruit-backend-project.zip .
           unzip hirecruit-backend-project.zip 
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v1
         
       - name: Login to Amazon ECR
         id: login-ecr
@@ -38,15 +38,25 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        uses: docker/build-push-action@v2
         env:
             ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
             ECR_REPOSITORY: hirecruit
-            IMAGE_TAG: latest 
-        with:
-          context: .
-          push: true
-          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+            IMAGE_TAG: latest
+        run: |
+            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      # - name: Build, tag, and push image to Amazon ECR
+      #   id: build-image
+      #   uses: docker/build-push-action@v2
+      #   env:
+      #       ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #       ECR_REPOSITORY: hirecruit
+      #       IMAGE_TAG: latest 
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
