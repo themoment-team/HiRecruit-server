@@ -5,7 +5,6 @@
   "containerDefinitions": [
     {
       "name": "hirecruit-server-container",
-      "image": "030783040786.dkr.ecr.ap-northeast-2.amazonaws.com/hirecruit:latest",
       "portMappings": [
         {
           "containerPort": 8080,
