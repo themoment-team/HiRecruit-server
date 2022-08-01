@@ -5,6 +5,7 @@ import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
 import site.hirecruit.hr.domain.user.entity.TempUserEntity
 import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.user.dto.TempUserRegistrationDto
+import site.hirecruit.hr.domain.user.mapper.TempUserEntityMapper
 
 /**
  * 임시 유저 등록 서비스
@@ -26,11 +27,7 @@ class TempUserRegistrationService(
             return AuthUserInfoMapper.INSTANCE.toAuthUserInfo(registrationDto)
 
         val savedTempUserEntity = tempUserRepository.save(
-            TempUserEntity(
-                githubId = registrationDto.githubId,
-                githubLoginId = registrationDto.githubLoginId,
-                profileImgUri = registrationDto.profileImgUri
-            )
+            TempUserEntityMapper.INSTANCE.toEntity(registrationDto)
         )
         return AuthUserInfoMapper.INSTANCE.toAuthUserInfo(savedTempUserEntity)
     }
