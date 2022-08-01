@@ -5,6 +5,7 @@
   "containerDefinitions": [
     {
       "name": "hirecruit-server-container",
+      "entryPoint": "entrypoint.sh",
       "portMappings": [
         {
           "containerPort": 8080,
