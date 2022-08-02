@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - hotfix/workflow-rollback
 
 jobs:
   CI:
