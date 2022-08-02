@@ -8,7 +8,7 @@ on:
 
 jobs:
   CI:
-    uses: ./.github/workflows/github-action-ci-script.yml
+    uses: ./.github/workflows/github-action-ci.yml
     secrets: inherit
 
   prod-CD:
