@@ -35,13 +35,24 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Inject slug/short variables
+        id: slug-short-variables-inject
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: set env for image tags
+        id: set-env
+        run: |
+          echo "::set-output name=image-name::${GITHUB_REF_SLUG}"
+          echo "::set-output name=image-version::${GITHUB_SHA_SHORT}"
+          echo "::set-output name=imag-tag::${GITHUB_REF_SLUG}-${GITHUB_SHA_SHORT}"
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         uses: docker/build-push-action@v2
         env:
             ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
             ECR_REPOSITORY: hirecruit
-            IMAGE_TAG: latest 
+            IMAGE_TAG: ${{ steps.set-env.outputs.image-tag }}
         with:
           context: .
           push: true
@@ -55,7 +66,7 @@ jobs:
         with:
             task-definition: task-definition.json
             container-name: hirecruit-server-container
-            image: ${{ steps.login-ecr.outputs.registry }}/hirecruit:latest
+            image: ${{ steps.login-ecr.outputs.registry }}/hirecruit:${{ steps.set-env.outputs.image-tag }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
