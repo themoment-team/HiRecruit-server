@@ -20,6 +20,9 @@ RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
 ARG JAR_FILE=build/libs/hirecruit-1.0.jar
 ADD ${JAR_FILE} ./hirecruit-1.0.jar
 
+# Debug ls
+RUN ls -alh
+
 # Layering HR jar file
 RUN java -Djarmode=layertools -jar hirecruit-1.0.jar extract
 
@@ -35,7 +38,5 @@ RUN true
 COPY build/libs/application ./
 RUN true
 
-COPY ./entrypoint.sh /
-RUN chmod 755 ./entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+# Run the jar file
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hirecruit-1.0.jar","--spring.profiles.active=prod","--redis.host=10.0.4.66"]
