@@ -46,7 +46,7 @@ jobs:
           echo "::set-output name=image-name::${GITHUB_REF_SLUG}"
           echo "::set-output name=image-version::${GITHUB_SHA_SHORT}"
           echo "::set-output name=image-tag::${GITHUB_REF_SLUG}-${GITHUB_SHA_SHORT}"
-          echo "::set-output name=full-image::${{ steps.login-ecr.outputs.registry }}/hirecruit:${GITHUB_REF_SLUG}-${GITHUB_SHA_SHORT}"
+          echo "::set-output name=full-image-path::${{ steps.login-ecr.outputs.registry }}/hirecruit:${GITHUB_REF_SLUG}-${GITHUB_SHA_SHORT}"
 
 
       - name: Build, tag, and push image to Amazon ECR
@@ -55,7 +55,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.set-env.outputs.full-image }}
+          tags: ${{ steps.set-env.outputs.full-image-path }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -65,7 +65,7 @@ jobs:
         with:
             task-definition: task-definition.json
             container-name: hirecruit-server-container
-            image: ${{ steps.set-env.outputs.full-image }}
+            image: ${{ steps.set-env.outputs.full-image-path }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
