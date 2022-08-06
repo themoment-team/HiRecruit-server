@@ -1,4 +1,4 @@
-package site.hirecruit.hr.domain.auth.controller
+package site.hirecruit.hr.domain.user.controller
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus

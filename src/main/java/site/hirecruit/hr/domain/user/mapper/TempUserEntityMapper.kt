@@ -2,7 +2,7 @@ package site.hirecruit.hr.domain.user.mapper
 
 import org.mapstruct.*
 import org.mapstruct.factory.Mappers
-import site.hirecruit.hr.domain.auth.entity.TempUserEntity
+import site.hirecruit.hr.domain.user.entity.TempUserEntity
 import site.hirecruit.hr.domain.user.dto.TempUserRegistrationDto
 
 /**

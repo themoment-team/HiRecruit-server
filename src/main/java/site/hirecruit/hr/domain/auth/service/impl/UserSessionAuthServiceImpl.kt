@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
 import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
-import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.UserAuthService
 import site.hirecruit.hr.global.data.SessionAttribute

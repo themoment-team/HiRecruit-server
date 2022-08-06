@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
 import org.springframework.stereotype.Component
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.auth.service.SecurityContextAccessService
 import site.hirecruit.hr.global.data.SessionAttribute
 import javax.servlet.http.HttpSession

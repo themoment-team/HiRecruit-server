@@ -2,7 +2,8 @@ package site.hirecruit.hr.domain.user.service
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
-import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.user.entity.TempUserEntity
+import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.user.dto.TempUserRegistrationDto
 import site.hirecruit.hr.domain.user.mapper.TempUserEntityMapper
 

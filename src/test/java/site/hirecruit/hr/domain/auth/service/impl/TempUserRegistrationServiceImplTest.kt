@@ -7,8 +7,8 @@ import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.auth.entity.TempUserEntity
-import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.user.entity.TempUserEntity
+import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.test_util.LocalTest
 import kotlin.random.Random
 
