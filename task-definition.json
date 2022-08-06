@@ -5,7 +5,6 @@
   "containerDefinitions": [
     {
       "name": "hirecruit-server-container",
-      "image": "030783040786.dkr.ecr.ap-northeast-2.amazonaws.com/hirecruit:latest",
       "portMappings": [
         {
           "containerPort": 8080,
@@ -28,6 +27,6 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "cpu": "1024",
-  "memory": "3072"
+  "cpu": "512",
+  "memory": "1024"
 }

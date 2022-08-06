@@ -1,10 +1,11 @@
 package site.hirecruit.hr.domain.user.service
 
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.auth.entity.TempUserEntity
-import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
+import site.hirecruit.hr.domain.user.entity.TempUserEntity
+import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.user.dto.TempUserRegistrationDto
-import site.hirecruit.hr.domain.user.entity.Role
+import site.hirecruit.hr.domain.user.mapper.TempUserEntityMapper
 
 /**
  * 임시 유저 등록 서비스
@@ -23,29 +24,11 @@ class TempUserRegistrationService(
      */
     override fun registration(registrationDto: TempUserRegistrationDto): AuthUserInfo {
         if(tempUserRepository.existsById(registrationDto.githubId))
-            return AuthUserInfo(
-                githubId = registrationDto.githubId,
-                githubLoginId = registrationDto.githubLoginId,
-                name = "임시유저",
-                email = null,
-                profileImgUri = registrationDto.profileImgUri,
-                role = Role.GUEST
-            )
+            return AuthUserInfoMapper.INSTANCE.toAuthUserInfo(registrationDto)
 
         val savedTempUserEntity = tempUserRepository.save(
-            TempUserEntity(
-                githubId = registrationDto.githubId,
-                githubLoginId = registrationDto.githubLoginId,
-                profileImgUri = registrationDto.profileImgUri
-            )
+            TempUserEntityMapper.INSTANCE.toEntity(registrationDto)
         )
-        return AuthUserInfo(
-            githubId = savedTempUserEntity.githubId,
-            githubLoginId = savedTempUserEntity.githubLoginId,
-            name = "임시유저",
-            email = null,
-            profileImgUri = savedTempUserEntity.profileImgUri,
-            role = Role.GUEST
-        )
+        return AuthUserInfoMapper.INSTANCE.toAuthUserInfo(savedTempUserEntity)
     }
 }

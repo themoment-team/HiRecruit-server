@@ -5,8 +5,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.OAuthAttributes
-import site.hirecruit.hr.domain.user.entity.Role
-import site.hirecruit.hr.domain.auth.repository.TempUserRepository
+import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
+import site.hirecruit.hr.domain.user.repository.TempUserRepository
 import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.auth.service.UserAuthService
 import site.hirecruit.hr.global.data.SessionAttribute
@@ -43,13 +43,6 @@ open class UserSessionAuthServiceImpl(
     private fun createAuthUserInfoWithTempUserEntity(oAuthAttributes: OAuthAttributes): AuthUserInfo{
         val tempUserEntity = tempUserRepository.findByIdOrNull(oAuthAttributes.id)
             ?: throw OAuth2AuthenticationException("임시 회원의 유효기간이 만료되었거나, 잘못된 회원 정보입니다.")
-        return AuthUserInfo(
-            githubId = tempUserEntity.githubId,
-            githubLoginId = tempUserEntity.githubLoginId,
-            name = "임시유저",
-            email = null,
-            role = Role.GUEST,
-            profileImgUri = tempUserEntity.profileImgUri
-        )
+        return AuthUserInfoMapper.INSTANCE.toAuthUserInfo(tempUserEntity)
     }
 }

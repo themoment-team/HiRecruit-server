@@ -35,7 +35,5 @@ RUN true
 COPY build/libs/application ./
 RUN true
 
-COPY ./entrypoint.sh /
-RUN chmod +x ./entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+# Run the jar file
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hirecruit-1.0.jar","--spring.profiles.active=prod","--redis.host=10.0.28.60"]

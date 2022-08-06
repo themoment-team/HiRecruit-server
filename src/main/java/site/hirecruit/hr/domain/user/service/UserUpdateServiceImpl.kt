@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.user.service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
+import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
 import site.hirecruit.hr.domain.user.dto.UserUpdateDto
 import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.entity.UserEntity
@@ -21,14 +22,7 @@ class UserUpdateServiceImpl(
 
         if(isMentorEmailChanged(authUserInfoBeforeUpdate, updatedUserEntity))
             updatedUserEntity.updateRole(Role.WORKER)
-        return AuthUserInfo(
-            githubId = updatedUserEntity.githubId,
-            githubLoginId = updatedUserEntity.githubLoginId,
-            name = updatedUserEntity.name,
-            email = updatedUserEntity.email,
-            profileImgUri = updatedUserEntity.profileImgUri,
-            role = updatedUserEntity.role
-        )
+        return AuthUserInfoMapper.INSTANCE.toAuthUserInfo(userEntity)
     }
 
     private fun isMentorEmailChanged(authUserInfoBeforeUpdate: AuthUserInfo, updatedUserEntity: UserEntity): Boolean {
