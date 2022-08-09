@@ -2,6 +2,7 @@ package site.hirecruit.hr.domain.user.service
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.auth.dto.mapper.AuthUserInfoMapper
 import site.hirecruit.hr.domain.user.dto.RegularUserRegistrationDto
@@ -27,6 +28,7 @@ class WorkerUserRegistrationService(
      *
      * @return 등록된 정식 사용자의 정보
      */
+    @Transactional
     override fun registration(registrationDto: RegularUserRegistrationDto): AuthUserInfo {
         val savedUserEntity = userRepository.save(
             UserEntityMapper.INSTANCE.toEntity(registrationDto, Role.WORKER)
