@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.worker.service
 
 import mu.KotlinLogging
+
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -11,7 +12,6 @@ import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
-import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 import site.hirecruit.hr.domain.worker.mapper.WorkerEntityMapper
 import site.hirecruit.hr.domain.worker.mapper.WorkerInfoDtoMapper
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
