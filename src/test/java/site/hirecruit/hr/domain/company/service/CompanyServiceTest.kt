@@ -2,13 +2,11 @@ package site.hirecruit.hr.domain.company.service
 
 import net.bytebuddy.utility.RandomString
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
-import org.springframework.transaction.annotation.Transactional
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.company.entity.CompanyEntity
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
@@ -18,8 +16,6 @@ import site.hirecruit.hr.test_config.DataJpaTestConfig
 @Import(DataJpaTestConfig::class)
 @LocalTest
 @DataJpaTest
-@Transactional
-@Disabled
 internal class CompanyServiceTest(
     @Autowired private val companyRepository: CompanyRepository
 ){
@@ -63,10 +59,10 @@ internal class CompanyServiceTest(
         }
 
         // when
-        val executeValue = companyService.findAllCompanies()
+        val result = companyService.findAllCompanies()
 
         // then
-        assertIterableEquals(fiveCompanyEntities, executeValue)
+        assertIterableEquals(fiveCompanyEntities, result)
     }
 
     fun createMultipleCompanyEntity(count: Int): List<CompanyEntity>{
@@ -81,7 +77,8 @@ internal class CompanyServiceTest(
                 )
             )
         }
-        return companyRepository.saveAll(companyEntities)
+        companyRepository.saveAll(companyEntities)
+        return companyRepository.findAll() // Company entity의 Id generate 전략이 IDENTITY여서 다시 조회
     }
 
 }
