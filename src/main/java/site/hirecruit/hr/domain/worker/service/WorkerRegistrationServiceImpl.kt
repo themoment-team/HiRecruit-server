@@ -6,13 +6,13 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
+
 import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
-import site.hirecruit.hr.domain.user.entity.Role
 import site.hirecruit.hr.domain.user.repository.UserRepository
-import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.worker.dto.WorkerDto
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
+import site.hirecruit.hr.domain.worker.mapper.WorkerEntityMapper
 import site.hirecruit.hr.domain.worker.mapper.WorkerInfoDtoMapper
 import site.hirecruit.hr.domain.worker.repository.WorkerRepository
 import site.hirecruit.hr.global.event.WorkerRegistrationEvent
@@ -42,13 +42,7 @@ class WorkerRegistrationServiceImpl(
             ?: throw IllegalArgumentException("Cannot found CompanyEntity, companyId='${registrationDto.companyId}'")
 
         val savedWorkerEntity = workerRepository.save(
-            WorkerEntity(
-                introduction = registrationDto.introduction,
-                devYear = registrationDto.devYear,
-                position = registrationDto.position,
-                user = userEntity,
-                company = companyEntity
-            )
+            WorkerEntityMapper.INSTANCE.toEntity(registrationDto, userEntity, companyEntity)
         )
         return WorkerInfoDtoMapper.INSTANCE.toWorkerInfoDto(savedWorkerEntity, authUserInfo)
     }
