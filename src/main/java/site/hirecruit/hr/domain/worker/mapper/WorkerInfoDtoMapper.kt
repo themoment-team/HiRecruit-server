@@ -2,6 +2,7 @@ package site.hirecruit.hr.domain.worker.mapper
 
 import org.mapstruct.*
 import org.mapstruct.factory.Mappers
+import site.hirecruit.hr.domain.auth.dto.AuthUserInfo
 import site.hirecruit.hr.domain.worker.dto.*
 import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 
@@ -33,4 +34,16 @@ interface WorkerInfoDtoMapper {
 
     )
     fun toWorkerInfoDto(workerEntity: WorkerEntity): WorkerDto.Info
+
+    @Mappings(
+        Mapping(target = "companyInfoDto", source = "workerEntity.company"),
+
+        Mapping(target = "name", source = "authUserInfo.name"),
+        Mapping(target = "email", source = "authUserInfo.email"),
+        Mapping(target = "githubLoginId", source = "authUserInfo.githubLoginId"),
+        Mapping(target = "profileImgUri", source = "authUserInfo.profileImgUri"),
+        Mapping(target = "userType", expression = "java(Role.WORKER)")
+
+    )
+    fun toWorkerInfoDto(workerEntity: WorkerEntity, authUserInfo: AuthUserInfo): WorkerDto.Info
 }
