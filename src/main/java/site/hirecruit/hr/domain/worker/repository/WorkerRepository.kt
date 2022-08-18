@@ -9,4 +9,6 @@ import site.hirecruit.hr.domain.worker.entity.WorkerEntity
 interface WorkerRepository : JpaRepository<WorkerEntity, Long>, WorkerCustomRepository {
 
     fun findByUser_GithubId(githubId: Long): WorkerEntity?
+
+    fun findByCompany_CompanyId(companyId: Long): List<WorkerEntity>
 }
