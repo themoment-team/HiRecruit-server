@@ -88,6 +88,7 @@ dependencies {
 
     /** for test **/
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("com.epages:restdocs-api-spec-mockmvc:0.15.1")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
