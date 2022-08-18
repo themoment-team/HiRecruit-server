@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -45,7 +46,10 @@ class UserRegistrationController(
         )
         val registeredAuthUserInfo = regularUserRegistrationService.registration(regularUserRegistrationDto)
 
-        response.addCookie(CookieUtil.userTypeCookie(registeredAuthUserInfo.role.name, hrDomain)) // 등록된 유저의 role을 USER_TYPE 쿠키로 넘겨줌
+        val userType = SecurityContextHolder.getContext()
+            .authentication.authorities.toList()[0].authority
+            .removePrefix("ROLE_")
+        response.addCookie(CookieUtil.userTypeCookie(userType, hrDomain)) // 등록된 유저의 role을 USER_TYPE 쿠키로 넘겨줌
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(registeredAuthUserInfo)
     }
