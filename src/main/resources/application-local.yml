@@ -1,3 +1,5 @@
+hr.domain: localhost
+
 server:
   port: 8080
 
@@ -10,7 +12,7 @@ server:
 
     session:
       cookie:
-        domain: localhost
+        domain: ${hr.domain}
         max-age: 36000
         name: HRSESSION
 
@@ -28,7 +30,7 @@ spring:
       client:
         registration:
           github:
-            redirect-uri: http://localhost:8080/api/v1/auth/oauth2/redirection-endpoint
+            redirect-uri: http://${hr.domain}:8080/api/v1/auth/oauth2/redirection-endpoint
 
   session:
     store-type: redis
@@ -76,5 +78,4 @@ logging:
     org.hibernate.type.descriptor.sql : trace
     site.hirecruit.hr : debug
 
-oauth2.login.success.redirect-base-uri: http://localhost:3000
-hr.domain: localhost
+oauth2.login.success.redirect-base-uri: http://${hr.domain}:3000
