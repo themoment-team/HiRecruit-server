@@ -18,7 +18,9 @@ server:
 
 spring:
   config:
-    import: classpath:oauth/github-oauth-staging.yml
+    import:
+      - classpath:oauth/github-oauth-staging.yml
+      - classpath:properties/security.yml
 
   batch:
     job:

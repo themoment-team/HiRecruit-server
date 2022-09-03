@@ -18,7 +18,9 @@ server:
 
 spring:
   config:
-    import: classpath:oauth/github-oauth.yml
+    import:
+      - classpath:oauth/github-oauth.yml
+      - classpath:properties/security.yml
 
   mvc:
     path match:
