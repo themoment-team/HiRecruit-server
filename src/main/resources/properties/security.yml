@@ -1,0 +1,4 @@
+security:
+  oauth2:
+    loginEndpointBaseUri: /api/v1/auth/oauth2/authorization
+    loginRedirectionEndpointBaseUri: /api/v1/auth/oauth2/redirection-endpoint
