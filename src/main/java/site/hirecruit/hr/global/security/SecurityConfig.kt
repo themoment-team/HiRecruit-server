@@ -29,16 +29,14 @@ private val log = KotlinLogging.logger {  }
  */
 @Configuration
 class SecurityConfig(
+    private val properties: SecurityProperty,
+
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
     private val logoutSuccessHandler: LogoutSuccessHandler,
     private val authenticationFailureHandler: AuthenticationFailureHandler,
     private val authenticationEntryPoint: AuthenticationEntryPoint
 ) {
-
-    private val oauth2LoginEndpointBaseUri = "/api/v1/auth/oauth2/authorization"
-    private val oauth2LoginRedirectionEndpointBaseUri = "/api/v1/auth/oauth2/redirection-endpoint"
-
     private fun logoutConfig(http: HttpSecurity) = http
             .logout()
             .logoutUrl("/api/v1/auth/logout")
@@ -85,10 +83,10 @@ class SecurityConfig(
                 it.userService(oauth2UserService)
             }
             oauth2Login.authorizationEndpoint{ authorizationEndPoint ->
-                authorizationEndPoint.baseUri(oauth2LoginEndpointBaseUri) // oauth2 로그인 최초 진입점
+                authorizationEndPoint.baseUri(properties.oauth2.loginEndpointBaseUri) // oauth2 로그인 최초 진입점
             }
             oauth2Login.redirectionEndpoint{ redirectEndPoint ->
-                redirectEndPoint.baseUri(oauth2LoginRedirectionEndpointBaseUri)
+                redirectEndPoint.baseUri(properties.oauth2.loginRedirectionEndpointBaseUri)
             }
             oauth2Login.successHandler(authenticationSuccessHandler)
             oauth2Login.failureHandler(authenticationFailureHandler)
