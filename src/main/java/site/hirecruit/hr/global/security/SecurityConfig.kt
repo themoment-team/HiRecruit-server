@@ -29,7 +29,7 @@ private val log = KotlinLogging.logger {  }
  */
 @Configuration
 class SecurityConfig(
-    private val properties: SecurityProperty,
+    private val properties: SecurityProperties,
 
     private val oauth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
