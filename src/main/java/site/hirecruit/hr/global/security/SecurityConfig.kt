@@ -39,7 +39,7 @@ class SecurityConfig(
 ) {
     private fun logoutConfig(http: HttpSecurity) = http
             .logout()
-            .logoutUrl("/api/v1/auth/logout")
+            .logoutUrl(properties.authentication.logoutUrl)
             .logoutSuccessHandler(logoutSuccessHandler)
 
 

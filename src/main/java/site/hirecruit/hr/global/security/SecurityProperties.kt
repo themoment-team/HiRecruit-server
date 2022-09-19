@@ -13,11 +13,16 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties(prefix = "security")
 data class SecurityProperties(
-    val oauth2: OAuth2Properties
+    val oauth2: OAuth2Properties,
+    val authentication: AuthenticationProperties
 ) {
 
     data class OAuth2Properties(
         val loginEndpointBaseUri: String,
         val loginRedirectionEndpointBaseUri: String
+    )
+
+    data class AuthenticationProperties(
+        val logoutUrl: String
     )
 }
