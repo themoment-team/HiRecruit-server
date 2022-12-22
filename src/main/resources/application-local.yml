@@ -1,5 +1,6 @@
 server:
   port: 8080
+  shutdown: graceful
 
   # UTF-8 사용
   servlet:
