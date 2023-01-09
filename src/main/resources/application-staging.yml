@@ -3,7 +3,8 @@
   prefix: ""
 
 server:
-  port: 8080
+  port: 9090
+  shutdown: graceful
 
   # UTF-8 사용
   servlet:
