@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service
 import site.hirecruit.hr.domain.career.CareerEntity
 import site.hirecruit.hr.domain.career.dto.CareerDto
 import site.hirecruit.hr.domain.career.repository.CareerRepository
-import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.domain.company.repository.CompanyRepository
 import site.hirecruit.hr.domain.user.repository.UserRepository
 import site.hirecruit.hr.global.util.YnType
@@ -23,41 +22,24 @@ class CareerService(
     val userRepository: UserRepository
 ) {
 
-    fun createCareer(careerCreateRequestDto: CareerDto.CareerCreateRequestDto, userGithubId: Long): CareerDto.Info {
-        val user = userRepository.findByGithubId(userGithubId)
-        val company = companyRepository.findCompanyEntitiesByCompanyId(careerCreateRequestDto.companyId)
+    fun createCareer(create: CareerDto.Create, userGithubId: Long): CareerDto.Info {
+        val user = userRepository.findByGithubId(userGithubId) ?: throw RuntimeException("HR에 회원 정보가 등록되지 않아 처리할 수 없음.")
+        val company = companyRepository.findCompanyEntitiesByCompanyId(create.companyId) ?: throw RuntimeException("HR에 회사가 등록되지 않아 처리할 수 없음.")
 
-        val savedCareer = careerRepository.save(
-            CareerEntity(
-                careerId = null,
-                userEntity = user ?: throw RuntimeException("HR에 회원 정보가 등록되지 않아 처리할 수 없음."),
-                company = company ?: throw RuntimeException("HR에 회사가 등록되지 않아 처리할 수 없음."),
-                position = careerCreateRequestDto.position,
-                beginDate = careerCreateRequestDto.beginDate,
-                endDate = careerCreateRequestDto.endDate,
-                inOfficeYN = careerCreateRequestDto.inOfficeYN,
-                disclosureStatus = careerCreateRequestDto.disclosureStatus,
-                deleteStatus = YnType.N
+        return CareerDto.Info.of(
+            careerRepository.save(
+                CareerEntity(
+                    careerId = null,
+                    userEntity = user,
+                    company = company,
+                    position = create.position,
+                    beginDate = create.beginDate,
+                    endDate = create.endDate,
+                    inOfficeYN = create.inOfficeYN,
+                    disclosureStatus = create.disclosureStatus,
+                    deleteStatus = YnType.N
+                )
             )
-        )
-
-        return CareerDto.Info(
-            careerId = savedCareer.careerId ?: throw IllegalArgumentException("careerId는 null이 허용되지 않습니다."),
-            companyInfo = company.run {
-                CompanyDto.Info(
-                        companyId = companyId!!,
-                        name = name,
-                        location = location,
-                        homepageUri = homepageUri,
-                        companyImgUri = companyImgUri
-                    )
-            },
-            position = savedCareer.position,
-            beginDate = savedCareer.beginDate,
-            endDate = savedCareer.endDate,
-            inOfficeYN = savedCareer.inOfficeYN,
-            disclosureStatus = savedCareer.disclosureStatus,
-            deleteStatus = savedCareer.deleteStatus
         )
     }
 

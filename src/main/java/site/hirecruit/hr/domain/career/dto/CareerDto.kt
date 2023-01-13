@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.career.dto
 
 import io.swagger.annotations.ApiModelProperty
+import site.hirecruit.hr.domain.career.CareerEntity
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.global.util.YnType
 import java.time.LocalDate
@@ -10,7 +11,7 @@ import java.time.LocalDate
  */
 class CareerDto {
 
-    class CareerCreateRequestDto(
+    class Create(
         @ApiModelProperty(value = "companyId", position = 1)
         val companyId: Long,
         @ApiModelProperty(value = "position", position = 2)
@@ -34,6 +35,33 @@ class CareerDto {
         val inOfficeYN: YnType,
         val disclosureStatus: YnType,
         val deleteStatus: YnType
-    ){ }
+    ){
+        companion object{
+            fun of(careerEntity: CareerEntity): Info {
+
+                careerEntity.careerId ?: throw RuntimeException("careerId는 null이 허용되지 않습니다.")
+                careerEntity.company.companyId ?: throw RuntimeException("companyId는 null이 허용되지 않습니다.")
+
+                return Info(
+                    careerId = careerEntity.careerId!!,
+                    companyInfo = careerEntity.company.run {
+                        CompanyDto.Info(
+                            companyId = companyId!!,
+                            name = name,
+                            location = location,
+                            homepageUri = homepageUri,
+                            companyImgUri = companyImgUri
+                        )
+                    },
+                    position = careerEntity.position,
+                    beginDate = careerEntity.beginDate,
+                    endDate = careerEntity.endDate,
+                    inOfficeYN = careerEntity.inOfficeYN,
+                    disclosureStatus = careerEntity.disclosureStatus,
+                    deleteStatus = careerEntity.deleteStatus
+                )
+            }
+        }
+    }
 
 }

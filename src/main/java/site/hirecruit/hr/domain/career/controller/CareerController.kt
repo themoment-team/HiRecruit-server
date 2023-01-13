@@ -24,9 +24,9 @@ class CareerController(
 
     @PostMapping("")
     fun createCareer(
-        @RequestBody careerCreateRequestDto: CareerDto.CareerCreateRequestDto,
+        @RequestBody create: CareerDto.Create,
         @CurrentAuthUserInfo @ApiIgnore authUserInfo: AuthUserInfo
     ) : ResponseEntity<CareerDto.Info> {
-        return ResponseEntity.ok().body(careerService.createCareer(careerCreateRequestDto, authUserInfo.githubId))
+        return ResponseEntity.ok().body(careerService.createCareer(create, authUserInfo.githubId))
     }
 }
