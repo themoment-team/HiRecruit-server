@@ -27,7 +27,7 @@ class CareerEntity(
     val beginDate: LocalDate,
 
     @Column(name = "end_date")
-    val endDate: LocalDate,
+    val endDate: LocalDate? = null,
 
     @Column(name = "in_office_yn")
     val inOfficeYN: YnType,
