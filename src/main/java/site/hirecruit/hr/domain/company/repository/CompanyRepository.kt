@@ -16,4 +16,6 @@ interface CompanyRepository: JpaRepository<CompanyEntity, Long>{
     fun findAllCompanyInfoDtoBy(): List<CompanyDto.Info>
 
     fun existsByNameAndLocation(name: String, location: String): Boolean
+
+    fun findCompanyEntitiesByCompanyId(companyId: Long): CompanyEntity?
 }
