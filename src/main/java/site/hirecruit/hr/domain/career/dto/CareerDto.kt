@@ -1,6 +1,7 @@
 package site.hirecruit.hr.domain.career.dto
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.annotations.ApiModel
+import io.swagger.v3.oas.annotations.media.Schema
 import site.hirecruit.hr.domain.career.CareerEntity
 import site.hirecruit.hr.domain.company.dto.CompanyDto
 import site.hirecruit.hr.global.util.YnType
@@ -11,8 +12,9 @@ import java.time.LocalDate
  */
 class CareerDto {
 
-    class Create(
-        @ApiModelProperty(value = "companyId", position = 1)
+    @ApiModel("CareerCreateDto")
+    data class Create(
+        @field:NotBlank
         val companyId: Long,
         @ApiModelProperty(value = "position", position = 2)
         val position: String,
