@@ -5,7 +5,7 @@ on:
     # CI
     types: [opened, reopened]
     branches:
-      - develop
+      - DEPRECATED
   push:
     # prod-CD
     branches:
