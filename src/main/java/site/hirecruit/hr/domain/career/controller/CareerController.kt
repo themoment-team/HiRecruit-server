@@ -11,6 +11,7 @@ import site.hirecruit.hr.domain.career.dto.CareerDto
 import site.hirecruit.hr.domain.career.service.CareerService
 import site.hirecruit.hr.global.annotation.CurrentAuthUserInfo
 import springfox.documentation.annotations.ApiIgnore
+import javax.validation.Valid
 
 /**
  * @author 전지환 이용권&정산유닛 (jyeonjyan@sk.com)
@@ -22,9 +23,9 @@ class CareerController(
     val careerService: CareerService
 ) {
 
-    @PostMapping("")
+    @PostMapping
     fun createCareer(
-        @RequestBody create: CareerDto.Create,
+        @RequestBody @Valid create: CareerDto.Create,
         @CurrentAuthUserInfo @ApiIgnore authUserInfo: AuthUserInfo
     ) : ResponseEntity<CareerDto.Info> {
         return ResponseEntity.ok().body(careerService.createCareer(create, authUserInfo.githubId))

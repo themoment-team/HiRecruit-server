@@ -3,6 +3,7 @@ package site.hirecruit.hr.domain.company.dto
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.querydsl.core.annotations.QueryProjection
+import io.swagger.annotations.ApiModel
 import org.hibernate.validator.constraints.URL
 import site.hirecruit.hr.domain.company.validator.annoation.CompanyNotDuplicate
 import javax.validation.constraints.NotBlank
@@ -18,6 +19,7 @@ class CompanyDto {
     )
 
     @CompanyNotDuplicate
+    @ApiModel(value = "CompanyCreateDto")
     data class Create(
         @field:JsonProperty("name") @field:NotBlank
         val _name: String?,
